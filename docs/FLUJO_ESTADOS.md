@@ -1,74 +1,74 @@
-# Diagrama de Estados del Flujo de Aprobación
+# Diagrama de Estados del Flujo de Aprobación Documental
 
-Este documento modela el ciclo de vida documental y la máquina de estados de los formatos institucionales, conforme a la Sección 10 de `SKILL.md`.
+## 1. Ciclo de Vida General
 
----
-
-## 1. Ciclo de Vida del Formato LOG-007-F (Entrega a Estudiantes)
+El ciclo de vida de los formatos institucionales (LOG-007-F, LOG-026-F y LOG-029-F) sigue la siguiente secuencia de estados:
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Generado: Sistema genera desde BASE ESTUDIANTES
-    Generado --> Pendiente_Firma: Documento disponible para descarga
-    Pendiente_Firma --> En_Revision_Rector: Acudiente (o Rector en su nombre) carga firmado
+    [*] --> Borrador: Prellenado inicial
+    Borrador --> Generado: Formato descargable listo
+    Generado --> Pendiente_Firma: Descargado por acudiente/rector
+    Pendiente_Firma --> En_revision_rector: Acudiente carga formato firmado
+    Pendiente_Firma --> En_revision_coordinador: Rector carga en nombre del acudiente
     
-    state En_Revision_Rector {
-        [*] --> EvaluandoRector
-        EvaluandoRector --> DevolucionAcudiente: Rector detecta error
-        EvaluandoRector --> AprobadoRector: Rector valida firma y datos
-    }
-
-    DevolucionAcudiente --> En_Revision_Rector: Acudiente corrige y recarga
-    AprobadoRector --> En_Revision_Coordinador: Remitido al Coordinador
-
-    state En_Revision_Coordinador {
-        [*] --> EvaluandoCoordinador
-        EvaluandoCoordinador --> DevolucionRector: Coordinador detecta inconsistencia
-        EvaluandoCoordinador --> AprobadoFinal: Coordinador emite aval institucional
-    }
-
-    DevolucionRector --> En_Revision_Rector: Rector atiende observaciones
-    AprobadoFinal --> [*]: Documento legalizado y archivado
+    En_revision_rector --> Devuelto_acudiente: Rector devuelve con observaciones
+    Devuelto_acudiente --> En_revision_rector: Acudiente corrige y recarga
+    
+    En_revision_rector --> En_revision_coordinador: Rector aprueba / remite
+    En_revision_coordinador --> Devuelto_rector: Coordinador devuelve por inconsistencias
+    Devuelto_rector --> En_revision_coordinador: Rector corrige y reenvía
+    
+    En_revision_coordinador --> Aprobado: Coordinador aprueba formalmente
+    Aprobado --> [*]
 ```
 
----
-
-## 2. Ciclo de Vida de los Formatos LOG-026-F y LOG-029-F (Bolsa Tecnológica)
+## 2. Flujo Específico LOG-007-F (Entrega Directa a Estudiante)
 
 ```mermaid
-stateDiagram-v2
-    [*] --> Borrador: Sistema genera desde BOLSA TECNOLOGICA
-    Borrador --> En_Revision_Coordinador: Rector descarga, completa y remite al Coordinador
+sequenceDiagram
+    autonumber
+    actor Estudiante_Acudiente as Acudiente
+    actor Rector as Rector(a)
+    actor Coordinador as Coordinador CPE
+    participant App as Aplicación SPA (GitHub Pages)
+    participant Drive as Google Drive
 
-    state En_Revision_Coordinador_Bolsa {
-        [*] --> RevisionTecnica
-        RevisionTecnica --> DevolucionAlRector: Inconsistencias en cantidades/seriales
-        RevisionTecnica --> AprobadoBolsa: Acta e informe conformes
-    }
+    Note over App: 1. Generación inicial
+    App->>App: Genera LOG-007-F desde BASE ESTUDIANTES CALDAS.xlsx
+    
+    Note over Estudiante_Acudiente,App: 2. Descarga y firma
+    Estudiante_Acudiente->>App: Descarga formato Word prellenado
+    Estudiante_Acudiente-->>Estudiante_Acudiente: Imprime y firma físicamente fuera de la app
+    Estudiante_Acudiente->>App: Carga archivo firmado (PDF/Word/Imagen)
+    App->>Drive: Sube a /LOG-007-F/{ID_ESTUDIANTE}/En_revision/
+    
+    Note over Rector,App: 3. Revisión de Rectoría
+    alt Caso: Formato Correcto
+        Rector->>App: Aprueba expediente del estudiante
+        App->>Drive: Registra versión aprobada por Rector
+    else Caso: Novedad o Ilegible
+        Rector->>App: Devuelve con motivo y observaciones
+        App->>Drive: Mueve a /LOG-007-F/{ID_ESTUDIANTE}/Devueltos/
+        Estudiante_Acudiente->>App: Recibe observaciones, corrige y recarga
+    else Caso: Acudiente sin conectividad
+        Rector->>App: Carga documento en nombre del acudiente (registra justificación)
+    end
 
-    DevolucionAlRector --> En_Revision_Coordinador: Rector ajusta y remite nueva versión
-    AprobadoBolsa --> [*]: Archivado en carpeta Aprobados en Google Drive
+    Note over Coordinador,App: 4. Aprobación Departamental
+    alt Caso: Validación Exitosa
+        Coordinador->>App: Aprobación formal definitiva
+        App->>Drive: Mueve a /LOG-007-F/{ID_ESTUDIANTE}/Aprobados/
+    else Caso: Inconsistencia
+        Coordinador->>App: Devuelve al Rector con observaciones técnicas
+    end
 ```
 
----
+## 3. Flujo LOG-026-F y LOG-029-F (Bolsa Tecnológica Institucional)
 
-## 3. Catálogo de Estados
-
-| Estado | Significado Institucional | Acción Requerida | Actor Responsable |
-| :--- | :--- | :--- | :--- |
-| **Borrador** | Formato generado inicialmente con datos base | Descargar, revisar y complementar campos pendientes | Rector / Sistema |
-| **Generado** | Documento generado automáticamente para estudiante | Descargar y firmar físicamente | Acudiente |
-| **Pendiente de firma/carga** | Formato descargado a la espera de la versión suscrita | Cargar copia digitalizada o foto legible | Acudiente (o Rector) |
-| **En revisión del rector** | Documento firmado cargado y en espera de verificación escolar | Validar matrícula, parentesco y firma | Rector |
-| **Devuelto al acudiente** | Rechazado por rector con observaciones específicas | Corregir el documento y volver a cargarlo | Acudiente |
-| **En revisión del coordinador** | Avalado por rector o remitido formalmente para control departamental | Revisión final técnica y documental | Coordinador |
-| **Devuelto al rector** | Devuelto por coordinador por inconsistencias | Subsanar novedades con sede o acudiente | Rector |
-| **Aprobado** | Documento con validez legal completa archivado definitivamente | Ninguna; disponible para auditoría y exportación | Coordinador / Sistema |
-
----
-
-## 4. Reglas Críticas del Flujo
-1. **La carga de un archivo no equivale a su aprobación:** La aprobación requiere una acción explícita del rol competente.
-2. **Devolución con causa motivada:** No se admiten devoluciones sin registrar el motivo y las observaciones que orienten al usuario a corregir.
-3. **Inmutabilidad y Versionamiento:** Cualquier corrección incrementa el número de versión (`v01`, `v02`, etc.) y archiva la versión anterior en el historial.
-4. **Trazabilidad de Representación (`on_behalf_of`):** Si un rector o coordinador actúa en nombre de un tercero, el sistema audita de forma indeleble: quién ejecutó la acción, en nombre de quién actuó, la fecha exacta y la justificación formal.
+1. **Generación:** El sistema genera el acta Word (LOG-026-F) y el informe Excel (LOG-029-F) desde `BOLSA TECNOLOGICA CALDAS.xlsx`.
+2. **Diligenciamiento:** El Rector descarga los formatos, realiza la verificación física en sede y diligencia observaciones y firmas.
+3. **Carga y Remisión:** El Rector carga los formatos finales y los remite a Coordinación.
+4. **Revisión Departamental:** El Coordinador valida las cantidades y catálogos:
+   - Si es conforme: Aprueba formalmente.
+   - Si hay diferencias: Devuelve al Rector con motivo detallado para corrección y nueva versión.

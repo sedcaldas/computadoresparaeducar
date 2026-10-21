@@ -1,31 +1,16 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Temporary office files
+# Office lock files
 ~$*
+*.tmp
 
-# Database & local runtime files
-*.db
-*.sqlite
-*.sqlite3
-backend/gestion_documental.db
-
-# Secrets & credentials
-credentials.json
-*.env
-*.pem
-*.key
-
-# Output temporary and upload directories
-generated_documents/
-generated_documents/temp/
-generated_documents/uploads/
-
-# OS generated files
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
+# OS files
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies & build
+node_modules/
+package-lock.json
+
+# Local caches
+.cache/
+*.log

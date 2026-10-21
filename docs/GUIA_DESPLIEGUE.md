@@ -1,132 +1,75 @@
-# Guía de Despliegue en GitHub Pages y Servidor Backend
+# Guía de Publicación en GitHub Pages y Configuración de Google Cloud OAuth
 
-Este documento detalla los pasos para publicar el frontend en **GitHub Pages** bajo la cuenta institucional `sedcaldas` y desplegar el **Backend API** en un entorno de producción seguro, de conformidad con la Sección 7 de `SKILL.md`.
+## 1. Publicación en GitHub Pages
 
----
+La aplicación está preparada para desplegarse como sitio web estático bajo la organización de la Secretaría de Educación de Caldas.
 
-## 1. Despliegue del Frontend en GitHub Pages
-
-### 1.1 Configuración Institucional
-- **Organización / Usuario:** `sedcaldas`
-- **Nombre del Proyecto / Repositorio:** `computadoresparaeducar`
+- **Usuario / Organización GitHub:** `sedcaldas`
+- **Nombre del Repositorio:** `computadoresparaeducar`
 - **URL Prevista:** `https://sedcaldas.github.io/computadoresparaeducar/`
 
-### 1.2 Flujo de Despliegue Automatizado (GitHub Actions)
-Crear el archivo `.github/workflows/deploy.yml`:
+### Pasos para Activar GitHub Pages en el Repositorio
 
-```yaml
-name: Despliegue Frontend GitHub Pages
+1. Ingrese a GitHub en el repositorio `sedcaldas/computadoresparaeducar`.
+2. Vaya a la pestaña **Settings** (Configuración) > **Pages**.
+3. En la sección **Build and deployment**:
+   - **Source:** Seleccione `Deploy from a branch` (o `GitHub Actions`).
+   - **Branch:** Seleccione la rama `main` y carpeta `/ (root)`.
+   - Haga clic en **Save**.
+4. En pocos minutos el sitio estará disponible públicamente en la URL indicada.
 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+> [!TIP]
+> El archivo `.nojekyll` ya está incluido en la raíz del repositorio para garantizar que todos los archivos estáticos y carpetas sean servidos correctamente sin procesamiento de Jekyll.
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+---
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+## 2. Configuración de Google Cloud Platform (OAuth 2.0 & Drive API)
 
-jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v4
+Para habilitar la sincronización real con Google Drive sin servidores intermedios, siga estos pasos en la consola de Google Cloud:
 
-      - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v4
+### Paso 1: Crear o Seleccionar Proyecto
+1. Acceda a [Google Cloud Console](https://console.cloud.google.com/).
+2. Cree un nuevo proyecto, por ejemplo: `sedcaldas-cpe-documental`.
 
-      - name: Subir artefacto del Frontend
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './frontend'
+### Paso 2: Habilitar Google Drive API
+1. En el menú de navegación, vaya a **APIs & Services** > **Library** (Biblioteca).
+2. Busque **Google Drive API** y haga clic en **Enable** (Habilitar).
 
-      - name: Desplegar en GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
+### Paso 3: Configurar la Pantalla de Consentimiento OAuth
+1. Vaya a **APIs & Services** > **OAuth consent screen** (Pantalla de consentimiento).
+2. Seleccione el tipo de usuario:
+   - **Internal:** Recomendado si todos los funcionarios usan Google Workspace de `@sedcaldas.gov.co`.
+   - **External:** Si participan acudientes o rectores con cuentas de correo de otros dominios.
+3. Complete los campos obligatorios:
+   - Nombre de la aplicación: `Sistema de Gestión Documental CPE Caldas`
+   - Correo de soporte del desarrollador.
+4. En la sección **Scopes** (Permisos), agregue:
+   - `https://www.googleapis.com/auth/drive.file` (Crear y editar archivos creados por la app)
+   - `https://www.googleapis.com/auth/drive` (Gestión de la carpeta compartida oficial)
+   - `https://www.googleapis.com/auth/userinfo.profile`
+   - `https://www.googleapis.com/auth/userinfo.email`
+
+### Paso 4: Crear Credencial OAuth Client ID para Aplicación Web
+1. Vaya a **APIs & Services** > **Credentials** > **Create Credentials** > **OAuth Client ID**.
+2. Tipo de aplicación: **Web application** (Aplicación web).
+3. Nombre: `Cliente GitHub Pages SED Caldas`.
+4. En **Authorized JavaScript origins** (Orígenes de JavaScript autorizados), agregue:
+   - `https://sedcaldas.github.io`
+   - `http://localhost:8000` (para pruebas locales)
+   - `http://127.0.0.1:8000`
+5. Haga clic en **Create**.
+6. Copie el **Client ID** generado (ejemplo: `123456789-xxxx.apps.googleusercontent.com`).
 
 > [!IMPORTANT]
-> GitHub Pages aloja únicamente archivos estáticos públicos (HTML/CSS/JS). No almacena secretos, certificados de servicio ni credenciales de base de datos. Todas las operaciones autenticadas se comunican vía HTTPS con la API segura del backend.
+> **Sin Secreto:** Para aplicaciones web estáticas en navegador, el Client ID es público por definición. NO se debe descargar ni utilizar un archivo de secreto de cliente de tipo servidor.
 
 ---
 
-## 2. Despliegue del Backend API
+## 3. Configuración en la Aplicación
 
-### 2.1 Requisitos de Sistema
-- Sistema Operativo: Linux (Ubuntu 22.04 LTS / Debian 12) o Windows Server 2022.
-- Python 3.12 o superior.
-- Gestor de procesos: `systemd` o Docker.
-- Proxy inverso: Nginx / Caddy con terminación TLS (HTTPS).
-
-### 2.2 Variables de Entorno
-Configurar las siguientes variables en el archivo `.env`:
-
-```bash
-PORT=8050
-HOST=0.0.0.0
-GESTION_DOC_SECRET="clave-super-secreta-institucional-caldas-2026"
-GOOGLE_DRIVE_ROOT_FOLDER="1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51"
-GOOGLE_APPLICATION_CREDENTIALS="/etc/gestion_doc/credentials.json"
-ALLOWED_ORIGINS="https://sedcaldas.github.io,http://127.0.0.1:8050"
-```
-
-### 2.3 Servicio Systemd en Linux
-Crear `/etc/systemd/system/gestion-documental.service`:
-
-```ini
-[Unit]
-Description=Servicio API Gestion Documental CPE Caldas
-After=network.target
-
-[Service]
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/gestion_documental/backend
-EnvironmentFile=/var/www/gestion_documental/.env
-ExecStart=/usr/local/bin/python3 -m uvicorn app:app --host 127.0.0.1 --port 8050 --workers 4
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### 2.4 Configuración de Nginx con HTTPS
-```nginx
-server {
-    listen 443 ssl http2;
-    server_name api.cpe.educacion.caldas.gov.co;
-
-    ssl_certificate /etc/letsencrypt/live/api.cpe.educacion.caldas.gov.co/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/api.cpe.educacion.caldas.gov.co/privkey.pem;
-
-    client_max_body_size 50M;
-
-    location / {
-        proxy_pass http://127.0.0.1:8050;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
----
-
-## 3. Modo de Demostración Local
-Para ejecutar y evaluar la solución en entorno local:
-```powershell
-# En la raíz del proyecto
-python run_server.py
-```
-Acceder en el navegador a: `http://127.0.0.1:8050/`.
+1. Abra la aplicación en GitHub Pages o servidor local.
+2. Haga clic en el botón superior **Modo Simulación / Conectar Drive** o vaya al panel de Administrador > Parámetros.
+3. Pegue el **Google Cloud Client ID** obtenido en el paso anterior.
+4. Verifique que el ID de la carpeta raíz sea el oficial: `1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51`.
+5. Haga clic en **Guardar Configuración**.
+6. A partir de ese momento, al hacer clic en **Iniciar sesión con Google OAuth**, los usuarios podrán autenticarse con sus cuentas institucionales y los archivos se subirán directamente a Google Drive.

@@ -1,54 +1,25 @@
-# Matriz de Roles y Permisos (RBAC)
+# Matriz de Perfiles, Acciones y Permisos Reales en Google Drive
 
-De acuerdo con las secciones 4 y 11 de `SKILL.md`, la aplicación cuenta con exactamente cuatro perfiles de usuario. Cada operación está restringida en el backend mediante control de acceso basado en roles.
+## 1. Perfiles Institucionales y Acciones en la Aplicación
 
----
+| Perfil | Alcance | Credencial Auxiliar Inicial | Acciones Permitidas |
+|---|---|---|---|
+| **Administrador** | Nivel Departamental Completo | `gcaldas2026*` | - Importar archivos Excel versionados.<br>- Actualización masiva de seriales.<br>- CRUD de municipios, sedes, estudiantes y usuarios.<br>- Configurar Google Drive y sincronizar índices.<br>- Consultar bitácora completa de auditoría. |
+| **Coordinador** | Nivel Departamental Completo | `gcaldas2026*` | - Revisar formatos LOG-007-F, LOG-026-F y LOG-029-F.<br>- Aprobar formalmente expedientes.<br>- Devolver expedientes al Rector con observaciones obligatorias.<br>- Cargar documentos en nombre del Rector (con justificación).<br>- Descargar paquetes masivos ZIP con manifiesto CSV. |
+| **Rector** | Institución Educativa y sus Sedes | Código DANE de la Institución | - Generar y diligenciar LOG-026-F y LOG-029-F por sede.<br>- Remitir formatos de bolsa al Coordinador.<br>- Generar LOG-007-F para estudiantes de sus sedes.<br>- Aprobar o devolver LOG-007-F al acudiente.<br>- Cargar LOG-007-F en nombre del acudiente (con justificación). |
+| **Acudiente** | Estudiante Beneficiario Específico | Documento del Estudiante | - Descargar formato LOG-007-F prellenado.<br>- Firmar formato físico o digital.<br>- Cargar formato firmado a revisión.<br>- Consultar estado simplificado del trámite. |
 
-## 1. Matriz Operacional
+## 2. Permisos Reales Requeridos en Google Drive
 
-| Operación / Recurso | Administrador | Coordinador | Rector | Acudiente | Reglas de Ámbito y Restricciones |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **Autenticación en el sistema** | ✅ | ✅ | ✅ | ✅ | Hash PBKDF2. Bloqueo temporal tras 5 fallos. |
-| **Cambio de contraseña propio** | ✅ | ✅ | ✅ | ✅ | Obligatorio en primer acceso para Admin, Coord y Rector. |
-| **CRUD de Usuarios y Roles** | ✅ | ❌ | ❌ | ❌ | Solo administrador. Borrado lógico. |
-| **Carga de nuevos archivos Excel** | ✅ | ❌ | ❌ | ❌ | Validación previa de estructura y vista previa. |
-| **Actualización de seriales** | ✅ | ❌ | ❌ | ❌ | Detección de duplicados, vista previa y trazabilidad. |
-| **Generación masiva de documentos** | ✅ | ❌ | ❌ | ❌ | Batch individual o total con reporte de resultados. |
-| **Consultar bitácora de auditoría** | ✅ | ❌ | ❌ | ❌ | Consulta integral inmutable de eventos del sistema. |
-| **Configuración de Google Drive** | ✅ | ❌ | ❌ | ❌ | Configuración de credenciales y carpeta raíz. |
-| **Ver estudiantes beneficiarios** | ✅ | ✅ | ✅ | ❌ | Coordinador: ámbito regional. Rector: solo sus sedes. |
-| **Descargar LOG-007-F sin firmar** | ✅ | ✅ | ✅ | ✅ | Acudiente: solo su propio hijo/representado. |
-| **Cargar LOG-007-F firmado** | ✅ | ✅ | ✅ | ✅ | Acudiente para su hijo. Rector/Coord en su nombre con motivo. |
-| **Cargar LOG-007-F en nombre de acudiente** | ✅ | ✅ | ✅ | ❌ | Exige registrar motivo formal y usuario ejecutor. |
-| **Revisar LOG-007-F (Aprobar / Devolver)** | ✅ | ❌ | ✅ | ❌ | Rector sobre documentos cargados por acudientes. |
-| **Aprobar / Devolver LOG-007-F a nivel departamental** | ✅ | ✅ | ❌ | ❌ | Coordinador sobre documentos aprobados por rectores. |
-| **Cargar LOG-007-F en nombre del rector** | ✅ | ✅ | ❌ | ❌ | Coordinador con motivo registrado por contingencia. |
-| **Consultar LOG-026-F y LOG-029-F** | ✅ | ✅ | ✅ | ❌ | Rector: sus sedes. Coordinador: sedes asignadas. |
-| **Completar y remitir LOG-026-F y LOG-029-F** | ✅ | ❌ | ✅ | ❌ | Rector envía al coordinador para revisión técnica. |
-| **Aprobar / Devolver LOG-026-F y LOG-029-F** | ✅ | ✅ | ❌ | ❌ | Coordinador por inconsistencias con observaciones obligatorias. |
-| **Descargar documentos individuales** | ✅ | ✅ | ✅ | ✅ | Restringido estrictamente a la institución o estudiante. |
-| **Descargar paquetes ZIP con manifiesto** | ✅ | ✅ | ❌ | ❌ | Coordinador descarga paquetes por municipio/sede con XLSX/CSV. |
+La aplicación estática deriva la seguridad de la cuenta de Google autenticada:
 
----
+| Carpeta / Recurso en Drive | Administrador | Coordinador | Rector | Acudiente / Tercero |
+|---|---|---|---|---|
+| `/Bolsa_Tecnologica_Caldas/` (Raíz) | Editor / Propietario | Editor | Lector | Sin acceso directo |
+| `/Indices/` | Editor | Lector / Editor | Lector | Sin acceso |
+| `/Historial/` | Editor | Lector / Editor | Lector | Sin acceso |
+| Carpetas de Institución (`{DANE_IE}`) | Editor | Editor | Editor (su IE) | Sin acceso |
+| Formatos LOG-007-F Estudiantes | Editor | Editor | Editor | Solo carga mediante formulario |
 
-## 2. Definición Detallada de Perfiles
-
-### 2.1 Administrador
-- **Ámbito:** Global (todo el departamento de Caldas).
-- **Responsabilidad:** Mantenimiento de la plataforma, importación de fuentes de datos, auditoría, seguridad y parametrización de Drive.
-- **Credencial Inicial:** `gcaldas2026*` (debe cambiarse al primer inicio).
-
-### 2.2 Coordinador Departamental
-- **Ámbito:** Departamental o por municipios asignados.
-- **Responsabilidad:** Aprobación final de actas e informes técnicos, gestión de devoluciones, emisión de paquetes documentales para Computadores para Educar y soporte a rectores en contingencias.
-- **Credencial Inicial:** `gcaldas2026*` (debe cambiarse al primer inicio).
-
-### 2.3 Rector de Institución Educativa
-- **Ámbito:** Exclusivamente la Institución Educativa y sus sedes asociadas (identificadas por el código DANE).
-- **Responsabilidad:** Revisión inicial de las actas de entrega a estudiantes, diligenciamiento y firma de las actas y validaciones de Bolsa Tecnológica, y remisión formal al Coordinador.
-- **Credencial Inicial:** Código DANE de la Institución Educativa (ej. `117013000306`). Exige cambio en primer acceso.
-
-### 2.4 Acudiente
-- **Ámbito:** Exclusivamente el expediente del menor beneficiario a su cargo.
-- **Responsabilidad:** Descarga del formato LOG-007-F, firma física y carga digital del documento firmado. En caso de devolución, consulta las observaciones y carga la versión corregida.
-- **Credencial Inicial:** Número del documento de identidad del estudiante beneficiario.
+> [!IMPORTANT]
+> **Principio de Mínimo Privilegio:** Ninguna carpeta institucional debe compartirse con la opción "Cualquier persona con el enlace". El acceso debe otorgarse explícitamente a las cuentas institucionales `@sedcaldas.gov.co` de rectores y coordinadores.

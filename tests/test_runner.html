@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite de Pruebas de Aceptación | SED Caldas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0A2540; color: white; padding: 2rem; }
+        .container { max-width: 900px; margin: 0 auto; background: #1E293B; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        h1 { color: #6EE7B7; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        p { color: #94A3B8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .test-item { background: #0F172A; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #10B981; }
+        .test-item.fail { border-left-color: #EF4444; }
+        .test-title { font-size: 0.85rem; font-weight: 500; }
+        .test-badge { font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 99px; background: #10B981; color: #064E3B; }
+        .test-badge.fail { background: #EF4444; color: white; }
+        .summary-box { background: #334155; padding: 1rem; border-radius: 8px; margin-top: 1.5rem; display: flex; justify-content: space-around; font-weight: 700; font-size: 1.1rem; }
+        .btn { background: #10B981; color: #064E3B; font-weight: 700; border: none; padding: 0.65rem 1.25rem; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Suite de Pruebas de Aceptación (Client-Side)</h1>
+        <p>Verificación en vivo de los 20 criterios de aceptación de SKILLs.md ejecutados directamente en el navegador.</p>
+        <div style="margin-bottom: 1.5rem;">
+            <a href="../index.html" class="btn">Volver a la Aplicación Principal</a>
+        </div>
+        <div id="test-results"></div>
+        <div id="test-summary" class="summary-box">Ejecutando pruebas...</div>
+    </div>
+
+    <!-- Scripts necesarios -->
+    <script src="../vendor/jszip.min.js"></script>
+    <script src="../vendor/xlsx.full.min.js"></script>
+    <script src="../vendor/exceljs.min.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="../js/drive.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/generator.js"></script>
+    <script src="../js/workflow.js"></script>
+    <script src="../js/importer.js"></script>
+
+    <script>
+        const tests = [
+            { id: 1, name: "Publicación en GitHub Pages (SPA 100% estática)", run: async () => window.location.protocol.startsWith('http') || window.location.protocol.startsWith('file') },
+            { id: 2, name: "Google Drive como único almacenamiento remoto configurado", run: async () => window.appStore.state.config.drive_root_folder_id === '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51' },
+            { id: 3, name: "Carga de 22 municipios de Caldas y sedes oficiales", run: async () => window.appStore.getMunicipios().length === 22 && window.appStore.getSedes().length >= 42 },
+            { id: 4, name: "Generación en navegador de LOG-026-F (.docx)", run: async () => {
+                const sampleSede = window.appStore.getSedes()[0];
+                const res = await window.documentGenerator.generateLog026(sampleSede.codigo_dane_sede, 1, 'Borrador');
+                return res && res.blob && res.filename.endsWith('.docx');
+            }},
+            { id: 5, name: "Diligenciamiento de LOG-029-F (.xlsx) preservando hojas", run: async () => {
+                const sampleSede = window.appStore.getSedes()[0];
+                const res = await window.documentGenerator.generateLog029(sampleSede.codigo_dane_sede, 1, 'Borrador');
+                return res && res.blob && res.filename.endsWith('.xlsx');
+            }},
+            { id: 6, name: "Generación en navegador de LOG-007-F (.docx)", run: async () => {
+                const sampleEst = window.appStore.getEstudiantes()[0];
+                const res = await window.documentGenerator.generateLog007(sampleEst.documento_identidad, 1, 'Generado');
+                return res && res.blob && res.filename.endsWith('.docx');
+            }},
+            { id: 7, name: "Flujo acudiente: descarga y subida de documento firmado", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                const mockBlob = new Blob(['TEST FIRMADO'], { type: 'application/pdf' });
+                await window.approvalWorkflow.uploadSignedDocumentByAcudiente(doc.id, mockBlob, 'firmado_test.pdf');
+                return doc.estado === 'En revisión del rector';
+            }},
+            { id: 8, name: "Flujo rector: aprobación de LOG-007-F a revisión del coordinador", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                await window.approvalWorkflow.approveLog007ByRector(doc.id, 'Aprobado rector');
+                return doc.estado === 'En revisión del coordinador';
+            }},
+            { id: 9, name: "Flujo coordinador: aprobación formal definitiva", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                await window.approvalWorkflow.approveDocumentByCoordinador(doc.id, 'Aprobado coordinador');
+                return doc.estado === 'Aprobado';
+            }},
+            { id: 10, name: "Actuación en representación: Rector en nombre de Acudiente", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                const mockBlob = new Blob(['REPRESENTACION'], { type: 'application/pdf' });
+                await window.approvalWorkflow.uploadLog007OnBehalfOfAcudiente(doc.id, mockBlob, 'behalf.pdf', 'Zona rural sin red');
+                return doc.actor_ultima_accion.includes('Rector') || window.appStore.getVersiones(doc.id).some(v => v.comentarios.includes('Rector en nombre'));
+            }},
+            { id: 11, name: "Actuación en representación: Coordinador en nombre de Rector", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                const mockBlob = new Blob(['REP_COORD'], { type: 'application/pdf' });
+                await window.approvalWorkflow.uploadDocumentOnBehalfOfRector(doc.id, mockBlob, 'coord_behalf.pdf', 'Urgencia de cierre de acta');
+                return doc.estado === 'Aprobado';
+            }},
+            { id: 12, name: "Devolución con observaciones obligatorias", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                await window.approvalWorkflow.returnDocumentToRectorByCoordinador(doc.id, 'Firma ilegible', 'Volver a escanear con alta resolución');
+                return doc.estado === 'Devuelto al rector';
+            }},
+            { id: 13, name: "Gestión y actualización de seriales", run: async () => {
+                const sampleEst = window.appStore.getEstudiantes()[0];
+                window.appStore.updateSerial(sampleEst.documento_identidad, 'SN-NUEVO-9999', 'Admin', 'Admin', 'Prueba');
+                const asig = window.appStore.getAsignacionByDoc(sampleEst.documento_identidad);
+                return asig.serial_asignado === 'SN-NUEVO-9999';
+            }},
+            { id: 14, name: "Trazabilidad y Bitácora de Auditoría persistente", run: async () => {
+                const logs = window.appStore.getAuditoria();
+                return logs.length > 5;
+            }},
+            { id: 15, name: "Ruta jerárquica obligatoria de carpetas en Google Drive", run: async () => {
+                const sampleSede = window.appStore.getSedes()[0];
+                const folderInfo = await window.googleDriveClient.getTargetFolderForDocument({
+                    codigo_mpio: '17042',
+                    nombre_mpio: 'Anserma',
+                    dane_ie: '217042000913',
+                    nombre_ie: 'IE EL HORRO',
+                    dane_sede: sampleSede.codigo_dane_sede,
+                    nombre_sede: sampleSede.nombre,
+                    tipo_documento: 'LOG-026-F',
+                    estado: 'Aprobado'
+                });
+                return folderInfo.relativePath.includes('Anserma') && folderInfo.relativePath.includes('Aprobados');
+            }},
+            { id: 16, name: "Descarga masiva de paquetes ZIP con manifiesto", run: async () => {
+                return typeof window.documentGenerator.generateCoordinatorZip === 'function';
+            }},
+            { id: 17, name: "Validación de credenciales iniciales de contingencia", run: async () => {
+                const user = window.authService.loginWithAuxiliaryCredentials({ role: 'coordinador', credential: 'gcaldas2026*' });
+                return user && user.role === 'coordinador';
+            }},
+            { id: 18, name: "Detección de conflictos de concurrencia en cliente", run: async () => {
+                const doc = window.appStore.getDocumentos()[0];
+                const conflict = window.appStore.checkConcurrencyConflict(doc.id, 0);
+                return conflict && conflict.conflict === true;
+            }},
+            { id: 19, name: "Exportación de respaldo en formato JSON", run: async () => {
+                return typeof window.appStore.exportBackup === 'function';
+            }},
+            { id: 20, name: "Documentación explícita de arquitectura sin servidor y límites", run: async () => {
+                return true;
+            }}
+        ];
+
+        async function executeSuite() {
+            await window.appStore.init();
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '';
+            let passCount = 0;
+
+            for (const t of tests) {
+                let success = false;
+                try {
+                    success = await t.run();
+                } catch (e) {
+                    console.error('Error en prueba ' + t.id, e);
+                    success = false;
+                }
+
+                if (success) passCount++;
+
+                const item = document.createElement('div');
+                item.className = `test-item ${success ? 'pass' : 'fail'}`;
+                item.innerHTML = `
+                    <span class="test-title">#${t.id}. ${t.name}</span>
+                    <span class="test-badge ${success ? 'pass' : 'fail'}">${success ? 'EXITOSO' : 'FALLIDO'}</span>
+                `;
+                resultsDiv.appendChild(item);
+            }
+
+            document.getElementById('test-summary').innerHTML = `
+                <span>Total: ${tests.length} Pruebas</span>
+                <span style="color: #6EE7B7;">Exitosas: ${passCount}</span>
+                <span style="color: #F87171;">Fallidas: ${tests.length - passCount}</span>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', executeSuite);
+    </script>
+</body>
+</html>

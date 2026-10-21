@@ -1,0 +1,427 @@
+/**
+ * store.js - Almacenamiento en el navegador (Local + IndexedDB + Google Drive Sync)
+ * Aplicación de Gestión Documental - Secretaría de Educación de Caldas & Computadores para Educar
+ * 
+ * Implementación 100% estática para GitHub Pages. No requiere backend ni base de datos externa.
+ */
+
+class AppStore {
+    constructor() {
+        this.STORAGE_PREFIX = 'ceducar_';
+        this.dbName = 'ceducar_blobs_db';
+        this.dbVersion = 1;
+        this.db = null;
+        this.isInitialized = false;
+
+        this.state = {
+            municipios: [],
+            instituciones: [],
+            sedes: [],
+            bolsa_elementos: [],
+            estudiantes: [],
+            asignaciones: [],
+            documentos: [],
+            versiones: [],
+            historial_auditoria: [],
+            config: {
+                google_client_id: '',
+                drive_root_folder_id: '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51',
+                root_folder_name: 'Bolsa_Tecnologica_Caldas',
+                scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive',
+                modo_simulacion: true
+            }
+        };
+
+        this.listeners = [];
+    }
+
+    async init() {
+        if (this.isInitialized) return;
+        await this._initIndexedDB();
+        await this._loadState();
+        this.isInitialized = true;
+        this._notify();
+    }
+
+    subscribe(callback) {
+        this.listeners.push(callback);
+        return () => {
+            this.listeners = this.listeners.filter(cb => cb !== callback);
+        };
+    }
+
+    _notify() {
+        for (const cb of this.listeners) {
+            try { cb(this.state); } catch (e) { console.error('Error en listener del store:', e); }
+        }
+    }
+
+    // --- IndexedDB para almacenar blobs (archivos generados y firmados) ---
+    async _initIndexedDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbName, this.dbVersion);
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains('files')) {
+                    db.createObjectStore('files', { keyPath: 'key' });
+                }
+            };
+            request.onsuccess = (event) => {
+                this.db = event.target.result;
+                resolve(this.db);
+            };
+            request.onerror = (event) => {
+                console.warn('IndexedDB no disponible, se usará memoria volátil para blobs:', event);
+                resolve(null);
+            };
+        });
+    }
+
+    async saveBlob(key, blob, filename, mimeType) {
+        if (!this.db) {
+            this._memBlobs = this._memBlobs || {};
+            this._memBlobs[key] = { key, blob, filename, mimeType, timestamp: Date.now() };
+            return;
+        }
+        return new Promise((resolve, reject) => {
+            const tx = this.db.transaction(['files'], 'readwrite');
+            const store = tx.objectStore('files');
+            store.put({
+                key,
+                blob,
+                filename,
+                mimeType,
+                timestamp: Date.now()
+            });
+            tx.oncomplete = () => resolve();
+            tx.onerror = (e) => reject(e);
+        });
+    }
+
+    async getBlob(key) {
+        if (!this.db) {
+            return this._memBlobs && this._memBlobs[key] ? this._memBlobs[key] : null;
+        }
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['files'], 'readonly');
+            const store = tx.objectStore('files');
+            const req = store.get(key);
+            req.onsuccess = () => resolve(req.result || null);
+            req.onerror = () => resolve(null);
+        });
+    }
+
+    // --- Carga y persistencia del estado en LocalStorage ---
+    async _loadState() {
+        const saved = localStorage.getItem(this.STORAGE_PREFIX + 'state');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                this.state = Object.assign(this.state, parsed);
+                return;
+            } catch (e) {
+                console.error('Error parseando datos guardados en LocalStorage:', e);
+            }
+        }
+        // Si no hay datos guardados, cargar semilla inicial
+        await this.loadSeedData();
+    }
+
+    async loadSeedData() {
+        try {
+            const res = await fetch('./data/seed_data.json');
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const seed = await res.json();
+            this.state.municipios = seed.municipios || [];
+            this.state.instituciones = seed.instituciones || [];
+            this.state.sedes = seed.sedes || [];
+            this.state.bolsa_elementos = seed.bolsa_elementos || [];
+            this.state.estudiantes = seed.estudiantes || [];
+            this.state.asignaciones = seed.asignaciones || [];
+            if (seed.config) {
+                this.state.config = Object.assign(this.state.config, seed.config);
+            }
+            this.state.documentos = [];
+            this.state.versiones = [];
+            this.state.historial_auditoria = [];
+
+            // Registrar primer evento de auditoría
+            this.logAudit({
+                actor: 'Sistema',
+                rol: 'Sistema',
+                accion: 'INICIALIZACION_DATOS',
+                entidad: 'Sistema',
+                entidad_id: 'SEED',
+                detalles: `Base cargada: ${this.state.sedes.length} sedes, ${this.state.estudiantes.length} estudiantes beneficiarios.`
+            });
+
+            this.persist();
+        } catch (e) {
+            console.error('No se pudo cargar seed_data.json:', e);
+        }
+    }
+
+    persist() {
+        try {
+            localStorage.setItem(this.STORAGE_PREFIX + 'state', JSON.stringify({
+                municipios: this.state.municipios,
+                instituciones: this.state.instituciones,
+                sedes: this.state.sedes,
+                bolsa_elementos: this.state.bolsa_elementos,
+                estudiantes: this.state.estudiantes,
+                asignaciones: this.state.asignaciones,
+                documentos: this.state.documentos,
+                versiones: this.state.versiones,
+                historial_auditoria: this.state.historial_auditoria,
+                config: this.state.config
+            }));
+            this._notify();
+        } catch (e) {
+            console.error('Error persistiendo estado en LocalStorage:', e);
+        }
+    }
+
+    // --- Auditoría / Bitácora ---
+    logAudit({ actor = 'Usuario', rol = 'Invitado', accion = 'ACCION', entidad = '', entidad_id = '', detalles = '', version = 1 }) {
+        const entry = {
+            id: 'AUD-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+            timestamp: new Date().toISOString(),
+            actor,
+            rol,
+            accion,
+            entidad,
+            entidad_id: String(entidad_id),
+            detalles,
+            version
+        };
+        this.state.historial_auditoria.unshift(entry);
+        if (this.state.historial_auditoria.length > 500) {
+            this.state.historial_auditoria.pop();
+        }
+        this.persist();
+        return entry;
+    }
+
+    getAuditoria(limit = 100) {
+        return this.state.historial_auditoria.slice(0, limit);
+    }
+
+    // --- Consultas del Modelo de Datos ---
+    getMunicipios() {
+        return this.state.municipios;
+    }
+
+    getInstituciones(codigoMunicipio = null) {
+        if (!codigoMunicipio) return this.state.instituciones;
+        return this.state.instituciones.filter(i => String(i.codigo_municipio) === String(codigoMunicipio));
+    }
+
+    getInstitucionByDane(dane) {
+        return this.state.instituciones.find(i => String(i.codigo_dane) === String(dane));
+    }
+
+    getSedes(daneIE = null) {
+        if (!daneIE) return this.state.sedes;
+        return this.state.sedes.filter(s => String(s.codigo_dane_ie) === String(daneIE));
+    }
+
+    getSedeByDane(daneSede) {
+        return this.state.sedes.find(s => String(s.codigo_dane_sede) === String(daneSede));
+    }
+
+    getElementosBolsa(daneSede) {
+        return this.state.bolsa_elementos.filter(e => String(e.codigo_dane_sede) === String(daneSede));
+    }
+
+    getEstudiantes(daneSede = null) {
+        if (!daneSede) return this.state.estudiantes;
+        return this.state.estudiantes.filter(e => String(e.codigo_dane_sede) === String(daneSede));
+    }
+
+    getEstudianteByDoc(doc) {
+        return this.state.estudiantes.find(e => String(e.documento_identidad) === String(doc));
+    }
+
+    getAsignacionByDoc(doc) {
+        return this.state.asignaciones.find(a => String(a.estudiante_documento) === String(doc));
+    }
+
+    // --- Documentos y Versiones ---
+    getDocumentos(filter = {}) {
+        return this.state.documentos.filter(doc => {
+            if (filter.tipo_documento && doc.tipo_documento !== filter.tipo_documento) return false;
+            if (filter.codigo_dane_sede && String(doc.codigo_dane_sede) !== String(filter.codigo_dane_sede)) return false;
+            if (filter.estudiante_documento && String(doc.estudiante_documento) !== String(filter.estudiante_documento)) return false;
+            if (filter.estado && doc.estado !== filter.estado) return false;
+            if (filter.codigo_dane_ie) {
+                const sede = this.getSedeByDane(doc.codigo_dane_sede);
+                if (!sede || String(sede.codigo_dane_ie) !== String(filter.codigo_dane_ie)) return false;
+            }
+            if (filter.codigo_municipio) {
+                const sede = this.getSedeByDane(doc.codigo_dane_sede);
+                if (sede) {
+                    const ie = this.getInstitucionByDane(sede.codigo_dane_ie);
+                    if (!ie || String(ie.codigo_municipio) !== String(filter.codigo_municipio)) return false;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        });
+    }
+
+    getDocumentoById(id) {
+        return this.state.documentos.find(d => String(d.id) === String(id));
+    }
+
+    findDocumento(tipo, daneSede, estudianteDoc = null) {
+        return this.state.documentos.find(d => {
+            if (d.tipo_documento !== tipo) return false;
+            if (String(d.codigo_dane_sede) !== String(daneSede)) return false;
+            if (tipo === 'LOG-007-F') {
+                return String(d.estudiante_documento) === String(estudianteDoc);
+            }
+            return true;
+        });
+    }
+
+    saveDocumento(docData, actor = 'Usuario', rol = 'Coordinador', comentario = '') {
+        let existingIndex = this.state.documentos.findIndex(d => String(d.id) === String(docData.id));
+        if (existingIndex < 0 && docData.tipo_documento) {
+            existingIndex = this.state.documentos.findIndex(d => 
+                d.tipo_documento === docData.tipo_documento &&
+                String(d.codigo_dane_sede) === String(docData.codigo_dane_sede) &&
+                (docData.tipo_documento !== 'LOG-007-F' || String(d.estudiante_documento) === String(docData.estudiante_documento))
+            );
+        }
+
+        const now = new Date().toISOString();
+        let docRecord;
+
+        if (existingIndex >= 0) {
+            // Actualización
+            const prev = this.state.documentos[existingIndex];
+            docRecord = Object.assign({}, prev, docData, { updated_at: now });
+            this.state.documentos[existingIndex] = docRecord;
+        } else {
+            // Creación
+            docRecord = Object.assign({
+                id: 'DOC-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+                created_at: now,
+                updated_at: now,
+                version_actual: 1,
+                estado: 'Borrador'
+            }, docData);
+            this.state.documentos.push(docRecord);
+        }
+
+        // Registrar versión
+        const versionEntry = {
+            id: 'VER-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+            documento_id: docRecord.id,
+            version_num: docRecord.version_actual || 1,
+            estado: docRecord.estado,
+            actor,
+            rol,
+            fecha: now,
+            comentarios: comentario || `Cambio de estado a ${docRecord.estado}`,
+            drive_id: docRecord.drive_id || null,
+            filename: docRecord.nombre_archivo || `${docRecord.tipo_documento}_v${docRecord.version_actual}`
+        };
+        this.state.versiones.push(versionEntry);
+
+        // Registrar auditoría
+        this.logAudit({
+            actor,
+            rol,
+            accion: 'DOCUMENTO_GUARDADO',
+            entidad: docRecord.tipo_documento,
+            entidad_id: docRecord.id,
+            detalles: `Documento ${docRecord.nombre_archivo || docRecord.tipo_documento} en estado "${docRecord.estado}". ${comentario}`,
+            version: docRecord.version_actual
+        });
+
+        this.persist();
+        return docRecord;
+    }
+
+    getVersiones(documentoId) {
+        return this.state.versiones
+            .filter(v => String(v.documento_id) === String(documentoId))
+            .sort((a, b) => b.version_num - a.version_num);
+    }
+
+    // --- Control de concurrencia en cliente ---
+    checkConcurrencyConflict(documentoId, expectedVersion) {
+        const doc = this.getDocumentoById(documentoId);
+        if (!doc) return false;
+        if (doc.version_actual > expectedVersion) {
+            return {
+                conflict: true,
+                currentVersion: doc.version_actual,
+                expectedVersion,
+                updated_at: doc.updated_at,
+                actor: doc.actor_ultima_accion || 'Otro usuario'
+            };
+        }
+        return false;
+    }
+
+    // --- Gestión y actualización de seriales ---
+    updateSerial(estudianteDoc, newSerial, actor, rol, motivo = '') {
+        const asignacion = this.getAsignacionByDoc(estudianteDoc);
+        if (!asignacion) throw new Error(`Asignación para estudiante ${estudianteDoc} no encontrada.`);
+
+        const oldSerial = asignacion.serial_asignado;
+        asignacion.serial_asignado = String(newSerial).trim();
+
+        this.logAudit({
+            actor,
+            rol,
+            accion: 'ACTUALIZAR_SERIAL',
+            entidad: 'Asignacion',
+            entidad_id: estudianteDoc,
+            detalles: `Serial actualizado de "${oldSerial}" a "${asignacion.serial_asignado}". Motivo: ${motivo}`
+        });
+
+        this.persist();
+        return asignacion;
+    }
+
+    // --- Exportación y Respaldo ---
+    exportBackup() {
+        const backup = {
+            export_date: new Date().toISOString(),
+            app: 'computadoresparaeducar-sedcaldas',
+            version: '2.0-static',
+            data: this.state
+        };
+        const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `backup_ceducar_${new Date().toISOString().slice(0, 10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    importBackup(jsonString, actor = 'Administrador') {
+        const backup = JSON.parse(jsonString);
+        if (!backup.data || !backup.data.sedes) {
+            throw new Error('El archivo no tiene el formato válido de respaldo de la aplicación.');
+        }
+        this.state = Object.assign(this.state, backup.data);
+        this.logAudit({
+            actor,
+            rol: 'Administrador',
+            accion: 'IMPORTAR_RESPALDO',
+            entidad: 'Sistema',
+            entidad_id: 'BACKUP',
+            detalles: `Respaldo importado con fecha original ${backup.export_date}`
+        });
+        this.persist();
+    }
+}
+
+// Singleton global
+window.appStore = new AppStore();

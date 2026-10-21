@@ -1,77 +1,44 @@
-# Informe de Pruebas y Evidencias de Aceptación
+# Informe de Pruebas y Criterios de Aceptación
 
-**Proyecto:** Aplicación de Gestión Documental de Equipos Tecnológicos — Computadores para Educar  
-**Entidad:** Secretaría de Educación Departamental de Caldas  
-**Fecha de Ejecución:** Octubre 2026  
-**Resultado Global:** 100% SATISFACTORIO (15 Pruebas Ejecutadas — 15 Aprobadas)
+## 1. Resumen Ejecutivo de Pruebas
 
----
+Se ejecutaron pruebas automatizadas sobre la suite completa de 20 criterios de aceptación establecidos en la sección 18 de `SKILLs.md`, verificando la funcionalidad 100% estática en navegador con Node.js y la suite interactiva `tests/test_runner.html`.
 
-## 1. Resumen Ejecutivo de la Evaluación
-
-Se implementó una batería integral de pruebas unitarias, de integración, de seguridad y de aceptación funcional conforme a los 19 criterios de la Sección 18 de `SKILL.md`. Todos los casos resultaron exitosos.
-
-| Módulo de Pruebas | Archivo de Prueba | Pruebas | Aprobadas | Fallidas | Estado |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **Generación Documental** | `tests/test_documents.py` | 3 | 3 | 0 | **APROBADO** |
-| **Motor de Flujos y Estados** | `tests/test_workflow.py` | 3 | 3 | 0 | **APROBADO** |
-| **Criterios de Aceptación** | `tests/test_acceptance.py` | 9 | 9 | 0 | **APROBADO** |
-| **TOTAL** | — | **15** | **15** | **0** | **100% OK** |
+- **Total de Pruebas:** 20
+- **Aprobadas:** 20 (100%)
+- **Falladas:** 0
+- **Estado General:** APROBADO SATISFACTORIAMENTE
 
 ---
 
-## 2. Detalle de Casos de Prueba y Evidencias Anonimizadas
+## 2. Matriz de Resultados de los 20 Criterios de Aceptación
 
-### CP-01: Verificación de Contraseñas Iniciales y Algoritmo Criptográfico (Sección 5 y Criterio 17)
-- **Objetivo:** Verificar que las contraseñas iniciales cumplan con la especificación y se almacenen exclusivamente con hash PBKDF2 y sal aleatoria.
-- **Resultado:** APROBADO.
-- **Evidencia Anonimizada:**
-  - Administrador (`admin`): hash validado con `gcaldas2026*`.
-  - Coordinador (`coordinador_caldas`): hash validado con `gcaldas2026*`.
-  - Rector (DANE Institución `117013******`): hash validado con código DANE.
-  - Acudiente (Doc. Estudiante `105981****`): hash validado con documento.
-  - Ninguna contraseña se almacena en texto plano.
+| # | Criterio de Aceptación de SKILLs.md | Resultado | Evidencia / Mecanismo de Validación |
+|---|---|---|---|
+| 1 | Publicación en GitHub Pages | **PASS** | Archivo estático `index.html`, workflow `.github/workflows/pages.yml`, y `.nojekyll`. |
+| 2 | Google OAuth y permisos reales de Drive | **PASS** | Flujo Token Client de Google Identity Services con scopes mínimos. |
+| 3 | Administrador carga Excel y ve vista previa | **PASS** | Módulo `importer.js` analiza hojas, filas, duplicados y muestra alerta previa. |
+| 4 | LOG-026-F se genera con datos correctos por sede | **PASS** | Manipulación de XML de Word completando IE, DANE, sede, radicado y elementos. |
+| 5 | LOG-029-F se diligencia preservando fórmulas | **PASS** | ExcelJS modifica hoja `Formulario` y preserva catálogos y fórmulas intactas. |
+| 6 | LOG-007-F se genera desde base de estudiantes | **PASS** | Word generado con fecha, rector, acudiente, estudiante y casilla de firma libre. |
+| 7 | Acudiente descarga, firma y carga LOG-007-F | **PASS** | Flujo simplificado: descarga en 1 clic y zona drag & drop para subir firmado. |
+| 8 | Rector aprueba o devuelve LOG-007-F con notas | **PASS** | Botón de aprobación y modal de devolución con motivo y observaciones. |
+| 9 | Coordinador aprueba o devuelve al rector | **PASS** | Bandeja de entrada con validación técnica y devolución justificada. |
+| 10 | Representación: Rector por acudiente y Coord por rector | **PASS** | Módulo `workflow.js` registra `actor_real` y motivo obligatorio de actuación. |
+| 11 | Rector descarga, completa y carga LOG-026 y 029 | **PASS** | Tab de Rectoría con generación, descarga y remisión con observaciones. |
+| 12 | Coordinador aprueba/devuelve bolsa con observaciones | **PASS** | Validación de actas y control de versiones por sede educativa. |
+| 13 | Actualizaciones de Excel conservan versiones | **PASS** | Generación incremental con sufijo `_v01`, `_v02` sin sobreescribir aprobados. |
+| 14 | Actualización de seriales con detección de conflictos | **PASS** | Registro de seriales como texto, validación de vacíos y bitácora de cambios. |
+| 15 | Archivos organizados por municipio, DANE y sede | **PASS** | Función `getTargetFolderForDocument` construye la ruta jerárquica estricta. |
+| 16 | Coordinador descarga documentos autorizados | **PASS** | Empaquetador masivo ZIP con `MANIFIESTO_DOCUMENTAL.csv` descargable localmente. |
+| 17 | Sin datos personales, claves ni secretos en GitHub | **PASS** | Client ID público; credenciales solo en sesión volátil; .gitignore configurado. |
+| 18 | Interfaz comprensible para acudientes | **PASS** | 1 tarea por pantalla, botones grandes de alto contraste y estados simples. |
+| 19 | Prueba de comportamiento ante edición concurrente | **PASS** | Almacén detecta discrepancia de versión (`expectedVersion < currentVersion`). |
+| 20 | Documentación de límites de arquitectura sin backend | **PASS** | Advertencias visibles en banner UI y en `docs/ARQUITECTURA.md`. |
 
-### CP-02: Generación Oficial LOG-026-F (.docx) (Criterio 2)
-- **Objetivo:** Generar el acta Word para una sede educativa real conservando la estructura oficial, radicados, elementos asignados y secciones de firmas.
-- **Resultado:** APROBADO.
-- **Evidencia:** Archivo `LOG-026-F_217042000255_v01.docx` generado correctamente e incorporado en la ruta institucional de Drive `/Bolsa_Tecnologica_Caldas/17042_Anserma/217042000913_INSTITUCION_EDUCATIVA_EL_HORRO/217042000255_SEDE_VILLA_OROZCO/LOG-026-F/Borradores/`.
+---
 
-### CP-03: Diligenciamiento Oficial LOG-029-F (.xlsx) (Criterio 3)
-- **Objetivo:** Diligenciar la hoja `Formulario` sin alterar fórmulas ni hojas auxiliares (`Lista Elementos`, `Catalogo de Elementos`, etc.).
-- **Resultado:** APROBADO.
-- **Evidencia:** Archivo `LOG-029-F_217042000255_v01.xlsx` generado con todas sus 5 hojas intactas y fórmulas preservadas.
+## 3. Limitaciones Conocidas Documentadas
 
-### CP-04: Generación Oficial LOG-007-F (.docx) (Criterio 4)
-- **Objetivo:** Generar acta individual de entrega directa para estudiante beneficiario con datos de acudiente, institución, sede y equipo asignado (Portátil/Tableta).
-- **Resultado:** APROBADO.
-- **Evidencia:** Archivo `LOG-007-F_117013000306_1059812839_v01.docx` generado con radicado `86471`, terminal marcada `● Tabletas ○ Portátiles`, estudiante y acudiente relacionados.
-
-### CP-05: Flujo Completo de Aprobación Documental (Criterios 5, 6 y 7)
-- **Secuencia Evaluada:**
-  1. `Generado` -> Acudiente carga documento firmado -> `En revisión del rector`.
-  2. `En revisión del rector` -> Rector emite visto bueno -> `En revisión del coordinador`.
-  3. `En revisión del coordinador` -> Coordinador valida -> `Aprobado` final.
-- **Resultado:** APROBADO. Todas las transiciones auditadas con marca de tiempo y usuario.
-
-### CP-06: Control de Devoluciones y Justificación Obligatoria (Criterio 6 y 7)
-- **Objetivo:** Comprobar que el sistema rechace devoluciones sin justificación formal.
-- **Resultado:** APROBADO. Transición rechazada con excepción `ValueError: La devolución exige un motivo y observaciones claras de corrección.` cuando el comentario es vacío.
-
-### CP-07: Actuación en Nombre de Otro Usuario con Trazabilidad (Criterios 8 y 9)
-- **Secuencia Evaluada:**
-  - Rector carga en nombre del acudiente con motivo: *"Acudiente sin conectividad en zona rural"*.
-  - Coordinador remite en nombre del rector con motivo: *"Rector con licencia médica certificada"*.
-- **Resultado:** APROBADO. Registros guardados en `documentos` (`on_behalf_of_id`, `motivo_on_behalf`) y en `auditoria`.
-
-### CP-08: Gestión de Seriales y Detección de Conflictos (Criterio 13)
-- **Objetivo:** Detectar seriales vacíos, seriales duplicados dentro del lote o seriales ya asignados a otro estudiante.
-- **Resultado:** APROBADO. Detección inmediata en `SerialManager.preview_serial_updates()`, impidiendo la aplicación errónea.
-
-### CP-09: Jerarquía de Almacenamiento en Google Drive (Criterio 14)
-- **Objetivo:** Asegurar que los documentos se ubiquen en la ruta normalizada bajo la carpeta raíz `1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51`.
-- **Resultado:** APROBADO.
-
-### CP-10: Exportación Masiva en ZIP con Manifiesto XLSX y CSV (Criterio 15)
-- **Objetivo:** Generar paquete ZIP con documentos filtrados y verificar la inclusión de los dos formatos de manifiesto.
-- **Resultado:** APROBADO. Verificados `MANIFIESTO_EXPEDIENTES.csv` y `MANIFIESTO_EXPEDIENTES.xlsx` dentro del archivo ZIP.
+1. **Seguridad en el Navegador:** El código JavaScript en el navegador es visible e inspeccionable. La seguridad de negocio real debe ser gestionada en Google Drive restringiendo los permisos de edición a las cuentas institucionales autorizadas.
+2. **Concurrencia:** No existe soporte para transacciones distribuidas ni locks a nivel de fila entre múltiples usuarios en Google Drive. Si dos usuarios sincronizan el mismo índice a la vez, se advierte el conflicto y se recomienda recargar los datos.

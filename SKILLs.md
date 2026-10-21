@@ -1,129 +1,103 @@
-# SKILL.md — Aplicación de gestión documental de equipos tecnológicos
+# SKILL.md — Aplicación web estática con GitHub Pages y Google Drive
 
 ## 1. Propósito
 
-Desarrollar una aplicación web para generar, diligenciar, cargar, revisar, aprobar, devolver, consultar y descargar tres formatos institucionales:
+Desarrollar una aplicación web para generar, diligenciar, cargar, revisar, aprobar, devolver, consultar y descargar los formatos LOG-026-F (.docx), LOG-029-F (.xlsx) y LOG-007-F (.docx), utilizando exclusivamente:
 
-1. **LOG-026-F (.docx):** acta de verificación y legalización de elementos de la Bolsa Tecnológica.
-2. **LOG-029-F (.xlsx):** formato de informe de validación de la Bolsa Tecnológica.
-3. **LOG-007-F (.docx):** acta de legalización y entrega directa de equipos a estudiantes.
+- **GitHub Pages** para publicar el frontend estático.
+- **Google Drive** como único almacenamiento remoto para archivos fuente, plantillas, documentos generados, documentos firmados, versiones e índices.
 
-La aplicación debe usar los archivos Excel de origen y las plantillas oficiales suministradas, conservar el contenido institucional de los formatos y permitir la trazabilidad de cada documento durante su ciclo de revisión y aprobación.
+**Restricción obligatoria:** no crear ni utilizar servidores propios, backend, funciones serverless, API propia ni base de datos externa. La lógica se ejecutará en el navegador y la integración con Drive se hará directamente mediante Google OAuth y Google Drive API.
 
-## 2. Archivos de entrada
+## 2. Arquitectura y límites técnicos
 
-La aplicación debe permitir cargar, validar y actualizar estos archivos:
+La aplicación será una SPA estática:
 
-- `BOLSA TECNOLOGICA CALDAS.xlsx`: fuente para generar y diligenciar LOG-026-F y LOG-029-F.
-- `BASE ESTUDIANTES CALDAS.xlsx`: fuente para generar y diligenciar LOG-007-F.
-- `LOG-026-Acta de Verificacion y Legalizacion de para bolsa_V1.docx`: plantilla oficial LOG-026-F.
-- `LOG-029-F Formato Informe Validación Bolsa Tecnologica.xlsx`: plantilla oficial LOG-029-F.
-- `LOG-007-F LEGALIZACIO_N Y ENTREGA DIRECTA DE EQUIPOS.docx`: plantilla oficial LOG-007-F.
+1. GitHub Pages entrega HTML, CSS, JavaScript y recursos estáticos.
+2. El navegador procesa los Excel y genera los documentos con bibliotecas JavaScript compatibles con el entorno del navegador.
+3. El usuario inicia sesión mediante Google OAuth.
+4. El frontend consulta, descarga, crea y actualiza archivos directamente en Google Drive usando la identidad y los permisos reales del usuario.
+5. Los archivos generados se cargan a Drive desde el navegador.
 
-Los nombres deben poder configurarse si la entidad cambia los archivos o sus versiones. Antes de programar el mapeo de campos, inspeccionar las hojas, columnas, tablas, marcadores y celdas reales de cada archivo. No asumir nombres de columnas ni posiciones de celdas sin verificarlos.
+No usar Google Apps Script como backend, Cloud Functions, Cloud Run, proxies, servidores ni servicios equivalentes.
 
-## 3. Objetivos funcionales
+### Limitaciones que deben explicarse
 
-- Generar LOG-026-F en Word desde `BOLSA TECNOLOGICA CALDAS.xlsx`, por institución/sede según la estructura real de la fuente.
-- Diligenciar LOG-029-F en Excel desde el mismo archivo, preservando las hojas, fórmulas, formatos, validaciones y catálogos de la plantilla.
-- Generar LOG-007-F en Word desde `BASE ESTUDIANTES CALDAS.xlsx`, usando los datos disponibles de estudiante, acudiente, institución, sede y equipo.
-- Permitir al acudiente descargar el LOG-007-F, firmarlo fuera de la aplicación y cargar la versión firmada.
-- Permitir al rector aprobar o devolver el LOG-007-F con observaciones.
-- Permitir al coordinador revisar el LOG-007-F aprobado por el rector y aprobarlo o devolverlo al rector con observaciones.
+Una aplicación estática no puede mantener secretos en el frontend ni garantizar por sí sola que una contraseña compartida o un rol guardado en JavaScript, `localStorage` o un JSON sea seguro. El código del frontend puede inspeccionarse y modificarse. Por tanto:
+
+- No codificar contraseñas maestras, claves privadas, secretos OAuth ni tokens en el repositorio.
+- Autenticar con Google OAuth y solicitar los scopes mínimos necesarios.
+- Los permisos reales sobre documentos deben derivarse de los permisos de Google Drive de la cuenta autenticada.
+- No considerar una comprobación de rol en el navegador como una barrera de seguridad inviolable.
+- Los estados de aprobación y los historiales escritos desde el frontend ofrecen trazabilidad operativa, pero no son inalterables si un usuario tiene permiso de edición sobre esos archivos.
+- Sin backend no pueden garantizarse controles de autorización de negocio inviolables, auditoría inmutable, transacciones entre varios archivos ni bloqueos de concurrencia fuertes. Documentar estas limitaciones sin simular garantías inexistentes.
+
+## 3. Archivos fuente y plantillas
+
+La aplicación debe utilizar estos archivos, seleccionados desde Google Drive o cargados por un usuario autorizado:
+
+- `BOLSA TECNOLOGICA CALDAS.xlsx`: fuente para LOG-026-F y LOG-029-F.
+- `BASE ESTUDIANTES CALDAS.xlsx`: fuente para LOG-007-F.
+- `LOG-026-Acta de Verificacion y Legalizacion de para bolsa_V1.docx`: plantilla LOG-026-F.
+- `LOG-029-F Formato Informe Validación Bolsa Tecnologica.xlsx`: plantilla LOG-029-F.
+- `LOG-007-F LEGALIZACIO_N Y ENTREGA DIRECTA DE EQUIPOS.docx`: plantilla LOG-007-F.
+
+Los nombres e ID de Drive deben poder configurarse. Antes de programar el mapeo, inspeccionar las hojas, columnas, tablas, marcadores y celdas reales. No asumir nombres ni posiciones sin verificarlos.
+
+## 4. Requerimientos funcionales
+
+- Generar LOG-026-F en Word desde `BOLSA TECNOLOGICA CALDAS.xlsx`.
+- Diligenciar LOG-029-F en Excel desde el mismo archivo, preservando hojas, fórmulas, formatos, validaciones y catálogos.
+- Generar LOG-007-F en Word desde `BASE ESTUDIANTES CALDAS.xlsx`.
+- Permitir al acudiente descargar, firmar fuera de la aplicación y cargar LOG-007-F.
+- Permitir al rector aprobar o devolver LOG-007-F con observaciones.
+- Permitir al coordinador revisar el LOG-007-F aprobado por el rector y aprobarlo o devolverlo al rector.
 - Permitir al rector consultar, descargar, diligenciar y cargar LOG-026-F y LOG-029-F, y enviarlos al coordinador.
-- Permitir al coordinador aprobar o devolver LOG-026-F y LOG-029-F por inconsistencias, registrando observaciones.
-- Permitir al rector cargar LOG-007-F en nombre del acudiente si este no puede realizar la operación.
-- Permitir al coordinador cargar LOG-007-F en nombre del rector cuando este no pueda realizar la operación, registrando actor y motivo.
-- Permitir actualizar los Excel de origen y regenerar los documentos a partir de nuevas versiones.
-- Incorporar una función para actualizar los seriales en la base de estudiantes/equipos, con validación y trazabilidad.
-- Proporcionar al administrador operaciones CRUD sobre usuarios, datos y parámetros.
-- Consultar los documentos generados y cargados en la carpeta compartida de Google Drive indicada en la sección 6.
-- Permitir al coordinador descargar en su computador los documentos de su ámbito.
-- Diseñar una interfaz sencilla, clara y adaptable para docentes y acudientes con poca experiencia tecnológica.
-- Tomar como referencia visual el portal https://educacion.caldas.gov.co/.
-- Publicar el frontend en GitHub Pages bajo el usuario `sedcaldas`, con el sitio/proyecto previsto `computadoresparaeducar`, verificando la URL y configuración reales antes del despliegue.
+- Permitir al coordinador aprobar o devolver LOG-026-F y LOG-029-F por inconsistencias, con observaciones.
+- Permitir al rector cargar LOG-007-F en nombre del acudiente si este no puede hacerlo.
+- Permitir al coordinador cargar LOG-007-F en nombre del rector cuando sea necesario, registrando actor y motivo.
+- Permitir actualizar los Excel fuente y regenerar documentos a partir de nuevas versiones.
+- Incorporar una función para actualizar los seriales de estudiantes/equipos.
+- Ofrecer CRUD para el administrador, dentro de las limitaciones de una aplicación estática.
+- Consultar, cargar y actualizar documentos directamente en Google Drive desde el frontend.
+- Permitir al coordinador descargar documentos autorizados en su computador.
+- Usar una interfaz sencilla para docentes y acudientes con poca experiencia tecnológica.
+- Tomar como referencia visual https://educacion.caldas.gov.co/.
+- Publicar en GitHub Pages bajo el usuario `sedcaldas`, con el proyecto previsto `computadoresparaeducar`. Verificar el nombre del repositorio, la configuración y la URL antes de publicar.
 
-## 4. Perfiles y permisos
+## 5. Perfiles y contraseñas iniciales
 
-La aplicación debe tener exactamente cuatro perfiles: **administrador, coordinador, rector y acudiente**.
+La aplicación tendrá cuatro perfiles: **administrador, coordinador, rector y acudiente**.
 
-### 4.1 Administrador
+Contraseñas iniciales solicitadas:
+- Rector: código DANE de la institución (`CODIGO_DANE`).
+- Acudiente: documento de identidad del estudiante.
+- Coordinador: `gcaldas2026*`.
+- Administrador: `gcaldas2026*`.
 
-- Crear, consultar, actualizar y desactivar usuarios, instituciones, sedes, estudiantes, asignaciones, seriales, documentos, plantillas y parámetros.
-- Cargar nuevas versiones de los archivos Excel de origen.
-- Validar la estructura de los archivos antes de importar datos.
-- Ejecutar la generación y regeneración individual o masiva de documentos.
-- Administrar las asociaciones entre coordinadores, rectores, instituciones y sedes.
-- Configurar la integración con Google Drive de manera segura.
-- Consultar inconsistencias, estados, errores e historial de auditoría.
-- No eliminar silenciosamente documentos firmados o aprobados; conservar el historial de versiones.
+### Autenticación
 
-### 4.2 Coordinador
+Estas contraseñas iniciales no deben ser el único mecanismo de protección. No codificar las contraseñas maestras ni validarlas contra valores incrustados en JavaScript como control de seguridad.
 
-- Consultar las instituciones y sedes que tenga asignadas.
-- Consultar, descargar y revisar LOG-007-F remitidos por los rectores después de su aprobación inicial.
-- Aprobar el LOG-007-F o devolverlo al rector con observaciones.
-- Consultar, descargar y revisar LOG-026-F y LOG-029-F remitidos por el rector.
-- Aprobar o devolver LOG-026-F y LOG-029-F por inconsistencias, con observaciones.
-- Cargar LOG-007-F en nombre del rector cuando sea necesario; registrar motivo, fecha y usuario que ejecutó la carga.
-- Descargar documentos individuales o paquetes por municipio, institución, sede, tipo de formato y estado.
-- Consultar el historial de revisión y aprobación.
-- No acceder a instituciones o sedes fuera de su ámbito autorizado.
+- Usar Google OAuth para autenticar a la persona.
+- Relacionar la cuenta autenticada con un perfil/asignación mediante información ubicada en Drive con permisos restringidos a las cuentas autorizadas.
+- No conceder permisos administrativos únicamente porque alguien escriba `gcaldas2026*`.
+- Si las contraseñas iniciales se conservan para incorporación de usuarios, tratarlas como credenciales temporales o auxiliares, no como sustituto de OAuth y permisos de Drive.
+- No almacenar contraseñas en texto plano, archivos públicos, GitHub ni `localStorage`.
+- No guardar tokens OAuth en archivos ni en `localStorage`; seguir las recomendaciones vigentes de Google Identity Services para aplicaciones en navegador.
+- La cuenta autenticada debe tener permisos reales de Drive sobre los archivos que consulta o modifica.
 
-### 4.3 Rector
+La cédula del estudiante y el documento del acudiente son datos diferentes. La relación debe validarse con la base oficial y no suponerse.
 
-- Acceder únicamente a las instituciones y sedes asignadas.
-- Consultar estudiantes beneficiarios asociados a sus sedes.
-- Descargar y revisar LOG-026-F y LOG-029-F generados a partir de los archivos de origen.
-- Completar los campos que correspondan al rector y cargar los formatos diligenciados.
-- Enviar LOG-026-F y LOG-029-F al coordinador para aprobación.
-- Revisar LOG-007-F cargados por los acudientes y aprobarlos o devolverlos con observaciones.
-- Cargar LOG-007-F en nombre del acudiente cuando este no pueda hacerlo.
-- Consultar estados, observaciones, versiones y fechas de sus documentos.
+## 6. Google Drive como almacenamiento único
 
-### 4.4 Acudiente
-
-- Ingresar con credenciales vinculadas al estudiante beneficiario.
-- Consultar únicamente los documentos del estudiante asociado a su acceso.
-- Descargar el LOG-007-F generado a partir de la base de estudiantes.
-- Firmar el documento fuera de la aplicación y cargarlo de nuevo.
-- Consultar el estado del documento y las observaciones de devolución.
-- Reemplazar el documento devuelto y enviarlo nuevamente al rector.
-- No consultar expedientes de otros estudiantes ni aprobar documentos.
-
-La aplicación debe distinguir el documento de identidad del estudiante del documento del acudiente. La relación entre ambos debe provenir de la base oficial o de un procedimiento institucional validado.
-
-## 5. Autenticación y contraseñas iniciales
-
-Configurar las siguientes contraseñas iniciales solicitadas:
-
-- **Rector:** código DANE de la institución educativa (`CODIGO_DANE`).
-- **Acudiente:** número de cédula/documento del estudiante beneficiario, conforme al requerimiento.
-- **Coordinador:** `gcaldas2026*`.
-- **Administrador:** `gcaldas2026*`.
-
-Medidas de seguridad obligatorias:
-
-- Almacenar contraseñas mediante un algoritmo seguro de hash con sal; nunca en texto plano.
-- Exigir cambio de contraseña en el primer acceso para administrador, coordinador y rector.
-- Proporcionar un mecanismo seguro para cambiar y recuperar contraseñas.
-- Limitar intentos de acceso y aplicar bloqueo temporal ante intentos repetidos.
-- No incluir credenciales, claves de Google, tokens ni secretos en el frontend, repositorio ni archivos de configuración públicos.
-- Aplicar autorización en backend para cada operación y cada recurso; ocultar botones en la interfaz no es suficiente.
-- Proteger las sesiones y utilizar HTTPS.
-- No registrar contraseñas, tokens ni datos personales innecesarios en logs.
-
-Las contraseñas iniciales son temporales y deben sustituirse antes de operar con datos reales. No publicar las credenciales por defecto en el repositorio público ni en documentación accesible sin autorización.
-
-## 6. Google Drive: almacenamiento y consulta de documentos
-
-Carpeta compartida suministrada por el usuario:
+Carpeta compartida indicada por el usuario:
 
 https://drive.google.com/drive/folders/1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51?usp=drive_link
 
-ID de carpeta raíz identificado en el enlace: `1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51`.
+ID de carpeta raíz: `1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51`.
 
-La aplicación debe permitir consultar los documentos de esta carpeta mediante una integración autorizada de Google Drive. Antes de implementar, comprobar que la cuenta/identidad de servicio utilizada tenga permisos suficientes sobre la carpeta y sus subcarpetas.
+La aplicación utilizará Google Drive como único almacenamiento remoto. No crear una base de datos externa. Los metadatos e índices podrán guardarse como archivos JSON/CSV dentro de Drive, con permisos apropiados; deben documentarse las limitaciones de concurrencia y consistencia de este enfoque.
 
 Estructura sugerida:
 
@@ -132,312 +106,278 @@ Estructura sugerida:
   /{CODIGO_MUNICIPIO}_{MUNICIPIO}/
     /{CODIGO_DANE_IE}_{NOMBRE_IE}/
       /{CODIGO_DANE_SEDE}_{NOMBRE_SEDE}/
-        /LOG-026-F/
-          /Borradores/
-          /En_revision/
-          /Aprobados/
-          /Devueltos/
-        /LOG-029-F/
-          /Borradores/
-          /En_revision/
-          /Aprobados/
-          /Devueltos/
+        /LOG-026-F/{Borradores,En_revision,Aprobados,Devueltos}/
+        /LOG-029-F/{Borradores,En_revision,Aprobados,Devueltos}/
         /LOG-007-F/
-          /{DOCUMENTO_ESTUDIANTE}/
-            /Generados/
-            /Firmados/
-            /En_revision/
-            /Aprobados/
-            /Devueltos/
+          /{DOCUMENTO_ESTUDIANTE}/{Generados,Firmados,En_revision,Aprobados,Devueltos}/
+        /Indices/
         /Historial/
 ```
 
-Reglas de almacenamiento:
+Reglas:
+- La carpeta del código DANE de institución debe reunir los formatos de todas sus sedes, con subcarpetas por sede.
+- Guardar los ID de Drive de archivos y carpetas en los índices.
+- Registrar tipo documental, municipio, DANE de institución, DANE de sede, estudiante cuando aplique, versión, estado, autor y fecha de carga.
+- No hacer públicas las carpetas ni compartir documentos mediante “cualquier persona con el enlace” salvo autorización institucional expresa.
+- La aplicación no puede acceder a una carpeta privada solo por conocer su ID; la cuenta OAuth debe tener permisos reales.
+- Verificar que la cuenta de Google autenticada tenga acceso a la carpeta raíz y a sus subcarpetas.
 
-- La carpeta del código DANE de la institución debe agrupar los formatos de todas sus sedes, manteniendo subcarpetas por sede.
-- Organizar los expedientes por municipio, código DANE de institución y sede; no mezclar documentos de estudiantes distintos.
-- Guardar en la base de datos el ID de Drive de cada archivo y carpeta.
-- Registrar tipo documental, municipio, DANE de institución, DANE de sede, estudiante cuando aplique, versión, estado, autor de carga y fecha.
-- No hacer públicas las carpetas ni utilizar enlaces permanentes sin control de acceso.
-- La integración con Drive debe ejecutarse desde un backend seguro con una identidad institucional autorizada.
-- Los permisos de Drive deben alinearse con los permisos de la aplicación.
-- Mostrar al usuario enlaces de consulta/descarga solo después de verificar su autorización.
+## 7. GitHub Pages y configuración de Google
 
-## 7. Arquitectura y publicación en GitHub Pages
+El repositorio contendrá únicamente código estático, recursos autorizados, configuración pública no secreta, documentación y pruebas. No almacenar en GitHub archivos reales de estudiantes, documentos firmados, expedientes, contraseñas, tokens, claves privadas ni copias de seguridad.
 
-Separar la solución en los siguientes componentes:
+Configurar en Google Cloud:
+1. Proyecto de Google Cloud para la aplicación.
+2. Google Drive API habilitada.
+3. Cliente OAuth para aplicación web y orígenes autorizados del sitio GitHub Pages.
+4. Pantalla de consentimiento y usuarios de prueba/publicación según las políticas de la organización.
+5. Scopes mínimos para listar, leer, crear y actualizar archivos autorizados.
 
-1. **Frontend:** aplicación web responsive, accesible y en español, con diseño inspirado en https://educacion.caldas.gov.co/.
-2. **Backend/API:** autenticación, autorización, procesamiento de Excel/Word, generación de documentos, flujos de aprobación, auditoría e integración con Drive.
-3. **Base de datos:** usuarios, roles, municipios, instituciones, sedes, estudiantes, acudientes, asignaciones, seriales, documentos, versiones, estados y observaciones.
-4. **Google Drive:** almacenamiento de archivos generados y cargados.
-5. **GitHub:** control de versiones y publicación del frontend.
+El ID de cliente OAuth para una aplicación web es público por diseño; no incorporar un secreto OAuth de tipo servidor. No usar servicios de backend. La aplicación debe funcionar como frontend estático más Google Drive.
 
-GitHub Pages aloja sitios estáticos y no proporciona por sí solo autenticación segura, base de datos privada, secretos ni acceso seguro a Drive. Por ello, el frontend puede publicarse en GitHub Pages, pero las operaciones protegidas deben ejecutarse en un backend seguro. Documentar la tecnología elegida, variables de entorno, configuración de despliegue y procedimiento de actualización.
+## 8. Generación documental en el navegador
 
-Usar el usuario `sedcaldas` y el nombre previsto `computadoresparaeducar` según la configuración institucional. Verificar si se trata del nombre del repositorio, proyecto o sitio antes de fijar la URL definitiva. No colocar credenciales de Google ni secretos en archivos públicos del repositorio.
-
-## 8. Generación de documentos
+Usar bibliotecas JavaScript que funcionen en el navegador para leer Excel y generar Word/Excel. Verificar que la biblioteca elegida pueda conservar las características requeridas de las plantillas y documentar cualquier limitación.
 
 ### 8.1 LOG-026-F (.docx)
-
-- Utilizar `BOLSA TECNOLOGICA CALDAS.xlsx` como fuente y LOG-026-F como plantilla.
-- Generar un documento por institución/sede, de acuerdo con los registros reales del Excel.
-- Completar solo los campos cuya correspondencia pueda verificarse: radicado, institución, sede, código DANE, municipio, departamento, elementos y cantidades, según las columnas disponibles.
-- Dejar editables o en blanco los campos no presentes en la fuente que requieren intervención humana, como firmas u observaciones.
-- Conservar el diseño, contenido institucional, secciones de firmas y anexos del formato oficial.
-- No inventar datos ni alterar el contenido del documento.
+- Usar `BOLSA TECNOLOGICA CALDAS.xlsx` como fuente y LOG-026-F como plantilla.
+- Generar un documento por institución/sede según los registros reales.
+- Completar solo los campos con correspondencia verificada: radicado, institución, sede, DANE, municipio, departamento, elementos y cantidades.
+- Dejar editables o en blanco los campos que requieran intervención humana.
+- Conservar contenido institucional, diseño, firmas y anexos.
+- No inventar datos ni alterar cláusulas.
 
 ### 8.2 LOG-029-F (.xlsx)
-
-- Utilizar `BOLSA TECNOLOGICA CALDAS.xlsx` como fuente y el archivo LOG-029-F como plantilla.
-- Inspeccionar y documentar las hojas, celdas, encabezados, fórmulas, validaciones y catálogos antes de escribir.
-- Conservar las hojas, fórmulas, formatos, validaciones, rangos con nombre y hojas auxiliares.
-- Completar únicamente las celdas de entrada verificadas.
-- No reemplazar fórmulas por valores ni eliminar hojas auxiliares.
-- Mostrar al rector campos faltantes e inconsistencias antes de permitir el envío al coordinador.
+- Usar `BOLSA TECNOLOGICA CALDAS.xlsx` como fuente y LOG-029-F como plantilla.
+- Inspeccionar hojas, celdas, fórmulas, validaciones y catálogos antes de escribir.
+- Conservar hojas, fórmulas, formatos, validaciones y hojas auxiliares.
+- Completar únicamente celdas de entrada identificadas.
+- No reemplazar fórmulas por valores ni eliminar hojas.
+- Mostrar inconsistencias antes de permitir el envío al coordinador.
 
 ### 8.3 LOG-007-F (.docx)
+- Usar `BASE ESTUDIANTES CALDAS.xlsx` como fuente y LOG-007-F como plantilla.
+- Generar un documento por estudiante beneficiario o según la unidad que determinen la plantilla y los datos.
+- Completar únicamente los datos verificados de institución, sede, códigos DANE, rector, municipio, radicado, estudiante, acudiente y equipo.
+- Conservar contenido institucional, observaciones, firmas y anexos.
+- No insertar ni simular firmas.
+- Usar nombres consistentes, por ejemplo `LOG-007-F_{DANE_SEDE}_{ID_ESTUDIANTE}_v01.docx`.
+- Registrar en índices de Drive la versión de la base fuente utilizada.
+- Si cambia la fuente, crear una nueva versión; no reemplazar silenciosamente documentos firmados o aprobados.
 
-- Utilizar `BASE ESTUDIANTES CALDAS.xlsx` como fuente y LOG-007-F como plantilla.
-- Generar el documento por estudiante beneficiario o según la unidad de entrega establecida por la plantilla y la estructura de los datos.
-- Completar institución, sede, códigos DANE, rector, municipio, radicado, estudiante, acudiente y datos del equipo únicamente cuando estén disponibles en la base.
-- Conservar el contenido institucional, observaciones, espacios de firma y anexos.
-- No insertar ni simular firmas. El acudiente debe descargar, firmar y cargar el documento.
-- Usar un nombre consistente, por ejemplo `LOG-007-F_{DANE_SEDE}_{ID_ESTUDIANTE}_v01.docx`.
-- Registrar la versión del Excel utilizada para generar cada documento.
-- Si cambia la fuente, generar una nueva versión. No reemplazar silenciosamente un documento firmado o aprobado.
-
-Antes de implementar generación masiva, construir y probar un mapa exacto de columnas/celdas de origen y campos de destino. No inferir posiciones sin inspeccionar los archivos reales.
+Antes de generar documentos masivamente, construir y probar el mapa exacto de columnas/celdas y campos de destino.
 
 ## 9. Actualización de Excel y seriales
 
-### 9.1 Actualización de archivos de origen
+### 9.1 Archivos fuente
 
 El administrador podrá cargar nuevas versiones de:
 - `BOLSA TECNOLOGICA CALDAS.xlsx`
 - `BASE ESTUDIANTES CALDAS.xlsx`
-- Plantillas oficiales cuando exista una versión actualizada autorizada.
+- Plantillas oficiales actualizadas.
 
 Al importar:
+1. Validar extensión, tamaño, hojas y encabezados.
+2. Mostrar vista previa de filas, sedes, estudiantes, duplicados, registros nuevos/modificados y campos incompletos.
+3. Permitir confirmar o cancelar.
+4. Subir la nueva versión a Drive y conservar la anterior.
+5. Actualizar índices de metadatos.
+6. Permitir regeneración individual o masiva e indicar documentos afectados.
+7. No reemplazar documentos aprobados sin crear una nueva versión.
 
-1. Validar extensión, tamaño, hojas y encabezados esperados.
-2. Mostrar una vista previa con filas, sedes, estudiantes, duplicados, registros nuevos/modificados y campos incompletos.
-3. Permitir confirmar o cancelar la importación.
-4. Conservar la versión anterior y registrar usuario, fecha, archivo y resultado.
-5. Validar relaciones entre municipio, institución, sede, estudiante y equipo.
-6. Permitir regeneración individual o masiva y mostrar qué documentos serán afectados.
-7. No reemplazar documentos aprobados sin versionamiento e historial.
+### 9.2 Seriales
 
-### 9.2 Actualización de seriales
-
-- Implementar una función específica para importar y actualizar seriales relacionados con estudiantes/equipos.
+- Implementar una pantalla para importar y actualizar seriales.
 - Inspeccionar los encabezados reales antes de definir el mapeo.
-- Validar seriales vacíos, duplicados, cambios de serial, elementos no asociados y conflictos.
-- Mostrar una vista previa y pedir confirmación antes de aplicar los cambios.
-- Mantener historial de valor anterior/nuevo, fecha, usuario, motivo y archivo fuente.
-- Almacenar los seriales como texto para preservar ceros iniciales y evitar alteraciones.
-- No asumir reglas de unicidad que no estén confirmadas por los archivos y el proceso institucional.
+- Validar seriales vacíos, duplicados, cambios, elementos no asociados y conflictos.
+- Mostrar vista previa y pedir confirmación.
+- Guardar historial de valor anterior/nuevo, fecha, usuario, motivo y archivo fuente.
+- Almacenar seriales como texto.
+- No asumir reglas de unicidad que no estén confirmadas por las fuentes.
+- Como Drive no ofrece transacciones sobre varios archivos, detectar conflictos de edición concurrente, advertir al usuario y pedir volver a cargar o combinar los cambios. No prometer bloqueo transaccional.
 
 ## 10. Flujos de aprobación
-
-Cada documento debe tener estado, versiones y trazabilidad propios.
 
 Estados sugeridos:
 
 `Borrador → Generado → Pendiente de firma/carga → En revisión del rector → Devuelto al acudiente → En revisión del coordinador → Devuelto al rector → Aprobado`
 
-### 10.1 LOG-007-F
-
-1. El sistema genera el documento desde la base de estudiantes.
-2. El acudiente descarga, firma fuera de la aplicación y carga el documento firmado.
-3. El rector revisa y aprueba o devuelve con observaciones.
-4. Si se devuelve, el acudiente corrige y vuelve a cargarlo. Si no puede hacerlo, el rector puede cargarlo en su nombre.
-5. Una vez aprobado por el rector, el documento queda disponible para el coordinador.
+### LOG-007-F
+1. Generar el documento desde la base de estudiantes.
+2. El acudiente descarga, firma fuera de la aplicación y carga el documento.
+3. El rector aprueba o devuelve con observaciones.
+4. Si se devuelve, el acudiente corrige y vuelve a cargarlo; si no puede, el rector puede cargarlo en su nombre.
+5. Tras la aprobación del rector, queda disponible para el coordinador.
 6. El coordinador aprueba o devuelve al rector con observaciones.
-7. Se conservan todas las versiones y acciones.
+7. Conservar versiones y registrar eventos en el historial de Drive.
 
-### 10.2 LOG-026-F y LOG-029-F
+### LOG-026-F y LOG-029-F
+1. El rector descarga los formatos generados, los revisa y completa la información faltante.
+2. El rector carga los formatos diligenciados y los envía al coordinador.
+3. El coordinador aprueba o devuelve por inconsistencias con comentarios.
+4. El rector corrige, carga una nueva versión y vuelve a enviar.
+5. Conservar versiones anteriores e identificar la versión vigente y la aprobada.
 
-1. El rector descarga los formatos generados, los revisa y completa la información pendiente.
-2. El rector carga los archivos diligenciados y los envía al coordinador.
-3. El coordinador revisa y aprueba o devuelve por inconsistencias, indicando los motivos.
-4. El rector corrige, carga una nueva versión y vuelve a remitirla.
-5. Se conservan versiones anteriores y se identifica claramente la versión vigente y la aprobada.
-
-### Reglas comunes
-
+Reglas comunes:
 - Cargar un archivo no equivale a aprobarlo.
-- La devolución exige motivo y comentario.
-- Solo el perfil autorizado puede ejecutar cada transición.
-- Registrar documento, estado anterior/nuevo, actor, rol, fecha/hora, comentario y versión.
-- Cuando un rector o coordinador actúe en nombre de otro usuario, registrar quién ejecutó la acción y el motivo.
+- La devolución requiere motivo y comentario.
+- Mostrar acciones según el perfil reconocido, sin presentar esto como seguridad inviolable.
+- Registrar documento, estado anterior/nuevo, actor, rol, fecha/hora, comentario y versión en el historial de Drive.
+- Cuando alguien actúe en nombre de otra persona, registrar actor real y motivo.
+- Los historiales guardados en Drive pueden ser editados por usuarios con permisos de escritura; limitar esos permisos y documentar esta limitación.
 
 ## 11. CRUD del administrador
 
-Implementar operaciones de crear, consultar, actualizar y eliminar/desactivar, según corresponda, para:
-
-- Usuarios y roles.
-- Municipios.
-- Instituciones educativas y sedes.
+Implementar una interfaz CRUD para:
+- Usuarios y perfiles.
+- Municipios, instituciones y sedes.
 - Estudiantes y relaciones con acudientes.
-- Asignaciones de equipos.
-- Seriales.
+- Asignaciones de equipos y seriales.
 - Plantillas y versiones.
-- Archivos fuente e importaciones.
-- Documentos y versiones.
+- Archivos fuente.
+- Documentos, índices y versiones.
 - Observaciones y tareas de revisión.
-- Configuración de Drive y parámetros de la aplicación.
+- Parámetros y configuración de Drive.
 
-Aplicar borrado lógico a registros asociados a expedientes. No eliminar silenciosamente registros o documentos que tengan firmas o aprobaciones; las anulaciones deben quedar auditadas.
+Guardar registros e índices como archivos dentro de Drive. Aplicar borrado lógico a registros relacionados con expedientes. No eliminar silenciosamente documentos firmados o aprobados. Sin backend no hay integridad referencial transaccional ni permisos por fila independientes de los permisos de Drive; detectar inconsistencias y explicar esta limitación.
 
 ## 12. Interfaz y facilidad de uso
 
-Tomar como referencia visual https://educacion.caldas.gov.co/. Verificar colores, logotipo, tipografía y recursos institucionales autorizados antes de reutilizarlos.
+Tomar como referencia visual https://educacion.caldas.gov.co/, usando solo recursos autorizados.
 
-La aplicación debe ser especialmente sencilla para docentes y acudientes:
-
-- Interfaz en español, adaptable a celular, tableta y computador.
-- Botones grandes y claros: “Descargar formato”, “Subir formato firmado”, “Enviar al rector” y “Corregir documento”.
+- Interfaz en español y adaptable a celular, tableta y computador.
+- Botones grandes: “Descargar formato”, “Subir formato firmado”, “Enviar al rector” y “Corregir documento”.
 - Una tarea principal por pantalla para acudientes.
-- Instrucciones breves y numeradas: 1) descargar, 2) firmar, 3) subir.
-- Evitar solicitar datos que ya estén en la base.
-- Mostrar estados comprensibles: “Pendiente de revisión”, “Necesita corrección” y “Aprobado”.
-- Explicar claramente qué se debe corregir cuando un documento sea devuelto.
+- Instrucciones cortas: 1) descargar, 2) firmar, 3) subir.
+- No pedir datos que ya estén en los archivos fuente.
+- Mostrar estados simples: “Pendiente de revisión”, “Necesita corrección” y “Aprobado”.
+- Explicar qué corregir cuando se devuelve un documento.
 - Confirmar antes de enviar, reemplazar o regenerar archivos.
-- Soportar navegación por teclado, contraste suficiente, etiquetas visibles y mensajes de error útiles.
-- Incluir ayuda y un canal de soporte institucional configurable.
+- Facilitar navegación por teclado, contraste, etiquetas y mensajes de error claros.
+- Incluir ayuda y canal institucional de soporte configurable.
 
-## 13. Validación y calidad de datos
+## 13. Validación de datos
 
-Validar como mínimo:
-
-- Códigos DANE y correspondencia entre institución y sede.
-- Existencia del estudiante en la base de beneficiarios.
-- Relación entre estudiante, acudiente y sede.
+Validar:
+- Códigos DANE y correspondencia institución/sede.
+- Existencia del estudiante beneficiario.
+- Relación estudiante/acudiente/sede.
 - Campos obligatorios de cada formato.
 - Radicados, elementos y cantidades según las fuentes.
 - Seriales vacíos, duplicados o inconsistentes.
-- Extensión, tamaño y tipo de archivos cargados.
-- Correspondencia del documento firmado con el estudiante y sede correctos.
-- Permisos del usuario para consultar o modificar el expediente.
+- Tipo, extensión y tamaño de archivos cargados.
+- Correspondencia del documento firmado con el estudiante y sede.
+- Permisos de Drive de la cuenta autenticada.
 
-Tratar códigos DANE, documentos de identidad, teléfonos y seriales como texto, preservando ceros iniciales. Reportar inconsistencias sin alterar automáticamente los datos originales.
+Tratar códigos DANE, documentos de identidad, teléfonos y seriales como texto. Reportar inconsistencias sin alterar automáticamente los datos originales.
 
 ## 14. Privacidad y seguridad
 
-La aplicación puede procesar datos personales y de menores de edad:
-
-- Aplicar mínimo privilegio y autorización por rol, institución, sede y estudiante.
-- Cumplir la normativa de protección de datos aplicable y las políticas institucionales.
-- No incluir datos reales de estudiantes en el repositorio, pruebas públicas, capturas ni incidencias de GitHub.
+- Usar OAuth y permisos reales de Drive.
+- Solicitar únicamente scopes necesarios.
+- No publicar datos de estudiantes en GitHub ni incluir documentos firmados en el repositorio.
+- No guardar contraseñas ni tokens en archivos públicos o `localStorage`.
 - Enmascarar documentos de identidad cuando no sea necesario mostrarlos completos.
-- Usar HTTPS, sesiones protegidas y almacenamiento seguro de contraseñas.
-- Validar archivos cargados y restringir extensiones y tamaños.
-- Definir copias de seguridad, restauración y conservación documental.
-- Registrar las descargas y exportaciones de expedientes.
-- No publicar documentos ni carpetas de Drive con acceso abierto.
+- Validar archivos cargados y restringir extensiones/tamaños.
+- Definir respaldo y recuperación en Drive.
+- Registrar descargas y exportaciones cuando la aplicación tenga permiso para escribir el historial.
+- No compartir carpetas con acceso abierto sin autorización institucional.
 
-## 15. Descargas y exportaciones del coordinador
+## 15. Descargas del coordinador
 
 El coordinador podrá:
-
 - Descargar documentos individuales.
-- Filtrar por municipio, institución, sede, estudiante, tipo de formato, estado y fecha.
+- Filtrar por municipio, institución, sede, estudiante, tipo, estado y fecha.
 - Descargar paquetes ZIP por municipio, institución o sede.
-- Obtener un manifiesto CSV/XLSX con documentos incluidos, estado, versión y fecha.
-- Descargar solo los expedientes de su ámbito autorizado.
+- Generar un manifiesto CSV/XLSX con los archivos incluidos.
+- Descargar solo documentos accesibles para su cuenta de Google.
 - Consultar cantidades de documentos generados, pendientes, aprobados, devueltos y con errores.
 
-Las descargas deben estar autenticadas o usar enlaces temporales de duración limitada. No crear enlaces públicos permanentes.
+Las descargas se realizarán mediante Drive API con la identidad OAuth del usuario.
 
 ## 16. Auditoría y monitoreo
 
-Registrar como mínimo:
+Registrar en archivos de historial de Drive:
+- Accesos que el frontend pueda observar.
+- Cambios de perfiles y asignaciones.
+- Importaciones de Excel y actualizaciones de seriales.
+- Generación y regeneración documental.
+- Cargas, descargas, aprobaciones, devoluciones y comentarios.
+- Errores de procesamiento y operaciones de Drive.
 
-- Inicios de sesión y bloqueos.
-- Creación y modificación de usuarios, roles y asignaciones.
-- Importaciones y actualizaciones de Excel.
-- Actualizaciones de seriales.
-- Generación y regeneración de documentos.
-- Cargas y descargas.
-- Aprobaciones, devoluciones y comentarios.
-- Cambios de configuración.
-- Errores de procesamiento e integración con Drive.
-
-Incluir un tablero administrativo con documentos por estado, pendientes por institución/sede, inconsistencias de importación, últimas actividades y errores. No guardar contraseñas, tokens ni datos personales innecesarios en la bitácora.
+No guardar contraseñas, tokens ni datos personales innecesarios. No describir la bitácora como inalterable: usuarios con permisos de edición podrían modificarla.
 
 ## 17. Requisitos no funcionales
 
-- Seguridad por defecto y autorización en backend.
-- Interfaz responsive y accesible.
+- Sin servidor propio, backend, funciones serverless ni base de datos externa.
+- Frontend estático publicable en GitHub Pages.
+- Google Drive como único almacenamiento remoto.
+- Diseño responsive y accesible.
 - Compatibilidad con navegadores modernos.
-- Procesamiento por lotes con reintentos seguros.
-- Idempotencia para evitar duplicados.
-- Versionamiento de archivos de origen, plantillas y documentos.
-- Trazabilidad desde el dato fuente hasta el documento final.
-- Manejo de errores sin pérdida de archivos cargados.
+- Procesamiento en navegador, con mensajes claros para archivos demasiado grandes.
+- Versionamiento de archivos fuente, plantillas y documentos.
+- Detección de conflictos de edición concurrente.
 - Código modular y documentado.
-- Configuración separada para desarrollo, pruebas y producción.
-- Respaldos y procedimiento probado de recuperación.
+- Configuración sin secretos por ambiente.
+- Procedimiento de respaldo y recuperación en Drive.
+- Documentación explícita de las limitaciones de seguridad y concurrencia de una solución sin backend.
 
 ## 18. Pruebas de aceptación
 
-La aplicación estará lista cuando se demuestre que:
-
-1. El administrador carga cada Excel y revisa una vista previa de validación.
-2. LOG-026-F se genera con datos correctos por institución/sede.
-3. LOG-029-F se diligencia sin destruir fórmulas, hojas auxiliares, validaciones ni formatos.
-4. LOG-007-F se genera desde la base de estudiantes y conserva el contenido de la plantilla.
-5. El acudiente puede descargar, firmar y cargar LOG-007-F.
-6. El rector puede aprobar o devolver LOG-007-F con observaciones.
-7. El coordinador puede aprobar o devolver LOG-007-F al rector.
-8. El rector puede cargar LOG-007-F en nombre del acudiente con trazabilidad.
-9. El coordinador puede cargar LOG-007-F en nombre del rector con trazabilidad.
-10. El rector puede descargar, completar y cargar LOG-026-F y LOG-029-F.
-11. El coordinador puede aprobar o devolver LOG-026-F y LOG-029-F con observaciones.
-12. Las actualizaciones de Excel conservan versiones previas y permiten regeneración controlada.
-13. La actualización de seriales detecta conflictos y conserva historial.
-14. Los documentos quedan en las carpetas correctas de Drive y no son públicos.
-15. El coordinador descarga solo información de su ámbito.
-16. Un usuario no puede acceder a expedientes de otra institución cambiando manualmente una URL o identificador.
-17. Las credenciales y secretos no aparecen en el frontend, repositorio ni logs.
-18. La interfaz resulta comprensible en pruebas con usuarios de baja experiencia tecnológica.
-19. Se comprueba la restauración de respaldos y el comportamiento ante fallos parciales.
+1. La aplicación se publica correctamente en GitHub Pages.
+2. OAuth permite consultar únicamente archivos para los que la cuenta tiene permisos.
+3. El administrador carga Excel y ve una vista previa de validación.
+4. LOG-026-F se genera con datos correctos por institución/sede.
+5. LOG-029-F se diligencia sin destruir fórmulas, hojas auxiliares, validaciones ni formatos.
+6. LOG-007-F se genera desde la base de estudiantes y conserva la plantilla.
+7. El acudiente descarga, firma y carga LOG-007-F.
+8. El rector aprueba o devuelve LOG-007-F con observaciones.
+9. El coordinador aprueba o devuelve LOG-007-F al rector.
+10. El rector puede cargar LOG-007-F por el acudiente y el coordinador por el rector, con historial.
+11. El rector descarga, completa y carga LOG-026-F y LOG-029-F.
+12. El coordinador aprueba o devuelve LOG-026-F y LOG-029-F con observaciones.
+13. Nuevas versiones de Excel se guardan en Drive y permiten regeneración controlada.
+14. La actualización de seriales detecta conflictos y guarda historial.
+15. Los archivos se organizan por municipio, DANE y sede en la carpeta indicada.
+16. El coordinador descarga documentos autorizados en su computador.
+17. No se publican datos personales, contraseñas ni secretos en GitHub.
+18. La interfaz se entiende en pruebas con acudientes de baja experiencia tecnológica.
+19. Se prueba el comportamiento cuando dos usuarios actualizan el mismo índice.
+20. La documentación explica que la autorización de negocio y la auditoría no pueden hacerse inviolables solo con frontend estático.
 
 ## 19. Entregables
 
-1. Código fuente y README.
+1. Código fuente estático y README.
 2. Este archivo `SKILL.md`.
-3. Diagrama de arquitectura.
-4. Diagrama entidad-relación y diccionario de datos.
-5. Matriz de roles y permisos.
-6. Mapa de campos entre Excel y plantillas.
-7. Diagrama de estados del flujo de aprobación.
-8. Módulos de importación, validación y generación de documentos.
-9. Integración segura con Google Drive.
-10. Pruebas unitarias, de integración, seguridad y aceptación.
-11. Guía de despliegue en GitHub Pages y del backend.
-12. Manual breve para administrador, coordinador, rector y acudiente.
-13. Procedimiento de respaldo, restauración y soporte.
-14. Informe de pruebas con evidencias anonimizadas.
+3. Diagrama de arquitectura sin servidor.
+4. Modelo lógico de archivos/índices de Drive y diccionario de datos.
+5. Matriz de perfiles, acciones y permisos reales de Drive.
+6. Mapa de campos de Excel a plantillas.
+7. Diagrama de estados de aprobación.
+8. Módulos JavaScript de importación, validación y generación documental.
+9. Integración OAuth/Drive API sin secretos.
+10. Pruebas de generación e integración con Drive.
+11. Guía de publicación en GitHub Pages y configuración de Google Cloud OAuth.
+12. Manual para administrador, coordinador, rector y acudiente.
+13. Procedimiento de respaldo y restauración.
+14. Informe de pruebas con datos anonimizados y limitaciones conocidas.
 
 ## 20. Fases de implementación
 
-**Fase 1 — Inspección y mapeo:** revisar los archivos reales, identificar hojas, columnas, celdas y campos; entregar mapa de correspondencias y lista de inconsistencias.
+**Fase 1 — Inspección y mapeo:** revisar los archivos reales y documentar columnas, celdas, plantillas y reglas de generación.
 
-**Fase 2 — Modelo y seguridad:** diseñar base de datos, perfiles, asignaciones, autenticación y auditoría antes de usar datos reales.
+**Fase 2 — GitHub Pages y OAuth:** configurar frontend estático, proyecto de Google Cloud, Drive API y permisos.
 
-**Fase 3 — Generación documental:** implementar y probar LOG-026-F, LOG-029-F y LOG-007-F usando copias de las plantillas.
+**Fase 3 — Drive:** implementar navegación de carpetas, selección, carga, descarga e índices.
 
-**Fase 4 — Flujos de aprobación:** implementar cargas, devoluciones, aprobaciones, comentarios, versiones y notificaciones.
+**Fase 4 — Generación documental:** implementar y probar LOG-026-F, LOG-029-F y LOG-007-F en el navegador.
 
-**Fase 5 — Google Drive y descargas:** configurar la carpeta compartida, permisos, consulta y exportaciones del coordinador.
+**Fase 5 — Aprobaciones:** implementar estados, observaciones, versiones e historial en Drive, documentando las limitaciones de seguridad.
 
-**Fase 6 — Administración y seriales:** implementar CRUD, importaciones versionadas y actualización de seriales.
+**Fase 6 — Administración y seriales:** implementar CRUD e importaciones con detección de conflictos.
 
-**Fase 7 — Pruebas y despliegue:** ejecutar pruebas de aceptación, corregir hallazgos, desplegar frontend y backend y documentar la operación.
+**Fase 7 — Pruebas y publicación:** ejecutar pruebas, corregir errores, publicar en GitHub Pages y entregar manuales.
 
 ## 21. Instrucción para el agente de desarrollo
 
-Actúa como arquitecto de software y desarrollador full-stack con experiencia en gestión documental, procesamiento de Excel/Word, control de acceso por roles y Google Drive API. Implementa esta especificación de forma incremental. Antes de programar, inspecciona los archivos reales y documenta el mapa de campos. No inventes datos, no alteres el contenido institucional de las plantillas, no expongas datos personales ni secretos y no marques como aprobado un documento sin una acción explícita del rol autorizado. Cuando falte una regla institucional, registra la pregunta y evita resolverla por suposición. Entrega código ejecutable, pruebas, documentación y evidencias de aceptación; no te limites a describir una solución.
+Actúa como arquitecto y desarrollador frontend especializado en aplicaciones estáticas, JavaScript, procesamiento de Word/Excel en navegador, Google OAuth y Google Drive API. Respeta la restricción de no utilizar ningún servidor, backend, función serverless ni base de datos externa. Antes de programar, inspecciona los archivos reales y documenta el mapa de campos. No inventes datos, no alteres el contenido institucional de las plantillas, no publiques datos personales ni secretos y no marques como aprobado un documento sin una acción explícita del perfil autorizado. Implementa la consulta y el almacenamiento directamente en Google Drive y publica el frontend en GitHub Pages. Explica con claridad las limitaciones de seguridad y concurrencia inherentes a una arquitectura sin backend. Entrega código ejecutable, pruebas, documentación y evidencias de aceptación.

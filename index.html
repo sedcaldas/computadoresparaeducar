@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Documental | Secretaría de Educación de Caldas & Computadores para Educar</title>
+    <meta name="description" content="Aplicación web estática para la generación, diligenciamiento, legalización y control de expedientes de dotación tecnológica LOG-026-F, LOG-029-F y LOG-007-F.">
+    
+    <!-- Tipografía Moderna Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Estilos de Diseño Institucional -->
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <!-- Google Identity Services (OAuth 2.0 Token Client) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Bibliotecas Locales / CDN Fallbacks -->
+    <script src="./vendor/jszip.min.js"></script>
+    <script>
+        if (typeof JSZip === 'undefined') {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"><\/script>');
+        }
+    </script>
+
+    <script src="./vendor/xlsx.full.min.js"></script>
+    <script>
+        if (typeof XLSX === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"><\/script>');
+        }
+    </script>
+
+    <script src="./vendor/exceljs.min.js"></script>
+    <script>
+        if (typeof ExcelJS === 'undefined') {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"><\/script>');
+        }
+    </script>
+</head>
+<body>
+
+    <!-- ENCABEZADO INSTITUCIONAL GOBERNACIÓN DE CALDAS -->
+    <header class="header-bar">
+        <div class="header-container">
+            <div class="brand-wrapper">
+                <div class="brand-logo-badge">
+                    <div class="flag-stripe"></div>
+                    <span>CALDAS</span>
+                </div>
+                <div class="brand-titles">
+                    <h1>Secretaría de Educación de Caldas</h1>
+                    <p>Computadores para Educar &middot; Gestión Documental de Dotación Tecnológica</p>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                <div id="header-drive-badge" class="drive-status-badge simulation" title="Clic para configurar Google Drive">
+                    <span class="status-dot"></span>
+                    <span>Modo Simulación / Local</span>
+                </div>
+                <div id="header-session-area" class="user-menu"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL DE LA APLICACIÓN -->
+    <main class="app-layout">
+        <div id="app-root">
+            <div style="text-align: center; padding: 4rem 1rem;">
+                <h3 style="color: var(--primary);">Cargando Sistema de Gestión Documental...</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Inicializando datos y plantillas institucionales.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 3rem;">
+        <p><strong>Gobernación de Caldas &middot; Secretaría de Educación Departamental</strong></p>
+        <p>Programa Computadores para Educar &middot; Aplicación Web Estática sin Servidor (GitHub Pages & Google Drive API v3)</p>
+    </footer>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ================================================================= -->
+    <!-- MODALES INTERACTIVOS -->
+    <!-- ================================================================= -->
+
+    <!-- Modal 1: Devolución con Observaciones -->
+    <div id="modal-return" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Devolver Expediente <span id="return-target-text"></span></h3>
+                <button class="modal-close" onclick="appController.closeAllModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Motivo de la Devolución *</label>
+                    <select id="return-motivo" class="form-select" required>
+                        <option value="">Seleccione el motivo...</option>
+                        <option value="Firma ilegible o faltante">Firma ilegible o faltante</option>
+                        <option value="Inconsistencia en serial o terminal">Inconsistencia en serial o terminal</option>
+                        <option value="Documento de identidad no coincide">Documento de identidad no coincide</option>
+                        <option value="Datos incompletos en el acta">Datos incompletos en el acta</option>
+                        <option value="Documento borroso o cortado">Documento borroso o cortado</option>
+                        <option value="Otro motivo institucional">Otro motivo institucional</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Observaciones y Correcciones Requeridas *</label>
+                    <textarea id="return-observaciones" class="form-control" rows="4" placeholder="Describa detalladamente qué debe corregir el usuario..." required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="appController.closeAllModals()">Cancelar</button>
+                <button class="btn btn-danger" onclick="appController.confirmReturnDoc()">Confirmar Devolución</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Carga en Nombre de Otra Persona (Actuación en Representación) -->
+    <div id="modal-behalf" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cargar Documento en Nombre <span id="behalf-target-text"></span></h3>
+                <button class="modal-close" onclick="appController.closeAllModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Según la directriz de auditoría, se registrará su identidad real como actor y el motivo que justifica la actuación en representación.
+                </p>
+                <div class="form-group">
+                    <label class="form-label">Motivo Institucional de la Representación *</label>
+                    <input type="text" id="behalf-motivo" class="form-control" placeholder="Ej: Acudiente en zona rural sin conectividad; documento físico firmado recibido en sede." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Seleccione el Archivo Firmado / Diligenciado *</label>
+                    <input type="file" id="behalf-file-input" class="form-control" accept=".pdf,.docx,.jpg,.png" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="appController.closeAllModals()">Cancelar</button>
+                <button class="btn btn-primary" onclick="appController.confirmUploadOnBehalf()">Confirmar Carga</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Remisión de Formatos de Bolsa por el Rector -->
+    <div id="modal-submit-bolsa" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Remitir Formato de Bolsa a Coordinación</h3>
+                <button class="modal-close" onclick="appController.closeAllModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Archivo Diligenciado / Firmado (Opcional si ya se generó en el sistema)</label>
+                    <input type="file" id="submit-bolsa-file" class="form-control" accept=".docx,.xlsx,.pdf">
+                    <span class="form-hint">Si editó el archivo en su computador, cárguelo aquí para registrar la nueva versión.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Comentarios para el Coordinador</label>
+                    <textarea id="submit-bolsa-comments" class="form-control" rows="3" placeholder="Información sobre la sede o validación en zona..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="appController.closeAllModals()">Cancelar</button>
+                <button class="btn btn-primary" onclick="appController.confirmSubmitBolsa()">Remitir al Coordinador</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Configuración de Google Drive & OAuth -->
+    <div id="modal-drive-config" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Parámetros de Google Drive & OAuth</h3>
+                <button class="modal-close" onclick="appController.closeAllModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Configure la integración directa con Google Drive sin servidores. El Client ID es público por diseño para aplicaciones web estáticas en navegador.
+                </p>
+                <div class="form-group">
+                    <label class="form-label">Google Cloud OAuth Client ID</label>
+                    <input type="text" id="config-client-id" class="form-control" placeholder="Ej: 123456789-abc.apps.googleusercontent.com">
+                    <span class="form-hint">Creado en Google Cloud Console para la URL de GitHub Pages.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ID de Carpeta Raíz Compartida en Drive</label>
+                    <input type="text" id="config-folder-id" class="form-control" value="1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51" required>
+                    <span class="form-hint">ID de la carpeta oficial compartida de Computadores para Educar.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="appController.closeAllModals()">Cancelar</button>
+                <button class="btn btn-primary" onclick="appController.saveDriveConfig()">Guardar Configuración</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Historial y Versiones del Documento -->
+    <div id="modal-doc-history" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 750px;">
+            <div class="modal-header">
+                <h3>Historial de Versiones: <span id="history-doc-title"></span></h3>
+                <button class="modal-close" onclick="appController.closeAllModals()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Estado</th>
+                                <th>Actor</th>
+                                <th>Comentarios</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="appController.closeAllModals()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Módulos de la Aplicación -->
+    <script src="./js/store.js"></script>
+    <script src="./js/drive.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/generator.js"></script>
+    <script src="./js/workflow.js"></script>
+    <script src="./js/importer.js"></script>
+    <script src="./js/app.js"></script>
+
+</body>
+</html>
