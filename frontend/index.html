@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión Documental | Secretaría de Educación de Caldas & Computadores para Educar</title>
+  <meta name="description" content="Plataforma de gestión, verificación, firma, revisión y aprobación de actas de entrega directa y Bolsa Tecnológica en el departamento de Caldas.">
+  
+  <!-- Tipografía moderna desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR INSTITUCIONAL -->
+  <div class="gov-banner">
+    <div>
+      🇨🇴 <strong>GOBERNACIÓN DE CALDAS</strong> — Secretaría de Educación Departamental | Proyecto Computadores para Educar
+    </div>
+    <div>
+      <a href="https://educacion.caldas.gov.co/" target="_blank" rel="noopener">Portal Secretaría de Educación ↗</a>
+    </div>
+  </div>
+
+  <!-- BARRA DEMO DE ACCESO RÁPIDO PARA EVALUACIÓN -->
+  <div class="demo-bar">
+    <div class="demo-title">
+      <span>⚡ DEMO RÁPIDO:</span>
+    </div>
+    <button class="demo-btn" onclick="quickLogin('admin', 'gcaldas2026*')">👑 Administrador</button>
+    <button class="demo-btn" onclick="quickLogin('coordinador_caldas', 'gcaldas2026*')">📋 Coordinador</button>
+    <button class="demo-btn" onclick="quickLogin('117013000306', '117013000306')">🏫 Rector (Aguadas)</button>
+    <button class="demo-btn" onclick="quickLogin('117088000255', '117088000255')">🏫 Rector (Belalcázar)</button>
+    <button class="demo-btn" onclick="quickLogin('1059812839', '1059812839')">👨‍👧 Acudiente (Estudiante 1)</button>
+  </div>
+
+  <!-- ENCABEZADO PRINCIPAL -->
+  <header class="header-main">
+    <div class="header-inner">
+      <div class="brand-wrapper">
+        <div class="brand-badge">📄</div>
+        <div class="brand-text">
+          <h1>Gestión Documental de Equipos Tecnológicos</h1>
+          <p>Secretaría de Educación de Caldas & Asociación Computadores para Educar</p>
+        </div>
+      </div>
+
+      <div id="user-header-nav" class="user-nav">
+        <!-- Rellenado dinámicamente por JavaScript -->
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL REACTIVO -->
+  <main class="main-container">
+    <div id="app-root">
+      <!-- Vistas renderizadas dinámicamente -->
+    </div>
+  </main>
+
+  <!-- MODAL GLOBAL PARA ACCIONES -->
+  <div id="global-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title" style="font-size: 1.15rem; font-weight: 700; color: var(--primary-dark);">Revisión Documental</h3>
+        <button class="btn btn-secondary btn-sm modal-close-btn" style="padding: 4px 8px;">✕</button>
+      </div>
+      <div id="modal-body-content" class="modal-body">
+        <!-- Contenido dinámico del modal -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-close-btn">Cancelar</button>
+        <button id="modal-submit-btn" class="btn btn-primary">Confirmar Acción</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA INSTITUCIONAL -->
+  <footer>
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px;">
+      <div>
+        <strong>Gobernación de Caldas — Secretaría de Educación Departamental</strong><br>
+        Edificio de la Gobernación, Calle 21 # 23-22, Manizales, Caldas | Teléfono: (606) 8982444
+      </div>
+      <div style="opacity: 0.8; font-size: 0.78rem;">
+        Carpeta Raíz Oficial en Google Drive: <code>1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51</code> | Despliegue previsto: <code>sedcaldas/computadoresparaeducar</code> en GitHub Pages
+      </div>
+      <div style="margin-top: 6px;">
+        <a href="https://educacion.caldas.gov.co/" target="_blank">Portal Educativo de Caldas</a> | 
+        <a href="https://www.computadoresparaeducar.gov.co/" target="_blank">Computadores para Educar</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
