@@ -5,6 +5,8 @@
  * Flujo de Estados según SKILLs.md:
  * Borrador → Generado → Pendiente de firma/carga → En revisión del rector →
  * Devuelto al acudiente → En revisión del coordinador → Devuelto al rector → Aprobado
+ * 
+ * REGLA FUNDAMENTAL: Los documentos que se carguen actualizan los documentos originales.
  */
 
 class ApprovalWorkflowEngine {
@@ -27,29 +29,31 @@ class ApprovalWorkflowEngine {
 
     /**
      * El acudiente sube el documento firmado (fuera de la aplicación).
-     * Pasa el documento al estado "En revisión del rector".
+     * Actualiza el documento original y pasa al estado "En revisión del rector".
      */
     async uploadSignedDocumentByAcudiente(documentoId, fileBlob, filename, comentarios = '') {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Acudiente', role: 'acudiente' };
         const newVersion = (doc.version_actual || 1) + 1;
 
-        // Actualizar documento
+        // Actualización estricta del documento original
         doc.version_actual = newVersion;
         doc.estado = this.ESTADOS.REVISION_RECTOR;
         doc.nombre_archivo = filename || `LOG-007-F_${doc.codigo_dane_sede}_${doc.estudiante_documento}_v0${newVersion}_firmado.pdf`;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
-        // Guardar blob en IndexedDB
+        // Guardar el blob como versión histórica y como archivo activo actual
         await store.saveBlob(`DOC-${doc.id}-v${newVersion}`, fileBlob, doc.nombre_archivo, fileBlob.type);
+        await store.saveBlob(`DOC-${doc.id}-active`, fileBlob, doc.nombre_archivo, fileBlob.type);
 
-        // Guardar versión y auditoría
+        // Guardar cambios en el documento original
         store.saveDocumento(doc, user.name, user.role, comentarios || 'Documento firmado cargado por el acudiente.');
 
-        // Subir a Google Drive
+        // Actualizar archivo en Google Drive
         await this._syncWithDrive(doc, fileBlob, 'Carga de documento firmado por acudiente');
 
         return doc;
@@ -65,13 +69,14 @@ class ApprovalWorkflowEngine {
     async approveLog007ByRector(documentoId, comentarios = '') {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
         if (doc.tipo_documento !== 'LOG-007-F') throw new Error('Esta acción solo aplica a LOG-007-F.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
 
         doc.estado = this.ESTADOS.REVISION_COORDINADOR;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         store.saveDocumento(doc, user.name, user.role, comentarios || 'Aprobado por el rector y remitido al coordinador.');
         return doc;
@@ -87,12 +92,13 @@ class ApprovalWorkflowEngine {
 
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
 
         doc.estado = this.ESTADOS.DEVUELTO_ACUDIENTE;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         const detalle = `Devuelto al acudiente. Motivo: ${motivo}. Observaciones: ${observaciones}`;
         store.saveDocumento(doc, user.name, user.role, detalle);
@@ -101,7 +107,7 @@ class ApprovalWorkflowEngine {
 
     /**
      * El rector carga LOG-007-F en nombre del acudiente cuando este no puede hacerlo.
-     * Registra el actor real y el motivo de representación según SKILLs.md.
+     * Actualiza el documento original y registra la justificación.
      */
     async uploadLog007OnBehalfOfAcudiente(documentoId, fileBlob, filename, motivoRepresentacion) {
         if (!motivoRepresentacion) {
@@ -110,7 +116,7 @@ class ApprovalWorkflowEngine {
 
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
         const newVersion = (doc.version_actual || 1) + 1;
@@ -119,8 +125,10 @@ class ApprovalWorkflowEngine {
         doc.estado = this.ESTADOS.REVISION_COORDINADOR;
         doc.nombre_archivo = filename || `LOG-007-F_${doc.codigo_dane_sede}_${doc.estudiante_documento}_v0${newVersion}_firmado.pdf`;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         await store.saveBlob(`DOC-${doc.id}-v${newVersion}`, fileBlob, doc.nombre_archivo, fileBlob.type);
+        await store.saveBlob(`DOC-${doc.id}-active`, fileBlob, doc.nombre_archivo, fileBlob.type);
 
         const detalle = `Cargado por el Rector en nombre del acudiente. Motivo: ${motivoRepresentacion}`;
         store.saveDocumento(doc, `${user.name} (en nombre del acudiente)`, user.role, detalle);
@@ -131,11 +139,12 @@ class ApprovalWorkflowEngine {
 
     /**
      * El rector remite LOG-026-F o LOG-029-F al coordinador tras completar la información.
+     * Actualiza el documento original si se adjunta un archivo editado.
      */
     async submitBolsaDocumentByRector(documentoId, fileBlob = null, filename = '', comentarios = '') {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
 
@@ -144,10 +153,12 @@ class ApprovalWorkflowEngine {
             doc.version_actual = newVersion;
             doc.nombre_archivo = filename || doc.nombre_archivo;
             await store.saveBlob(`DOC-${doc.id}-v${newVersion}`, fileBlob, doc.nombre_archivo, fileBlob.type);
+            await store.saveBlob(`DOC-${doc.id}-active`, fileBlob, doc.nombre_archivo, fileBlob.type);
         }
 
         doc.estado = this.ESTADOS.REVISION_COORDINADOR;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         const detalle = comentarios || `Remitido al coordinador para revisión y validación institucional.`;
         store.saveDocumento(doc, user.name, user.role, detalle);
@@ -168,18 +179,18 @@ class ApprovalWorkflowEngine {
     async approveDocumentByCoordinador(documentoId, comentarios = '') {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Coordinador', role: 'coordinador' };
 
         doc.estado = this.ESTADOS.APROBADO;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         const detalle = comentarios || 'Documento validado y aprobado formalmente por la Coordinación Departamental.';
         store.saveDocumento(doc, user.name, user.role, detalle);
 
-        // Si tenemos blob local, mover a la carpeta de Aprobados en Drive
-        const blobItem = await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
+        const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
         if (blobItem && blobItem.blob) {
             await this._syncWithDrive(doc, blobItem.blob, 'Aprobación formal');
         }
@@ -197,12 +208,13 @@ class ApprovalWorkflowEngine {
 
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Coordinador', role: 'coordinador' };
 
         doc.estado = this.ESTADOS.DEVUELTO_RECTOR;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         const detalle = `Devuelto al Rector. Motivo: ${motivo}. Observaciones: ${observaciones}`;
         store.saveDocumento(doc, user.name, user.role, detalle);
@@ -211,7 +223,7 @@ class ApprovalWorkflowEngine {
 
     /**
      * El coordinador carga un documento en nombre del rector cuando sea necesario.
-     * Registra actor real y motivo.
+     * Actualiza el documento original y registra trazabilidad.
      */
     async uploadDocumentOnBehalfOfRector(documentoId, fileBlob, filename, motivoRepresentacion) {
         if (!motivoRepresentacion) {
@@ -220,17 +232,19 @@ class ApprovalWorkflowEngine {
 
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
-        if (!doc) throw new Error('Documento no encontrado.');
+        if (!doc) throw new Error('Documento original no encontrado.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Coordinador', role: 'coordinador' };
         const newVersion = (doc.version_actual || 1) + 1;
 
         doc.version_actual = newVersion;
-        doc.estado = this.ESTADOS.APROBADO; // El coordinador puede cargar y dar por aprobado o dejar en revisión
+        doc.estado = this.ESTADOS.APROBADO;
         doc.nombre_archivo = filename || doc.nombre_archivo;
         doc.actor_ultima_accion = user.name;
+        doc.updated_at = new Date().toISOString();
 
         await store.saveBlob(`DOC-${doc.id}-v${newVersion}`, fileBlob, doc.nombre_archivo, fileBlob.type);
+        await store.saveBlob(`DOC-${doc.id}-active`, fileBlob, doc.nombre_archivo, fileBlob.type);
 
         const detalle = `Cargado y legalizado por Coordinación en nombre del Rector. Motivo: ${motivoRepresentacion}`;
         store.saveDocumento(doc, `${user.name} (en nombre del Rector)`, user.role, detalle);
@@ -268,7 +282,8 @@ class ApprovalWorkflowEngine {
                 filename: doc.nombre_archivo,
                 mimeType: blob.type || 'application/octet-stream',
                 blob: blob,
-                description: description
+                description: description,
+                existingFileId: doc.drive_id
             });
 
             doc.drive_id = uploadRes.id;

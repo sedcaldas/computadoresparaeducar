@@ -49,7 +49,7 @@ La interfaz del acudiente está diseñada para una **tarea principal por pantall
 ## 3. Guía para el Coordinador Departamental
 
 ### Revisión y Aprobación de Expedientes
-1. Ingrese con el perfil **Coordinador** y la clave institucional `gcaldas2026*` (o mediante Google OAuth).
+1. Ingrese con el perfil **Coordinador** utilizando su credencial institucional autorizada (o mediante Google OAuth).
 2. En la **Bandeja de Revisión**, consulte los documentos en trámite.
 3. Acciones disponibles por expediente:
    - **Descargar:** Obtiene el archivo vigente generado o firmado.

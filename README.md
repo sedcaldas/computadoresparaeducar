@@ -17,16 +17,16 @@ Cumpliendo rigurosamente con los requerimientos de `SKILLs.md`:
 2. **Google Drive:** Único almacenamiento remoto para plantillas oficiales, documentos generados, versiones e índices (`1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51`).
 3. **Google Identity Services (GIS):** Autenticación directa en navegador mediante OAuth 2.0 (Token Client) sin secretos de servidor.
 4. **Procesamiento Client-Side:** Generación de Word (.docx) y edición de Excel (.xlsx) ejecutada íntegramente en el navegador del usuario utilizando `JSZip` y `ExcelJS`.
-5. **Modo Híbrido / Simulación Local:** Permite pruebas inmediatas y funcionamiento offline mediante almacenamiento local e IndexedDB con datos oficiales precargados de 22 municipios, 59 sedes y 90 estudiantes beneficiarios de Caldas.
+5. **Almacenamiento Local y Caché:** Permite alta velocidad y funcionamiento offline mediante almacenamiento local e IndexedDB con datos oficiales precargados de 22 municipios, 59 sedes y 90 estudiantes beneficiarios de Caldas.
 
 ---
 
-## 👥 Perfiles y Credenciales Iniciales de Acceso
+## 👥 Perfiles y Credenciales Institucionales de Acceso
 
-| Perfil | Alcance | Credencial Auxiliar Inicial | Funcionalidad Principal |
+| Perfil | Alcance | Credencial de Acceso | Funcionalidad Principal |
 |---|---|---|---|
-| **Administrador** | Departamental | `gcaldas2026*` | Importación Excel versionada, gestión de seriales, CRUD y auditoría. |
-| **Coordinador** | Departamental | `gcaldas2026*` | Revisión, aprobación final, devoluciones y descarga masiva ZIP con manifiesto. |
+| **Administrador** | Departamental | Credencial Institucional Autorizada | Importación Excel versionada, gestión de seriales, CRUD y auditoría. |
+| **Coordinador** | Departamental | Credencial Institucional Autorizada | Revisión, aprobación final, devoluciones y descarga masiva ZIP con manifiesto. |
 | **Rector** | Institución Educativa | Código DANE de la Institución | Diligenciamiento de LOG-026/029 y aprobación de LOG-007 de sus sedes. |
 | **Acudiente** | Estudiante Beneficiario | Documento del Estudiante | Descarga en 1 clic de LOG-007-F y carga del formato firmado. |
 
@@ -37,7 +37,7 @@ Cumpliendo rigurosamente con los requerimientos de `SKILLs.md`:
 ### Opción 1: GitHub Pages (Producción)
 - **Repositorio:** `https://github.com/sedcaldas/computadoresparaeducar`
 - **URL Desplegada:** `https://sedcaldas.github.io/computadoresparaeducar/`
-- El flujo automatizado está configurado en `.github/workflows/pages.yml`.
+- Despliegue directo desde la rama principal (`main`).
 
 ### Opción 2: Ejecución Local
 Puede servirse con cualquier servidor estático HTTP local:

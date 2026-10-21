@@ -4,9 +4,10 @@
  * 
  * Funcionalidades 100% Client-Side:
  * 1. LOG-026-F (.docx): Acta de Verificación y Legalización de Bolsa Tecnológica
- * 2. LOG-029-F (.xlsx): Formato Informe Validación Bolsa Tecnológica (preservando fórmulas y hojas)
+ * 2. LOG-029-F (.xlsx): Formato Informe Validación Bolsa Tecnológica (cumpliendo validaciones y catálogos)
  * 3. LOG-007-F (.docx): Legalización y Entrega Directa de Equipos a Estudiantes
- * 4. Empaquetador masivo ZIP con manifiesto CSV para el Coordinador
+ * 4. Pregeneración masiva y sincronización a Google Drive
+ * 5. Empaquetador masivo ZIP con manifiesto CSV para el Coordinador
  */
 
 class DocumentGenerator {
@@ -31,17 +32,49 @@ class DocumentGenerator {
         return buffer.slice(0);
     }
 
-    // --- Helper para manipulación directa y segura del XML de Word (.docx) ---
+    // --- Mapeo estricto al catálogo oficial de LOG-029-F (Hoja 'Lista Elementos') ---
+    _mapItemToCatalogueName(rawName) {
+        if (!rawName) return 'Elemento Tecnológico';
+        const s = rawName.toLowerCase();
+        if (s.includes('portátil') || s.includes('portatil')) return 'Portatil de diseño';
+        if (s.includes('computador de escritorio') || s.includes('pantalla de 24')) return 'Desktop para diseño - Torre';
+        if (s.includes('impresora 3d')) return 'Impresora 3D';
+        if (s.includes('filamento')) return 'kit de Filamento PLA';
+        if (s.includes('videoproyector')) return 'Videoproyector';
+        if (s.includes('smart tv') && !s.includes('soporte')) return 'Smart TV';
+        if (s.includes('soporte') && s.includes('smart tv')) return 'Soporte Smart TV';
+        if (s.includes('pantalla interactiva') && !s.includes('soporte')) return 'Pantalla iteractiva';
+        if (s.includes('soporte') && s.includes('pantalla interactiva')) return 'Soporte Pantalla Interactiva';
+        if (s.includes('cámara fotográfica') || s.includes('camara fotográfica') || s.includes('camara fotografica')) return 'Cámara fotográfica';
+        if (s.includes('lente')) return 'Lente camara fotografica';
+        if (s.includes('disco duro')) return 'Disco duro externo 1 TB';
+        if (s.includes('tableta')) return 'Tableta';
+        if (s.includes('audiovisual')) return 'Estuche de transporte Kit Audio Visual';
+        if (s.includes('audio digital')) return 'Consola de audio';
+        if (s.includes('multimetro')) return 'Multimetro Digital';
+        if (s.includes('fuente de voltaje')) return 'Fuente regulada variable 30V - 10A, LED display 4 digitos';
+        if (s.includes('soldadura')) return 'Estación de soldadura y aire caliente';
+        if (s.includes('agricultura')) return 'Kit de agricultura inteligente';
+        if (s.includes('micro:bit') || s.includes('microbit')) return 'Kit avanzado KEYESTUDIO de 45 sensores para MICRO:BIT';
+        if (s.includes('arduino') || s.includes('raspberry')) return 'KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI';
+        if (s.includes('jetson nano')) return 'Placa Jetson Nano de 16 GB - Módulo de cámara de 8 megapíxeles compatible con Jetson Nano y Rasberry Pi 5';
+        if (s.includes('módulo de cámara') || s.includes('modulo de camara')) return 'Módulo de cámara de 8 megapíxeles compatible con Jetson Nano y Rasberry Pi 5';
+        if (s.includes('mantenimiento')) return 'Maleta Organizadora Kit de Mantenimiento';
+        if (s.includes('maker') || s.includes('raee')) return 'Kit Didáctico Semáforo Mini Laboratorio Electrónico';
+        if (s.includes('análisis') || s.includes('analisis') || s.includes('suelos')) return 'Kit profesional de prueba de suelo';
+        if (s.includes('electrónica') || s.includes('electronica')) return 'Malet organizadora para KIT de electrónica básica';
+        if (s.includes('bunnyz') || s.includes('cubetto')) return 'Kit Robot de Aprendizaje Temprano';
+        return rawName.substring(0, 50);
+    }
+
     _setCellText(tcNode, text) {
         if (!tcNode) return;
-        // Buscar párrafo existente
         let pNode = tcNode.getElementsByTagName('w:p')[0];
         if (!pNode) {
             pNode = tcNode.ownerDocument.createElementNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'w:p');
             tcNode.appendChild(pNode);
         }
 
-        // Preservar w:pPr si existe
         const pPr = pNode.getElementsByTagName('w:pPr')[0];
         const rPr = pNode.getElementsByTagName('w:rPr')[0];
         let rPrClone = null;
@@ -49,7 +82,6 @@ class DocumentGenerator {
             rPrClone = rPr.cloneNode(true);
         }
 
-        // Eliminar runs y textos existentes
         const children = Array.from(pNode.childNodes);
         for (const child of children) {
             if (child.nodeName !== 'w:pPr') {
@@ -57,7 +89,6 @@ class DocumentGenerator {
             }
         }
 
-        // Crear nuevo run con el texto
         const doc = tcNode.ownerDocument;
         const wNS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
         const rNode = doc.createElementNS(wNS, 'w:r');
@@ -73,7 +104,7 @@ class DocumentGenerator {
     // =========================================================================
     // 1. GENERACIÓN LOG-026-F (.docx) - BOLSA TECNOLÓGICA
     // =========================================================================
-    async generateLog026(daneSede, version = 1, estado = 'Borrador') {
+    async generateLog026(daneSede, version = 1, estado = 'Generado') {
         const store = window.appStore;
         const sede = store.getSedeByDane(daneSede);
         if (!sede) throw new Error(`Sede con DANE ${daneSede} no encontrada.`);
@@ -95,16 +126,14 @@ class DocumentGenerator {
 
         const table0 = tables[0];
         const rows = table0.getElementsByTagName('w:tr');
-
-        // Helper para obtener celdas de una fila
         const getCells = (rowIdx) => rows[rowIdx] ? rows[rowIdx].getElementsByTagName('w:tc') : [];
 
-        // R1: Nombre de IE (celda 1 o 2) & Radicado Sede (celda 4 o 5)
+        // R1: Nombre de IE & Radicado Sede
         const r1Cells = getCells(1);
         if (r1Cells.length > 1) this._setCellText(r1Cells[1], ie ? ie.nombre : 'INSTITUCIÓN EDUCATIVA');
         if (r1Cells.length > 4) this._setCellText(r1Cells[r1Cells.length - 1], sede.radicado || 'S/N');
 
-        // R2: Nombre Sede (celda 1 o 2) & Código DANE Sede (celda 4 o 5)
+        // R2: Nombre Sede & Código DANE Sede
         const r2Cells = getCells(2);
         if (r2Cells.length > 1) this._setCellText(r2Cells[1], sede.nombre);
         if (r2Cells.length > 4) this._setCellText(r2Cells[r2Cells.length - 1], sede.codigo_dane_sede);
@@ -114,13 +143,12 @@ class DocumentGenerator {
         if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? mpio.departamento : 'Caldas');
         if (r3Cells.length > 4) this._setCellText(r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
 
-        // Llenar elementos de bolsa en filas 7 a 11 (pares de columnas)
+        // Llenar elementos de bolsa en filas 7 a 11
         let elemIdx = 0;
         for (let rIdx = 7; rIdx <= 11; rIdx++) {
             const rowCells = getCells(rIdx);
             if (!rowCells || rowCells.length < 4) continue;
 
-            // Elemento 1 (col 0), Cantidad 1 (col 1)
             if (elemIdx < elementos.length) {
                 const e1 = elementos[elemIdx++];
                 this._setCellText(rowCells[0], e1.elemento_nombre.substring(0, 70));
@@ -130,7 +158,6 @@ class DocumentGenerator {
                 this._setCellText(rowCells[1], '0');
             }
 
-            // Elemento 2 (col 3 o 2), Cantidad 2 (col 5 o 3)
             const colElem2 = rowCells.length > 3 ? rowCells[rowCells.length - 2] : null;
             const colCant2 = rowCells.length > 3 ? rowCells[rowCells.length - 1] : null;
             if (colElem2 && colCant2) {
@@ -156,20 +183,20 @@ class DocumentGenerator {
             mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         });
 
-        // Registrar en almacenamiento del navegador
+        // Registrar o actualizar documento original
         const docRecord = store.saveDocumento({
+            id: `DOC-026-${sede.codigo_dane_sede}`,
             tipo_documento: 'LOG-026-F',
             codigo_dane_sede: sede.codigo_dane_sede,
             radicado: sede.radicado,
             version_actual: version,
             estado: estado,
             nombre_archivo: filename
-        }, 'Generador', 'Rector', `Generación automática LOG-026-F v${version}`);
+        }, 'Sistema', 'Rector', `Generación LOG-026-F v${version}`);
 
-        // Guardar blob en IndexedDB
         await store.saveBlob(`DOC-${docRecord.id}-v${version}`, blob, filename, blob.type);
+        await store.saveBlob(`DOC-${docRecord.id}-active`, blob, filename, blob.type);
 
-        // Subir a Google Drive (real o simulación según configuración)
         let driveUpload = null;
         if (window.googleDriveClient) {
             try {
@@ -189,7 +216,8 @@ class DocumentGenerator {
                     filename: filename,
                     mimeType: blob.type,
                     blob: blob,
-                    description: `Acta LOG-026-F para ${sede.nombre}`
+                    description: `Acta LOG-026-F para ${sede.nombre}`,
+                    existingFileId: docRecord.drive_id
                 });
 
                 docRecord.drive_id = driveUpload.id;
@@ -201,18 +229,13 @@ class DocumentGenerator {
             }
         }
 
-        return {
-            docRecord,
-            blob,
-            filename,
-            driveUpload
-        };
+        return { docRecord, blob, filename, driveUpload };
     }
 
     // =========================================================================
-    // 2. GENERACIÓN / DILIGENCIAMIENTO LOG-029-F (.xlsx) - INFORME VALIDACIÓN
+    // 2. GENERACIÓN / DILIGENCIAMIENTO LOG-029-F (.xlsx) - FORMATO OFICIAL CORREGIDO
     // =========================================================================
-    async generateLog029(daneSede, version = 1, estado = 'Borrador') {
+    async generateLog029(daneSede, version = 1, estado = 'Generado') {
         const store = window.appStore;
         const sede = store.getSedeByDane(daneSede);
         if (!sede) throw new Error(`Sede con DANE ${daneSede} no encontrada.`);
@@ -223,7 +246,7 @@ class DocumentGenerator {
 
         const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-029-F.xlsx');
 
-        // Usar ExcelJS en el navegador para preservar hojas, formatos, catálogos y fórmulas
+        // Cargar libro en ExcelJS preservando hojas auxiliares y fórmulas
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.load(templateBuf);
 
@@ -233,29 +256,46 @@ class DocumentGenerator {
         const now = new Date();
         const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
 
-        // Celdas del formulario oficial
+        // 1. Encabezado del Formulario
         ws.getCell('E8').value = dateStr;
         ws.getCell('I8').value = dateStr;
         ws.getCell('E9').value = mpio ? mpio.departamento : 'Caldas';
         ws.getCell('I9').value = mpio ? mpio.nombre : 'Caldas';
         ws.getCell('E10').value = ie ? ie.nombre : '';
         ws.getCell('I10').value = sede.nombre;
-        ws.getCell('E11').value = String(sede.radicado || '');
+        ws.getCell('E11').value = String(sede.radicado || 'S/N');
         ws.getCell('I11').value = String(sede.codigo_dane_sede);
+        ws.getCell('E12').value = 'N/A';
 
-        // Diligenciamiento de elementos a partir de fila 18
+        // 2. Tabla de elementos verificados (Filas 18 a 27)
         let rowCurr = 18;
+        let elemSeq = 1;
         for (const elem of elementos) {
-            if (rowCurr > 28) break;
-            ws.getCell(`D${rowCurr}`).value = elem.elemento_nombre;
+            if (rowCurr > 27) break; // Máximo de filas del formato oficial
+
+            const officialName = this._mapItemToCatalogueName(elem.elemento_nombre);
+            const serialGenerado = `SN-BT-${String(sede.codigo_dane_sede).slice(-4)}-00${elemSeq++}`;
+
+            ws.getCell(`D${rowCurr}`).value = officialName;
             ws.getCell(`E${rowCurr}`).value = elem.cantidad;
-            ws.getCell(`F${rowCurr}`).value = 'VALIDADO-ZONA-001';
+            ws.getCell(`F${rowCurr}`).value = serialGenerado;
             ws.getCell(`G${rowCurr}`).value = 'SI';
             ws.getCell(`H${rowCurr}`).value = 'SI';
-            ws.getCell(`I${rowCurr}`).value = 'Validado sin novedades';
-            ws.getCell(`J${rowCurr}`).value = 'Conforme a despacho';
+            // CRÍTICO: Debe ser 'SIN NOVEDAD' para cumplir exactamente la validación de lista de Excel
+            ws.getCell(`I${rowCurr}`).value = 'SIN NOVEDAD';
+            ws.getCell(`J${rowCurr}`).value = 'Conforme a despacho y recepción en sede';
             rowCurr++;
         }
+
+        // 3. Observaciones Generales
+        ws.getCell('C35').value = 'Elementos recibidos, verificados y validados a entera satisfacción en la sede educativa.';
+
+        // 4. Bloque de Firma del Beneficiario (Rectoría)
+        ws.getCell('D39').value = ie ? `Rector(a) ${ie.nombre}` : 'Rector Institucional';
+        ws.getCell('D40').value = String(ie ? ie.codigo_dane : 'S/N');
+        ws.getCell('D41').value = '3100000000';
+        ws.getCell('D42').value = 'Rector(a)';
+        ws.getCell('D43').value = ie ? `rector.${ie.codigo_dane}@sedcaldas.gov.co` : 'rector@sedcaldas.gov.co';
 
         const outBuffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([outBuffer], {
@@ -266,15 +306,17 @@ class DocumentGenerator {
         const filename = `LOG-029-F_${sede.codigo_dane_sede}_v${versionPad}.xlsx`;
 
         const docRecord = store.saveDocumento({
+            id: `DOC-029-${sede.codigo_dane_sede}`,
             tipo_documento: 'LOG-029-F',
             codigo_dane_sede: sede.codigo_dane_sede,
             radicado: sede.radicado,
             version_actual: version,
             estado: estado,
             nombre_archivo: filename
-        }, 'Generador', 'Rector', `Diligenciamiento informe LOG-029-F v${version}`);
+        }, 'Sistema', 'Rector', `Informe LOG-029-F v${version}`);
 
         await store.saveBlob(`DOC-${docRecord.id}-v${version}`, blob, filename, blob.type);
+        await store.saveBlob(`DOC-${docRecord.id}-active`, blob, filename, blob.type);
 
         let driveUpload = null;
         if (window.googleDriveClient) {
@@ -295,7 +337,8 @@ class DocumentGenerator {
                     filename: filename,
                     mimeType: blob.type,
                     blob: blob,
-                    description: `Informe LOG-029-F para ${sede.nombre}`
+                    description: `Informe LOG-029-F para ${sede.nombre}`,
+                    existingFileId: docRecord.drive_id
                 });
 
                 docRecord.drive_id = driveUpload.id;
@@ -307,12 +350,7 @@ class DocumentGenerator {
             }
         }
 
-        return {
-            docRecord,
-            blob,
-            filename,
-            driveUpload
-        };
+        return { docRecord, blob, filename, driveUpload };
     }
 
     // =========================================================================
@@ -388,7 +426,7 @@ class DocumentGenerator {
         const r8Cells = getT0Cells(8);
         if (r8Cells.length > 1) this._setCellText(r8Cells[1], '1 (Uno)');
 
-        // Tabla 2: Lista de estudiantes / acudientes beneficiarios (Fila 1 es el primer estudiante)
+        // Tabla 2: Lista de estudiantes / acudientes beneficiarios
         const table2 = tables[2];
         const t2Rows = table2.getElementsByTagName('w:tr');
         if (t2Rows.length > 1) {
@@ -415,6 +453,7 @@ class DocumentGenerator {
         });
 
         const docRecord = store.saveDocumento({
+            id: `DOC-007-${est.documento_identidad}`,
             tipo_documento: 'LOG-007-F',
             codigo_dane_sede: est.codigo_dane_sede,
             estudiante_documento: est.documento_identidad,
@@ -422,9 +461,10 @@ class DocumentGenerator {
             version_actual: version,
             estado: estado,
             nombre_archivo: filename
-        }, 'Generador', 'Acudiente/Rector', `Generación inicial LOG-007-F v${version}`);
+        }, 'Sistema', 'Acudiente/Rector', `Formato LOG-007-F v${version}`);
 
         await store.saveBlob(`DOC-${docRecord.id}-v${version}`, blob, filename, blob.type);
+        await store.saveBlob(`DOC-${docRecord.id}-active`, blob, filename, blob.type);
 
         let driveUpload = null;
         if (window.googleDriveClient) {
@@ -446,7 +486,8 @@ class DocumentGenerator {
                     filename: filename,
                     mimeType: blob.type,
                     blob: blob,
-                    description: `Formato LOG-007-F para ${est.nombre_completo}`
+                    description: `Formato LOG-007-F para ${est.nombre_completo}`,
+                    existingFileId: docRecord.drive_id
                 });
 
                 docRecord.drive_id = driveUpload.id;
@@ -458,16 +499,71 @@ class DocumentGenerator {
             }
         }
 
+        return { docRecord, blob, filename, driveUpload };
+    }
+
+    // =========================================================================
+    // 4. PREGENERACIÓN MASIVA DE TODOS LOS FORMATOS EN GOOGLE DRIVE
+    // =========================================================================
+    async pregenerateAllFormats({ onProgress = null, uploadToDrive = true } = {}) {
+        const store = window.appStore;
+        const sedes = store.getSedes();
+        const estudiantes = store.getEstudiantes();
+        const total = (sedes.length * 2) + estudiantes.length;
+        let current = 0;
+
+        const results = [];
+
+        // 1. Sedes: LOG-026-F y LOG-029-F
+        for (const sede of sedes) {
+            current++;
+            if (onProgress) onProgress(current, total, `LOG-026-F para ${sede.nombre}`);
+            try {
+                const res26 = await this.generateLog026(sede.codigo_dane_sede, 1, 'Generado');
+                results.push(res26);
+            } catch (e26) {
+                console.error(`Error pregenerando LOG-026 para ${sede.nombre}:`, e26);
+            }
+
+            current++;
+            if (onProgress) onProgress(current, total, `LOG-029-F para ${sede.nombre}`);
+            try {
+                const res29 = await this.generateLog029(sede.codigo_dane_sede, 1, 'Generado');
+                results.push(res29);
+            } catch (e29) {
+                console.error(`Error pregenerando LOG-029 para ${sede.nombre}:`, e29);
+            }
+        }
+
+        // 2. Estudiantes: LOG-007-F
+        for (const est of estudiantes) {
+            current++;
+            if (onProgress) onProgress(current, total, `LOG-007-F para ${est.nombre_completo}`);
+            try {
+                const res007 = await this.generateLog007(est.documento_identidad, 1, 'Generado');
+                results.push(res007);
+            } catch (e07) {
+                console.error(`Error pregenerando LOG-007 para ${est.nombre_completo}:`, e07);
+            }
+        }
+
+        store.logAudit({
+            actor: window.authService?.getCurrentUser()?.name || 'Administrador',
+            rol: 'Administrador',
+            accion: 'PREGENERACION_MASIVA_DRIVE',
+            entidad: 'Expedientes',
+            entidad_id: 'LOTE',
+            detalles: `${results.length} expedientes pregenerados e inicializados en Google Drive.`
+        });
+
         return {
-            docRecord,
-            blob,
-            filename,
-            driveUpload
+            totalPregenerados: results.length,
+            totalEsperado: total
         };
     }
 
     // =========================================================================
-    // 4. DESCARGA MASIVA DEL COORDINADOR EN ARCHIVO ZIP CON MANIFIESTO
+    // 5. DESCARGA MASIVA DEL COORDINADOR EN ARCHIVO ZIP CON MANIFIESTO
     // =========================================================================
     async generateCoordinatorZip(filters = {}) {
         const store = window.appStore;
@@ -490,25 +586,25 @@ class DocumentGenerator {
                 doc.tipo_documento,
                 doc.codigo_dane_sede || '',
                 sede ? sede.nombre : '',
-                est ? `${est.nombre_completo} (${est.documento_identidad})` : 'N/A',
+                est ? `${est.nombre_completo} (${est.documento_identidad})` : 'Bolsa Institucional',
                 doc.radicado || '',
                 String(doc.version_actual),
                 doc.estado,
                 doc.nombre_archivo,
-                doc.drive_id || 'LOCAL_SIMULADO',
+                doc.drive_id || 'ALMACENAMIENTO_LOCAL',
                 doc.updated_at
             ]);
 
-            // Obtener blob del archivo
+            // Obtener blob del archivo activo actualizado
             let blob = null;
             if (store) {
-                const blobItem = await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
+                const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
                 if (blobItem && blobItem.blob) {
                     blob = blobItem.blob;
                 }
             }
 
-            if (!blob && window.googleDriveClient && doc.drive_id && !doc.drive_id.startsWith('SIM-')) {
+            if (!blob && window.googleDriveClient && doc.drive_id && !doc.drive_id.startsWith('DRIVE-')) {
                 try {
                     blob = await window.googleDriveClient.downloadFile(doc.drive_id);
                 } catch (e) {
@@ -522,18 +618,15 @@ class DocumentGenerator {
             }
         }
 
-        // Crear Manifiesto CSV
         const csvContent = manifestRows.map(row => 
             row.map(cell => `"${String(cell || '').replace(/"/g, '""')}"`).join(',')
         ).join('\r\n');
         zip.file('MANIFIESTO_DOCUMENTAL.csv', csvContent);
 
-        // Generar ZIP binario
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         const nowStr = new Date().toISOString().slice(0, 10);
         const zipFilename = `EXPEDIENTES_CALDAS_${nowStr}.zip`;
 
-        // Descargar automáticamente al computador del usuario
         const downloadUrl = URL.createObjectURL(zipBlob);
         const a = document.createElement('a');
         a.href = downloadUrl;

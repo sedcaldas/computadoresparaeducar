@@ -24,11 +24,11 @@ class AppStore {
             versiones: [],
             historial_auditoria: [],
             config: {
-                google_client_id: '',
+                google_client_id: '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com',
                 drive_root_folder_id: '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51',
                 root_folder_name: 'Bolsa_Tecnologica_Caldas',
                 scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive',
-                modo_simulacion: true
+                drive_sync: true
             }
         };
 
@@ -58,7 +58,7 @@ class AppStore {
 
     // --- IndexedDB para almacenar blobs (archivos generados y firmados) ---
     async _initIndexedDB() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const request = indexedDB.open(this.dbName, this.dbVersion);
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
@@ -118,6 +118,10 @@ class AppStore {
             try {
                 const parsed = JSON.parse(saved);
                 this.state = Object.assign(this.state, parsed);
+                // Si faltaban los documentos pregenerados, cargarlos
+                if (!this.state.documentos || this.state.documentos.length === 0) {
+                    await this.loadSeedData();
+                }
                 return;
             } catch (e) {
                 console.error('Error parseando datos guardados en LocalStorage:', e);
@@ -141,7 +145,8 @@ class AppStore {
             if (seed.config) {
                 this.state.config = Object.assign(this.state.config, seed.config);
             }
-            this.state.documentos = [];
+            // Cargar los 208 formatos pregenerados
+            this.state.documentos = seed.documentos_pregenerados || [];
             this.state.versiones = [];
             this.state.historial_auditoria = [];
 
@@ -152,7 +157,7 @@ class AppStore {
                 accion: 'INICIALIZACION_DATOS',
                 entidad: 'Sistema',
                 entidad_id: 'SEED',
-                detalles: `Base cargada: ${this.state.sedes.length} sedes, ${this.state.estudiantes.length} estudiantes beneficiarios.`
+                detalles: `Base cargada: ${this.state.sedes.length} sedes, ${this.state.estudiantes.length} estudiantes, ${this.state.documentos.length} formatos pregenerados.`
             });
 
             this.persist();
@@ -206,14 +211,18 @@ class AppStore {
         return this.state.historial_auditoria.slice(0, limit);
     }
 
-    // --- Consultas del Modelo de Datos ---
+    // --- Consultas del Modelo de Datos (Instituciones en orden ascendente y filtrables) ---
     getMunicipios() {
-        return this.state.municipios;
+        return this.state.municipios.slice().sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
     }
 
     getInstituciones(codigoMunicipio = null) {
-        if (!codigoMunicipio) return this.state.instituciones;
-        return this.state.instituciones.filter(i => String(i.codigo_municipio) === String(codigoMunicipio));
+        let list = this.state.instituciones;
+        if (codigoMunicipio && String(codigoMunicipio).trim() !== '') {
+            list = list.filter(i => String(i.codigo_municipio) === String(codigoMunicipio));
+        }
+        // Siempre en orden ascendente por nombre
+        return list.slice().sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
     }
 
     getInstitucionByDane(dane) {
@@ -221,8 +230,11 @@ class AppStore {
     }
 
     getSedes(daneIE = null) {
-        if (!daneIE) return this.state.sedes;
-        return this.state.sedes.filter(s => String(s.codigo_dane_ie) === String(daneIE));
+        let list = this.state.sedes;
+        if (daneIE) {
+            list = list.filter(s => String(s.codigo_dane_ie) === String(daneIE));
+        }
+        return list.slice().sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
     }
 
     getSedeByDane(daneSede) {
@@ -234,8 +246,11 @@ class AppStore {
     }
 
     getEstudiantes(daneSede = null) {
-        if (!daneSede) return this.state.estudiantes;
-        return this.state.estudiantes.filter(e => String(e.codigo_dane_sede) === String(daneSede));
+        let list = this.state.estudiantes;
+        if (daneSede) {
+            list = list.filter(e => String(e.codigo_dane_sede) === String(daneSede));
+        }
+        return list.slice().sort((a, b) => a.nombre_completo.localeCompare(b.nombre_completo, 'es', { sensitivity: 'base' }));
     }
 
     getEstudianteByDoc(doc) {
@@ -246,7 +261,7 @@ class AppStore {
         return this.state.asignaciones.find(a => String(a.estudiante_documento) === String(doc));
     }
 
-    // --- Documentos y Versiones ---
+    // --- Documentos y Versiones (Actualización de documentos originales) ---
     getDocumentos(filter = {}) {
         return this.state.documentos.filter(doc => {
             if (filter.tipo_documento && doc.tipo_documento !== filter.tipo_documento) return false;
@@ -285,6 +300,9 @@ class AppStore {
         });
     }
 
+    /**
+     * Guarda o actualiza un documento garantizando que los archivos cargados actualizan los originales.
+     */
     saveDocumento(docData, actor = 'Usuario', rol = 'Coordinador', comentario = '') {
         let existingIndex = this.state.documentos.findIndex(d => String(d.id) === String(docData.id));
         if (existingIndex < 0 && docData.tipo_documento) {
@@ -299,9 +317,12 @@ class AppStore {
         let docRecord;
 
         if (existingIndex >= 0) {
-            // Actualización
+            // Actualización del documento original existente
             const prev = this.state.documentos[existingIndex];
-            docRecord = Object.assign({}, prev, docData, { updated_at: now });
+            docRecord = Object.assign({}, prev, docData, { 
+                updated_at: now,
+                actor_ultima_accion: actor
+            });
             this.state.documentos[existingIndex] = docRecord;
         } else {
             // Creación
@@ -310,12 +331,13 @@ class AppStore {
                 created_at: now,
                 updated_at: now,
                 version_actual: 1,
-                estado: 'Borrador'
+                estado: 'Generado',
+                actor_ultima_accion: actor
             }, docData);
             this.state.documentos.push(docRecord);
         }
 
-        // Registrar versión
+        // Registrar versión en el historial
         const versionEntry = {
             id: 'VER-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
             documento_id: docRecord.id,
@@ -324,7 +346,7 @@ class AppStore {
             actor,
             rol,
             fecha: now,
-            comentarios: comentario || `Cambio de estado a ${docRecord.estado}`,
+            comentarios: comentario || `Actualización a ${docRecord.estado}`,
             drive_id: docRecord.drive_id || null,
             filename: docRecord.nombre_archivo || `${docRecord.tipo_documento}_v${docRecord.version_actual}`
         };
@@ -334,10 +356,10 @@ class AppStore {
         this.logAudit({
             actor,
             rol,
-            accion: 'DOCUMENTO_GUARDADO',
+            accion: 'DOCUMENTO_ACTUALIZADO',
             entidad: docRecord.tipo_documento,
             entidad_id: docRecord.id,
-            detalles: `Documento ${docRecord.nombre_archivo || docRecord.tipo_documento} en estado "${docRecord.estado}". ${comentario}`,
+            detalles: `Documento ${docRecord.nombre_archivo} actualizado a estado "${docRecord.estado}". ${comentario}`,
             version: docRecord.version_actual
         });
 

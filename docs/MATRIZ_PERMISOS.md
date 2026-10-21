@@ -2,10 +2,10 @@
 
 ## 1. Perfiles Institucionales y Acciones en la Aplicación
 
-| Perfil | Alcance | Credencial Auxiliar Inicial | Acciones Permitidas |
+| Perfil | Alcance | Credencial de Acceso | Acciones Permitidas |
 |---|---|---|---|
-| **Administrador** | Nivel Departamental Completo | `gcaldas2026*` | - Importar archivos Excel versionados.<br>- Actualización masiva de seriales.<br>- CRUD de municipios, sedes, estudiantes y usuarios.<br>- Configurar Google Drive y sincronizar índices.<br>- Consultar bitácora completa de auditoría. |
-| **Coordinador** | Nivel Departamental Completo | `gcaldas2026*` | - Revisar formatos LOG-007-F, LOG-026-F y LOG-029-F.<br>- Aprobar formalmente expedientes.<br>- Devolver expedientes al Rector con observaciones obligatorias.<br>- Cargar documentos en nombre del Rector (con justificación).<br>- Descargar paquetes masivos ZIP con manifiesto CSV. |
+| **Administrador** | Nivel Departamental Completo | Credencial Institucional Autorizada | - Importar archivos Excel versionados.<br>- Actualización masiva de seriales.<br>- CRUD de municipios, sedes, estudiantes y usuarios.<br>- Configurar Google Drive y sincronizar índices.<br>- Consultar bitácora completa de auditoría. |
+| **Coordinador** | Nivel Departamental Completo | Credencial Institucional Autorizada | - Revisar formatos LOG-007-F, LOG-026-F y LOG-029-F.<br>- Aprobar formalmente expedientes.<br>- Devolver expedientes al Rector con observaciones obligatorias.<br>- Cargar documentos en nombre del Rector (con justificación).<br>- Descargar paquetes masivos ZIP con manifiesto CSV. |
 | **Rector** | Institución Educativa y sus Sedes | Código DANE de la Institución | - Generar y diligenciar LOG-026-F y LOG-029-F por sede.<br>- Remitir formatos de bolsa al Coordinador.<br>- Generar LOG-007-F para estudiantes de sus sedes.<br>- Aprobar o devolver LOG-007-F al acudiente.<br>- Cargar LOG-007-F en nombre del acudiente (con justificación). |
 | **Acudiente** | Estudiante Beneficiario Específico | Documento del Estudiante | - Descargar formato LOG-007-F prellenado.<br>- Firmar formato físico o digital.<br>- Cargar formato firmado a revisión.<br>- Consultar estado simplificado del trámite. |
 

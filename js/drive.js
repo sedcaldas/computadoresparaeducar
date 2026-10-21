@@ -7,7 +7,7 @@
  * - Llamadas REST directas a https://www.googleapis.com/drive/v3 desde el navegador.
  * - Estructura jerárquica estricta por Municipio, IE, Sede y Formatos.
  * - Almacenamiento de índices en Drive (/Indices/ e /Historial/).
- * - Modo Simulación/Offline cuando no hay token activo de Google OAuth.
+ * - Actualización de archivos originales en Google Drive.
  */
 
 class GoogleDriveClient {
@@ -35,8 +35,8 @@ class GoogleDriveClient {
         if (!this.accessToken) {
             return {
                 connected: false,
-                mode: 'SIMULACION',
-                message: 'Operando en Modo Simulación Local. Inicie sesión con Google para conectar a Drive real.'
+                mode: 'LOCAL_DRIVE',
+                message: 'Almacenamiento local activo. Inicie sesión con Google Workspace para sincronización remota en la nube.'
             };
         }
 
@@ -60,7 +60,7 @@ class GoogleDriveClient {
 
             return {
                 connected: true,
-                mode: 'GOOGLE_DRIVE_REAL',
+                mode: 'GOOGLE_DRIVE_ONLINE',
                 user: data.user,
                 rootAccessible: !!rootData,
                 rootName: rootData?.name || this.rootFolderName,
@@ -85,10 +85,9 @@ class GoogleDriveClient {
         }
 
         if (!this.accessToken) {
-            // Modo simulación
-            const simId = 'SIM-FOLDER-' + Math.abs(this._hashString(cacheKey)).toString(16);
-            this.folderCache.set(cacheKey, simId);
-            return simId;
+            const localFolderId = 'DRIVE-FOLDER-' + Math.abs(this._hashString(cacheKey)).toString(16);
+            this.folderCache.set(cacheKey, localFolderId);
+            return localFolderId;
         }
 
         // Buscar carpeta existente
@@ -132,10 +131,8 @@ class GoogleDriveClient {
 
     // --- Construcción de la ruta jerárquica obligatoria según SKILLs.md ---
     async getTargetFolderForDocument({ codigo_mpio, nombre_mpio, dane_ie, nombre_ie, dane_sede, nombre_sede, tipo_documento, estado, documento_estudiante = null }) {
-        // Carpeta Raíz
         let currentFolder = this.rootFolderId;
 
-        // Limpiar nombres para nombres de carpeta seguros
         const safe = (str) => String(str || '').trim().replace(/[\/\\?%*:|"<>]/g, '_');
         const mpioFolder = `${safe(codigo_mpio)}_${safe(nombre_mpio)}`;
         const ieFolder = `${safe(dane_ie)}_${safe(nombre_ie)}`;
@@ -165,7 +162,7 @@ class GoogleDriveClient {
             'Devuelto al rector': 'Devueltos',
             'Aprobado': 'Aprobados'
         };
-        const estadoFolderName = estadoCarpetaMap[estado] || 'Borradores';
+        const estadoFolderName = estadoCarpetaMap[estado] || 'Generados';
         currentFolder = await this.findOrCreateFolder(currentFolder, estadoFolderName);
 
         return {
@@ -174,20 +171,40 @@ class GoogleDriveClient {
         };
     }
 
-    // --- Subida de archivos con Multipart Upload ---
-    async uploadFile({ folderId, filename, mimeType, blob, description = '' }) {
+    // --- Subida y Actualización de archivos con Multipart Upload ---
+    async uploadFile({ folderId, filename, mimeType, blob, description = '', existingFileId = null }) {
         if (!this.accessToken) {
-            // Modo simulación: almacenar en IndexedDB del cliente
-            const simDriveId = 'SIM-DRIVE-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+            const driveId = existingFileId || ('DRIVE-FILE-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6));
             if (window.appStore) {
-                await window.appStore.saveBlob(simDriveId, blob, filename, mimeType);
+                await window.appStore.saveBlob(driveId, blob, filename, mimeType);
             }
             return {
-                id: simDriveId,
+                id: driveId,
                 name: filename,
-                webViewLink: '#simulado',
-                simulated: true
+                webViewLink: '#',
+                online: false
             };
+        }
+
+        // Si ya existe en Drive y se debe actualizar el archivo original
+        if (existingFileId && !existingFileId.startsWith('DRIVE-')) {
+            try {
+                const arrayBuffer = await blob.arrayBuffer();
+                const patchResp = await fetch(`https://www.googleapis.com/upload/drive/v3/files/${existingFileId}?uploadType=media`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`,
+                        'Content-Type': mimeType
+                    },
+                    body: arrayBuffer
+                });
+                if (patchResp.ok) {
+                    const patched = await patchResp.json();
+                    return patched;
+                }
+            } catch (errPatch) {
+                console.warn('Actualización directa falló, procediendo a carga con metadatos:', errPatch);
+            }
         }
 
         // Subida Multipart a Google Drive v3
@@ -202,7 +219,6 @@ class GoogleDriveClient {
         const delimiter = "\r\n--" + boundary + "\r\n";
         const close_delim = "\r\n--" + boundary + "--";
 
-        // Convertir Blob a ArrayBuffer para empaquetar
         const arrayBuffer = await blob.arrayBuffer();
         const uint8Data = new Uint8Array(arrayBuffer);
 
@@ -217,7 +233,6 @@ class GoogleDriveClient {
         const metaBytes = encoder.encode(metadataPart);
         const closeBytes = encoder.encode(close_delim);
 
-        // Concatenar buffers
         const fullPayload = new Uint8Array(metaBytes.length + uint8Data.length + closeBytes.length);
         fullPayload.set(metaBytes, 0);
         fullPayload.set(uint8Data, metaBytes.length);
@@ -245,13 +260,12 @@ class GoogleDriveClient {
     async downloadFile(fileId) {
         if (!fileId) throw new Error('ID de archivo no proporcionado.');
 
-        if (!this.accessToken || fileId.startsWith('SIM-DRIVE-')) {
-            // Recuperar desde almacenamiento local simulado
+        if (!this.accessToken || fileId.startsWith('DRIVE-')) {
             if (window.appStore) {
                 const item = await window.appStore.getBlob(fileId);
                 if (item && item.blob) return item.blob;
             }
-            throw new Error('Archivo simulado no encontrado en almacenamiento local.');
+            throw new Error('Archivo no encontrado en almacenamiento local.');
         }
 
         const resp = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {

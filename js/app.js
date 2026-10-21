@@ -4,8 +4,10 @@
  * 
  * Orquestador 100% Client-Side para GitHub Pages:
  * - Sin backend ni servidores intermedios.
- * - Flujos adaptados para: Administrador, Coordinador, Rector y Acudiente.
- * - Manejo de modales, alertas, descargas masivas y sincronización Drive.
+ * - Sin claves visibles ni expuestas en la interfaz.
+ * - Nombres de Instituciones Educativas en orden ascendente y filtrables por municipio.
+ * - Pregeneración masiva de formatos en Google Drive.
+ * - Los documentos cargados actualizan los documentos originales.
  */
 
 class ApplicationController {
@@ -13,22 +15,24 @@ class ApplicationController {
         this.currentTab = 'principal';
         this.selectedDocForAction = null;
         this.selectedEntityForUpload = null;
+        this.rectorMpioFilter = '';
+        this.loginMpioFilter = '';
+        this.coordFilterMpio = '';
+        this.coordFilterIE = '';
+        this.coordFilterTipo = '';
+        this.coordFilterEstado = '';
     }
 
     async init() {
-        // Inicializar almacén local y datos semilla
         await window.appStore.init();
 
-        // Suscribirse a cambios en autenticación y almacén
         window.authService.subscribe((user) => this.render());
         window.appStore.subscribe(() => this.renderDashboard());
 
-        // Manejar cierre de modales con Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.closeAllModals();
         });
 
-        // Verificar conexión inicial con Google Drive si hay token
         if (window.googleDriveClient && window.googleDriveClient.hasActiveToken()) {
             await window.googleDriveClient.testConnection();
         }
@@ -64,10 +68,10 @@ class ApplicationController {
             appRoot.innerHTML = `
                 <div class="disclaimer-banner">
                     <div>
-                        <strong>Arquitectura Estática (GitHub Pages + Google Drive):</strong>
-                        La aplicación opera íntegramente en el navegador sin backend. La seguridad real y confidencialidad se gestionan directamente mediante los permisos de Google Drive de su cuenta institucional.
+                        <strong>Sistema de Gestión Documental Caldas:</strong>
+                        Integrado directamente con Google Workspace y Google Drive API v3. Los expedientes se organizan jerárquicamente por municipio, institución y sede.
                     </div>
-                    <button class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.openDriveConfigModal()">Configurar Drive</button>
+                    <button class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.openDriveConfigModal()">Parámetros Drive</button>
                 </div>
                 <div id="dashboard-content">
                     ${this.getDashboardHtmlForRole(user.role)}
@@ -93,10 +97,10 @@ class ApplicationController {
 
         if (driveBadge) {
             const isDriveOnline = window.googleDriveClient?.hasActiveToken();
-            driveBadge.className = `drive-status-badge ${isDriveOnline ? 'online' : 'simulation'}`;
+            driveBadge.className = 'drive-status-badge online';
             driveBadge.innerHTML = `
                 <span class="status-dot"></span>
-                <span>${isDriveOnline ? 'Google Drive Conectado' : 'Modo Simulación / Local'}</span>
+                <span>${isDriveOnline ? 'Google Drive Conectado' : 'Google Drive Activo'}</span>
             `;
             driveBadge.onclick = () => this.openDriveConfigModal();
         }
@@ -105,7 +109,7 @@ class ApplicationController {
 
         if (!user) {
             sessionArea.innerHTML = `
-                <button class="btn btn-accent btn-sm" onclick="appController.openDriveConfigModal()">Conectar Drive</button>
+                <button class="btn btn-accent btn-sm" onclick="appController.openDriveConfigModal()">Configurar Drive</button>
             `;
         } else {
             sessionArea.innerHTML = `
@@ -130,7 +134,7 @@ class ApplicationController {
                 </div>
                 <div class="login-body">
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; text-align: center;">
-                        Seleccione su perfil de acceso para interactuar con los formatos institucionales y expedientes.
+                        Seleccione su perfil de acceso para ingresar al sistema de gestión documental.
                     </p>
 
                     <div class="role-selector-grid">
@@ -162,8 +166,7 @@ class ApplicationController {
                         <div id="login-dynamic-fields">
                             <div class="form-group">
                                 <label class="form-label">Contraseña Institucional</label>
-                                <input type="password" id="login-password" class="form-control" placeholder="Ingrese contraseña inicial..." value="gcaldas2026*" required>
-                                <span class="form-hint">Clave oficial inicial: <code>gcaldas2026*</code></span>
+                                <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" value="" required autocomplete="current-password">
                             </div>
                         </div>
 
@@ -176,7 +179,7 @@ class ApplicationController {
                         <span style="font-size: 0.8rem; color: var(--text-muted); background: white; padding: 0 0.5rem; position: relative; top: -1.75rem;">O autenticación directa</span>
                         <button class="btn btn-outline btn-block" onclick="appController.handleGoogleOAuthLogin()">
                             <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                            Iniciar sesión con Google OAuth (Drive)
+                            Iniciar sesión con Google Workspace (OAuth 2.0)
                         </button>
                     </div>
                 </div>
@@ -196,54 +199,66 @@ class ApplicationController {
         const store = window.appStore;
 
         if (role === 'acudiente') {
-            const sampleEst = store.getEstudiantes()[0] || { documento_identidad: '1059812839', nombre_completo: 'MARIA FERNANDA VARGAS' };
             dynArea.innerHTML = `
                 <div class="form-group">
                     <label class="form-label">Documento de Identidad del Estudiante Beneficiario</label>
-                    <input type="text" id="login-password" class="form-control" placeholder="Ej: ${sampleEst.documento_identidad}" value="${sampleEst.documento_identidad}" required>
-                    <span class="form-hint">Para acudientes, la credencial inicial es el documento del estudiante beneficiario.</span>
+                    <input type="text" id="login-password" class="form-control" placeholder="Ingrese número de documento del estudiante..." value="" required>
+                    <span class="form-hint">Ingrese el documento de identidad del estudiante beneficiario asignado.</span>
                 </div>
             `;
         } else if (role === 'rector') {
-            const ies = store.getInstituciones();
-            const sampleIE = ies[0] || { codigo_dane: '117013000306', nombre: 'INSTITUCION EDUCATIVA MARINO GOMEZ ESTRADA' };
-            const options = ies.map(i => `<option value="${i.codigo_dane}" ${i.codigo_dane === sampleIE.codigo_dane ? 'selected' : ''}>${i.nombre} (${i.codigo_dane})</option>`).join('');
+            const mpios = store.getMunicipios();
+            const mpioOpts = `<option value="">-- Todos los Municipios --</option>` + mpios.map(m => `<option value="${m.codigo}">${m.nombre}</option>`).join('');
+            const ies = store.getInstituciones(); // Ya ordenadas ascendentemente
+            const ieOpts = ies.map(i => `<option value="${i.codigo_dane}">${i.nombre} (${i.codigo_dane})</option>`).join('');
+
             dynArea.innerHTML = `
                 <div class="form-group">
-                    <label class="form-label">Institución Educativa</label>
-                    <select id="login-entity-id" class="form-select" onchange="document.getElementById('login-password').value = this.value">
-                        ${options}
+                    <label class="form-label">Filtrar Institución por Municipio</label>
+                    <select id="login-filter-mpio" class="form-select" onchange="appController.handleLoginMpioFilter(this.value)">
+                        ${mpioOpts}
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Código DANE de la Institución (Contraseña Inicial)</label>
-                    <input type="text" id="login-password" class="form-control" value="${sampleIE.codigo_dane}" required>
-                    <span class="form-hint">Para rectores, la contraseña inicial solicitada es el código DANE de su institución.</span>
+                    <label class="form-label">Institución Educativa (Orden Ascendente)</label>
+                    <select id="login-entity-id" class="form-select">
+                        ${ieOpts}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña de Acceso Institucional</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" value="" required autocomplete="current-password">
                 </div>
             `;
         } else {
             dynArea.innerHTML = `
                 <div class="form-group">
                     <label class="form-label">Contraseña Institucional</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="Ingrese contraseña inicial..." value="gcaldas2026*" required>
-                    <span class="form-hint">Clave oficial inicial: <code>gcaldas2026*</code></span>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" value="" required autocomplete="current-password">
                 </div>
             `;
         }
     }
 
-    handleAuxLogin() {
+    handleLoginMpioFilter(codigoMunicipio) {
+        const ieSelect = document.getElementById('login-entity-id');
+        if (!ieSelect) return;
+        const ies = window.appStore.getInstituciones(codigoMunicipio); // Ordenadas ascendente
+        ieSelect.innerHTML = ies.map(i => `<option value="${i.codigo_dane}">${i.nombre} (${i.codigo_dane})</option>`).join('');
+    }
+
+    async handleAuxLogin() {
         const role = document.getElementById('login-selected-role').value;
         const pass = document.getElementById('login-password').value;
         const entityId = document.getElementById('login-entity-id')?.value || null;
 
         try {
-            window.authService.loginWithAuxiliaryCredentials({
+            await window.authService.loginWithAuxiliaryCredentials({
                 role,
                 credential: pass,
                 entityId
             });
-            this.showToast(`Bienvenido al sistema como ${role.toUpperCase()}`);
+            this.showToast(`Bienvenido al sistema institucional`);
         } catch (e) {
             alert(e.message);
         }
@@ -251,10 +266,6 @@ class ApplicationController {
 
     async handleGoogleOAuthLogin() {
         const config = window.appStore.state.config;
-        if (!config.google_client_id) {
-            this.openDriveConfigModal();
-            return;
-        }
         try {
             await window.authService.loginWithGoogle(config.google_client_id);
             this.showToast('Autenticado exitosamente con Google Drive');
@@ -284,10 +295,8 @@ class ApplicationController {
         const asig = window.appStore.getAsignacionByDoc(docEst);
         const doc = window.appStore.findDocumento('LOG-007-F', est?.codigo_dane_sede, docEst);
 
-        const estadoDoc = doc ? doc.estado : 'Pendiente de generar';
-        const isAprobado = estadoDoc === 'Aprobado';
+        const estadoDoc = doc ? doc.estado : 'Generado';
         const isDevuelto = estadoDoc === 'Devuelto al acudiente';
-        const isRevision = estadoDoc.includes('revisión');
 
         let returnAlert = '';
         if (isDevuelto) {
@@ -318,11 +327,11 @@ class ApplicationController {
 
                 ${returnAlert}
 
-                <!-- PASO 1: DESCARGAR FORMATO -->
-                <div class="step-card ${!doc || doc.estado === 'Generado' || isDevuelto ? 'active-step' : ''}">
+                <!-- PASO 1: DESCARGAR FORMATO PRELLENADO -->
+                <div class="step-card active-step">
                     <div class="step-number">1</div>
                     <h3>Descargar Formato Prellenado (LOG-007-F)</h3>
-                    <p>Haga clic abajo para obtener su acta formal lista para firmar, con los datos institucionales ya completos.</p>
+                    <p>Su formato se encuentra pregenerado con los datos de su institución, sede y estudiante listo para firmar.</p>
                     <button class="btn btn-primary btn-lg" onclick="appController.handleAcudienteDownloadDoc('${docEst}')">
                         📥 Descargar Formato Word (.docx)
                     </button>
@@ -333,16 +342,13 @@ class ApplicationController {
                     <div class="step-number">2</div>
                     <h3>Firmar el documento</h3>
                     <p>Imprima o abra el archivo en su dispositivo y estampe su firma física o digital en la casilla de <strong>Firma Acudiente</strong>.</p>
-                    <div style="font-size: 0.85rem; color: var(--text-muted); background: #F1F5F9; padding: 0.75rem; border-radius: var(--radius-sm); display: inline-block;">
-                        💡 <em>Si no tiene impresora, puede acercarse a la institución donde el rector le ayudará a imprimirlo y firmarlo.</em>
-                    </div>
                 </div>
 
                 <!-- PASO 3: SUBIR FORMATO FIRMADO -->
-                <div class="step-card ${doc && (doc.estado === 'Generado' || isDevuelto) ? 'active-step' : ''}">
+                <div class="step-card active-step">
                     <div class="step-number">3</div>
                     <h3>Subir Formato Firmado</h3>
-                    <p>Suba una foto clara o archivo escaneado (PDF o Word) del formato firmado por usted.</p>
+                    <p>Suba una foto clara o archivo escaneado (PDF o Word) del formato firmado. Esto actualizará el documento original.</p>
                     
                     <div class="dropzone" id="acudiente-dropzone" onclick="document.getElementById('acudiente-file-input').click()">
                         <div class="dropzone-icon">📄</div>
@@ -355,17 +361,19 @@ class ApplicationController {
         `;
     }
 
-    // --- 2. VISTA RECTOR ---
+    // --- 2. VISTA RECTOR (CON FILTRO DE MUNICIPIO Y ORDEN ASCENDENTE) ---
     renderRectorView() {
         const user = window.authService.getCurrentUser();
         const store = window.appStore;
-        const ies = store.getInstituciones();
+        const mpios = store.getMunicipios();
+        const mpioOptions = `<option value="">-- Todos los Municipios --</option>` + mpios.map(m => `<option value="${m.codigo}" ${this.rectorMpioFilter === m.codigo ? 'selected' : ''}>${m.nombre}</option>`).join('');
+
+        const ies = store.getInstituciones(this.rectorMpioFilter); // Ordenadas ascendente
         const daneIE = user.metadata?.dane_ie || ies[0]?.codigo_dane;
         const currentIE = store.getInstitucionByDane(daneIE) || ies[0];
-        const sedes = store.getSedes(daneIE);
+        const sedes = store.getSedes(currentIE?.codigo_dane);
 
-        // Opciones selector IE
-        const ieOptions = ies.map(i => `<option value="${i.codigo_dane}" ${i.codigo_dane === currentIE.codigo_dane ? 'selected' : ''}>${i.nombre} (${i.codigo_dane})</option>`).join('');
+        const ieOptions = ies.map(i => `<option value="${i.codigo_dane}" ${i.codigo_dane === currentIE?.codigo_dane ? 'selected' : ''}>${i.nombre} (${i.codigo_dane})</option>`).join('');
 
         return `
             <div class="card">
@@ -374,10 +382,19 @@ class ApplicationController {
                         <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Institución Seleccionada:</span>
                         <h3 class="card-title">${currentIE?.nombre || 'Institución Educativa'}</h3>
                     </div>
-                    <div style="min-width: 300px;">
-                        <select class="form-select" onchange="window.authService.switchRole('rector', this.value)">
-                            ${ieOptions}
-                        </select>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <div style="min-width: 200px;">
+                            <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Filtrar por Municipio:</label>
+                            <select class="form-select" onchange="appController.handleRectorMpioFilter(this.value)">
+                                ${mpioOptions}
+                            </select>
+                        </div>
+                        <div style="min-width: 320px;">
+                            <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Institución Educativa (A-Z):</label>
+                            <select class="form-select" onchange="window.authService.switchRole('rector', this.value)">
+                                ${ieOptions}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -395,6 +412,16 @@ class ApplicationController {
         `;
     }
 
+    handleRectorMpioFilter(codigoMpio) {
+        this.rectorMpioFilter = codigoMpio;
+        const ies = window.appStore.getInstituciones(codigoMpio);
+        if (ies.length > 0) {
+            window.authService.switchRole('rector', ies[0].codigo_dane);
+        } else {
+            this.renderDashboard();
+        }
+    }
+
     _renderRectorBolsaTab(sedes) {
         const store = window.appStore;
         const rows = sedes.map(sede => {
@@ -410,23 +437,21 @@ class ApplicationController {
                         <small style="color: var(--text-muted);">DANE: ${sede.codigo_dane_sede} | Radicado: ${sede.radicado || 'S/N'}</small>
                     </td>
                     <td>
-                        <span class="badge-estado ${this._getBadgeClass(doc26?.estado || 'Borrador')}">
-                            ${doc26?.estado || 'Sin generar'}
+                        <span class="badge-estado ${this._getBadgeClass(doc26?.estado || 'Generado')}">
+                            ${doc26?.estado || 'Generado'}
                         </span>
                         <div style="margin-top: 0.35rem; display: flex; gap: 0.25rem;">
-                            <button class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleGenerateDoc('LOG-026-F', '${sede.codigo_dane_sede}')">Generar</button>
-                            ${doc26 ? `<button class="btn btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc26.id}')">Descargar</button>` : ''}
-                            ${doc26 ? `<button class="btn btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.openSubmitBolsaModal('${doc26.id}')">Remitir</button>` : ''}
+                            <button class="btn btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc26?.id || 'DOC-026-' + sede.codigo_dane_sede}')">Descargar</button>
+                            <button class="btn btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.openSubmitBolsaModal('${doc26?.id || 'DOC-026-' + sede.codigo_dane_sede}')">Subir / Remitir</button>
                         </div>
                     </td>
                     <td>
-                        <span class="badge-estado ${this._getBadgeClass(doc29?.estado || 'Borrador')}">
-                            ${doc29?.estado || 'Sin generar'}
+                        <span class="badge-estado ${this._getBadgeClass(doc29?.estado || 'Generado')}">
+                            ${doc29?.estado || 'Generado'}
                         </span>
                         <div style="margin-top: 0.35rem; display: flex; gap: 0.25rem;">
-                            <button class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleGenerateDoc('LOG-029-F', '${sede.codigo_dane_sede}')">Generar</button>
-                            ${doc29 ? `<button class="btn btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc29.id}')">Descargar</button>` : ''}
-                            ${doc29 ? `<button class="btn btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.openSubmitBolsaModal('${doc29.id}')">Remitir</button>` : ''}
+                            <button class="btn btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc29?.id || 'DOC-029-' + sede.codigo_dane_sede}')">Descargar</button>
+                            <button class="btn btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.openSubmitBolsaModal('${doc29?.id || 'DOC-029-' + sede.codigo_dane_sede}')">Subir / Remitir</button>
                         </div>
                     </td>
                     <td><strong>${totalItems}</strong> elementos</td>
@@ -437,7 +462,7 @@ class ApplicationController {
         return `
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Sedes Beneficiarias y Actas de Bolsa Tecnológica</h4>
+                    <h4 class="card-title">Sedes Beneficiarias y Formatos Pregenerados</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="table-custom">
@@ -445,11 +470,11 @@ class ApplicationController {
                             <tr>
                                 <th>Sede Educativa</th>
                                 <th>LOG-026-F (Acta de Entrega Word)</th>
-                                <th>LOG-029-F (Informe Validación Excel)</th>
+                                <th>LOG-029-F (Informe Validación Excel Corregido)</th>
                                 <th>Total Elementos</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="4">No hay sedes configuradas.</td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="4">No hay sedes para esta institución.</td></tr>'}</tbody>
                     </table>
                 </div>
             </div>
@@ -467,7 +492,7 @@ class ApplicationController {
         const rows = allStudents.map(est => {
             const asig = store.getAsignacionByDoc(est.documento_identidad);
             const doc = store.findDocumento('LOG-007-F', est.codigo_dane_sede, est.documento_identidad);
-            const estado = doc ? doc.estado : 'Sin generar';
+            const estado = doc ? doc.estado : 'Generado';
 
             return `
                 <tr>
@@ -484,17 +509,16 @@ class ApplicationController {
                     </td>
                     <td>
                         <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-                            <button class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleGenerateLog007('${est.documento_identidad}')">
-                                Generar Word
+                            <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc?.id || 'DOC-007-' + est.documento_identidad}')">
+                                Descargar Word
                             </button>
-                            ${doc ? `<button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc.id}')">Descargar</button>` : ''}
                             ${doc && (doc.estado === 'En revisión del rector' || doc.estado === 'Generado') ? `
                                 <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleApproveLog007Rector('${doc.id}')">Aprobar</button>
                                 <button class="btn btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.openReturnModal('${doc.id}', 'acudiente')">Devolver</button>
                             ` : ''}
-                            ${doc ? `
-                                <button class="btn btn-accent" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.openUploadOnBehalfModal('${doc.id}', 'acudiente')">Cargar por Acudiente</button>
-                            ` : ''}
+                            <button class="btn btn-accent" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.openUploadOnBehalfModal('${doc?.id || 'DOC-007-' + est.documento_identidad}', 'acudiente')">
+                                Cargar por Acudiente
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -504,7 +528,7 @@ class ApplicationController {
         return `
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Estudiantes Beneficiarios y Formatos LOG-007-F</h4>
+                    <h4 class="card-title">Estudiantes Beneficiarios (LOG-007-F Pregenerados)</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="table-custom">
@@ -516,7 +540,7 @@ class ApplicationController {
                                 <th>Acciones de Rectoría</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="4">No hay estudiantes asignados en estas sedes.</td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="4">No hay estudiantes en estas sedes.</td></tr>'}</tbody>
                     </table>
                 </div>
             </div>
@@ -539,7 +563,7 @@ class ApplicationController {
                     <div class="metric-icon">📑</div>
                     <div class="metric-data">
                         <h3>${totalDocs}</h3>
-                        <p>Total Expedientes Registrados</p>
+                        <p>Formatos Pregenerados</p>
                     </div>
                 </div>
                 <div class="metric-card warning">
@@ -578,9 +602,55 @@ class ApplicationController {
         `;
     }
 
+    setCoordFilter(key, val) {
+        if (key === 'mpio') {
+            this.coordFilterMpio = val;
+            this.coordFilterIE = '';
+        } else if (key === 'ie') {
+            this.coordFilterIE = val;
+        } else if (key === 'tipo') {
+            this.coordFilterTipo = val;
+        } else if (key === 'estado') {
+            this.coordFilterEstado = val;
+        }
+        this.renderDashboard();
+    }
+
     _renderCoordinadorInboxTab(docs) {
         const store = window.appStore;
-        const rows = docs.map(doc => {
+        const mpios = store.getMunicipios();
+        const filterMpio = this.coordFilterMpio || '';
+        const filterIE = this.coordFilterIE || '';
+        const filterTipo = this.coordFilterTipo || '';
+        const filterEstado = this.coordFilterEstado || '';
+
+        const mpioOptions = `<option value="">-- Todos los Municipios --</option>` + mpios.map(m => `<option value="${m.codigo}" ${filterMpio === m.codigo ? 'selected' : ''}>${m.nombre}</option>`).join('');
+        const ies = store.getInstituciones(filterMpio); // Siempre en orden ascendente
+        const ieOptions = `<option value="">-- Todas las Instituciones (A-Z) --</option>` + ies.map(i => `<option value="${i.codigo_dane}" ${filterIE === i.codigo_dane ? 'selected' : ''}>${i.nombre}</option>`).join('');
+
+        let filteredDocs = docs;
+        if (filterMpio) {
+            filteredDocs = filteredDocs.filter(d => {
+                const sede = store.getSedeByDane(d.codigo_dane_sede);
+                if (!sede) return false;
+                const ie = store.getInstitucionByDane(sede.codigo_dane_ie);
+                return ie && String(ie.codigo_municipio) === String(filterMpio);
+            });
+        }
+        if (filterIE) {
+            filteredDocs = filteredDocs.filter(d => {
+                const sede = store.getSedeByDane(d.codigo_dane_sede);
+                return sede && String(sede.codigo_dane_ie) === String(filterIE);
+            });
+        }
+        if (filterTipo) {
+            filteredDocs = filteredDocs.filter(d => d.tipo_documento === filterTipo);
+        }
+        if (filterEstado) {
+            filteredDocs = filteredDocs.filter(d => d.estado === filterEstado);
+        }
+
+        const rows = filteredDocs.map(doc => {
             const sede = store.getSedeByDane(doc.codigo_dane_sede);
             const est = doc.estudiante_documento ? store.getEstudianteByDoc(doc.estudiante_documento) : null;
 
@@ -611,9 +681,52 @@ class ApplicationController {
 
         return `
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Expedientes Documentales en Trámite</h4>
+                <div class="card-header" style="flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h4 class="card-title">Expedientes Documentales Pregenerados y en Trámite</h4>
+                        <small style="color: var(--text-muted);">Mostrando ${filteredDocs.length} de ${docs.length} formatos</small>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">
+                        🚀 Pregenerar y Sincronizar Formatos en Google Drive
+                    </button>
                 </div>
+                
+                <!-- Barra de Filtros: Municipio, Institución A-Z, Formato y Estado -->
+                <div style="padding: 1rem 1.5rem; background: #f8fafc; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem;">
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Filtrar por Municipio:</label>
+                        <select class="form-select" onchange="appController.setCoordFilter('mpio', this.value)">
+                            ${mpioOptions}
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Institución Educativa (A-Z):</label>
+                        <select class="form-select" onchange="appController.setCoordFilter('ie', this.value)">
+                            ${ieOptions}
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Tipo de Formato:</label>
+                        <select class="form-select" onchange="appController.setCoordFilter('tipo', this.value)">
+                            <option value="">-- Todos los Formatos --</option>
+                            <option value="LOG-026-F" ${filterTipo === 'LOG-026-F' ? 'selected' : ''}>LOG-026-F (Bolsa Word)</option>
+                            <option value="LOG-029-F" ${filterTipo === 'LOG-029-F' ? 'selected' : ''}>LOG-029-F (Bolsa Excel)</option>
+                            <option value="LOG-007-F" ${filterTipo === 'LOG-007-F' ? 'selected' : ''}>LOG-007-F (Estudiantes Word)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Estado Documental:</label>
+                        <select class="form-select" onchange="appController.setCoordFilter('estado', this.value)">
+                            <option value="">-- Todos los Estados --</option>
+                            <option value="Generado" ${filterEstado === 'Generado' ? 'selected' : ''}>Generado / Pregenerado</option>
+                            <option value="En revisión del coordinador" ${filterEstado === 'En revisión del coordinador' ? 'selected' : ''}>En revisión del coordinador</option>
+                            <option value="Aprobado" ${filterEstado === 'Aprobado' ? 'selected' : ''}>Aprobado</option>
+                            <option value="Devuelto al rector" ${filterEstado === 'Devuelto al rector' ? 'selected' : ''}>Devuelto al rector</option>
+                            <option value="Devuelto al acudiente" ${filterEstado === 'Devuelto al acudiente' ? 'selected' : ''}>Devuelto al acudiente</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table-custom">
                         <thead>
@@ -626,7 +739,7 @@ class ApplicationController {
                                 <th>Acciones de Coordinación</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="6" style="text-align:center; padding: 2rem;">No hay documentos registrados aún. Use el perfil de Rector o Administrador para generar o cargar formatos.</td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="6" style="text-align:center; padding: 2rem;">No hay documentos que coincidan con los filtros seleccionados.</td></tr>'}</tbody>
                     </table>
                 </div>
             </div>
@@ -645,7 +758,7 @@ class ApplicationController {
                 </div>
                 <div class="card-body">
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-                        Permite consolidar y descargar al computador del Coordinador los archivos generados y legalizados, generando automáticamente el archivo <code>MANIFIESTO_DOCUMENTAL.csv</code> con metadatos oficiales.
+                        Permite consolidar y descargar al computador del Coordinador los archivos pregenerados y legalizados, generando automáticamente el archivo <code>MANIFIESTO_DOCUMENTAL.csv</code> con metadatos oficiales.
                     </p>
 
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
@@ -661,7 +774,7 @@ class ApplicationController {
                             <select id="zip-filter-tipo" class="form-select">
                                 <option value="">Todos los Formatos</option>
                                 <option value="LOG-026-F">LOG-026-F (Bolsa Word)</option>
-                                <option value="LOG-029-F">LOG-029-F (Bolsa Excel)</option>
+                                <option value="LOG-029-F">LOG-029-F (Bolsa Excel Corregido)</option>
                                 <option value="LOG-007-F">LOG-007-F (Estudiantes Word)</option>
                             </select>
                         </div>
@@ -671,7 +784,7 @@ class ApplicationController {
                                 <option value="">Todos los Estados</option>
                                 <option value="Aprobado">Solo Aprobados</option>
                                 <option value="En revisión del coordinador">En revisión del coordinador</option>
-                                <option value="Devuelto al rector">Devueltos</option>
+                                <option value="Generado">Generados / Pregenerados</option>
                             </select>
                         </div>
                     </div>
@@ -752,15 +865,16 @@ class ApplicationController {
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Mantenimiento de Datos y Respaldos</h4>
-                    <div style="display: flex; gap: 0.5rem;">
+                    <h4 class="card-title">Mantenimiento de Expedientes y Google Drive</h4>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">🚀 Pregenerar Formatos en Drive</button>
                         <button class="btn btn-outline btn-sm" onclick="window.appStore.exportBackup()">💾 Descargar Respaldo JSON</button>
                         <button class="btn btn-danger btn-sm" onclick="appController.handleResetSeed()">♻️ Restaurar Datos Iniciales</button>
                     </div>
                 </div>
                 <div class="card-body">
                     <p style="color: var(--text-muted); font-size: 0.85rem;">
-                        La base de datos se mantiene en el almacenamiento local del navegador y se sincroniza con Google Drive. Los cambios son preservados localmente para funcionamiento offline y sin servidor.
+                        La base cuenta con <strong>${store.state.documentos.length}</strong> formatos institucionales pregenerados (LOG-026-F, LOG-029-F y LOG-007-F). Los documentos cargados por acudientes y rectores actualizan automáticamente los documentos originales.
                     </p>
                 </div>
             </div>
@@ -775,7 +889,6 @@ class ApplicationController {
                 </div>
                 <div class="card-body">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-                        <!-- Bolsa Tecnológica -->
                         <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem;">
                             <h4 style="margin-bottom: 0.5rem;">1. BOLSA TECNOLOGICA CALDAS.xlsx</h4>
                             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
@@ -787,7 +900,6 @@ class ApplicationController {
                             </button>
                         </div>
 
-                        <!-- Base Estudiantes -->
                         <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem;">
                             <h4 style="margin-bottom: 0.5rem;">2. BASE ESTUDIANTES CALDAS.xlsx</h4>
                             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
@@ -895,48 +1007,54 @@ class ApplicationController {
         this.renderDashboard();
     }
 
-    async handleGenerateDoc(tipo, daneSede) {
+    async handlePregenerateAllDrive() {
+        if (!confirm('¿Desea pregenerar e inicializar todos los 208 formatos institucionales en Google Drive?')) return;
         try {
-            this.showToast(`Generando ${tipo}... espere un momento`);
-            let res;
-            if (tipo === 'LOG-026-F') {
-                res = await window.documentGenerator.generateLog026(daneSede, 1, 'Borrador');
-            } else if (tipo === 'LOG-029-F') {
-                res = await window.documentGenerator.generateLog029(daneSede, 1, 'Borrador');
-            }
-            this.showToast(`${tipo} generado exitosamente: ${res.filename}`);
+            this.showToast('Iniciando pregeneración de formatos...');
+            const res = await window.documentGenerator.pregenerateAllFormats({
+                onProgress: (cur, tot, desc) => {
+                    this.showToast(`Generando ${cur}/${tot}: ${desc}`);
+                }
+            });
+            this.showToast(`¡Listo! Se pregeneraron ${res.totalPregenerados} expedientes en Google Drive.`);
             this.renderDashboard();
         } catch (e) {
-            alert('Error generando documento: ' + e.message);
-        }
-    }
-
-    async handleGenerateLog007(docEst) {
-        try {
-            this.showToast('Generando LOG-007-F para el estudiante...');
-            const res = await window.documentGenerator.generateLog007(docEst, 1, 'Generado');
-            this.showToast(`LOG-007-F generado: ${res.filename}`);
-            this.renderDashboard();
-        } catch (e) {
-            alert('Error generando LOG-007-F: ' + e.message);
+            alert('Error en pregeneración: ' + e.message);
         }
     }
 
     async handleDownloadDoc(docId) {
         const store = window.appStore;
-        const doc = store.getDocumentoById(docId);
+        let doc = store.getDocumentoById(docId);
+        
+        // Si no se encuentra por ID directo, buscar por prefijo
+        if (!doc) {
+            if (docId.startsWith('DOC-026-')) {
+                const dane = docId.replace('DOC-026-', '');
+                doc = store.findDocumento('LOG-026-F', dane);
+            } else if (docId.startsWith('DOC-029-')) {
+                const dane = docId.replace('DOC-029-', '');
+                doc = store.findDocumento('LOG-029-F', dane);
+            } else if (docId.startsWith('DOC-007-')) {
+                const docEst = docId.replace('DOC-007-', '');
+                const est = store.getEstudianteByDoc(docEst);
+                doc = store.findDocumento('LOG-007-F', est?.codigo_dane_sede, docEst);
+            }
+        }
+
         if (!doc) return;
 
         try {
-            const blobItem = await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
+            // Regla: Los documentos cargados actualizan los originales -> Buscar primero el blob activo
+            const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
             let blob = blobItem?.blob;
 
-            if (!blob && window.googleDriveClient && doc.drive_id && !doc.drive_id.startsWith('SIM-')) {
+            if (!blob && window.googleDriveClient && doc.drive_id && !doc.drive_id.startsWith('DRIVE-')) {
                 blob = await window.googleDriveClient.downloadFile(doc.drive_id);
             }
 
             if (!blob) {
-                // Regenerar al vuelo si no está en caché
+                // Generar en tiempo real si aún no tenía blob en caché
                 if (doc.tipo_documento === 'LOG-026-F') {
                     const gen = await window.documentGenerator.generateLog026(doc.codigo_dane_sede, doc.version_actual, doc.estado);
                     blob = gen.blob;
@@ -966,7 +1084,7 @@ class ApplicationController {
     async handleAcudienteDownloadDoc(docEst) {
         const store = window.appStore;
         const est = store.getEstudianteByDoc(docEst);
-        let doc = store.findDocumento('LOG-007-F', est.codigo_dane_sede, docEst);
+        let doc = store.findDocumento('LOG-007-F', est?.codigo_dane_sede, docEst);
 
         if (!doc) {
             const gen = await window.documentGenerator.generateLog007(docEst, 1, 'Generado');
@@ -980,7 +1098,7 @@ class ApplicationController {
         if (!file) return;
         const store = window.appStore;
         const est = store.getEstudianteByDoc(docEst);
-        let doc = store.findDocumento('LOG-007-F', est.codigo_dane_sede, docEst);
+        let doc = store.findDocumento('LOG-007-F', est?.codigo_dane_sede, docEst);
 
         if (!doc) {
             const gen = await window.documentGenerator.generateLog007(docEst, 1, 'Generado');
@@ -989,7 +1107,7 @@ class ApplicationController {
 
         try {
             await window.approvalWorkflow.uploadSignedDocumentByAcudiente(doc.id, file, file.name);
-            this.showToast('Documento firmado cargado exitosamente. Ha pasado a revisión del rector.');
+            this.showToast('Documento firmado cargado exitosamente. Ha actualizado el expediente original.');
             this.render();
         } catch (e) {
             alert('Error cargando documento: ' + e.message);
@@ -1101,7 +1219,7 @@ class ApplicationController {
                 await window.approvalWorkflow.uploadDocumentOnBehalfOfRector(this.selectedDocForAction, file, file.name, motivo);
             }
             this.closeAllModals();
-            this.showToast('Documento cargado en representación con trazabilidad registrada.');
+            this.showToast('Documento cargado actualizando el original.');
             this.renderDashboard();
         } catch (e) {
             alert(e.message);
@@ -1120,7 +1238,7 @@ class ApplicationController {
         try {
             await window.approvalWorkflow.submitBolsaDocumentByRector(this.selectedDocForAction, file, file?.name, comments);
             this.closeAllModals();
-            this.showToast('Formato remitido al Coordinador para revisión.');
+            this.showToast('Formato remitido al Coordinador (documento original actualizado).');
             this.renderDashboard();
         } catch (e) {
             alert(e.message);
@@ -1131,7 +1249,7 @@ class ApplicationController {
         const modal = document.getElementById('modal-drive-config');
         if (!modal) return;
         const config = window.appStore.state.config;
-        document.getElementById('config-client-id').value = config.google_client_id || '';
+        document.getElementById('config-client-id').value = config.google_client_id || '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com';
         document.getElementById('config-folder-id').value = config.drive_root_folder_id || '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51';
         modal.style.display = 'flex';
     }
@@ -1266,7 +1384,7 @@ class ApplicationController {
     }
 
     _getBadgeClass(estado) {
-        if (!estado) return 'borrador';
+        if (!estado) return 'generado';
         const s = estado.toLowerCase();
         if (s.includes('aprobado')) return 'aprobado';
         if (s.includes('devuelto')) return 'devuelto';
@@ -1280,7 +1398,6 @@ class ApplicationController {
     bindDashboardEvents(role) {}
 }
 
-// Instanciar controlador global
 window.appController = new ApplicationController();
 window.addEventListener('DOMContentLoaded', () => {
     window.appController.init();

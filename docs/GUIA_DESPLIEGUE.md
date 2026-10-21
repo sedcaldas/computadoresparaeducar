@@ -58,18 +58,18 @@ Para habilitar la sincronización real con Google Drive sin servidores intermedi
    - `http://localhost:8000` (para pruebas locales)
    - `http://127.0.0.1:8000`
 5. Haga clic en **Create**.
-6. Copie el **Client ID** generado (ejemplo: `123456789-xxxx.apps.googleusercontent.com`).
+6. Copie el **Client ID** generado: `145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com`.
 
 > [!IMPORTANT]
-> **Sin Secreto:** Para aplicaciones web estáticas en navegador, el Client ID es público por definición. NO se debe descargar ni utilizar un archivo de secreto de cliente de tipo servidor.
+> **Sin Secreto en Repositorio:** Para aplicaciones web estáticas en navegador, el Client ID es el identificador público autorizado. Los secretos de cliente (Client Secrets) jamás deben exponerse ni incluirse en el código ni en el repositorio de GitHub.
 
 ---
 
 ## 3. Configuración en la Aplicación
 
 1. Abra la aplicación en GitHub Pages o servidor local.
-2. Haga clic en el botón superior **Modo Simulación / Conectar Drive** o vaya al panel de Administrador > Parámetros.
-3. Pegue el **Google Cloud Client ID** obtenido en el paso anterior.
+2. Haga clic en el botón superior **Google Drive Activo** o vaya al panel de Administrador > Parámetros.
+3. El **Google Cloud Client ID** oficial (`145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com`) se encuentra preconfigurado en la aplicación.
 4. Verifique que el ID de la carpeta raíz sea el oficial: `1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51`.
 5. Haga clic en **Guardar Configuración**.
 6. A partir de ese momento, al hacer clic en **Iniciar sesión con Google OAuth**, los usuarios podrán autenticarse con sus cuentas institucionales y los archivos se subirán directamente a Google Drive.

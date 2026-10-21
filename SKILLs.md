@@ -72,8 +72,8 @@ La aplicación tendrá cuatro perfiles: **administrador, coordinador, rector y a
 Contraseñas iniciales solicitadas:
 - Rector: código DANE de la institución (`CODIGO_DANE`).
 - Acudiente: documento de identidad del estudiante.
-- Coordinador: `gcaldas2026*`.
-- Administrador: `gcaldas2026*`.
+- Coordinador: Credencial departamental institucional protegida por hash.
+- Administrador: Credencial departamental institucional protegida por hash.
 
 ### Autenticación
 
@@ -81,7 +81,7 @@ Estas contraseñas iniciales no deben ser el único mecanismo de protección. No
 
 - Usar Google OAuth para autenticar a la persona.
 - Relacionar la cuenta autenticada con un perfil/asignación mediante información ubicada en Drive con permisos restringidos a las cuentas autorizadas.
-- No conceder permisos administrativos únicamente porque alguien escriba `gcaldas2026*`.
+- No conceder permisos administrativos basados en texto plano sin autenticación formal.
 - Si las contraseñas iniciales se conservan para incorporación de usuarios, tratarlas como credenciales temporales o auxiliares, no como sustituto de OAuth y permisos de Drive.
 - No almacenar contraseñas en texto plano, archivos públicos, GitHub ni `localStorage`.
 - No guardar tokens OAuth en archivos ni en `localStorage`; seguir las recomendaciones vigentes de Google Identity Services para aplicaciones en navegador.

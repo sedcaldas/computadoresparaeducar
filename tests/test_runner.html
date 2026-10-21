@@ -121,9 +121,9 @@
             { id: 16, name: "Descarga masiva de paquetes ZIP con manifiesto", run: async () => {
                 return typeof window.documentGenerator.generateCoordinatorZip === 'function';
             }},
-            { id: 17, name: "Validación de credenciales iniciales de contingencia", run: async () => {
-                const user = window.authService.loginWithAuxiliaryCredentials({ role: 'coordinador', credential: 'gcaldas2026*' });
-                return user && user.role === 'coordinador';
+            { id: 17, name: "Validación de credenciales institucionales de contingencia", run: async () => {
+                const user = await window.authService.loginWithAuxiliaryCredentials({ role: 'rector', credential: '117042000030', entityId: '117042000030' });
+                return user && user.role === 'rector';
             }},
             { id: 18, name: "Detección de conflictos de concurrencia en cliente", run: async () => {
                 const doc = window.appStore.getDocumentos()[0];
