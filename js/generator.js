@@ -297,10 +297,36 @@ class DocumentGenerator {
         ws.getCell('D42').value = 'Rector(a)';
         ws.getCell('D43').value = ie ? `rector.${ie.codigo_dane}@sedcaldas.gov.co` : 'rector@sedcaldas.gov.co';
 
-        const outBuffer = await workbook.xlsx.writeBuffer();
-        const blob = new Blob([outBuffer], {
-            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        // 1. Filtrar reglas de formato condicional no serializables por ExcelJS
+        // (tipo 'duplicateValues' produce elementos vacíos <conditionalFormatting sqref="..."/> que corrompen el XML en Excel)
+        workbook.worksheets.forEach(w => {
+            if (w.conditionalFormattings) {
+                w.conditionalFormattings = w.conditionalFormattings.filter(cf => {
+                    if (!cf.rules) return false;
+                    cf.rules = cf.rules.filter(r => r.type !== 'duplicateValues');
+                    return cf.rules.length > 0;
+                });
+            }
         });
+
+        const rawBuffer = await workbook.xlsx.writeBuffer();
+
+        // 2. Post-procesamiento estricto con JSZip para asegurar XML 100% libre de elementos incompletos
+        const zip = await JSZip.loadAsync(rawBuffer);
+        for (const [name, fileObj] of Object.entries(zip.files)) {
+            if (name.startsWith('xl/worksheets/sheet') && name.endsWith('.xml')) {
+                let xml = await fileObj.async('text');
+                xml = xml.replace(/<conditionalFormatting[^>]*\/>/g, '');
+                xml = xml.replace(/<conditionalFormatting[^>]*>\s*<\/conditionalFormatting>/g, '');
+                zip.file(name, xml);
+            }
+        }
+
+        const outBuffer = await zip.generateAsync({
+            type: 'blob',
+            mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const blob = outBuffer;
 
         const versionPad = String(version).padStart(2, '0');
         const filename = `LOG-029-F_${sede.codigo_dane_sede}_v${versionPad}.xlsx`;

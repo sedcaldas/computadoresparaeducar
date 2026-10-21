@@ -257,6 +257,10 @@ class AppStore {
         return this.state.estudiantes.find(e => String(e.documento_identidad) === String(doc));
     }
 
+    getEstudianteByAcudienteDoc(doc) {
+        return this.state.estudiantes.find(e => String(e.acudiente_documento) === String(doc));
+    }
+
     getAsignacionByDoc(doc) {
         return this.state.asignaciones.find(a => String(a.estudiante_documento) === String(doc));
     }

@@ -193,14 +193,17 @@ class AuthService {
                 metadata = { dane_ie: dane, nombre_ie: ie.nombre };
             }
         } else if (role === 'acudiente') {
-            const docEst = cleanCred;
-            const est = window.appStore ? window.appStore.getEstudianteByDoc(docEst) : null;
+            const inputDoc = cleanCred;
+            let est = window.appStore ? window.appStore.getEstudianteByAcudienteDoc(inputDoc) : null;
+            if (!est && window.appStore) {
+                est = window.appStore.getEstudianteByDoc(inputDoc);
+            }
             if (est) {
                 isValid = true;
                 userName = est.acudiente_nombres || `Acudiente de ${est.nombre_completo}`;
-                userEmail = `acudiente.${docEst}@beneficiarios.edu.co`;
+                userEmail = `acudiente.${est.acudiente_documento || est.documento_identidad}@beneficiarios.edu.co`;
                 metadata = {
-                    documento_estudiante: docEst,
+                    documento_estudiante: est.documento_identidad,
                     nombre_estudiante: est.nombre_completo,
                     acudiente_documento: est.acudiente_documento,
                     codigo_dane_sede: est.codigo_dane_sede

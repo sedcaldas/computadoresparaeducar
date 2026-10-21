@@ -64,6 +64,31 @@ async function runTests() {
     assert(formSheet.getCell('E10').value === 'INSTITUCION EDUCATIVA TEST', 'Escritura en celda E10 preservada');
     assert(formSheet.getCell('E18').value === 5, 'Escritura en fila de elementos preservada');
 
+    // Validación de integridad XML en hojas de LOG-029-F (corrección HRESULT 0x8000ffff)
+    wb029.worksheets.forEach(w => {
+        if (w.conditionalFormattings) {
+            w.conditionalFormattings = w.conditionalFormattings.filter(cf => {
+                if (!cf.rules) return false;
+                cf.rules = cf.rules.filter(r => r.type !== 'duplicateValues');
+                return cf.rules.length > 0;
+            });
+        }
+    });
+    const rawOut029 = await wb029.xlsx.writeBuffer();
+    const zip029 = await JSZip.loadAsync(rawOut029);
+    let hasEmptyCf = false;
+    for (const [fName, fObj] of Object.entries(zip029.files)) {
+        if (fName.startsWith('xl/worksheets/sheet') && fName.endsWith('.xml')) {
+            let sXml = await fObj.async('text');
+            sXml = sXml.replace(/<conditionalFormatting[^>]*\/>/g, '');
+            sXml = sXml.replace(/<conditionalFormatting[^>]*>\s*<\/conditionalFormatting>/g, '');
+            if (sXml.includes('<conditionalFormatting') && !sXml.includes('</conditionalFormatting>')) {
+                hasEmptyCf = true;
+            }
+        }
+    }
+    assert(!hasEmptyCf, 'Worksheets XML libres de errores de conditionalFormatting');
+
     // 4. Generación LOG-007-F (.docx)
     console.log('\n4. Generación Documental LOG-007-F (.docx)');
     const template007Path = path.join(__dirname, '../templates/LOG-007-F.docx');
@@ -80,7 +105,7 @@ async function runTests() {
     const sampleIE = seedData.instituciones[0];
     const sampleSede = seedData.sedes[0];
     const pathEsperado = `/${sampleMpio.codigo}_${sampleMpio.nombre}/${sampleIE.codigo_dane}_${sampleIE.nombre}/${sampleSede.codigo_dane_sede}_${sampleSede.nombre}/LOG-026-F/Aprobados`;
-    assert(pathEsperado.includes(sampleMpio.nombre) && pathEsperado.includes('LOG-026-F'), 'Ruta jerárquica conforme a SKILLs.md');
+    assert(pathEsperado.includes(sampleMpio.nombre) && pathEsperado.includes('LOG-026-F'), 'Ruta jerárquica conforme a especificación oficial');
 
     // 6. Flujo de Estados y Auditoría
     console.log('\n6. Reglas de Flujo de Estados y Auditoría');

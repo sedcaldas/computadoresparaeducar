@@ -201,9 +201,9 @@ class ApplicationController {
         if (role === 'acudiente') {
             dynArea.innerHTML = `
                 <div class="form-group">
-                    <label class="form-label">Documento de Identidad del Estudiante Beneficiario</label>
-                    <input type="text" id="login-password" class="form-control" placeholder="Ingrese número de documento del estudiante..." value="" required>
-                    <span class="form-hint">Ingrese el documento de identidad del estudiante beneficiario asignado.</span>
+                    <label class="form-label">Documento de Identidad del Acudiente</label>
+                    <input type="text" id="login-password" class="form-control" placeholder="Ingrese número de documento del acudiente..." value="" required>
+                    <span class="form-hint">Ingrese el documento de identidad del acudiente registrado.</span>
                 </div>
             `;
         } else if (role === 'rector') {
