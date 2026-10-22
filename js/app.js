@@ -316,7 +316,8 @@ class ApplicationController {
                     <h2 style="font-family: var(--font-heading); color: var(--navy); font-size: 1.75rem;">Legalización de Equipo para Estudiante</h2>
                     <p style="color: var(--text-muted); font-size: 1rem;">
                         Estudiante: <strong>${est?.nombre_completo || 'Estudiante Beneficiario'}</strong> | 
-                        Terminal asignada: <strong>${asig?.tipo_terminal || 'Tableta'}</strong>
+                        Terminal asignada: <strong>${asig?.tipo_terminal || 'Tableta'}</strong> | 
+                        Serial oficial: <strong>${asig?.serial_asignado || est?.serial_terminal || 'S/N'}</strong>
                     </p>
                     <div style="margin-top: 0.5rem;">
                         <span class="badge-estado ${this._getBadgeClass(estadoDoc)}" style="font-size: 0.9rem; padding: 0.35rem 1rem;">
@@ -429,6 +430,7 @@ class ApplicationController {
             const doc29 = store.findDocumento('LOG-029-F', sede.codigo_dane_sede);
             const elementos = store.getElementosBolsa(sede.codigo_dane_sede);
             const totalItems = elementos.reduce((acc, el) => acc + el.cantidad, 0);
+            const serialCount = elementos.filter(e => e.serial && e.serial !== 'NO APLICA').length;
 
             return `
                 <tr>
@@ -454,7 +456,10 @@ class ApplicationController {
                             <button class="btn btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="appController.openSubmitBolsaModal('${doc29?.id || 'DOC-029-' + sede.codigo_dane_sede}')">Subir / Remitir</button>
                         </div>
                     </td>
-                    <td><strong>${totalItems}</strong> elementos</td>
+                    <td>
+                        <strong>${totalItems}</strong> elementos<br>
+                        <small style="color: var(--primary); font-weight: 600;">🔑 ${serialCount} serial(es)</small>
+                    </td>
                 </tr>
             `;
         }).join('');
@@ -498,7 +503,8 @@ class ApplicationController {
                 <tr>
                     <td>
                         <strong>${est.nombre_completo}</strong><br>
-                        <small style="color: var(--text-muted);">Doc: ${est.documento_identidad} | ${asig?.tipo_terminal || 'Tableta'}</small>
+                        <small style="color: var(--text-muted);">Doc: ${est.documento_identidad} | ${asig?.tipo_terminal || 'Tableta'}</small><br>
+                        <small style="color: var(--primary); font-weight: 600;">🔑 Serial: ${asig?.serial_asignado || est.serial_terminal || 'S/N'}</small>
                     </td>
                     <td>
                         ${est.acudiente_nombres || 'No registrado'}<br>
@@ -654,6 +660,17 @@ class ApplicationController {
             const sede = store.getSedeByDane(doc.codigo_dane_sede);
             const est = doc.estudiante_documento ? store.getEstudianteByDoc(doc.estudiante_documento) : null;
 
+            let serialText = '';
+            if (est) {
+                const asig = store.getAsignacionByDoc(est.documento_identidad);
+                const sNum = asig?.serial_asignado || est.serial_terminal;
+                if (sNum) serialText = `<small style="color: var(--primary); font-weight: 600; display: block;">🔑 Serial: ${sNum}</small>`;
+            } else {
+                const elems = store.getElementosBolsa(doc.codigo_dane_sede);
+                const serCount = elems.filter(e => e.serial && e.serial !== 'NO APLICA').length;
+                if (serCount > 0) serialText = `<small style="color: var(--primary); font-weight: 600; display: block;">🔑 ${serCount} serial(es)</small>`;
+            }
+
             return `
                 <tr>
                     <td><strong>${doc.tipo_documento}</strong></td>
@@ -661,7 +678,10 @@ class ApplicationController {
                         ${sede ? sede.nombre : 'Sede ' + doc.codigo_dane_sede}<br>
                         <small style="color: var(--text-muted);">Radicado: ${doc.radicado || 'S/N'}</small>
                     </td>
-                    <td>${est ? `${est.nombre_completo} (${est.documento_identidad})` : 'Bolsa Institucional'}</td>
+                    <td>
+                        ${est ? `${est.nombre_completo} (${est.documento_identidad})` : 'Bolsa Institucional'}
+                        ${serialText}
+                    </td>
                     <td><span class="badge-estado ${this._getBadgeClass(doc.estado)}">${doc.estado}</span></td>
                     <td>v0${doc.version_actual}</td>
                     <td>

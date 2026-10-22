@@ -143,7 +143,7 @@ class DocumentGenerator {
         if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? mpio.departamento : 'Caldas');
         if (r3Cells.length > 4) this._setCellText(r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
 
-        // Llenar elementos de bolsa en filas 7 a 11
+        // Llenar elementos de bolsa en filas 7 a 11 con su serial oficial
         let elemIdx = 0;
         for (let rIdx = 7; rIdx <= 11; rIdx++) {
             const rowCells = getCells(rIdx);
@@ -151,7 +151,8 @@ class DocumentGenerator {
 
             if (elemIdx < elementos.length) {
                 const e1 = elementos[elemIdx++];
-                this._setCellText(rowCells[0], e1.elemento_nombre.substring(0, 70));
+                const desc1 = e1.serial && e1.serial !== 'NO APLICA' ? `${e1.elemento_nombre} (Serial: ${e1.serial})` : e1.elemento_nombre;
+                this._setCellText(rowCells[0], desc1.substring(0, 85));
                 this._setCellText(rowCells[1], String(e1.cantidad));
             } else {
                 this._setCellText(rowCells[0], 'N/A');
@@ -163,13 +164,27 @@ class DocumentGenerator {
             if (colElem2 && colCant2) {
                 if (elemIdx < elementos.length) {
                     const e2 = elementos[elemIdx++];
-                    this._setCellText(colElem2, e2.elemento_nombre.substring(0, 70));
+                    const desc2 = e2.serial && e2.serial !== 'NO APLICA' ? `${e2.elemento_nombre} (Serial: ${e2.serial})` : e2.elemento_nombre;
+                    this._setCellText(colElem2, desc2.substring(0, 85));
                     this._setCellText(colCant2, String(e2.cantidad));
                 } else {
                     this._setCellText(colElem2, 'N/A');
                     this._setCellText(colCant2, '0');
                 }
             }
+        }
+
+        // Relación de seriales oficiales en fila de Observaciones (Fila 19)
+        const obsCells = getCells(19);
+        if (obsCells.length > 0) {
+            const serialList = elementos
+                .filter(e => e.serial && e.serial !== 'NO APLICA')
+                .map((e, idx) => `${idx + 1}. ${e.elemento_nombre}: [Serial: ${e.serial}] (Cant: ${e.cantidad})`)
+                .join('; ');
+            const obsText = serialList
+                ? `Relación oficial de seriales verificados a satisfacción según archivo de despacho CPE: ${serialList}. Elementos instalados y validados.`
+                : 'Elementos y equipos recibidos e instalados a entera satisfacción.';
+            this._setCellText(obsCells[0], obsText);
         }
 
         const serializer = new XMLSerializer();
@@ -274,11 +289,11 @@ class DocumentGenerator {
             if (rowCurr > 27) break; // Máximo de filas del formato oficial
 
             const officialName = this._mapItemToCatalogueName(elem.elemento_nombre);
-            const serialGenerado = `SN-BT-${String(sede.codigo_dane_sede).slice(-4)}-00${elemSeq++}`;
+            const serialVal = (elem.serial && elem.serial !== 'NO APLICA') ? elem.serial : `SN-BT-${String(sede.codigo_dane_sede).slice(-4)}-00${elemSeq++}`;
 
             ws.getCell(`D${rowCurr}`).value = officialName;
             ws.getCell(`E${rowCurr}`).value = elem.cantidad;
-            ws.getCell(`F${rowCurr}`).value = serialGenerado;
+            ws.getCell(`F${rowCurr}`).value = serialVal;
             ws.getCell(`G${rowCurr}`).value = 'SI';
             ws.getCell(`H${rowCurr}`).value = 'SI';
             // CRÍTICO: Debe ser 'SIN NOVEDAD' para cumplir exactamente la validación de lista de Excel
@@ -288,7 +303,10 @@ class DocumentGenerator {
         }
 
         // 3. Observaciones Generales
-        ws.getCell('C35').value = 'Elementos recibidos, verificados y validados a entera satisfacción en la sede educativa.';
+        const serialSummary = elementos.filter(e => e.serial && e.serial !== 'NO APLICA').map(e => `${e.elemento_nombre}: ${e.serial}`).slice(0, 5).join(' | ');
+        ws.getCell('C35').value = serialSummary
+            ? `Elementos recibidos y verificados con seriales oficiales CPE: ${serialSummary}. Validación a entera satisfacción.`
+            : 'Elementos recibidos, verificados y validados a entera satisfacción en la sede educativa.';
 
         // 4. Bloque de Firma del Beneficiario (Rectoría)
         ws.getCell('D39').value = ie ? `Rector(a) ${ie.nombre}` : 'Rector Institucional';
@@ -437,20 +455,27 @@ class DocumentGenerator {
         if (r6Cells.length > 1) this._setCellText(r6Cells[1], mpio ? mpio.departamento : 'Caldas');
         if (r6Cells.length > 3) this._setCellText(r6Cells[r6Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
 
-        // R7: Tipo de terminal
+        // R7: Tipo de terminal y serial
         const r7Cells = getT0Cells(7);
-        const tipoTerm = asignacion ? asignacion.tipo_terminal : 'Tableta';
+        const tipoTerm = asignacion ? asignacion.tipo_terminal : (est.tipo_terminal || 'Tableta');
+        const serialAsignado = (asignacion && asignacion.serial_asignado) ? asignacion.serial_asignado : (est.serial_terminal || 'S/N');
         if (r7Cells.length > 1) {
             if (String(tipoTerm).toLowerCase().includes('portátil') || String(tipoTerm).toLowerCase().includes('portatil')) {
-                this._setCellText(r7Cells[1], '○ Tabletas       ● Portátiles    ○ Otro');
+                this._setCellText(r7Cells[1], `○ Tabletas       ● Portátiles (Serial: ${serialAsignado})    ○ Otro`);
             } else {
-                this._setCellText(r7Cells[1], '● Tabletas       ○ Portátiles    ○ Otro');
+                this._setCellText(r7Cells[1], `● Tabletas (Serial: ${serialAsignado})       ○ Portátiles    ○ Otro`);
             }
         }
 
         // R8: Cantidad de terminales
         const r8Cells = getT0Cells(8);
         if (r8Cells.length > 1) this._setCellText(r8Cells[1], '1 (Uno)');
+
+        // Observaciones en R14
+        const r14Cells = getT0Cells(14);
+        if (r14Cells.length > 0) {
+            this._setCellText(r14Cells[0], `Equipo de cómputo entregado con serial oficial asignado: ${serialAsignado}. Terminal verificado en óptimo funcionamiento.`);
+        }
 
         // Tabla 2: Lista de estudiantes / acudientes beneficiarios
         const table2 = tables[2];
@@ -459,7 +484,7 @@ class DocumentGenerator {
             const t2Cells = t2Rows[1].getElementsByTagName('w:tc');
             if (t2Cells.length >= 6) {
                 this._setCellText(t2Cells[0], est.documento_identidad);
-                this._setCellText(t2Cells[1], est.nombre_completo);
+                this._setCellText(t2Cells[1], `${est.nombre_completo} (Serial: ${serialAsignado})`);
                 this._setCellText(t2Cells[2], est.acudiente_nombres || '');
                 this._setCellText(t2Cells[3], est.acudiente_documento || '');
                 this._setCellText(t2Cells[4], est.acudiente_telefono || '3100000000');
@@ -600,12 +625,20 @@ class DocumentGenerator {
 
         const zip = new JSZip();
         const manifestRows = [
-            ['ID Documento', 'Tipo', 'Código DANE Sede', 'Nombre Sede', 'Estudiante', 'Radicado', 'Versión', 'Estado', 'Nombre Archivo', 'Drive ID', 'Fecha Actualización']
+            ['ID Documento', 'Tipo', 'Código DANE Sede', 'Nombre Sede', 'Estudiante', 'Radicado', 'Serial(es)', 'Versión', 'Estado', 'Nombre Archivo', 'Drive ID', 'Fecha Actualización']
         ];
 
         for (const doc of docs) {
             const sede = store.getSedeByDane(doc.codigo_dane_sede);
             const est = doc.estudiante_documento ? store.getEstudianteByDoc(doc.estudiante_documento) : null;
+            let serialVal = '';
+            if (est) {
+                const asig = store.getAsignacionByDoc(est.documento_identidad);
+                serialVal = asig ? asig.serial_asignado : (est.serial_terminal || '');
+            } else if (doc.codigo_dane_sede) {
+                const elems = store.getElementosBolsa(doc.codigo_dane_sede);
+                serialVal = elems.filter(e => e.serial && e.serial !== 'NO APLICA').map(e => `${e.elemento_nombre}: ${e.serial}`).join('; ');
+            }
 
             manifestRows.push([
                 doc.id,
@@ -614,6 +647,7 @@ class DocumentGenerator {
                 sede ? sede.nombre : '',
                 est ? `${est.nombre_completo} (${est.documento_identidad})` : 'Bolsa Institucional',
                 doc.radicado || '',
+                serialVal,
                 String(doc.version_actual),
                 doc.estado,
                 doc.nombre_archivo,

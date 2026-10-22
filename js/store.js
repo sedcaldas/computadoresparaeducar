@@ -118,8 +118,8 @@ class AppStore {
             try {
                 const parsed = JSON.parse(saved);
                 this.state = Object.assign(this.state, parsed);
-                // Si faltaban los documentos pregenerados, cargarlos
-                if (!this.state.documentos || this.state.documentos.length === 0) {
+                // Si faltaban los documentos pregenerados o los datos no tienen la versión con seriales reales (v2), recargar
+                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 2) {
                     await this.loadSeedData();
                 }
                 return;
@@ -136,6 +136,7 @@ class AppStore {
             const res = await fetch('./data/seed_data.json');
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const seed = await res.json();
+            this.state.data_version = 2; // Versión con seriales oficiales integrados
             this.state.municipios = seed.municipios || [];
             this.state.instituciones = seed.instituciones || [];
             this.state.sedes = seed.sedes || [];

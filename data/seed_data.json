@@ -805,559 +805,1915 @@
   ],
   "bolsa_elementos": [
     {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170280083062"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281326062"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "662"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726035PA1000579"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968462P"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012507534C"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD0124   -   SD1158"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE139"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035558"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086823"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "606"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S015261064A"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-028"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX25998JG"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "209"
+    },
+    {
+      "codigo_dane_sede": "217662000026",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281891062"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100282812062"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "664"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726035PA1000589"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014969032J"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012508657J"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1131   -   SD1144"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE205"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035442"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34260061261"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "614"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0152617209"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-035"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX2598YZS"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "202"
+    },
+    {
+      "codigo_dane_sede": "117088000255",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100282959062"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100280849062"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "661"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726035PA1000943"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014969461P"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012508191C"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1175   -   SD1157"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE175"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035676"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34260061283"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "610"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0152611247"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-220"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX258RPZ5"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "210"
+    },
+    {
+      "codigo_dane_sede": "217662002258",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281415062"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512120273018062"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "665"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000284"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014969009N"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012508064B"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1132   -   SD1145"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE144"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035353"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086804"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "611"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S015261796M"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-018"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX258TG4D"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "201"
+    },
+    {
+      "codigo_dane_sede": "117486000028",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100282784062"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281344062"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "666"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000139"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968398X"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0125104503"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1126   -   SD1146"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE195"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035436"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086846"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "612"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S015261784J"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-148"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX2592VDH"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "203"
+    },
+    {
+      "codigo_dane_sede": "217614000391",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170280030062"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281076062"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "663"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726035PA1000598"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968444P"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012509447H"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1130   -   SD1127"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE136"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035449"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086835"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "605"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S015261065B"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-029"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6EX225582T"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "204"
+    },
+    {
+      "codigo_dane_sede": "217050000400",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512120272468062"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281070062"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "668"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000305"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014969088U"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012509599P"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1147   -   SD1139"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035059"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086724"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "616"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0152613025"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-021"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX253XVY3"
+    },
+    {
+      "codigo_dane_sede": "217614000201",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "230"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170281697062"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170281766062"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "671"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000278"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968580Q"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0125103546"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1148   -   SD1138"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE203"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035158"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086833"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "617"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0152604025"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-081"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX2598VKM"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "227"
+    },
+    {
+      "codigo_dane_sede": "217616000259",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170280732062"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281855062"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "667"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000298"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968579Y"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012508715E"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1149   -   SD1140"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE178"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035370"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086842"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "615"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0152611708"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-113"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX2592J5E"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "229"
+    },
+    {
+      "codigo_dane_sede": "117614000711",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170280742062"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512120272559062"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "670"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000285"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968399Y"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012509086G"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1129   -   SD1128"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE198"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035273"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086832"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "613"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S015261297I"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-117"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX258U666"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "205"
+    },
+    {
+      "codigo_dane_sede": "117653000663",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281935062"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512100281321062"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "672"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000228"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014969363Q"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012509585K"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1141   -   SD1137"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE142"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035424"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086810"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "618"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S015260399K"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-084"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX253JZ9K"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "228"
+    },
+    {
+      "codigo_dane_sede": "117513000558",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170280743062"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Baterias (Adicionales)",
+      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512120272567062"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Estuche de transporte Kit Audio Visual",
+      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "669"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Cargadores (Adicionales)",
+      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726035PA1000707"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Cámara fotográfica",
+      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968577W"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Lente camara fotografica",
+      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0125102668"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Tarjeta de Memoria Micro SD 128",
+      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "cantidad": 2,
+      "serial": "SD1161   -   SD1136"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Grabadora portátil estéreo II",
+      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GPE194"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Trípode fotográfico con cabezal II",
+      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "cantidad": 1,
+      "serial": "2603035503"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Micrófono tipo Boom",
+      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "cantidad": 1,
+      "serial": "BY34100086486"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Kit de telón estudio fondo verde",
+      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "cantidad": 1,
+      "serial": "630"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Lente Intercambiable",
+      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S0152604036"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Luces LED",
+      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KLL-147"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Micrófono de solapa II",
+      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "cantidad": 1,
+      "serial": "C6AX253XW2S"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "Caña para  Microfono de 2 M",
+      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "cantidad": 1,
+      "serial": "172"
+    },
+    {
+      "codigo_dane_sede": "117174000349",
+      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "cantidad": 1,
+      "serial": "NO APLICA"
+    },
+    {
       "codigo_dane_sede": "217614000723",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0723-001"
     },
     {
       "codigo_dane_sede": "217614000723",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0723-002"
     },
     {
       "codigo_dane_sede": "217614000723",
       "elemento_nombre": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
-      "cantidad": 4
+      "nombre_oasis": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
+      "cantidad": 4,
+      "serial": "SN-CALDAS-0723-003"
     },
     {
       "codigo_dane_sede": "217272000106",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0106-004"
     },
     {
       "codigo_dane_sede": "217272000106",
       "elemento_nombre": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
-      "cantidad": 5
+      "nombre_oasis": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
+      "cantidad": 5,
+      "serial": "SN-CALDAS-0106-005"
     },
     {
       "codigo_dane_sede": "217272000106",
       "elemento_nombre": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
-      "cantidad": 5
+      "nombre_oasis": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
+      "cantidad": 5,
+      "serial": "SN-CALDAS-0106-006"
     },
     {
       "codigo_dane_sede": "217042000255",
       "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
+      "nombre_oasis": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0255-007"
     },
     {
       "codigo_dane_sede": "217042000255",
       "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Pantalla interactiva 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0255-008"
     },
     {
       "codigo_dane_sede": "217042000255",
       "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Pantalla Interactiva",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0255-009"
     },
     {
       "codigo_dane_sede": "217042000255",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0255-010"
     },
     {
       "codigo_dane_sede": "217042000255",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "Computador de escritorio con pantalla de 24 pulgadas IPS (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0255-011"
     },
     {
       "codigo_dane_sede": "117042000552",
       "elemento_nombre": "FUENTE DE VOLTAJE",
-      "cantidad": 2
+      "nombre_oasis": "FUENTE DE VOLTAJE",
+      "cantidad": 2,
+      "serial": "SN-CALDAS-0552-016"
     },
     {
       "codigo_dane_sede": "117042000552",
       "elemento_nombre": "KIT DE AGRICULTURA INTELIGENTE",
-      "cantidad": 3
+      "nombre_oasis": "KIT DE AGRICULTURA INTELIGENTE",
+      "cantidad": 3,
+      "serial": "SN-CALDAS-0552-017"
     },
     {
       "codigo_dane_sede": "217873000375",
       "elemento_nombre": "KIT DE AGRICULTURA INTELIGENTE",
-      "cantidad": 2
+      "nombre_oasis": "KIT DE AGRICULTURA INTELIGENTE",
+      "cantidad": 2,
+      "serial": "SN-CALDAS-0375-018"
     },
     {
       "codigo_dane_sede": "217873000375",
       "elemento_nombre": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
-      "cantidad": 3
+      "nombre_oasis": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
+      "cantidad": 3,
+      "serial": "SN-CALDAS-0375-019"
     },
     {
       "codigo_dane_sede": "117777000734",
       "elemento_nombre": "Cámara fotográfica con lente",
-      "cantidad": 1
+      "nombre_oasis": "Cámara fotográfica con lente",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0734-020"
     },
     {
       "codigo_dane_sede": "117777000734",
       "elemento_nombre": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
-      "cantidad": 1
+      "nombre_oasis": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0734-021"
     },
     {
       "codigo_dane_sede": "217486000651",
       "elemento_nombre": "Smart TV de 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Smart TV de 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0651-022"
     },
     {
       "codigo_dane_sede": "217486000651",
       "elemento_nombre": "Soporte Movil Smart Tv",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Smart Tv",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0651-023"
     },
     {
       "codigo_dane_sede": "217486000651",
       "elemento_nombre": "KIT DE MANTENIMIENTO",
-      "cantidad": 1
+      "nombre_oasis": "KIT DE MANTENIMIENTO",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0651-024"
     },
     {
       "codigo_dane_sede": "217662000590",
       "elemento_nombre": "Smart TV de 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Smart TV de 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0590-025"
     },
     {
       "codigo_dane_sede": "217662000590",
       "elemento_nombre": "Soporte Movil Smart Tv",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Smart Tv",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0590-026"
     },
     {
       "codigo_dane_sede": "217662000590",
       "elemento_nombre": "Disco duro externo de 1 TB",
-      "cantidad": 1
+      "nombre_oasis": "Disco duro externo de 1 TB",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0590-027"
     },
     {
       "codigo_dane_sede": "117050000278",
       "elemento_nombre": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
-      "cantidad": 1
+      "nombre_oasis": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0278-028"
     },
     {
       "codigo_dane_sede": "117050000278",
       "elemento_nombre": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
-      "cantidad": 5
+      "nombre_oasis": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
+      "cantidad": 5,
+      "serial": "SN-CALDAS-0278-029"
     },
     {
       "codigo_dane_sede": "117050000278",
       "elemento_nombre": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
-      "cantidad": 5
+      "nombre_oasis": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
+      "cantidad": 5,
+      "serial": "SN-CALDAS-0278-030"
     },
     {
       "codigo_dane_sede": "117541000652",
       "elemento_nombre": "KIT DE ANÁLISIS Y MEDICIÓN (SUELOS Y AGUA)",
-      "cantidad": 1
+      "nombre_oasis": "KIT DE ANÁLISIS Y MEDICIÓN (SUELOS Y AGUA)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0652-031"
     },
     {
       "codigo_dane_sede": "217042000760",
       "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
+      "nombre_oasis": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0760-032"
     },
     {
       "codigo_dane_sede": "217042000760",
       "elemento_nombre": "Cámara fotográfica con lente",
-      "cantidad": 1
+      "nombre_oasis": "Cámara fotográfica con lente",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0760-033"
     },
     {
       "codigo_dane_sede": "217042000760",
       "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Pantalla interactiva 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0760-034"
     },
     {
       "codigo_dane_sede": "217042000760",
       "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Pantalla Interactiva",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0760-035"
     },
     {
       "codigo_dane_sede": "217513000676",
       "elemento_nombre": "Coder Bunnyz, Cubetto",
-      "cantidad": 2
-    },
-    {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "Coder Bunnyz, Cubetto",
+      "cantidad": 2,
+      "serial": "SN-CALDAS-0676-038"
     },
     {
       "codigo_dane_sede": "217088000098",
       "elemento_nombre": "KIT DE AUDIO DIGITAL",
-      "cantidad": 1
+      "nombre_oasis": "KIT DE AUDIO DIGITAL",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0098-042"
     },
     {
       "codigo_dane_sede": "217088000098",
       "elemento_nombre": "Smart TV de 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Smart TV de 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0098-043"
     },
     {
       "codigo_dane_sede": "217088000098",
       "elemento_nombre": "Soporte Movil Smart Tv",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Smart Tv",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0098-044"
     },
     {
       "codigo_dane_sede": "217444000278",
       "elemento_nombre": "Cámara fotográfica con lente",
-      "cantidad": 1
+      "nombre_oasis": "Cámara fotográfica con lente",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0278-045"
     },
     {
       "codigo_dane_sede": "217380000040",
       "elemento_nombre": "Cámara fotográfica con lente",
-      "cantidad": 1
+      "nombre_oasis": "Cámara fotográfica con lente",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0040-046"
     },
     {
       "codigo_dane_sede": "217042000107",
       "elemento_nombre": "Computador de escritorio con pantalla de 24 pulgadas IPS (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
+      "nombre_oasis": "Computador de escritorio con pantalla de 24 pulgadas IPS (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0107-047"
     },
     {
       "codigo_dane_sede": "217042000107",
       "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Pantalla interactiva 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0107-048"
     },
     {
       "codigo_dane_sede": "217042000107",
       "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Pantalla Interactiva",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0107-049"
     },
     {
       "codigo_dane_sede": "217042000107",
       "elemento_nombre": "KIT DE AGRICULTURA INTELIGENTE",
-      "cantidad": 3
+      "nombre_oasis": "KIT DE AGRICULTURA INTELIGENTE",
+      "cantidad": 3,
+      "serial": "SN-CALDAS-0107-050"
     },
     {
       "codigo_dane_sede": "217042000107",
       "elemento_nombre": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
-      "cantidad": 3
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
+      "cantidad": 3,
+      "serial": "SN-CALDAS-0107-051"
     },
     {
       "codigo_dane_sede": "217442000246",
       "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
+      "nombre_oasis": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0246-060"
     },
     {
       "codigo_dane_sede": "217442000246",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0246-061"
     },
     {
       "codigo_dane_sede": "217442000246",
       "elemento_nombre": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "KIT DE AUDIO DIGITAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "Portátil con pantalla de 15 pulgadas (procesador AMD Ryzen 7 o Intel Core i7, memoria RAM de 32 GB, SSD de 1 tera, GPU dedicada de 8 GB)",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
-      "cantidad": 1
+      "nombre_oasis": "KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT (Incluye MicroBit)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0246-062"
     },
     {
       "codigo_dane_sede": "217662000093",
       "elemento_nombre": "Smart TV de 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Smart TV de 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0093-069"
     },
     {
       "codigo_dane_sede": "217662000093",
       "elemento_nombre": "Soporte Movil Smart Tv",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Smart Tv",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0093-070"
     },
     {
       "codigo_dane_sede": "217662000093",
       "elemento_nombre": "KIT DE AGRICULTURA INTELIGENTE",
-      "cantidad": 1
+      "nombre_oasis": "KIT DE AGRICULTURA INTELIGENTE",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0093-071"
     },
     {
       "codigo_dane_sede": "217777000089",
       "elemento_nombre": "Smart TV de 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Smart TV de 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0089-072"
     },
     {
       "codigo_dane_sede": "217777000089",
       "elemento_nombre": "Soporte Movil Smart Tv",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Smart Tv",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0089-073"
     },
     {
       "codigo_dane_sede": "217777000089",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0089-074"
     },
     {
       "codigo_dane_sede": "217777000089",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0089-075"
     },
     {
       "codigo_dane_sede": "217777000089",
       "elemento_nombre": "KIT DE MANTENIMIENTO",
-      "cantidad": 2
+      "nombre_oasis": "KIT DE MANTENIMIENTO",
+      "cantidad": 2,
+      "serial": "SN-CALDAS-0089-076"
     },
     {
       "codigo_dane_sede": "217513000064",
       "elemento_nombre": "Smart TV de 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Smart TV de 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0064-077"
     },
     {
       "codigo_dane_sede": "217513000064",
       "elemento_nombre": "Soporte Movil Smart Tv",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Smart Tv",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0064-078"
     },
     {
       "codigo_dane_sede": "217513000064",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0064-079"
     },
     {
       "codigo_dane_sede": "217513000064",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0064-080"
     },
     {
       "codigo_dane_sede": "217513000064",
       "elemento_nombre": "KIT DE MANTENIMIENTO",
-      "cantidad": 2
+      "nombre_oasis": "KIT DE MANTENIMIENTO",
+      "cantidad": 2,
+      "serial": "SN-CALDAS-0064-081"
     },
     {
       "codigo_dane_sede": "217442000033",
       "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Pantalla interactiva 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0033-082"
     },
     {
       "codigo_dane_sede": "217442000033",
       "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Pantalla Interactiva",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0033-083"
     },
     {
       "codigo_dane_sede": "217442000033",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0033-084"
     },
     {
       "codigo_dane_sede": "217442000033",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0033-085"
     },
     {
       "codigo_dane_sede": "217444000014",
       "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Pantalla interactiva 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0014-086"
     },
     {
       "codigo_dane_sede": "217444000014",
       "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Pantalla Interactiva",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0014-087"
     },
     {
       "codigo_dane_sede": "217444000014",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0014-088"
     },
     {
       "codigo_dane_sede": "217444000014",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0014-089"
     },
     {
       "codigo_dane_sede": "217380000856",
       "elemento_nombre": "MULTIMETRO",
-      "cantidad": 1
+      "nombre_oasis": "MULTIMETRO",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0856-090"
     },
     {
       "codigo_dane_sede": "217380000856",
       "elemento_nombre": "Estación de soldadura y aire caliente",
-      "cantidad": 1
+      "nombre_oasis": "Estación de soldadura y aire caliente",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0856-091"
     },
     {
       "codigo_dane_sede": "217380000856",
       "elemento_nombre": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
-      "cantidad": 1
+      "nombre_oasis": "KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI (incluye placa arduino)",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0856-092"
     },
     {
       "codigo_dane_sede": "217616000046",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0046-093"
     },
     {
       "codigo_dane_sede": "217616000046",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0046-094"
     },
     {
       "codigo_dane_sede": "117442000063",
       "elemento_nombre": "Pantalla interactiva 65 pulgadas",
-      "cantidad": 1
+      "nombre_oasis": "Pantalla interactiva 65 pulgadas",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0063-095"
     },
     {
       "codigo_dane_sede": "117442000063",
       "elemento_nombre": "Soporte Movil Pantalla Interactiva",
-      "cantidad": 1
+      "nombre_oasis": "Soporte Movil Pantalla Interactiva",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0063-096"
     },
     {
       "codigo_dane_sede": "117442000063",
       "elemento_nombre": "KIT MAKER\n(Kit de electronica + Kit Raee + Cartillas)",
-      "cantidad": 4
-    },
-    {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "Videoproyector de 3800 lúmenes, parlantes incorporados, HDMI",
-      "cantidad": 1
+      "nombre_oasis": "KIT MAKER\n(Kit de electronica + Kit Raee + Cartillas)",
+      "cantidad": 4,
+      "serial": "SN-CALDAS-0063-097"
     },
     {
       "codigo_dane_sede": "117446000157",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0157-100"
     },
     {
       "codigo_dane_sede": "117446000157",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0157-101"
     },
     {
       "codigo_dane_sede": "117013000292",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0292-104"
     },
     {
       "codigo_dane_sede": "117013000292",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0292-105"
     },
     {
       "codigo_dane_sede": "217541001793",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-1793-106"
     },
     {
       "codigo_dane_sede": "217541001793",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "KIT AUDIOVISUAL",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-1793-107"
     },
     {
       "codigo_dane_sede": "217541000673",
       "elemento_nombre": "Impresora 3D",
-      "cantidad": 1
+      "nombre_oasis": "Impresora 3D",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0673-109"
     },
     {
       "codigo_dane_sede": "217541000673",
       "elemento_nombre": "FILAMENTOS",
-      "cantidad": 1
+      "nombre_oasis": "FILAMENTOS",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0673-110"
     },
     {
       "codigo_dane_sede": "217174000432",
       "elemento_nombre": "KIT DE AUDIO DIGITAL",
-      "cantidad": 1
+      "nombre_oasis": "KIT DE AUDIO DIGITAL",
+      "cantidad": 1,
+      "serial": "SN-CALDAS-0432-111"
     }
   ],
   "estudiantes": [
@@ -1370,7 +2726,9 @@
       "acudiente_documento": "24370801",
       "acudiente_nombres": "DURBAY PATRICIA BETANCUR CARDONA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124730306"
+      "acudiente_telefono": "3124730306",
+      "serial_terminal": "HA2HES5G",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1059812816",
@@ -1381,7 +2739,9 @@
       "acudiente_documento": "24370572",
       "acudiente_nombres": "LUZ ADRIANA LÓPEZ MURILLO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121296003"
+      "acudiente_telefono": "3121296003",
+      "serial_terminal": "HA2HDZEV",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054480366",
@@ -1392,7 +2752,9 @@
       "acudiente_documento": "24527859",
       "acudiente_nombres": "MARÍA ROSA SÁNCHEZ NOREÑA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3128549067"
+      "acudiente_telefono": "3128549067",
+      "serial_terminal": "HA2HF5YE",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1089606334",
@@ -1403,7 +2765,9 @@
       "acudiente_documento": "24529213",
       "acudiente_nombres": "ALEJANDRA ARISTIZÁBAL VELANDIA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123166769"
+      "acudiente_telefono": "3123166769",
+      "serial_terminal": "HA2HFL9K",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1055890618",
@@ -1414,7 +2778,9 @@
       "acudiente_documento": "24730051",
       "acudiente_nombres": "ALBANORA RUIZ VALENCIA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126545428"
+      "acudiente_telefono": "3126545428",
+      "serial_terminal": "HA2HF3WN",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1057757797",
@@ -1425,7 +2791,9 @@
       "acudiente_documento": "1057756935",
       "acudiente_nombres": "MARIA ANDREA RUEDA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129688650"
+      "acudiente_telefono": "3129688650",
+      "serial_terminal": "HA2HEQ33",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054869093",
@@ -1436,7 +2804,9 @@
       "acudiente_documento": "1054986419",
       "acudiente_nombres": "LEIDY JULIETH DUQUE SALAZAR",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122014850"
+      "acudiente_telefono": "3122014850",
+      "serial_terminal": "HA2HFZ91",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1107859445",
@@ -1447,7 +2817,9 @@
       "acudiente_documento": "38561494",
       "acudiente_nombres": "PAULA ANDREA LOPEZ TRUJILLO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124796280"
+      "acudiente_telefono": "3124796280",
+      "serial_terminal": "HA2HG0GP",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054871365",
@@ -1458,7 +2830,9 @@
       "acudiente_documento": "18399293",
       "acudiente_nombres": "DEYVER ARCILA CORTES",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3125160807"
+      "acudiente_telefono": "3125160807",
+      "serial_terminal": "HA2HES59",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1137061910",
@@ -1469,7 +2843,9 @@
       "acudiente_documento": "1088261904",
       "acudiente_nombres": "LADY TATIANA GIRALDO PARRA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125280363"
+      "acudiente_telefono": "3125280363",
+      "serial_terminal": "HA2HDZLA",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054872974",
@@ -1480,7 +2856,9 @@
       "acudiente_documento": "30361348",
       "acudiente_nombres": "JENNY VANESSA TABARES LOZANO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125933563"
+      "acudiente_telefono": "3125933563",
+      "serial_terminal": "HA2HGSRY",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054480110",
@@ -1491,7 +2869,9 @@
       "acudiente_documento": "30358460",
       "acudiente_nombres": "FLORALBA LOPEZ LONDOÑO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126287569"
+      "acudiente_telefono": "3126287569",
+      "serial_terminal": "HA2HDHTY",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1127386550",
@@ -1502,7 +2882,9 @@
       "acudiente_documento": "4414200",
       "acudiente_nombres": "LAZARO ANTONIO VALENCIA CORRALES",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3121461272"
+      "acudiente_telefono": "3121461272",
+      "serial_terminal": "HA2HDDHS",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1058140140",
@@ -1513,7 +2895,9 @@
       "acudiente_documento": "30331559",
       "acudiente_nombres": "FRANCIA AYER RAMÍREZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125275185"
+      "acudiente_telefono": "3125275185",
+      "serial_terminal": "HA2HEN5S",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1107981101",
@@ -1524,7 +2908,9 @@
       "acudiente_documento": "24729296",
       "acudiente_nombres": "MARITZA SANCHEZ GALEANO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127862300"
+      "acudiente_telefono": "3127862300",
+      "serial_terminal": "HA2HCYGP",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1055890622",
@@ -1535,7 +2921,9 @@
       "acudiente_documento": "24731301",
       "acudiente_nombres": "YARLEDY GARCIA CARVAJAL",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122777191"
+      "acudiente_telefono": "3122777191",
+      "serial_terminal": "HA2HFQ9E",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054871822",
@@ -1546,7 +2934,9 @@
       "acudiente_documento": "1058843925",
       "acudiente_nombres": "LEIDY TATIANA JARAMILLO MONTES",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127141518"
+      "acudiente_telefono": "3127141518",
+      "serial_terminal": "HA2HG494",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1090275889",
@@ -1557,7 +2947,9 @@
       "acudiente_documento": "1094886858",
       "acudiente_nombres": "MARIO ANDRES NIETO GIL",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3129871085"
+      "acudiente_telefono": "3129871085",
+      "serial_terminal": "HA2HFE78",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054556929",
@@ -1568,7 +2960,9 @@
       "acudiente_documento": "1057782308",
       "acudiente_nombres": "DIANA FARLEDY CARVAJAL LOPEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121182898"
+      "acudiente_telefono": "3121182898",
+      "serial_terminal": "HA2HGSRJ",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1058200418",
@@ -1579,7 +2973,9 @@
       "acudiente_documento": "75004320",
       "acudiente_nombres": "EDWIN OSORIO GUARÍN",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3124697574"
+      "acudiente_telefono": "3124697574",
+      "serial_terminal": "5CD532768Y",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1053809439",
@@ -1590,7 +2986,9 @@
       "acudiente_documento": "22143357",
       "acudiente_nombres": "NARLIDIS MEJIA HERNANDEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125910784"
+      "acudiente_telefono": "3125910784",
+      "serial_terminal": "5CD53276Z1",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1054555724",
@@ -1601,7 +2999,9 @@
       "acudiente_documento": "1128625495",
       "acudiente_nombres": "LUIZA FERNANDA RODRIGUEZ GALLEGO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124673091"
+      "acudiente_telefono": "3124673091",
+      "serial_terminal": "5CD532766F",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1012376245",
@@ -1612,7 +3012,9 @@
       "acudiente_documento": "1128624188",
       "acudiente_nombres": "YURIANA YERLEIDY RINCON FLOREZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122351434"
+      "acudiente_telefono": "3122351434",
+      "serial_terminal": "5CD5320LGS",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1128625906",
@@ -1623,7 +3025,9 @@
       "acudiente_documento": "24716677",
       "acudiente_nombres": "ADRIANA MARÍA MEJIA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122618766"
+      "acudiente_telefono": "3122618766",
+      "serial_terminal": "5CD5328V62",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1128625749",
@@ -1634,7 +3038,9 @@
       "acudiente_documento": "1128624528",
       "acudiente_nombres": "MERCEDES BERMUDEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126089434"
+      "acudiente_telefono": "3126089434",
+      "serial_terminal": "5CD5320LFT",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1128626485",
@@ -1645,7 +3051,9 @@
       "acudiente_documento": "1128625036",
       "acudiente_nombres": "YENSY LORENA ARANGO GARCIA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125413987"
+      "acudiente_telefono": "3125413987",
+      "serial_terminal": "5CD5328V4X",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1028887846",
@@ -1656,7 +3064,9 @@
       "acudiente_documento": "1010197892",
       "acudiente_nombres": "ANGELA YINETH PEREZ CASALLAS",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122147488"
+      "acudiente_telefono": "3122147488",
+      "serial_terminal": "5CD53276QB",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1054554897",
@@ -1667,7 +3077,9 @@
       "acudiente_documento": "20830406",
       "acudiente_nombres": "ADRIANA ROA HERRERA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3128281410"
+      "acudiente_telefono": "3128281410",
+      "serial_terminal": "5CD5320L80",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1128625806",
@@ -1678,7 +3090,9 @@
       "acudiente_documento": "30351725",
       "acudiente_nombres": "JENNY PATRICIA OLIVARES",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129207779"
+      "acudiente_telefono": "3129207779",
+      "serial_terminal": "5CD5328TY5",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1128628149",
@@ -1689,7 +3103,9 @@
       "acudiente_documento": "52763768",
       "acudiente_nombres": "ANA MILENA MORENO  GARZON",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125732888"
+      "acudiente_telefono": "3125732888",
+      "serial_terminal": "5CD532941L",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1128625920",
@@ -1700,7 +3116,9 @@
       "acudiente_documento": "1128626243",
       "acudiente_nombres": "FRANCY YURLEY BETANCURT PEÑA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127450630"
+      "acudiente_telefono": "3127450630",
+      "serial_terminal": "HA2HFAY6",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1023386761",
@@ -1711,7 +3129,9 @@
       "acudiente_documento": "79829558",
       "acudiente_nombres": "JOSE ARNULFO FLOREZ RINCON",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3125937949"
+      "acudiente_telefono": "3125937949",
+      "serial_terminal": "HA2HGR1X",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054556667",
@@ -1722,7 +3142,9 @@
       "acudiente_documento": "1128624760",
       "acudiente_nombres": "YUDY ESNEY LONDOÑO PEÑA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124202744"
+      "acudiente_telefono": "3124202744",
+      "serial_terminal": "HA2HFN54",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1150435210",
@@ -1733,7 +3155,9 @@
       "acudiente_documento": "1049620960",
       "acudiente_nombres": "JENNIFER MARCELA REYES RODRIGUEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127631676"
+      "acudiente_telefono": "3127631676",
+      "serial_terminal": "HA2HE653",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054870602",
@@ -1744,7 +3168,9 @@
       "acudiente_documento": "33745247",
       "acudiente_nombres": "ROSALBA QUICENO JARAMILLO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129331919"
+      "acudiente_telefono": "3129331919",
+      "serial_terminal": "HA2HGSGZ",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054870861",
@@ -1755,7 +3181,9 @@
       "acudiente_documento": "1057782107",
       "acudiente_nombres": "LADY JOHANA JIMÉNEZ GONZÁLEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121704696"
+      "acudiente_telefono": "3121704696",
+      "serial_terminal": "HA2HEC5J",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1161213361",
@@ -1766,7 +3194,9 @@
       "acudiente_documento": "1010084314",
       "acudiente_nombres": "LUZ LILIANA ALARCON LÓPEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124478940"
+      "acudiente_telefono": "3124478940",
+      "serial_terminal": "HA2HEQ3G",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1059119432",
@@ -1777,7 +3207,9 @@
       "acudiente_documento": "24738327",
       "acudiente_nombres": "BLANCA LEDIS GALLEGO GUTIERREZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125337557"
+      "acudiente_telefono": "3125337557",
+      "serial_terminal": "HA2HFC12",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1055552513",
@@ -1788,7 +3220,9 @@
       "acudiente_documento": "9496622",
       "acudiente_nombres": "SANTOS REYES CARRILLO",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3123136646"
+      "acudiente_telefono": "3123136646",
+      "serial_terminal": "HA2HFB0X",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1055552178",
@@ -1799,7 +3233,9 @@
       "acudiente_documento": "9496622",
       "acudiente_nombres": "SANTOS REYES CARRILLO",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3123426883"
+      "acudiente_telefono": "3123426883",
+      "serial_terminal": "HA2HGSHJ",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054556004",
@@ -1810,7 +3246,9 @@
       "acudiente_documento": "33745896",
       "acudiente_nombres": "ANDREA MORALES",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126271720"
+      "acudiente_telefono": "3126271720",
+      "serial_terminal": "HA2HEA4N",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1057785114",
@@ -1821,7 +3259,9 @@
       "acudiente_documento": "24731289",
       "acudiente_nombres": "LUZ YANETH VALENCIA LOPEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126059182"
+      "acudiente_telefono": "3126059182",
+      "serial_terminal": "HA2HE863",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054873667",
@@ -1832,7 +3272,9 @@
       "acudiente_documento": "33745226",
       "acudiente_nombres": "SORAIDA JARAMILLO GUTIERREZ",
       "acudiente_parentesco": "REPRESENTANTE_LEGAL",
-      "acudiente_telefono": "3125553090"
+      "acudiente_telefono": "3125553090",
+      "serial_terminal": "HA2HES8T",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1055047329",
@@ -1843,7 +3285,9 @@
       "acudiente_documento": "1058845626",
       "acudiente_nombres": "KELY JOHANA CIFUENTES AGUDELO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129857597"
+      "acudiente_telefono": "3129857597",
+      "serial_terminal": "HA2HGS2T",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1059703125",
@@ -1854,7 +3298,9 @@
       "acudiente_documento": "1059704460",
       "acudiente_nombres": "ZULAY YAMILE GUERRERO ROTAVISTA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129262459"
+      "acudiente_telefono": "3129262459",
+      "serial_terminal": "5CD532940G",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059703010",
@@ -1865,7 +3311,9 @@
       "acudiente_documento": "30382644",
       "acudiente_nombres": "ADELAIDA UCHIMA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125049503"
+      "acudiente_telefono": "3125049503",
+      "serial_terminal": "5CD53293N5",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059703091",
@@ -1876,7 +3324,9 @@
       "acudiente_documento": "30413244",
       "acudiente_nombres": "MARIA LUCERO AMAYA MAFLA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124274726"
+      "acudiente_telefono": "3124274726",
+      "serial_terminal": "HA2HFAZX",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054399697",
@@ -1887,7 +3337,9 @@
       "acudiente_documento": "25081232",
       "acudiente_nombres": "DIANA YANET VALENCIA AGUDELO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121653084"
+      "acudiente_telefono": "3121653084",
+      "serial_terminal": "HA2HES87",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1058079025",
@@ -1898,7 +3350,9 @@
       "acudiente_documento": "1059785423",
       "acudiente_nombres": "DANIELA BERMUDEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127525354"
+      "acudiente_telefono": "3127525354",
+      "serial_terminal": "HA2HGSSK",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061279101",
@@ -1909,7 +3363,9 @@
       "acudiente_documento": "25101927",
       "acudiente_nombres": "ANALIDA GONZALEZ OCAMPO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126464983"
+      "acudiente_telefono": "3126464983",
+      "serial_terminal": "HA2HGSH6",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1085719307",
@@ -1920,7 +3376,9 @@
       "acudiente_documento": "25099501",
       "acudiente_nombres": "ANGELA MARÍA CARDONA GOMEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123377735"
+      "acudiente_telefono": "3123377735",
+      "serial_terminal": "HA2HFZCX",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1059812733",
@@ -1931,7 +3389,9 @@
       "acudiente_documento": "25101895",
       "acudiente_nombres": "LUZ CLEMENCIA OSORIO RAMÍREZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123555984"
+      "acudiente_telefono": "3123555984",
+      "serial_terminal": "HA2HEL54",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061279489",
@@ -1942,7 +3402,9 @@
       "acudiente_documento": "25099743",
       "acudiente_nombres": "NELLY MEDINA FRANCO",
       "acudiente_parentesco": "REPRESENTANTE_LEGAL",
-      "acudiente_telefono": "3124514990"
+      "acudiente_telefono": "3124514990",
+      "serial_terminal": "HA2HFD2A",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061279193",
@@ -1953,7 +3415,9 @@
       "acudiente_documento": "1059811862",
       "acudiente_nombres": "LUZ ESTRELLA BLANDON MARULANDA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122323362"
+      "acudiente_telefono": "3122323362",
+      "serial_terminal": "HA2HCYLP",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061279173",
@@ -1964,7 +3428,9 @@
       "acudiente_documento": "15962593",
       "acudiente_nombres": "JORGE LEANDRO FLOREZ CEBALLOS",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3125883925"
+      "acudiente_telefono": "3125883925",
+      "serial_terminal": "HA2HFJFN",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1013131528",
@@ -1975,7 +3441,9 @@
       "acudiente_documento": "24332948",
       "acudiente_nombres": "PAULA JOHANA DUQUE",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122674714"
+      "acudiente_telefono": "3122674714",
+      "serial_terminal": "HA2HGRGK",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061279443",
@@ -1986,7 +3454,9 @@
       "acudiente_documento": "1059813797",
       "acudiente_nombres": "YENNY VARGAS ATEHORTUA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129986446"
+      "acudiente_telefono": "3129986446",
+      "serial_terminal": "HA2HEN15",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061279413",
@@ -1997,7 +3467,9 @@
       "acudiente_documento": "30235905",
       "acudiente_nombres": "MARIA DEL PILAR CARDONA MURILLO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123327711"
+      "acudiente_telefono": "3123327711",
+      "serial_terminal": "HA2HG1J2",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1059812743",
@@ -2008,7 +3480,9 @@
       "acudiente_documento": "15961953",
       "acudiente_nombres": "WILLIAM QUINTERO OCAMPO",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3123942541"
+      "acudiente_telefono": "3123942541",
+      "serial_terminal": "HA2HFZ8J",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1024521745",
@@ -2019,7 +3493,9 @@
       "acudiente_documento": "1024479036",
       "acudiente_nombres": "LEIDY CONSTANZA OCAMPO OSPINA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121628080"
+      "acudiente_telefono": "3121628080",
+      "serial_terminal": "5CD53276W1",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1060040537",
@@ -2030,7 +3506,9 @@
       "acudiente_documento": "1058843573",
       "acudiente_nombres": "ALBA LILIANA GARCIA ARIAS",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124962835"
+      "acudiente_telefono": "3124962835",
+      "serial_terminal": "5CD53276YC",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1014874156",
@@ -2041,7 +3519,9 @@
       "acudiente_documento": "52806922",
       "acudiente_nombres": "DILZA CARDONA DUQUE",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121091499"
+      "acudiente_telefono": "3121091499",
+      "serial_terminal": "5CD53293V3",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1058526609",
@@ -2052,7 +3532,9 @@
       "acudiente_documento": "30390632",
       "acudiente_nombres": "MARTA ELENA BUILIS GUZMÁN",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122019290"
+      "acudiente_telefono": "3122019290",
+      "serial_terminal": "HA2HFE6Y",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1058526576",
@@ -2063,7 +3545,9 @@
       "acudiente_documento": "25141411",
       "acudiente_nombres": "ELISENIA CORTES",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124155074"
+      "acudiente_telefono": "3124155074",
+      "serial_terminal": "SN-EST-0964-6576",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1058526615",
@@ -2074,7 +3558,9 @@
       "acudiente_documento": "24713770",
       "acudiente_nombres": "MARI LUZ OBANDO CARDONA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126304930"
+      "acudiente_telefono": "3126304930",
+      "serial_terminal": "SN-EST-0964-6615",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1111678405",
@@ -2085,7 +3571,9 @@
       "acudiente_documento": "1143952753",
       "acudiente_nombres": "KATHERIN JULIETH VALENCIA ZULUAGA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126802763"
+      "acudiente_telefono": "3126802763",
+      "serial_terminal": "HA2HDMYZ",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1028800327",
@@ -2096,7 +3584,9 @@
       "acudiente_documento": "1010191300",
       "acudiente_nombres": "MAIDA ANYELIN MONTOYA OCAMPO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127324246"
+      "acudiente_telefono": "3127324246",
+      "serial_terminal": "HA2HFW6V",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054555584",
@@ -2107,7 +3597,9 @@
       "acudiente_documento": "30226172",
       "acudiente_nombres": "LUZ ADRIANA MUÑOZ HOYOZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3128261180"
+      "acudiente_telefono": "3128261180",
+      "serial_terminal": "HA2HDMYL",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1109548629",
@@ -2118,7 +3610,9 @@
       "acudiente_documento": "30226158",
       "acudiente_nombres": "GLORIA JOHANA OSPINA OCAMPO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126938877"
+      "acudiente_telefono": "3126938877",
+      "serial_terminal": "HA2HG4AG",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1061656152",
@@ -2129,7 +3623,9 @@
       "acudiente_documento": "24720901",
       "acudiente_nombres": "MÓNICA PATRICIA HENAO ESCOBAR",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3129159378"
+      "acudiente_telefono": "3129159378",
+      "serial_terminal": "HA2J945W",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1013270124",
@@ -2140,7 +3636,9 @@
       "acudiente_documento": "1061654082",
       "acudiente_nombres": "LORENA ROJAS",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3128646822"
+      "acudiente_telefono": "3128646822",
+      "serial_terminal": "HA2HF3Z4",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1058199839",
@@ -2151,7 +3649,9 @@
       "acudiente_documento": "1007322527",
       "acudiente_nombres": "LEIDY PAOLA BUITRAGO RESTREPO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125142775"
+      "acudiente_telefono": "3125142775",
+      "serial_terminal": "HA2HFX1D",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1089937240",
@@ -2162,7 +3662,9 @@
       "acudiente_documento": "25248748",
       "acudiente_nombres": "INDIRA MARCELA GIRALDO BETANCUR",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126523499"
+      "acudiente_telefono": "3126523499",
+      "serial_terminal": "HA2HFY37",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054873244",
@@ -2173,7 +3675,9 @@
       "acudiente_documento": "4547551",
       "acudiente_nombres": "JHON LÍDER OSPINA ZAPATA",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3127479282"
+      "acudiente_telefono": "3127479282",
+      "serial_terminal": "HA2HEL3E",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1087553870",
@@ -2184,7 +3688,9 @@
       "acudiente_documento": "25249129",
       "acudiente_nombres": "MARIA ANGELICA MAFLA GALEANO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121807731"
+      "acudiente_telefono": "3121807731",
+      "serial_terminal": "HA2HFW5P",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054874880",
@@ -2195,7 +3701,9 @@
       "acudiente_documento": "24397217",
       "acudiente_nombres": "Nancy Stella Rendon Ortiz",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3121047319"
+      "acudiente_telefono": "3121047319",
+      "serial_terminal": "5CD53293KF",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1058079146",
@@ -2206,7 +3714,9 @@
       "acudiente_documento": "1054917469",
       "acudiente_nombres": "Adriana Maria Rendon Ortiz",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124112426"
+      "acudiente_telefono": "3124112426",
+      "serial_terminal": "SN-EST-0650-9146",
+      "tipo_terminal": "Tableta"
     },
     {
       "documento_identidad": "1054872128",
@@ -2217,7 +3727,9 @@
       "acudiente_documento": "1056300638",
       "acudiente_nombres": "Gloria Pilar Cerquera Martinez",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123731000"
+      "acudiente_telefono": "3123731000",
+      "serial_terminal": "5CD53276HP",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1013130550",
@@ -2228,7 +3740,9 @@
       "acudiente_documento": "30235667",
       "acudiente_nombres": "Diana julietta Jaramillo Orozco",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3124954501"
+      "acudiente_telefono": "3124954501",
+      "serial_terminal": "5CD53276QZ",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1054556895",
@@ -2239,7 +3753,9 @@
       "acudiente_documento": "1054561133",
       "acudiente_nombres": "derly alexandra arenas ortiz",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127679254"
+      "acudiente_telefono": "3127679254",
+      "serial_terminal": "5CD5320L6M",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1058199953",
@@ -2250,7 +3766,9 @@
       "acudiente_documento": "1020741028",
       "acudiente_nombres": "Alexis Andrea Ayala Bahos",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123234100"
+      "acudiente_telefono": "3123234100",
+      "serial_terminal": "C50VVLA#ABM",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1055756947",
@@ -2261,7 +3779,9 @@
       "acudiente_documento": "24870885",
       "acudiente_nombres": "Alba Ilda Rivera López",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3127383640"
+      "acudiente_telefono": "3127383640",
+      "serial_terminal": "5CD53293K8",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1018245651",
@@ -2272,7 +3792,9 @@
       "acudiente_documento": "30412905",
       "acudiente_nombres": "MERY VALDERRAMA LOPERA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126842493"
+      "acudiente_telefono": "3126842493",
+      "serial_terminal": "5CD5327711",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059702870",
@@ -2283,7 +3805,9 @@
       "acudiente_documento": "1059699748",
       "acudiente_nombres": "SERGIO ALEXANDER AFANADOR VARGAS",
       "acudiente_parentesco": "PADRE",
-      "acudiente_telefono": "3127186842"
+      "acudiente_telefono": "3127186842",
+      "serial_terminal": "5CD532766P",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059703500",
@@ -2294,7 +3818,9 @@
       "acudiente_documento": "1059699062",
       "acudiente_nombres": "Zulma Sorany Bueno Guapacha",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123905552"
+      "acudiente_telefono": "3123905552",
+      "serial_terminal": "5CD5320M5Q",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059703575",
@@ -2305,7 +3831,9 @@
       "acudiente_documento": "30414952",
       "acudiente_nombres": "LEIDY JOHANA VILLADA ORTIZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3125162957"
+      "acudiente_telefono": "3125162957",
+      "serial_terminal": "5CD5320L7N",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059704036",
@@ -2316,7 +3844,9 @@
       "acudiente_documento": "1059698447",
       "acudiente_nombres": "PAULA ANDREA LARGO NARANJO",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3123806717"
+      "acudiente_telefono": "3123806717",
+      "serial_terminal": "5CD5328V1J",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1059704234",
@@ -2327,7 +3857,9 @@
       "acudiente_documento": "30384269",
       "acudiente_nombres": "MARIBEL GARCIA HERNANDEZ",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3126572858"
+      "acudiente_telefono": "3126572858",
+      "serial_terminal": "5CD53276VR",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1060536474",
@@ -2338,7 +3870,9 @@
       "acudiente_documento": "1059703568",
       "acudiente_nombres": "DERLY TATIANA",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122344280"
+      "acudiente_telefono": "3122344280",
+      "serial_terminal": "5CD5320L9W",
+      "tipo_terminal": "Portátil"
     },
     {
       "documento_identidad": "1079097240",
@@ -2349,548 +3883,640 @@
       "acudiente_documento": "65768289",
       "acudiente_nombres": "ANA JOSEFA MONTOYA SALAZAR",
       "acudiente_parentesco": "MADRE",
-      "acudiente_telefono": "3122196955"
+      "acudiente_telefono": "3122196955",
+      "serial_terminal": "5CD532775B",
+      "tipo_terminal": "Portátil"
     }
   ],
   "asignaciones": [
     {
       "estudiante_documento": "1059812839",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2839",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HES5G",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059812816",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2816",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HDZEV",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054480366",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0366",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HF5YE",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1089606334",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6334",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFL9K",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1055890618",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0618",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HF3WN",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1057757797",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-7797",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEQ33",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054869093",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9093",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFZ91",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1107859445",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9445",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HG0GP",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054871365",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-1365",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HES59",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1137061910",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-1910",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HDZLA",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054872974",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2974",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGSRY",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054480110",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0110",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HDHTY",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1127386550",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6550",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HDDHS",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058140140",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0140",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEN5S",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1107981101",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-1101",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HCYGP",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1055890622",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0622",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFQ9E",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054871822",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-1822",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HG494",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1090275889",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-5889",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFE78",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054556929",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6929",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGSRJ",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058200418",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-0418",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD532768Y",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1053809439",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-9439",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276Z1",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054555724",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-5724",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD532766F",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1012376245",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6245",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320LGS",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1128625906",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-5906",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5328V62",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1128625749",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-5749",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320LFT",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1128626485",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6485",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5328V4X",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1028887846",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-7846",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276QB",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054554897",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-4897",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320L80",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1128625806",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-5806",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5328TY5",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1128628149",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-8149",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD532941L",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1128625920",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-5920",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFAY6",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1023386761",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6761",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGR1X",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054556667",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6667",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFN54",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1150435210",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-5210",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HE653",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054870602",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0602",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGSGZ",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054870861",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0861",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEC5J",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1161213361",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-3361",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEQ3G",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059119432",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9432",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFC12",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1055552513",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2513",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFB0X",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1055552178",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2178",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGSHJ",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054556004",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6004",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEA4N",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1057785114",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-5114",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HE863",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054873667",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-3667",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HES8T",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1055047329",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-7329",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGS2T",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059703125",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-3125",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD532940G",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059703010",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-3010",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53293N5",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059703091",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-3091",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFAZX",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054399697",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9697",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HES87",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058079025",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9025",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGSSK",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061279101",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9101",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGSH6",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1085719307",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9307",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFZCX",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059812733",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2733",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEL54",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061279489",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9489",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFD2A",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061279193",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9193",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HCYLP",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061279173",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9173",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFJFN",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1013131528",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-1528",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HGRGK",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061279443",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9443",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEN15",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061279413",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9413",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HG1J2",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059812743",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-2743",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFZ8J",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1024521745",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-1745",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276W1",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1060040537",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-0537",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276YC",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1014874156",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-4156",
-      "estado_despacho": "Reasignación"
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53293V3",
+      "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058526609",
-      "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6609",
-      "estado_despacho": "Reasignación"
+      "tipo_terminal": "Tableta",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFE6Y",
+      "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058526576",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6576",
+      "descripcion_terminal": "Portátil HP ProBook G11",
+      "serial_asignado": "SN-EST-0964-6576",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058526615",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6615",
+      "descripcion_terminal": "Tableta Lenovo Idea Tab Pro",
+      "serial_asignado": "SN-EST-0964-6615",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1111678405",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-8405",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HDMYZ",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1028800327",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0327",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFW6V",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054555584",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-5584",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HDMYL",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1109548629",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-8629",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HG4AG",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1061656152",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-6152",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2J945W",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1013270124",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-0124",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HF3Z4",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058199839",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-9839",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFX1D",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1089937240",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-7240",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFY37",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054873244",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-3244",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HEL3E",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1087553870",
       "tipo_terminal": "Tableta",
-      "serial_asignado": "SN-CALDAS-3870",
+      "descripcion_terminal": "BT TABLETA LENOVO IDEA TAB PRO  CTO 158-25",
+      "serial_asignado": "HA2HFW5P",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054874880",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-4880",
-      "estado_despacho": "Reasignación"
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53293KF",
+      "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058079146",
-      "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-9146",
+      "tipo_terminal": "Tableta",
+      "descripcion_terminal": "Tableta Lenovo Idea Tab Pro",
+      "serial_asignado": "SN-EST-0650-9146",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054872128",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-2128",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276HP",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1013130550",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-0550",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276QZ",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1054556895",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6895",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320L6M",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1058199953",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-9953",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "C50VVLA#ABM",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1055756947",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6947",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53293K8",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1018245651",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-5651",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5327711",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059702870",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-2870",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD532766P",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059703500",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-3500",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320M5Q",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059703575",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-3575",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320L7N",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059704036",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-4036",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5328V1J",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1059704234",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-4234",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD53276VR",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1060536474",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-6474",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD5320L9W",
       "estado_despacho": "Despacho Programado"
     },
     {
       "estudiante_documento": "1079097240",
       "tipo_terminal": "Portátil",
-      "serial_asignado": "SN-CALDAS-7240",
+      "descripcion_terminal": "PORTÁTIL 14\" HEWLETT PACKARD, PROBOOK 445 14 INCH G11 RYZEN 3 7335U - OC 148772",
+      "serial_asignado": "5CD532775B",
       "estado_despacho": "Despacho Programado"
     }
   ],

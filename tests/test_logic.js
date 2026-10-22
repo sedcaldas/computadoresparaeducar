@@ -33,6 +33,12 @@ async function runTests() {
     assert(seedData.sedes.length >= 42, `Sedes de Bolsa cargadas (${seedData.sedes.length} >= 42)`);
     assert(seedData.estudiantes.length === 90, `Estudiantes beneficiarios cargados (${seedData.estudiantes.length} == 90)`);
     assert(seedData.config.drive_root_folder_id === '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51', 'Carpeta raíz oficial de Drive configurada');
+    const elemsWithSerial = seedData.bolsa_elementos.filter(e => e.serial && e.serial.length > 0);
+    assert(elemsWithSerial.length === seedData.bolsa_elementos.length, `Todos los elementos de bolsa tienen serial oficial (${elemsWithSerial.length}/${seedData.bolsa_elementos.length})`);
+    const estWithSerial = seedData.estudiantes.filter(e => e.serial_terminal && e.serial_terminal.length > 0);
+    assert(estWithSerial.length === seedData.estudiantes.length, `Todos los estudiantes tienen serial oficial (${estWithSerial.length}/${seedData.estudiantes.length})`);
+    const asigWithSerial = seedData.asignaciones.filter(a => a.serial_asignado && a.serial_asignado.length > 0);
+    assert(asigWithSerial.length === seedData.asignaciones.length, `Todas las asignaciones tienen serial oficial (${asigWithSerial.length}/${seedData.asignaciones.length})`);
 
     // 2. Generación LOG-026-F (.docx)
     console.log('\n2. Generación Documental LOG-026-F (.docx)');
