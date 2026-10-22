@@ -39,7 +39,7 @@ async function runTests() {
     assert(estWithSerial.length === 87, `87 estudiantes focalizados con serial oficial verificado (${estWithSerial.length}/87)`);
     assert(seedData.estudiantes.filter(e => !e.serial_terminal).length === 3, 'Exactamente 3 estudiantes sin terminal asignada (no se inventan seriales)');
     const sedesConBolsa = seedData.sedes.filter(s => seedData.bolsa_elementos.some(e => e.codigo_dane_sede === s.codigo_dane_sede));
-    assert(sedesConBolsa.length === 12, `Exactamente 12 sedes tienen elementos de bolsa asignados (${sedesConBolsa.length} == 12)`);
+    assert(sedesConBolsa.length === 38, `Exactamente 38 sedes tienen elementos de bolsa asignados (${sedesConBolsa.length} == 38)`);
 
     // 2. Generación LOG-026-F (.docx)
     console.log('\n2. Generación Documental LOG-026-F (.docx)');
@@ -109,27 +109,54 @@ async function runTests() {
     assert(docXml007.includes('Nombre de Contratista'), 'XML contiene campo para contratista CPE');
     assert(docXml007.includes('Nombre del rector'), 'XML contiene campo para rectoría');
 
-    // 5. Validación de Acta Consolidada LOG-007 (Excel)
-    console.log('\n5. Consolidación de Formatos LOG-007 en Excel');
+    // 5. Validación de Acta Consolidada LOG-007 (Excel) con Plantilla Oficial
+    console.log('\n5. Consolidación de Formatos LOG-007 en Excel (Plantilla Oficial)');
+    const templateConsolidadoPath = path.join(__dirname, '../templates/Acta_Consolidada_LOG-007.xlsx');
+    assert(fs.existsSync(templateConsolidadoPath), 'Plantilla Acta_Consolidada_LOG-007.xlsx existe');
+
     const wbConsolidado = new ExcelJS.Workbook();
-    const wsConsolidado = wbConsolidado.addWorksheet('ACTA FORMAL DE ENTREGA');
-    wsConsolidado.getCell('B2').value = 'ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN';
-    const headerCols = [
-        'No. Documento Estudiante',
-        'Nombres y Apellidos Estudiante',
-        'Nombres y Apellidos Acudiente',
-        'No. Documento Acudiente',
-        'No. Celular Acudiente'
-    ];
-    headerCols.forEach((col, idx) => {
-        wsConsolidado.getCell(6, idx + 2).value = col;
-    });
-    assert(wsConsolidado.getCell('B2').value === 'ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN', 'Título oficial de acta consolidada validado');
-    assert(wsConsolidado.getCell('B6').value === 'No. Documento Estudiante', 'Columna No. Documento Estudiante validada');
-    assert(wsConsolidado.getCell('C6').value === 'Nombres y Apellidos Estudiante', 'Columna Nombres y Apellidos Estudiante validada');
-    assert(wsConsolidado.getCell('D6').value === 'Nombres y Apellidos Acudiente', 'Columna Nombres y Apellidos Acudiente validada');
-    assert(wsConsolidado.getCell('E6').value === 'No. Documento Acudiente', 'Columna No. Documento Acudiente validada');
-    assert(wsConsolidado.getCell('F6').value === 'No. Celular Acudiente', 'Columna No. Celular Acudiente validada');
+    const bufConsolidado = fs.readFileSync(templateConsolidadoPath);
+    await wbConsolidado.xlsx.load(bufConsolidado);
+    const wsConsolidado = wbConsolidado.getWorksheet('Hoja1') || wbConsolidado.worksheets[0];
+
+    // Verificar Título en fila 3 (B3:G3)
+    assert(wsConsolidado.getCell('B3').value === 'ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN', 'Título oficial en celda B3 validado ("ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN")');
+
+    // Verificar Campos de Metadatos en filas 5, 6 y 7
+    assert(String(wsConsolidado.getCell('B5').value).includes('Institución Educativa:'), 'Etiqueta B5 "Institución Educativa:" validada');
+    assert(String(wsConsolidado.getCell('E5').value).includes('Código Dane IE:'), 'Etiqueta E5 "Código Dane IE:" validada');
+    assert(String(wsConsolidado.getCell('B6').value).includes('Sede Educativa:'), 'Etiqueta B6 "Sede Educativa:" validada');
+    assert(String(wsConsolidado.getCell('E6').value).includes('Código Dane Sede:'), 'Etiqueta E6 "Código Dane Sede:" validada');
+    assert(String(wsConsolidado.getCell('B7').value).includes('Radicado:'), 'Etiqueta B7 "Radicado:" validada');
+
+    // Verificar Encabezados de tabla en filas 9-10 (B9 a G9)
+    assert(wsConsolidado.getCell('B9').value === 'No. Documento Estudiante', 'Columna B9 "No. Documento Estudiante" validada');
+    assert(wsConsolidado.getCell('C9').value === 'Nombres y Apellidos Estudiante', 'Columna C9 "Nombres y Apellidos Estudiante" validada');
+    assert(wsConsolidado.getCell('D9').value === 'Nombres y Apellidos Acudiente', 'Columna D9 "Nombres y Apellidos Acudiente" validada');
+    assert(wsConsolidado.getCell('E9').value === 'No. Documento Acudiente', 'Columna E9 "No. Documento Acudiente" validada');
+    assert(wsConsolidado.getCell('F9').value === 'No. Celular Acudiente', 'Columna F9 "No. Celular Acudiente" validada');
+    assert(wsConsolidado.getCell('G9').value === 'Firma Acudiente', 'Columna G9 "Firma Acudiente" validada');
+
+    // Simular diligenciamiento de metadatos y registros a partir de fila 11
+    wsConsolidado.getCell('C5').value = 'INSTITUCION EDUCATIVA TEST';
+    wsConsolidado.getCell('F5').value = '117001000001';
+    wsConsolidado.getCell('C6').value = 'SEDE PRINCIPAL';
+    wsConsolidado.getCell('F6').value = '117001000001';
+    wsConsolidado.getCell('C7').value = 'LOG-007-IE-117001000001';
+
+    const sampleRow = wsConsolidado.getRow(11);
+    sampleRow.getCell(2).value = '1059812839';
+    sampleRow.getCell(3).value = 'ESTUDIANTE TEST PRUEBA';
+    sampleRow.getCell(4).value = 'ACUDIENTE TEST';
+    sampleRow.getCell(5).value = '24500000';
+    sampleRow.getCell(6).value = '3101234567';
+    sampleRow.getCell(7).value = '';
+    sampleRow.getCell(2).numFmt = '@';
+    sampleRow.getCell(5).numFmt = '@';
+    sampleRow.getCell(6).numFmt = '@';
+
+    const testBufOut = await wbConsolidado.xlsx.writeBuffer();
+    assert(testBufOut.byteLength > 5000, `Acta Consolidada generada y escrita correctamente en buffer (${testBufOut.byteLength} bytes)`);
 
     // 6. Estructura Jerárquica de Carpetas en Drive
     console.log('\n6. Estructura Jerárquica de Carpetas en Drive');

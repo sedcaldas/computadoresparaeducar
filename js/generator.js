@@ -23,6 +23,16 @@ class DocumentGenerator {
         if (this.templateCache.has(path)) {
             return this.templateCache.get(path).slice(0);
         }
+        if (typeof window === 'undefined' || !window.fetch) {
+            const fs = require('fs');
+            const p = require('path');
+            const cleanPath = path.replace(/^\.\//, '');
+            const absPath = p.resolve(__dirname, '..', cleanPath);
+            const buf = fs.readFileSync(absPath);
+            const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+            this.templateCache.set(path, ab);
+            return ab.slice(0);
+        }
         const resp = await fetch(path);
         if (!resp.ok) {
             throw new Error(`No se pudo cargar la plantilla ${path} (HTTP ${resp.status})`);
@@ -644,12 +654,13 @@ class DocumentGenerator {
 
     // =========================================================================
     // 4. GENERACIÓN DE ACTA CONSOLIDADA LOG-007 (EXCEL)
+    // Cumpliendo con la estructura exacta del archivo "Acta Consolidada LOG-007.xlsx"
     // =========================================================================
     async generateConsolidatedLog007Excel(options = {}) {
         const { codigoDaneIe = null, codigoMunicipio = null, triggerDownload = true } = options;
         const store = window.appStore;
 
-        // Obtener estudiantes con LOG-007
+        // Obtener formatos LOG-007
         let docs007 = store.getDocumentos({ tipo_documento: 'LOG-007-F' });
 
         // Filtrar por IE o Municipio si aplica
@@ -668,174 +679,122 @@ class DocumentGenerator {
             throw new Error('No se encontraron formatos LOG-007 para consolidar en el acta.');
         }
 
+        // Cargar la plantilla oficial "Acta Consolidada LOG-007.xlsx"
+        const templateBuf = await this.getTemplateArrayBuffer('./templates/Acta_Consolidada_LOG-007.xlsx');
         const workbook = new ExcelJS.Workbook();
-        workbook.creator = 'Computadores para Educar & SED Caldas';
-        workbook.lastModifiedBy = 'Sistema de Gestión Documental';
-        workbook.created = new Date();
-        workbook.modified = new Date();
+        await workbook.xlsx.load(templateBuf);
 
-        const ws = workbook.addWorksheet('ACTA FORMAL DE ENTREGA', {
-            views: [{ showGridLines: true }]
-        });
+        const ws = workbook.getWorksheet('Hoja1') || workbook.worksheets[0];
 
-        // Columnas principales requeridas:
-        // No. Documento Estudiante, Nombres y Apellidos Estudiante, Nombres y Apellidos Acudiente, No. Documento Acudiente, No. Celular Acudiente
-        ws.columns = [
-            { header: '', width: 6 },   // Col A: No.
-            { header: '', width: 24 },  // Col B: No. Documento Estudiante
-            { header: '', width: 36 },  // Col C: Nombres y Apellidos Estudiante
-            { header: '', width: 36 },  // Col D: Nombres y Apellidos Acudiente
-            { header: '', width: 24 },  // Col E: No. Documento Acudiente
-            { header: '', width: 24 },  // Col F: No. Celular Acudiente
-            { header: '', width: 22 },  // Col G: Serial Asignado
-            { header: '', width: 36 },  // Col H: Institución Educativa
-            { header: '', width: 32 },  // Col I: Sede Educativa
-            { header: '', width: 22 }   // Col J: Municipio
-        ];
+        // Definir metadatos de cabecera institucional
+        let ieNombre = 'CONSOLIDADO DEPARTAMENTAL - CALDAS';
+        let ieDane = 'TODAS LAS IEs';
+        let sedeNombre = 'TODAS LAS SEDES BENEFICIARIAS';
+        let sedeDane = 'CALDAS';
+        let radicadoVal = 'CPE-CALDAS-2026';
 
-        // Título de la tabla oficial: "ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN"
-        ws.mergeCells('B2:J2');
-        const titleCell = ws.getCell('B2');
-        titleCell.value = 'ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN';
-        titleCell.font = { name: 'Calibri', size: 16, bold: true, color: { argb: 'FFFFFFFF' } };
-        titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-        titleCell.fill = {
-            type: 'pattern',
-            pattern: 'solid',
-            fgColor: { argb: 'FF1E3A8A' }
-        };
-        ws.getRow(2).height = 36;
-
-        // Subtítulo
-        ws.mergeCells('B3:J3');
-        const subCell = ws.getCell('B3');
-        subCell.value = 'Consolidado Oficial de Formatos LOG-007-F | Secretaría de Educación de Caldas & Computadores para Educar';
-        subCell.font = { name: 'Calibri', size: 10, italic: true, color: { argb: 'FF475569' } };
-        subCell.alignment = { horizontal: 'center', vertical: 'middle' };
-        ws.getRow(3).height = 20;
-
-        // Fila de metadatos
-        const now = new Date();
-        const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
-        ws.getCell('B4').value = `Fecha de emisión: ${dateStr}`;
-        ws.getCell('B4').font = { name: 'Calibri', size: 9, bold: true, color: { argb: 'FF64748B' } };
-
-        let ieNombre = 'TODAS LAS INSTITUCIONES EDUCATIVAS';
         if (codigoDaneIe) {
             const ie = store.getInstitucionByDane(codigoDaneIe);
-            if (ie) ieNombre = `${ie.nombre} (DANE: ${ie.codigo_dane})`;
+            const sedesIe = store.getSedes(codigoDaneIe);
+            ieNombre = ie ? ie.nombre : 'INSTITUCIÓN EDUCATIVA';
+            ieDane = ie ? ie.codigo_dane : String(codigoDaneIe);
+            sedeNombre = sedesIe.length === 1 ? sedesIe[0].nombre : 'SEDES BENEFICIARIAS IE';
+            sedeDane = sedesIe.length === 1 ? sedesIe[0].codigo_dane_sede : 'VARIAS';
+            radicadoVal = sedesIe.length === 1 ? (sedesIe[0].radicado || `LOG-007-IE-${ieDane}`) : `LOG-007-IE-${ieDane}`;
+        } else if (codigoMunicipio) {
+            const mpio = store.getMunicipios().find(m => String(m.codigo) === String(codigoMunicipio));
+            ieNombre = mpio ? `CONSOLIDADO MUNICIPIO DE ${mpio.nombre.toUpperCase()}` : 'CONSOLIDADO MUNICIPAL';
+            ieDane = String(codigoMunicipio);
+            sedeNombre = 'TODAS LAS SEDES DEL MUNICIPIO';
+            sedeDane = String(codigoMunicipio);
+            radicadoVal = `CPE-MPIO-${codigoMunicipio}-2026`;
         }
-        ws.getCell('D4').value = `Ámbito: ${ieNombre}`;
-        ws.getCell('D4').font = { name: 'Calibri', size: 9, bold: true, color: { argb: 'FF64748B' } };
-        ws.getCell('G4').value = `Total Beneficiarios LOG-007: ${docs007.length}`;
-        ws.getCell('G4').font = { name: 'Calibri', size: 9, bold: true, color: { argb: 'FF16A34A' } };
-        ws.getRow(4).height = 22;
 
-        // Encabezados de tabla en fila 6
-        const headerRow = ws.getRow(6);
-        const headers = [
-            'No.',
-            'No. Documento Estudiante',
-            'Nombres y Apellidos Estudiante',
-            'Nombres y Apellidos Acudiente',
-            'No. Documento Acudiente',
-            'No. Celular Acudiente',
-            'Serial Asignado',
-            'Institución Educativa',
-            'Sede Educativa',
-            'Municipio'
-        ];
+        // Diligenciar celdas de metadatos (Filas 5, 6 y 7)
+        ws.getCell('C5').value = ieNombre;
+        ws.getCell('C5').font = { name: 'Verdana', size: 9, bold: false };
+        ws.getCell('F5').value = ieDane;
+        ws.getCell('F5').font = { name: 'Verdana', size: 9, bold: false };
 
-        headers.forEach((h, idx) => {
-            const cell = headerRow.getCell(idx + 1);
-            cell.value = h;
-            cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
-            cell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
-            cell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FF2563EB' }
-            };
-            cell.border = {
-                top: { style: 'thin', color: { argb: 'FFCBD5E1' } },
-                bottom: { style: 'medium', color: { argb: 'FF1E3A8A' } },
-                left: { style: 'thin', color: { argb: 'FFCBD5E1' } },
-                right: { style: 'thin', color: { argb: 'FFCBD5E1' } }
-            };
+        ws.getCell('C6').value = sedeNombre;
+        ws.getCell('C6').font = { name: 'Verdana', size: 9, bold: false };
+        ws.getCell('F6').value = sedeDane;
+        ws.getCell('F6').font = { name: 'Verdana', size: 9, bold: false };
+
+        ws.getCell('C7').value = radicadoVal;
+        ws.getCell('C7').font = { name: 'Verdana', size: 9, bold: false };
+
+        // Ordenar estudiantes alfabéticamente (por IE y nombre)
+        docs007.sort((a, b) => {
+            const estA = store.getEstudianteByDoc(a.estudiante_documento);
+            const estB = store.getEstudianteByDoc(b.estudiante_documento);
+            const sedeA = estA ? store.getSedeByDane(estA.codigo_dane_sede) : null;
+            const sedeB = estB ? store.getSedeByDane(estB.codigo_dane_sede) : null;
+            const ieA = sedeA ? store.getInstitucionByDane(sedeA.codigo_dane_ie) : null;
+            const ieB = sedeB ? store.getInstitucionByDane(sedeB.codigo_dane_ie) : null;
+            const compIe = (ieA?.nombre || '').localeCompare(ieB?.nombre || '');
+            if (compIe !== 0) return compIe;
+            return (estA?.nombre_completo || '').localeCompare(estB?.nombre_completo || '');
         });
-        headerRow.height = 28;
 
-        // Llenar registros
-        let rowIdx = 7;
+        // Diligenciar tabla de beneficiarios a partir de la fila 11
+        // Columnas oficiales según plantilla Acta Consolidada LOG-007.xlsx:
+        // Col B: No. Documento Estudiante
+        // Col C: Nombres y Apellidos Estudiante
+        // Col D: Nombres y Apellidos Acudiente
+        // Col E: No. Documento Acudiente
+        // Col F: No. Celular Acudiente
+        // Col G: Firma Acudiente
+        let rowIdx = 11;
         let counter = 1;
+
         for (const doc of docs007) {
             const est = store.getEstudianteByDoc(doc.estudiante_documento);
             if (!est) continue;
 
-            const sede = store.getSedeByDane(est.codigo_dane_sede);
-            const ie = sede ? store.getInstitucionByDane(sede.codigo_dane_ie) : null;
-            const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
-            const asig = store.getAsignacionByDoc(est.documento_identidad);
-            const serialVal = (asig && asig.serial_asignado) ? asig.serial_asignado : (est.serial_terminal || '');
-
             const r = ws.getRow(rowIdx);
-            r.getCell(1).value = counter++;
             r.getCell(2).value = String(est.documento_identidad);
             r.getCell(3).value = est.nombre_completo;
             r.getCell(4).value = est.acudiente_nombres || '';
             r.getCell(5).value = String(est.acudiente_documento || '');
             r.getCell(6).value = String(est.acudiente_telefono || '3100000000');
-            r.getCell(7).value = serialVal;
-            r.getCell(8).value = ie ? ie.nombre : '';
-            r.getCell(9).value = sede ? sede.nombre : '';
-            r.getCell(10).value = mpio ? mpio.nombre : '';
+            r.getCell(7).value = ''; // Espacio reservado para firma física del acudiente
 
-            // Formato de texto para documentos y teléfono para evitar pérdida de ceros
-            r.getCell(1).alignment = { horizontal: 'center', vertical: 'middle' };
+            // Formato de texto @ para documentos y celulares para preservar ceros
             r.getCell(2).numFmt = '@';
             r.getCell(2).alignment = { horizontal: 'center', vertical: 'middle' };
-            r.getCell(3).alignment = { horizontal: 'left', vertical: 'middle' };
-            r.getCell(4).alignment = { horizontal: 'left', vertical: 'middle' };
+            r.getCell(3).alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+            r.getCell(4).alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
             r.getCell(5).numFmt = '@';
             r.getCell(5).alignment = { horizontal: 'center', vertical: 'middle' };
             r.getCell(6).numFmt = '@';
             r.getCell(6).alignment = { horizontal: 'center', vertical: 'middle' };
             r.getCell(7).alignment = { horizontal: 'center', vertical: 'middle' };
-            r.getCell(8).alignment = { horizontal: 'left', vertical: 'middle' };
-            r.getCell(9).alignment = { horizontal: 'left', vertical: 'middle' };
-            r.getCell(10).alignment = { horizontal: 'left', vertical: 'middle' };
 
-            const isEven = (rowIdx % 2 === 0);
-            for (let c = 1; c <= 10; c++) {
+            for (let c = 2; c <= 7; c++) {
                 const cell = r.getCell(c);
-                cell.font = { name: 'Calibri', size: 9 };
+                cell.font = { name: 'Verdana', size: 9 };
                 cell.border = {
-                    top: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-                    bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-                    left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-                    right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+                    top: { style: 'thin', color: { argb: 'FF94A3B8' } },
+                    bottom: { style: 'thin', color: { argb: 'FF94A3B8' } },
+                    left: { style: 'thin', color: { argb: 'FF94A3B8' } },
+                    right: { style: 'thin', color: { argb: 'FF94A3B8' } }
                 };
-                if (isEven) {
-                    cell.fill = {
-                        type: 'pattern',
-                        pattern: 'solid',
-                        fgColor: { argb: 'FFF8FAFC' }
-                    };
-                }
             }
-            r.height = 20;
+            r.height = 28;
             rowIdx++;
+            counter++;
         }
 
-        // Exportar a blob
+        const now = new Date();
         const rawBuffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([rawBuffer], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
 
         const filename = codigoDaneIe
-            ? `ACTA_FORMAL_DE_ENTREGA_Y_LEGALIZACION_IE_${codigoDaneIe}.xlsx`
-            : `ACTA_FORMAL_DE_ENTREGA_Y_LEGALIZACION_CONSOLIDADA_${now.toISOString().slice(0, 10)}.xlsx`;
+            ? `ACTA_CONSOLIDADA_LOG-007_IE_${codigoDaneIe}.xlsx`
+            : `ACTA_CONSOLIDADA_LOG-007_${now.toISOString().slice(0, 10)}.xlsx`;
 
         if (triggerDownload && typeof window !== 'undefined' && window.document) {
             const url = URL.createObjectURL(blob);
@@ -854,7 +813,7 @@ class DocumentGenerator {
             accion: 'DESCARGA_ACTA_CONSOLIDADA_LOG007',
             entidad: 'ReporteExcel',
             entidad_id: filename,
-            detalles: `Descarga de acta consolidada LOG-007 con ${counter - 1} beneficiarios.`
+            detalles: `Descarga de acta consolidada LOG-007 cumpliendo plantilla oficial con ${counter - 1} beneficiarios.`
         });
 
         return { blob, filename, totalRecords: counter - 1 };

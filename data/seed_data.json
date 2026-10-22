@@ -805,1334 +805,1951 @@
   ],
   "bolsa_elementos": [
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-217614000723-1",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512170280083062"
+      "serial": "Q2 24841",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-217614000723-2",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100281326062"
+      "serial": "PLA385",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "id": "ELEM-217614000723-3",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
       "cantidad": 1,
-      "serial": "662"
+      "serial": "BT25-KAR-434",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-217614000723-4",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726035PA1000579"
+      "serial": "BT25-KAR-435",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "id": "ELEM-217614000723-5",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
       "cantidad": 1,
-      "serial": "S014968462P"
+      "serial": "BT25-KAR-529",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "id": "ELEM-217614000723-6",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
       "cantidad": 1,
-      "serial": "S012507534C"
+      "serial": "BT25-KAR-471",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "id": "ELEM-217272000106-7",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
+      "cantidad": 1,
+      "serial": "PLA285",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-8",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-122",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-9",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-093",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-10",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-565",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-11",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-559",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-12",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-709",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-13",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-385",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-14",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-432",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-15",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-467",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-16",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-363",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217272000106-17",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-408",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000255-18",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
+      "cantidad": 1,
+      "serial": "PF6C8VAX",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000255-19",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EM260401026500344",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000255-20",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EMSPICPE0320",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000255-21",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
+      "cantidad": 1,
+      "serial": "Q2 24928",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000255-22",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
+      "cantidad": 1,
+      "serial": "PLA269",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117088000255-23",
+      "codigo_dane_sede": "117088000255",
+      "radicado": "32741",
+      "elemento_nombre": "BT EQUIPO DE ESCRITORIO PARA DISEÑO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GM1DFW1F",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117088000255-24",
+      "codigo_dane_sede": "117088000255",
+      "radicado": "32741",
+      "elemento_nombre": "BT EQUIPO DE ESCRITORIO PARA DISEÑO MONITOR CTO 158-25",
+      "cantidad": 1,
+      "serial": "V90G6K5K",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117088000255-25",
+      "codigo_dane_sede": "117088000255",
+      "radicado": "32741",
+      "elemento_nombre": "BT VIDEOPROYECTOR CTO 158-25",
+      "cantidad": 1,
+      "serial": "XFW260101826",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117042000552-26",
+      "codigo_dane_sede": "117042000552",
+      "radicado": "18497",
+      "elemento_nombre": "BT FUENTE REGULADA VARIABLE 30V - 10A, LED DISPLAY 4 DIGITOS CTO 158-25",
       "cantidad": 2,
-      "serial": "SD0124   -   SD1158"
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "id": "ELEM-117042000552-27",
+      "codigo_dane_sede": "117042000552",
+      "radicado": "18497",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE139"
+      "serial": "BT25-KAI-178",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "id": "ELEM-117042000552-28",
+      "codigo_dane_sede": "117042000552",
+      "radicado": "18497",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035558"
+      "serial": "BT25-KAI-176",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "id": "ELEM-117042000552-29",
+      "codigo_dane_sede": "117042000552",
+      "radicado": "18497",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34100086823"
+      "serial": "BT25-KAI-179",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "id": "ELEM-217873000375-30",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
       "cantidad": 1,
-      "serial": "606"
+      "serial": "BT25-KAI-180",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "id": "ELEM-217873000375-31",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
       "cantidad": 1,
-      "serial": "S015261064A"
+      "serial": "BT25-KAI-163",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "id": "ELEM-217873000375-32",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "BT25-KLL-028"
+      "serial": "BT25-KSM-706",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "id": "ELEM-217873000375-33",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "C6AX25998JG"
+      "serial": "BT25-KSM-121",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "id": "ELEM-217873000375-34",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "209"
+      "serial": "BT25-KSM-569",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662000026",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "id": "ELEM-117777000734-35",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
       "cantidad": 1,
-      "serial": "NO APLICA"
+      "serial": "S014968593U",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-117777000734-36",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100281891062"
+      "serial": "S012509568L",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-117777000734-37",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100282812062"
+      "serial": "14932504726015PA1000370",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "id": "ELEM-117777000734-38",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
       "cantidad": 1,
-      "serial": "664"
+      "serial": "49945555MH2512150272098062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-117777000734-39",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726035PA1000589"
+      "serial": "49945555MH2512150272089062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
-      "cantidad": 1,
-      "serial": "S014969032J"
-    },
-    {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S012508657J"
-    },
-    {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "id": "ELEM-117777000734-40",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT MEMORIAS USD 128 GB CTO 158-25",
       "cantidad": 2,
-      "serial": "SD1131   -   SD1144"
+      "serial": "454 Y455",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "id": "ELEM-117777000734-41",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT ESTUCHE DE TRANSPORTE CAMARA INDIVIDUAL CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE205"
+      "serial": "26",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "id": "ELEM-117777000734-42",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "elemento_nombre": "BT VIDEOPROYECTOR CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035442"
+      "serial": "XFW260101234",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "id": "ELEM-217486000651-43",
+      "codigo_dane_sede": "217486000651",
+      "radicado": "86474",
+      "elemento_nombre": "BT SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34260061261"
+      "serial": "0HU03CEL300013",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "id": "ELEM-217486000651-44",
+      "codigo_dane_sede": "217486000651",
+      "radicado": "86474",
+      "elemento_nombre": "BT SPORTE MOVIL SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "614"
+      "serial": "STV-CPE-090",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "id": "ELEM-217486000651-45",
+      "codigo_dane_sede": "217486000651",
+      "radicado": "86474",
+      "elemento_nombre": "BT KIT DE MANTENIMIENTO CTO 158-25",
       "cantidad": 1,
-      "serial": "S0152617209"
+      "serial": "BT25",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "id": "ELEM-217662000590-46",
+      "codigo_dane_sede": "217662000590",
+      "radicado": "10704",
+      "elemento_nombre": "BT SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "BT25-KLL-035"
+      "serial": "0KBC3CDL400226",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "id": "ELEM-217662000590-47",
+      "codigo_dane_sede": "217662000590",
+      "radicado": "10704",
+      "elemento_nombre": "BT SPORTE MOVIL SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "C6AX2598YZS"
+      "serial": "STV-CPE-874",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "id": "ELEM-217662000590-48",
+      "codigo_dane_sede": "217662000590",
+      "radicado": "10704",
+      "elemento_nombre": "BT DISCO DURO EXTERNO 1 TB CTO 158-25",
       "cantidad": 1,
-      "serial": "202"
+      "serial": "1P4221302272",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "id": "ELEM-117050000278-49",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT VIDEOPROYECTOR CTO 158-25",
       "cantidad": 1,
-      "serial": "NO APLICA"
+      "serial": "XFW260101851",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-117050000278-50",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100282959062"
+      "serial": "BT25-KSM-553",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-117050000278-51",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100280849062"
+      "serial": "BT25-KSM-116",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "id": "ELEM-117050000278-52",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "661"
+      "serial": "BT25-KSM-601",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-117050000278-53",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726035PA1000943"
+      "serial": "BT25-KSM-577",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "id": "ELEM-117050000278-54",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "S014969461P"
+      "serial": "BT25-KSM-112",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "id": "ELEM-117050000278-55",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
       "cantidad": 1,
-      "serial": "S012508191C"
+      "serial": "BT25-KAR-466",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "id": "ELEM-117050000278-56",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-431",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117050000278-57",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-384",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117050000278-58",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-406",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117050000278-59",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-407",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117541000652-60",
+      "codigo_dane_sede": "117541000652",
+      "radicado": "84723",
+      "elemento_nombre": "BT KIT ANALISIS Y MEDICION CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAM-167",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-61",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
+      "cantidad": 1,
+      "serial": "PF6C5AFE",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-62",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014968978.",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-63",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012508651D",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-64",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504726015PA1000360",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-65",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512150272071062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-66",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170282995062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-67",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT MEMORIAS USD 128 GB CTO 158-25",
       "cantidad": 2,
-      "serial": "SD1175   -   SD1157"
+      "serial": "1381 Y 1400",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217042000760-68",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT ESTUCHE DE TRANSPORTE CAMARA INDIVIDUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "33",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-69",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EM260401026500345",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000760-70",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EMSPICPE0435",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217662002258-71",
       "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "radicado": "33093",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE175"
+      "serial": "PF6C884J",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "id": "ELEM-217513000676-72",
+      "codigo_dane_sede": "217513000676",
+      "radicado": "10968",
+      "elemento_nombre": "BT JUEGO DE MESA EDUCATIVO STEM CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035676"
+      "serial": "BT25-JES-057",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "id": "ELEM-217513000676-73",
+      "codigo_dane_sede": "217513000676",
+      "radicado": "10968",
+      "elemento_nombre": "BT JUEGO DE MESA EDUCATIVO STEM CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34260061283"
+      "serial": "BT25-JES-027",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "610"
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S0152611247"
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-220"
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX258RPZ5"
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "210"
-    },
-    {
-      "codigo_dane_sede": "217662002258",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
-    },
-    {
+      "id": "ELEM-117486000028-74",
       "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "6670",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100281415062"
+      "serial": "EM260401026500404",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-117486000028-75",
       "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "6670",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512120273018062"
+      "serial": "EMSPICPE0212",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "id": "ELEM-217088000098-76",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT CONSOLA DE AUDIO CTO 158-25",
       "cantidad": 1,
-      "serial": "665"
+      "serial": "010019T0601ACW",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-217088000098-77",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT MICRÓFONO CONDENSADOR CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726015PA1000284"
+      "serial": "01008P50504AAE",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "id": "ELEM-217088000098-78",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
       "cantidad": 1,
-      "serial": "S014969009N"
+      "serial": "GPE477",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "id": "ELEM-217088000098-79",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT AUDÍFONOS TIPO DIADEMA KAD CTO 158-25",
       "cantidad": 1,
-      "serial": "S012508064B"
+      "serial": "BT25-KADMO1-035",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "id": "ELEM-217088000098-80",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT SOPORTE PARA MICRÓFONO ARTICULADO CTO 158-25",
+      "cantidad": 1,
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217088000098-81",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT PROTECTOR MICROFONO CONDENSADOR CTO 158-25",
+      "cantidad": 1,
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217088000098-82",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT COMBO CARGADOR PILAS RECARGABLES CTO 158-25",
+      "cantidad": 1,
+      "serial": "178",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217088000098-83",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT CABINA ACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "´2025102480070148",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217088000098-84",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT SMART TV CTO 158-25",
+      "cantidad": 1,
+      "serial": "0KBC3CDL400338",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217088000098-85",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "elemento_nombre": "BT SPORTE MOVIL SMART TV CTO 158-25",
+      "cantidad": 1,
+      "serial": "STV-CPE-413",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000278-86",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "cantidad": 1,
+      "serial": "S014969418R",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000278-87",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "cantidad": 1,
+      "serial": "S012509506D",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000278-88",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "14932504625085PA1000598",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000278-89",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170280601062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000278-90",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "cantidad": 1,
+      "serial": "49945555MH2512170281774062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000278-91",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT MEMORIAS USD 128 GB CTO 158-25",
       "cantidad": 2,
-      "serial": "SD1132   -   SD1145"
+      "serial": "1465 Y 1464",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "id": "ELEM-217444000278-92",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "elemento_nombre": "BT ESTUCHE DE TRANSPORTE CAMARA INDIVIDUAL CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE144"
+      "serial": "14",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "id": "ELEM-217380000040-93",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035353"
+      "serial": "S014968374R",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "id": "ELEM-217380000040-94",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34100086804"
+      "serial": "S0125102624",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "id": "ELEM-217380000040-95",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
       "cantidad": 1,
-      "serial": "611"
+      "serial": "14932504726015PA1000100",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "id": "ELEM-217380000040-96",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
       "cantidad": 1,
-      "serial": "S015261796M"
+      "serial": "49945555MH2512170282953062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "id": "ELEM-217380000040-97",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
       "cantidad": 1,
-      "serial": "BT25-KLL-018"
+      "serial": "49945555MH2512170280515062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX258TG4D"
-    },
-    {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "201"
-    },
-    {
-      "codigo_dane_sede": "117486000028",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "49945555MH2512100282784062"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "49945555MH2512100281344062"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
-      "cantidad": 1,
-      "serial": "666"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "14932504726015PA1000139"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
-      "cantidad": 1,
-      "serial": "S014968398X"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S0125104503"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
+      "id": "ELEM-217380000040-98",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT MEMORIAS USD 128 GB CTO 158-25",
       "cantidad": 2,
-      "serial": "SD1126   -   SD1146"
+      "serial": "303 Y392",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217380000040-99",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "elemento_nombre": "BT ESTUCHE DE TRANSPORTE CAMARA INDIVIDUAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "19",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-100",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT EQUIPO DE ESCRITORIO PARA DISEÑO CTO 158-25",
+      "cantidad": 1,
+      "serial": "GM1DFW1M",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-101",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT EQUIPO DE ESCRITORIO PARA DISEÑO MONITOR CTO 158-25",
+      "cantidad": 1,
+      "serial": "V90G6K5A",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-102",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EM260401026500349",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-103",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EMSPICPE0305",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-104",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAI-214",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-105",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAI-170",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-106",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAI-186",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-107",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-067",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-108",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-588",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217042000107-109",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KSM-705",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217614000391-110",
       "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "radicado": "14892",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE195"
+      "serial": "PF6CS06W",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000391-111",
       "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "radicado": "14892",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035436"
+      "serial": "EM260401026500295",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000391-112",
       "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "radicado": "14892",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34100086846"
+      "serial": "EMSPICPE0173",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "612"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S015261784J"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-148"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX2592VDH"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "203"
-    },
-    {
-      "codigo_dane_sede": "217614000391",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
-    },
-    {
+      "id": "ELEM-217050000400-113",
       "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "32704",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512170280030062"
+      "serial": "PF6CR9W3",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217050000400-114",
       "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "32704",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100281076062"
+      "serial": "EM260401026500333",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217050000400-115",
       "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "radicado": "32704",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "663"
+      "serial": "EMSPICPE0214",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-217442000246-116",
+      "codigo_dane_sede": "217442000246",
+      "radicado": "32992",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726035PA1000598"
+      "serial": "PF6C33L6",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "id": "ELEM-217442000246-117",
+      "codigo_dane_sede": "217442000246",
+      "radicado": "32992",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "S014968444P"
+      "serial": "PLA116",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "id": "ELEM-217442000246-118",
+      "codigo_dane_sede": "217442000246",
+      "radicado": "32992",
+      "elemento_nombre": "BT KIT AVANZADO DE 45 SENSORES PARA MICRO:BIT CTO 158-25",
       "cantidad": 1,
-      "serial": "S012509447H"
+      "serial": "BT25-KSM-090",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1130   -   SD1127"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
-      "cantidad": 1,
-      "serial": "GPE136"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
-      "cantidad": 1,
-      "serial": "2603035449"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
-      "cantidad": 1,
-      "serial": "BY34100086835"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "605"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S015261065B"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-029"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6EX225582T"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "204"
-    },
-    {
-      "codigo_dane_sede": "217050000400",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
-    },
-    {
+      "id": "ELEM-217614000201-119",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512120272468062"
+      "serial": "PF6BTB0H",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-120",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT CONSOLA DE AUDIO CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100281070062"
+      "serial": "S250600271A0H",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-121",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT MICRÓFONO CONDENSADOR CTO 158-25",
       "cantidad": 1,
-      "serial": "668"
+      "serial": "01008LE0504AAE",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-122",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726015PA1000305"
+      "serial": "GPE479",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-123",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT AUDÍFONOS TIPO DIADEMA KAD CTO 158-25",
       "cantidad": 1,
-      "serial": "S014969088U"
+      "serial": "BT25-KADMO1-112",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-124",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT SOPORTE PARA MICRÓFONO ARTICULADO CTO 158-25",
       "cantidad": 1,
-      "serial": "S012509599P"
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-125",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1147   -   SD1139"
+      "radicado": "33235",
+      "elemento_nombre": "BT PROTECTOR MICROFONO CONDENSADOR CTO 158-25",
+      "cantidad": 1,
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-126",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT COMBO CARGADOR PILAS RECARGABLES CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035059"
+      "serial": "175",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217614000201-127",
       "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "radicado": "33235",
+      "elemento_nombre": "BT CABINA ACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34100086724"
+      "serial": "2026011680070349",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "616"
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S0152613025"
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-021"
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX253XVY3"
-    },
-    {
-      "codigo_dane_sede": "217614000201",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "230"
-    },
-    {
+      "id": "ELEM-217616000259-128",
       "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "33290",
+      "elemento_nombre": "BT PORTATIL DE DISEÑO LENOVO THINKPAD P16S  CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512170281697062"
+      "serial": "PF6CR2Z3",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217616000259-129",
       "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "33290",
+      "elemento_nombre": "BT VIDEOPROYECTOR CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512170281766062"
+      "serial": "Y88252351911",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "id": "ELEM-217662000093-130",
+      "codigo_dane_sede": "217662000093",
+      "radicado": "19768",
+      "elemento_nombre": "BT SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "671"
+      "serial": "0KBC3CDL400501",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-217662000093-131",
+      "codigo_dane_sede": "217662000093",
+      "radicado": "19768",
+      "elemento_nombre": "BT SPORTE MOVIL SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726015PA1000278"
+      "serial": "STV-CPE-623",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "id": "ELEM-217662000093-132",
+      "codigo_dane_sede": "217662000093",
+      "radicado": "19768",
+      "elemento_nombre": "BT KIT AGRICULTURA INTELIGENTE CTO 158-25",
       "cantidad": 1,
-      "serial": "S014968580Q"
+      "serial": "BT25-KAI-169",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "id": "ELEM-217777000089-133",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "elemento_nombre": "BT SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "S0125103546"
+      "serial": "0KBC3CDL400520",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1148   -   SD1138"
-    },
-    {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "id": "ELEM-217777000089-134",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "elemento_nombre": "BT SPORTE MOVIL SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE203"
+      "serial": "STV-CPE-567",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "id": "ELEM-217777000089-135",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035158"
+      "serial": "Q2 24828",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "id": "ELEM-217777000089-136",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34100086833"
+      "serial": "PLA322",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "id": "ELEM-217777000089-137",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "elemento_nombre": "BT KIT DE MANTENIMIENTO CTO 158-25",
       "cantidad": 1,
-      "serial": "617"
+      "serial": "BT25-KMT-441",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "id": "ELEM-217777000089-138",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "elemento_nombre": "BT KIT DE MANTENIMIENTO CTO 158-25",
       "cantidad": 1,
-      "serial": "S0152604025"
+      "serial": "BT25-KMT-442",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "id": "ELEM-217513000064-139",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "elemento_nombre": "BT SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "BT25-KLL-081"
+      "serial": "0KBC3CDL400057",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "id": "ELEM-217513000064-140",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "elemento_nombre": "BT SPORTE MOVIL SMART TV CTO 158-25",
       "cantidad": 1,
-      "serial": "C6AX2598VKM"
+      "serial": "STV-CPE-813",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "id": "ELEM-217513000064-141",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "227"
+      "serial": "Q2 24799",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "217616000259",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "id": "ELEM-217513000064-142",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "NO APLICA"
+      "serial": "PLA29",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
+      "id": "ELEM-217513000064-143",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "elemento_nombre": "BT KIT DE MANTENIMIENTO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KMT-447",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217513000064-144",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "elemento_nombre": "BT KIT DE MANTENIMIENTO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KMT-438",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217442000033-145",
+      "codigo_dane_sede": "217442000033",
+      "radicado": "32991",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EM260401026500304",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217442000033-146",
+      "codigo_dane_sede": "217442000033",
+      "radicado": "32991",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EMSPICPE0241",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217442000033-147",
+      "codigo_dane_sede": "217442000033",
+      "radicado": "32991",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
+      "cantidad": 1,
+      "serial": "Q2 25065",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217442000033-148",
+      "codigo_dane_sede": "217442000033",
+      "radicado": "32991",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
+      "cantidad": 1,
+      "serial": "PLA107",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000014-149",
+      "codigo_dane_sede": "217444000014",
+      "radicado": "33005",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EM260401026500372",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000014-150",
+      "codigo_dane_sede": "217444000014",
+      "radicado": "33005",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EMSPICPE0295",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000014-151",
+      "codigo_dane_sede": "217444000014",
+      "radicado": "33005",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
+      "cantidad": 1,
+      "serial": "Q2 24956",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217444000014-152",
+      "codigo_dane_sede": "217444000014",
+      "radicado": "33005",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
+      "cantidad": 1,
+      "serial": "PLA315",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217380000856-153",
+      "codigo_dane_sede": "217380000856",
+      "radicado": "8474",
+      "elemento_nombre": "BT MULTIMETRO DIGITAL CTO 158-25",
+      "cantidad": 1,
+      "serial": "C242891757",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217380000856-154",
+      "codigo_dane_sede": "217380000856",
+      "radicado": "8474",
+      "elemento_nombre": "BT ESTACIÓN DE SOLDADURA Y AIRE CALIENTE CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KES-010",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217380000856-155",
+      "codigo_dane_sede": "217380000856",
+      "radicado": "8474",
+      "elemento_nombre": "BT KIT DE 45 SENSORES PARA ARDUINO Y RASPBERRY PI + PLACA ARDUINO CTO 158-25",
+      "cantidad": 1,
+      "serial": "BT25-KAR-470",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217616000046-156",
+      "codigo_dane_sede": "217616000046",
+      "radicado": "33302",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
+      "cantidad": 1,
+      "serial": "Q2 24827",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-217616000046-157",
+      "codigo_dane_sede": "217616000046",
+      "radicado": "33302",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
+      "cantidad": 1,
+      "serial": "PLA40",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117442000063-158",
+      "codigo_dane_sede": "117442000063",
+      "radicado": "16309",
+      "elemento_nombre": "BT PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EM260401026500337",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117442000063-159",
+      "codigo_dane_sede": "117442000063",
+      "radicado": "16309",
+      "elemento_nombre": "BT SPORTE MOVIL PANTALLA INTERACTIVA CTO 158-25",
+      "cantidad": 1,
+      "serial": "EMSPICPE0032",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117442000063-160",
+      "codigo_dane_sede": "117442000063",
+      "radicado": "16309",
+      "elemento_nombre": "KIT MAKER",
+      "cantidad": 4,
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
+    },
+    {
+      "id": "ELEM-117614000711-161",
       "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "radicado": "84728",
+      "elemento_nombre": "BT VIDEOPROYECTOR CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512170280732062"
+      "serial": "XFW260101959",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-117446000157-162",
+      "codigo_dane_sede": "117446000157",
+      "radicado": "84720",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512100281855062"
+      "serial": "Q2 24807",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
+      "id": "ELEM-117446000157-163",
+      "codigo_dane_sede": "117446000157",
+      "radicado": "84720",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "667"
+      "serial": "PLA284",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
+      "id": "ELEM-117013000292-164",
+      "codigo_dane_sede": "117013000292",
+      "radicado": "86470",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "14932504726015PA1000298"
+      "serial": "Q2 24992",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
+      "id": "ELEM-117013000292-165",
+      "codigo_dane_sede": "117013000292",
+      "radicado": "86470",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "S014968579Y"
+      "serial": "PLA109",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
+      "id": "ELEM-217541001793-166",
+      "codigo_dane_sede": "217541001793",
+      "radicado": "91167",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "S012508715E"
+      "serial": "Q2 25043",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1149   -   SD1140"
-    },
-    {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
+      "id": "ELEM-217541001793-167",
+      "codigo_dane_sede": "217541001793",
+      "radicado": "91167",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "GPE178"
+      "serial": "PLA386",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
+      "id": "ELEM-217541000673-168",
+      "codigo_dane_sede": "217541000673",
+      "radicado": "83042",
+      "elemento_nombre": "BT IMPRESORA 3D CTO 158-25",
       "cantidad": 1,
-      "serial": "2603035370"
+      "serial": "Q2 25062",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
+      "id": "ELEM-217541000673-169",
+      "codigo_dane_sede": "217541000673",
+      "radicado": "83042",
+      "elemento_nombre": "BT KIT DE FILAMENTO PLA CTO 158-25",
       "cantidad": 1,
-      "serial": "BY34100086842"
+      "serial": "PLA379",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
+      "id": "ELEM-217174000432-170",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT CONSOLA DE AUDIO CTO 158-25",
       "cantidad": 1,
-      "serial": "615"
+      "serial": "01001CY0601ACW",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
+      "id": "ELEM-217174000432-171",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT MICRÓFONO CONDENSADOR CTO 158-25",
       "cantidad": 1,
-      "serial": "S0152611708"
+      "serial": "01000Y70504AAE",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
+      "id": "ELEM-217174000432-172",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
       "cantidad": 1,
-      "serial": "BT25-KLL-113"
+      "serial": "GPE137",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
+      "id": "ELEM-217174000432-173",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT AUDÍFONOS TIPO DIADEMA KAD CTO 158-25",
       "cantidad": 1,
-      "serial": "C6AX2592J5E"
+      "serial": "BT25-KADMO1-041",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
+      "id": "ELEM-217174000432-174",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT SOPORTE PARA MICRÓFONO ARTICULADO CTO 158-25",
       "cantidad": 1,
-      "serial": "229"
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
+      "id": "ELEM-217174000432-175",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT PROTECTOR MICROFONO CONDENSADOR CTO 158-25",
       "cantidad": 1,
-      "serial": "NO APLICA"
+      "serial": "NO APLICA",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-217174000432-176",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT COMBO CARGADOR PILAS RECARGABLES CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512170280742062"
+      "serial": "149",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     },
     {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
+      "id": "ELEM-217174000432-177",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "elemento_nombre": "BT CABINA ACTIVA CTO 158-25",
       "cantidad": 1,
-      "serial": "49945555MH2512120272559062"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
-      "cantidad": 1,
-      "serial": "670"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "14932504726015PA1000285"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
-      "cantidad": 1,
-      "serial": "S014968399Y"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S012509086G"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1129   -   SD1128"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
-      "cantidad": 1,
-      "serial": "GPE198"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
-      "cantidad": 1,
-      "serial": "2603035273"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
-      "cantidad": 1,
-      "serial": "BY34100086832"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "613"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S015261297I"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-117"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX258U666"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "205"
-    },
-    {
-      "codigo_dane_sede": "117653000663",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "49945555MH2512100281935062"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "49945555MH2512100281321062"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
-      "cantidad": 1,
-      "serial": "672"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "14932504726015PA1000228"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
-      "cantidad": 1,
-      "serial": "S014969363Q"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S012509585K"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1141   -   SD1137"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
-      "cantidad": 1,
-      "serial": "GPE142"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
-      "cantidad": 1,
-      "serial": "2603035424"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
-      "cantidad": 1,
-      "serial": "BY34100086810"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "618"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S015260399K"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-084"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX253JZ9K"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "228"
-    },
-    {
-      "codigo_dane_sede": "117513000558",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "49945555MH2512170280743062"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "BATERIAS CAMARA FOTOGRAFICA",
-      "nombre_oasis": "BT BATERIAS CAMARA FOTOGRAFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "49945555MH2512120272567062"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL",
-      "nombre_oasis": "BT ESTUCHE DE TRANSPORTE KIT AUDIO VISUAL CTO 158-25",
-      "cantidad": 1,
-      "serial": "669"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "CARGADORES CÁMARA FOTOGRÁFICA",
-      "nombre_oasis": "BT CARGADORES CÁMARA FOTOGRÁFICA CTO 158-25",
-      "cantidad": 1,
-      "serial": "14932504726035PA1000707"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "CAMARA FOTOGRAFICA SONY",
-      "nombre_oasis": "BT CAMARA FOTOGRAFICA SONY CTO 158-25",
-      "cantidad": 1,
-      "serial": "S014968577W"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "LENTE CAMARA FOTOGRAFICA 18105",
-      "nombre_oasis": "BT LENTE CAMARA FOTOGRAFICA 18105 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S0125102668"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "MEMORIAS USD 128 GB",
-      "nombre_oasis": "BT MEMORIAS USD 128 GB CTO 158-25",
-      "cantidad": 2,
-      "serial": "SD1161   -   SD1136"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "GRABADORA PORTÁTIL ESTÉREO",
-      "nombre_oasis": "BT GRABADORA PORTÁTIL ESTÉREO CTO 158-25",
-      "cantidad": 1,
-      "serial": "GPE194"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "TRÍPODE FOTOGRÁFICO",
-      "nombre_oasis": "BT TRÍPODE FOTOGRÁFICO CTO 158-25",
-      "cantidad": 1,
-      "serial": "2603035503"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "MICRÓFONO TIPO BOOM",
-      "nombre_oasis": "BT MICRÓFONO TIPO BOOM CTO 158-25",
-      "cantidad": 1,
-      "serial": "BY34100086486"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "KIT DE TELÓN ESTUDIO FONDO VERDE",
-      "nombre_oasis": "BT KIT DE TELÓN ESTUDIO FONDO VERDE  CTO 158-25",
-      "cantidad": 1,
-      "serial": "630"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210",
-      "nombre_oasis": "BT LENTE INTERCAMBIABLE CAMARA FOTOGRAFICA 55210 CTO 158-25",
-      "cantidad": 1,
-      "serial": "S0152604036"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "LUCES LED",
-      "nombre_oasis": "BT LUCES LED CTO 158-25",
-      "cantidad": 1,
-      "serial": "BT25-KLL-147"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "MICRÓFONO DE SOLAPA",
-      "nombre_oasis": "BT MICRÓFONO DE SOLAPA CTO 158-25",
-      "cantidad": 1,
-      "serial": "C6AX253XW2S"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "CAÑA PARA  MICROFONO",
-      "nombre_oasis": "BT CAÑA PARA  MICROFONO CTO 158-25",
-      "cantidad": 1,
-      "serial": "172"
-    },
-    {
-      "codigo_dane_sede": "117174000349",
-      "elemento_nombre": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "nombre_oasis": "D - AUDÍFONOS ALÁMBRICOS CON CONECTOR USB TIPO C - PLUG",
-      "cantidad": 1,
-      "serial": "NO APLICA"
+      "serial": "2026011680070132",
+      "estado_entrega": "Entregado y Verificado",
+      "verificado_rector": false,
+      "verificado_cpe": true
     }
   ],
   "estudiantes": [
@@ -3309,613 +3926,544 @@
   ],
   "asignaciones": [
     {
-      "codigo_dane_sede": "117013000306",
-      "documento_estudiante": "1059812839",
+      "estudiante_documento": "1059812839",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HES5G",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117013000306",
-      "documento_estudiante": "1059812816",
+      "estudiante_documento": "1059812816",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HDZEV",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "documento_estudiante": "1054480366",
+      "estudiante_documento": "1054480366",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HF5YE",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "documento_estudiante": "1089606334",
+      "estudiante_documento": "1089606334",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFL9K",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "documento_estudiante": "1055890618",
+      "estudiante_documento": "1055890618",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HF3WN",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117088000255",
-      "documento_estudiante": "1057757797",
+      "estudiante_documento": "1057757797",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEQ33",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000292",
-      "documento_estudiante": "1054869093",
+      "estudiante_documento": "1054869093",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFZ91",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1107859445",
+      "estudiante_documento": "1107859445",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HG0GP",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1054871365",
+      "estudiante_documento": "1054871365",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HES59",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1137061910",
+      "estudiante_documento": "1137061910",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HDZLA",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1054872974",
+      "estudiante_documento": "1054872974",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGSRY",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1054480110",
+      "estudiante_documento": "1054480110",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HDHTY",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1127386550",
+      "estudiante_documento": "1127386550",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HDDHS",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117174000349",
-      "documento_estudiante": "1058140140",
+      "estudiante_documento": "1058140140",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEN5S",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117433000379",
-      "documento_estudiante": "1107981101",
+      "estudiante_documento": "1107981101",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HCYGP",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117433000379",
-      "documento_estudiante": "1055890622",
+      "estudiante_documento": "1055890622",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFQ9E",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117433000379",
-      "documento_estudiante": "1054871822",
+      "estudiante_documento": "1054871822",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HG494",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117433000379",
-      "documento_estudiante": "1090275889",
+      "estudiante_documento": "1090275889",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFE78",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117433000379",
-      "documento_estudiante": "1054556929",
+      "estudiante_documento": "1054556929",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGSRJ",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217444000138",
-      "documento_estudiante": "1058200418",
+      "estudiante_documento": "1058200418",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD532768Y",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217444000138",
-      "documento_estudiante": "1053809439",
+      "estudiante_documento": "1053809439",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276Z1",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1054555724",
+      "estudiante_documento": "1054555724",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD532766F",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1012376245",
+      "estudiante_documento": "1012376245",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320LGS",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1128625906",
+      "estudiante_documento": "1128625906",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5328V62",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1128625749",
+      "estudiante_documento": "1128625749",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320LFT",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1128626485",
+      "estudiante_documento": "1128626485",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5328V4X",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1028887846",
+      "estudiante_documento": "1028887846",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276QB",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1054554897",
+      "estudiante_documento": "1054554897",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320L80",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1128625806",
+      "estudiante_documento": "1128625806",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5328TY5",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1128628149",
+      "estudiante_documento": "1128628149",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD532941L",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1128625920",
+      "estudiante_documento": "1128625920",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFAY6",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1023386761",
+      "estudiante_documento": "1023386761",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGR1X",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117495005407",
-      "documento_estudiante": "1054556667",
+      "estudiante_documento": "1054556667",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFN54",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117513000558",
-      "documento_estudiante": "1150435210",
+      "estudiante_documento": "1150435210",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HE653",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541001360",
-      "documento_estudiante": "1054870602",
+      "estudiante_documento": "1054870602",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGSGZ",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541001360",
-      "documento_estudiante": "1054870861",
+      "estudiante_documento": "1054870861",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEC5J",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541001360",
-      "documento_estudiante": "1161213361",
+      "estudiante_documento": "1161213361",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEQ3G",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541001360",
-      "documento_estudiante": "1059119432",
+      "estudiante_documento": "1059119432",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFC12",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541001360",
-      "documento_estudiante": "1055552513",
+      "estudiante_documento": "1055552513",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFB0X",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541001360",
-      "documento_estudiante": "1055552178",
+      "estudiante_documento": "1055552178",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGSHJ",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541000673",
-      "documento_estudiante": "1054556004",
+      "estudiante_documento": "1054556004",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEA4N",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541000673",
-      "documento_estudiante": "1057785114",
+      "estudiante_documento": "1057785114",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HE863",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541000673",
-      "documento_estudiante": "1054873667",
+      "estudiante_documento": "1054873667",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HES8T",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217541000673",
-      "documento_estudiante": "1055047329",
+      "estudiante_documento": "1055047329",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGS2T",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217614000928",
-      "documento_estudiante": "1059703125",
+      "estudiante_documento": "1059703125",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD532940G",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217614000928",
-      "documento_estudiante": "1059703010",
+      "estudiante_documento": "1059703010",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53293N5",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000711",
-      "documento_estudiante": "1059703091",
+      "estudiante_documento": "1059703091",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFAZX",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117616000696",
-      "documento_estudiante": "1054399697",
+      "estudiante_documento": "1054399697",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HES87",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117616000696",
-      "documento_estudiante": "1058079025",
+      "estudiante_documento": "1058079025",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGSSK",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1061279101",
+      "estudiante_documento": "1061279101",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGSH6",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1085719307",
+      "estudiante_documento": "1085719307",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFZCX",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1059812733",
+      "estudiante_documento": "1059812733",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEL54",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1061279489",
+      "estudiante_documento": "1061279489",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFD2A",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1061279193",
+      "estudiante_documento": "1061279193",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HCYLP",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1061279173",
+      "estudiante_documento": "1061279173",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFJFN",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1013131528",
+      "estudiante_documento": "1013131528",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HGRGK",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1061279443",
+      "estudiante_documento": "1061279443",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEN15",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1061279413",
+      "estudiante_documento": "1061279413",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HG1J2",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117653000647",
-      "documento_estudiante": "1059812743",
+      "estudiante_documento": "1059812743",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFZ8J",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217662000085",
-      "documento_estudiante": "1024521745",
+      "estudiante_documento": "1024521745",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276W1",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217662000093",
-      "documento_estudiante": "1060040537",
+      "estudiante_documento": "1060040537",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276YC",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217662000964",
-      "documento_estudiante": "1014874156",
+      "estudiante_documento": "1014874156",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53293V3",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "217662000964",
-      "documento_estudiante": "1058526609",
+      "estudiante_documento": "1058526609",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFE6Y",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1111678405",
+      "estudiante_documento": "1058526576",
+      "tipo_terminal": "Portátil",
+      "serial_asignado": "",
+      "estado_despacho": "Sin terminal asignada"
+    },
+    {
+      "estudiante_documento": "1058526615",
+      "tipo_terminal": "Tableta",
+      "serial_asignado": "",
+      "estado_despacho": "Sin terminal asignada"
+    },
+    {
+      "estudiante_documento": "1111678405",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HDMYZ",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1028800327",
+      "estudiante_documento": "1028800327",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFW6V",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1054555584",
+      "estudiante_documento": "1054555584",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HDMYL",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1109548629",
+      "estudiante_documento": "1109548629",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HG4AG",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1061656152",
+      "estudiante_documento": "1061656152",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2J945W",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1013270124",
+      "estudiante_documento": "1013270124",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HF3Z4",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117662002792",
-      "documento_estudiante": "1058199839",
+      "estudiante_documento": "1058199839",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFX1D",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117877000103",
-      "documento_estudiante": "1089937240",
+      "estudiante_documento": "1089937240",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFY37",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117877000103",
-      "documento_estudiante": "1054873244",
+      "estudiante_documento": "1054873244",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HEL3E",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117877000103",
-      "documento_estudiante": "1087553870",
+      "estudiante_documento": "1087553870",
       "tipo_terminal": "Tableta",
       "serial_asignado": "HA2HFW5P",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117042000650",
-      "documento_estudiante": "1054874880",
+      "estudiante_documento": "1054874880",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53293KF",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117050000316",
-      "documento_estudiante": "1054872128",
+      "estudiante_documento": "1058079146",
+      "tipo_terminal": "Tableta",
+      "serial_asignado": "",
+      "estado_despacho": "Sin terminal asignada"
+    },
+    {
+      "estudiante_documento": "1054872128",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276HP",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117380000185",
-      "documento_estudiante": "1013130550",
+      "estudiante_documento": "1013130550",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276QZ",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117380000185",
-      "documento_estudiante": "1054556895",
+      "estudiante_documento": "1054556895",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320L6M",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117380000185",
-      "documento_estudiante": "1058199953",
+      "estudiante_documento": "1058199953",
       "tipo_terminal": "Portátil",
       "serial_asignado": "C50VVLA#ABM",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117541000652",
-      "documento_estudiante": "1055756947",
+      "estudiante_documento": "1055756947",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53293K8",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1018245651",
+      "estudiante_documento": "1018245651",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5327711",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1059702870",
+      "estudiante_documento": "1059702870",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD532766P",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1059703500",
+      "estudiante_documento": "1059703500",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320M5Q",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1059703575",
+      "estudiante_documento": "1059703575",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320L7N",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1059704036",
+      "estudiante_documento": "1059704036",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5328V1J",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1059704234",
+      "estudiante_documento": "1059704234",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD53276VR",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1060536474",
+      "estudiante_documento": "1060536474",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD5320L9W",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     },
     {
-      "codigo_dane_sede": "117614000753",
-      "documento_estudiante": "1079097240",
+      "estudiante_documento": "1079097240",
       "tipo_terminal": "Portátil",
       "serial_asignado": "5CD532775B",
-      "fecha_asignacion": "2026-03-01"
+      "estado_despacho": "Despacho Confirmado"
     }
   ],
   "config": {
@@ -3926,13 +4474,70 @@
   },
   "documentos_pregenerados": [
     {
-      "id": "DOC-026-217662000026",
+      "id": "DOC-026-217614000723",
       "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "217662000026",
-      "radicado": "33402",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_217662000026_v01.docx"
+      "nombre_archivo": "LOG-026-F_217614000723_v01.docx",
+      "drive_id": "DRIVE-026-217614000723",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217614000723",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217614000723",
+      "radicado": "84716",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217614000723_v01.xlsx",
+      "drive_id": "DRIVE-029-217614000723",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217272000106",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217272000106_v01.docx",
+      "drive_id": "DRIVE-026-217272000106",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217272000106",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217272000106",
+      "radicado": "18811",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217272000106_v01.xlsx",
+      "drive_id": "DRIVE-029-217272000106",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217042000255",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217042000255_v01.docx",
+      "drive_id": "DRIVE-026-217042000255",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217042000255",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217042000255",
+      "radicado": "9088",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217042000255_v01.xlsx",
+      "drive_id": "DRIVE-029-217042000255",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-026-117088000255",
@@ -3941,106 +4546,9 @@
       "radicado": "32741",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_117088000255_v01.docx"
-    },
-    {
-      "id": "DOC-026-217662002258",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "217662002258",
-      "radicado": "33093",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_217662002258_v01.docx"
-    },
-    {
-      "id": "DOC-026-117486000028",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "117486000028",
-      "radicado": "6670",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_117486000028_v01.docx"
-    },
-    {
-      "id": "DOC-026-217614000391",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "217614000391",
-      "radicado": "14892",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_217614000391_v01.docx"
-    },
-    {
-      "id": "DOC-026-217050000400",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "217050000400",
-      "radicado": "32704",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_217050000400_v01.docx"
-    },
-    {
-      "id": "DOC-026-217614000201",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "217614000201",
-      "radicado": "33235",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_217614000201_v01.docx"
-    },
-    {
-      "id": "DOC-026-217616000259",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "217616000259",
-      "radicado": "33290",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_217616000259_v01.docx"
-    },
-    {
-      "id": "DOC-026-117614000711",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "117614000711",
-      "radicado": "84728",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_117614000711_v01.docx"
-    },
-    {
-      "id": "DOC-026-117653000663",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "117653000663",
-      "radicado": "21329",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_117653000663_v01.docx"
-    },
-    {
-      "id": "DOC-026-117513000558",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "117513000558",
-      "radicado": "33116",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_117513000558_v01.docx"
-    },
-    {
-      "id": "DOC-026-117174000349",
-      "tipo_documento": "LOG-026-F",
-      "codigo_dane_sede": "117174000349",
-      "radicado": "18499",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-026-F_117174000349_v01.docx"
-    },
-    {
-      "id": "DOC-029-217662000026",
-      "tipo_documento": "LOG-029-F",
-      "codigo_dane_sede": "217662000026",
-      "radicado": "33402",
-      "version_actual": 1,
-      "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_217662000026_v01.xlsx"
+      "nombre_archivo": "LOG-026-F_117088000255_v01.docx",
+      "drive_id": "DRIVE-026-117088000255",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-117088000255",
@@ -4049,7 +4557,196 @@
       "radicado": "32741",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_117088000255_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_117088000255_v01.xlsx",
+      "drive_id": "DRIVE-029-117088000255",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117042000552",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117042000552",
+      "radicado": "18497",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117042000552_v01.docx",
+      "drive_id": "DRIVE-026-117042000552",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-117042000552",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "117042000552",
+      "radicado": "18497",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_117042000552_v01.xlsx",
+      "drive_id": "DRIVE-029-117042000552",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217873000375",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217873000375_v01.docx",
+      "drive_id": "DRIVE-026-217873000375",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217873000375",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217873000375",
+      "radicado": "33518",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217873000375_v01.xlsx",
+      "drive_id": "DRIVE-029-217873000375",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117777000734",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117777000734_v01.docx",
+      "drive_id": "DRIVE-026-117777000734",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-117777000734",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "117777000734",
+      "radicado": "690",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_117777000734_v01.xlsx",
+      "drive_id": "DRIVE-029-117777000734",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217486000651",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217486000651",
+      "radicado": "86474",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217486000651_v01.docx",
+      "drive_id": "DRIVE-026-217486000651",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217486000651",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217486000651",
+      "radicado": "86474",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217486000651_v01.xlsx",
+      "drive_id": "DRIVE-029-217486000651",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217662000590",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217662000590",
+      "radicado": "10704",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217662000590_v01.docx",
+      "drive_id": "DRIVE-026-217662000590",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217662000590",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217662000590",
+      "radicado": "10704",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217662000590_v01.xlsx",
+      "drive_id": "DRIVE-029-217662000590",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117050000278",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117050000278_v01.docx",
+      "drive_id": "DRIVE-026-117050000278",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-117050000278",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "117050000278",
+      "radicado": "16136",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_117050000278_v01.xlsx",
+      "drive_id": "DRIVE-029-117050000278",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117541000652",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117541000652",
+      "radicado": "84723",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117541000652_v01.docx",
+      "drive_id": "DRIVE-026-117541000652",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-117541000652",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "117541000652",
+      "radicado": "84723",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_117541000652_v01.xlsx",
+      "drive_id": "DRIVE-029-117541000652",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217042000760",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217042000760_v01.docx",
+      "drive_id": "DRIVE-026-217042000760",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217042000760",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217042000760",
+      "radicado": "32691",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217042000760_v01.xlsx",
+      "drive_id": "DRIVE-029-217042000760",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217662002258",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217662002258",
+      "radicado": "33093",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217662002258_v01.docx",
+      "drive_id": "DRIVE-026-217662002258",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-217662002258",
@@ -4058,7 +4755,42 @@
       "radicado": "33093",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_217662002258_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_217662002258_v01.xlsx",
+      "drive_id": "DRIVE-029-217662002258",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217513000676",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217513000676",
+      "radicado": "10968",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217513000676_v01.docx",
+      "drive_id": "DRIVE-026-217513000676",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217513000676",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217513000676",
+      "radicado": "10968",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217513000676_v01.xlsx",
+      "drive_id": "DRIVE-029-217513000676",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117486000028",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117486000028",
+      "radicado": "6670",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117486000028_v01.docx",
+      "drive_id": "DRIVE-026-117486000028",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-117486000028",
@@ -4067,7 +4799,108 @@
       "radicado": "6670",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_117486000028_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_117486000028_v01.xlsx",
+      "drive_id": "DRIVE-029-117486000028",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217088000098",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217088000098_v01.docx",
+      "drive_id": "DRIVE-026-217088000098",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217088000098",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217088000098",
+      "radicado": "13813",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217088000098_v01.xlsx",
+      "drive_id": "DRIVE-029-217088000098",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217444000278",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217444000278_v01.docx",
+      "drive_id": "DRIVE-026-217444000278",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217444000278",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217444000278",
+      "radicado": "14234",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217444000278_v01.xlsx",
+      "drive_id": "DRIVE-029-217444000278",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217380000040",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217380000040_v01.docx",
+      "drive_id": "DRIVE-026-217380000040",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217380000040",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217380000040",
+      "radicado": "19583",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217380000040_v01.xlsx",
+      "drive_id": "DRIVE-029-217380000040",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217042000107",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217042000107_v01.docx",
+      "drive_id": "DRIVE-026-217042000107",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217042000107",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217042000107",
+      "radicado": "8951",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217042000107_v01.xlsx",
+      "drive_id": "DRIVE-029-217042000107",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217614000391",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217614000391",
+      "radicado": "14892",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217614000391_v01.docx",
+      "drive_id": "DRIVE-026-217614000391",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-217614000391",
@@ -4076,7 +4909,20 @@
       "radicado": "14892",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_217614000391_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_217614000391_v01.xlsx",
+      "drive_id": "DRIVE-029-217614000391",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217050000400",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217050000400",
+      "radicado": "32704",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217050000400_v01.docx",
+      "drive_id": "DRIVE-026-217050000400",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-217050000400",
@@ -4085,7 +4931,42 @@
       "radicado": "32704",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_217050000400_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_217050000400_v01.xlsx",
+      "drive_id": "DRIVE-029-217050000400",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217442000246",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217442000246",
+      "radicado": "32992",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217442000246_v01.docx",
+      "drive_id": "DRIVE-026-217442000246",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217442000246",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217442000246",
+      "radicado": "32992",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217442000246_v01.xlsx",
+      "drive_id": "DRIVE-029-217442000246",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217614000201",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217614000201",
+      "radicado": "33235",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217614000201_v01.docx",
+      "drive_id": "DRIVE-026-217614000201",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-217614000201",
@@ -4094,7 +4975,20 @@
       "radicado": "33235",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_217614000201_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_217614000201_v01.xlsx",
+      "drive_id": "DRIVE-029-217614000201",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217616000259",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217616000259",
+      "radicado": "33290",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217616000259_v01.docx",
+      "drive_id": "DRIVE-026-217616000259",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-217616000259",
@@ -4103,7 +4997,196 @@
       "radicado": "33290",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_217616000259_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_217616000259_v01.xlsx",
+      "drive_id": "DRIVE-029-217616000259",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217662000093",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217662000093",
+      "radicado": "19768",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217662000093_v01.docx",
+      "drive_id": "DRIVE-026-217662000093",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217662000093",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217662000093",
+      "radicado": "19768",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217662000093_v01.xlsx",
+      "drive_id": "DRIVE-029-217662000093",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217777000089",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217777000089_v01.docx",
+      "drive_id": "DRIVE-026-217777000089",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217777000089",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217777000089",
+      "radicado": "689",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217777000089_v01.xlsx",
+      "drive_id": "DRIVE-029-217777000089",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217513000064",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217513000064_v01.docx",
+      "drive_id": "DRIVE-026-217513000064",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217513000064",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217513000064",
+      "radicado": "33110",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217513000064_v01.xlsx",
+      "drive_id": "DRIVE-029-217513000064",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217442000033",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217442000033",
+      "radicado": "32991",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217442000033_v01.docx",
+      "drive_id": "DRIVE-026-217442000033",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217442000033",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217442000033",
+      "radicado": "32991",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217442000033_v01.xlsx",
+      "drive_id": "DRIVE-029-217442000033",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217444000014",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217444000014",
+      "radicado": "33005",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217444000014_v01.docx",
+      "drive_id": "DRIVE-026-217444000014",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217444000014",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217444000014",
+      "radicado": "33005",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217444000014_v01.xlsx",
+      "drive_id": "DRIVE-029-217444000014",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217380000856",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217380000856",
+      "radicado": "8474",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217380000856_v01.docx",
+      "drive_id": "DRIVE-026-217380000856",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217380000856",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217380000856",
+      "radicado": "8474",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217380000856_v01.xlsx",
+      "drive_id": "DRIVE-029-217380000856",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217616000046",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217616000046",
+      "radicado": "33302",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217616000046_v01.docx",
+      "drive_id": "DRIVE-026-217616000046",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217616000046",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217616000046",
+      "radicado": "33302",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217616000046_v01.xlsx",
+      "drive_id": "DRIVE-029-217616000046",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117442000063",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117442000063",
+      "radicado": "16309",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117442000063_v01.docx",
+      "drive_id": "DRIVE-026-117442000063",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-117442000063",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "117442000063",
+      "radicado": "16309",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_117442000063_v01.xlsx",
+      "drive_id": "DRIVE-029-117442000063",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-117614000711",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117614000711",
+      "radicado": "84728",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_117614000711_v01.docx",
+      "drive_id": "DRIVE-026-117614000711",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-029-117614000711",
@@ -4112,34 +5195,119 @@
       "radicado": "84728",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_117614000711_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_117614000711_v01.xlsx",
+      "drive_id": "DRIVE-029-117614000711",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
-      "id": "DOC-029-117653000663",
-      "tipo_documento": "LOG-029-F",
-      "codigo_dane_sede": "117653000663",
-      "radicado": "21329",
+      "id": "DOC-026-117446000157",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117446000157",
+      "radicado": "84720",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_117653000663_v01.xlsx"
+      "nombre_archivo": "LOG-026-F_117446000157_v01.docx",
+      "drive_id": "DRIVE-026-117446000157",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
-      "id": "DOC-029-117513000558",
+      "id": "DOC-029-117446000157",
       "tipo_documento": "LOG-029-F",
-      "codigo_dane_sede": "117513000558",
-      "radicado": "33116",
+      "codigo_dane_sede": "117446000157",
+      "radicado": "84720",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_117513000558_v01.xlsx"
+      "nombre_archivo": "LOG-029-F_117446000157_v01.xlsx",
+      "drive_id": "DRIVE-029-117446000157",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
-      "id": "DOC-029-117174000349",
-      "tipo_documento": "LOG-029-F",
-      "codigo_dane_sede": "117174000349",
-      "radicado": "18499",
+      "id": "DOC-026-117013000292",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "117013000292",
+      "radicado": "86470",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-029-F_117174000349_v01.xlsx"
+      "nombre_archivo": "LOG-026-F_117013000292_v01.docx",
+      "drive_id": "DRIVE-026-117013000292",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-117013000292",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "117013000292",
+      "radicado": "86470",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_117013000292_v01.xlsx",
+      "drive_id": "DRIVE-029-117013000292",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217541001793",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217541001793",
+      "radicado": "91167",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217541001793_v01.docx",
+      "drive_id": "DRIVE-026-217541001793",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217541001793",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217541001793",
+      "radicado": "91167",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217541001793_v01.xlsx",
+      "drive_id": "DRIVE-029-217541001793",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217541000673",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217541000673",
+      "radicado": "83042",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217541000673_v01.docx",
+      "drive_id": "DRIVE-026-217541000673",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217541000673",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217541000673",
+      "radicado": "83042",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217541000673_v01.xlsx",
+      "drive_id": "DRIVE-029-217541000673",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-026-217174000432",
+      "tipo_documento": "LOG-026-F",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-026-F_217174000432_v01.docx",
+      "drive_id": "DRIVE-026-217174000432",
+      "updated_at": "2026-10-22T08:00:00Z"
+    },
+    {
+      "id": "DOC-029-217174000432",
+      "tipo_documento": "LOG-029-F",
+      "codigo_dane_sede": "217174000432",
+      "radicado": "32747",
+      "version_actual": 1,
+      "estado": "Generado",
+      "nombre_archivo": "LOG-029-F_217174000432_v01.xlsx",
+      "drive_id": "DRIVE-029-217174000432",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059812839",
@@ -4149,7 +5317,9 @@
       "radicado": "86471",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117013000306_1059812839_v01.docx"
+      "nombre_archivo": "LOG-007-F_117013000306_1059812839_v01.docx",
+      "drive_id": "DRIVE-007-1059812839",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059812816",
@@ -4159,7 +5329,9 @@
       "radicado": "86471",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117013000306_1059812816_v01.docx"
+      "nombre_archivo": "LOG-007-F_117013000306_1059812816_v01.docx",
+      "drive_id": "DRIVE-007-1059812816",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054480366",
@@ -4169,7 +5341,9 @@
       "radicado": "32741",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117088000255_1054480366_v01.docx"
+      "nombre_archivo": "LOG-007-F_117088000255_1054480366_v01.docx",
+      "drive_id": "DRIVE-007-1054480366",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1089606334",
@@ -4179,7 +5353,9 @@
       "radicado": "32741",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117088000255_1089606334_v01.docx"
+      "nombre_archivo": "LOG-007-F_117088000255_1089606334_v01.docx",
+      "drive_id": "DRIVE-007-1089606334",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1055890618",
@@ -4189,7 +5365,9 @@
       "radicado": "32741",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117088000255_1055890618_v01.docx"
+      "nombre_archivo": "LOG-007-F_117088000255_1055890618_v01.docx",
+      "drive_id": "DRIVE-007-1055890618",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1057757797",
@@ -4199,7 +5377,9 @@
       "radicado": "32741",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117088000255_1057757797_v01.docx"
+      "nombre_archivo": "LOG-007-F_117088000255_1057757797_v01.docx",
+      "drive_id": "DRIVE-007-1057757797",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054869093",
@@ -4209,7 +5389,9 @@
       "radicado": "32751",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000292_1054869093_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000292_1054869093_v01.docx",
+      "drive_id": "DRIVE-007-1054869093",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1107859445",
@@ -4219,7 +5401,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1107859445_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1107859445_v01.docx",
+      "drive_id": "DRIVE-007-1107859445",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054871365",
@@ -4229,7 +5413,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1054871365_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1054871365_v01.docx",
+      "drive_id": "DRIVE-007-1054871365",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1137061910",
@@ -4239,7 +5425,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1137061910_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1137061910_v01.docx",
+      "drive_id": "DRIVE-007-1137061910",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054872974",
@@ -4249,7 +5437,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1054872974_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1054872974_v01.docx",
+      "drive_id": "DRIVE-007-1054872974",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054480110",
@@ -4259,7 +5449,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1054480110_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1054480110_v01.docx",
+      "drive_id": "DRIVE-007-1054480110",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1127386550",
@@ -4269,7 +5461,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1127386550_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1127386550_v01.docx",
+      "drive_id": "DRIVE-007-1127386550",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1058140140",
@@ -4279,7 +5473,9 @@
       "radicado": "18499",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117174000349_1058140140_v01.docx"
+      "nombre_archivo": "LOG-007-F_117174000349_1058140140_v01.docx",
+      "drive_id": "DRIVE-007-1058140140",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1107981101",
@@ -4289,7 +5485,9 @@
       "radicado": "84731",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117433000379_1107981101_v01.docx"
+      "nombre_archivo": "LOG-007-F_117433000379_1107981101_v01.docx",
+      "drive_id": "DRIVE-007-1107981101",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1055890622",
@@ -4299,7 +5497,9 @@
       "radicado": "84731",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117433000379_1055890622_v01.docx"
+      "nombre_archivo": "LOG-007-F_117433000379_1055890622_v01.docx",
+      "drive_id": "DRIVE-007-1055890622",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054871822",
@@ -4309,7 +5509,9 @@
       "radicado": "84731",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117433000379_1054871822_v01.docx"
+      "nombre_archivo": "LOG-007-F_117433000379_1054871822_v01.docx",
+      "drive_id": "DRIVE-007-1054871822",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1090275889",
@@ -4319,7 +5521,9 @@
       "radicado": "84731",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117433000379_1090275889_v01.docx"
+      "nombre_archivo": "LOG-007-F_117433000379_1090275889_v01.docx",
+      "drive_id": "DRIVE-007-1090275889",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054556929",
@@ -4329,7 +5533,9 @@
       "radicado": "84731",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117433000379_1054556929_v01.docx"
+      "nombre_archivo": "LOG-007-F_117433000379_1054556929_v01.docx",
+      "drive_id": "DRIVE-007-1054556929",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1058200418",
@@ -4339,7 +5545,9 @@
       "radicado": "9089",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217444000138_1058200418_v01.docx"
+      "nombre_archivo": "LOG-007-F_217444000138_1058200418_v01.docx",
+      "drive_id": "DRIVE-007-1058200418",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1053809439",
@@ -4349,7 +5557,9 @@
       "radicado": "9089",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217444000138_1053809439_v01.docx"
+      "nombre_archivo": "LOG-007-F_217444000138_1053809439_v01.docx",
+      "drive_id": "DRIVE-007-1053809439",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054555724",
@@ -4359,7 +5569,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1054555724_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1054555724_v01.docx",
+      "drive_id": "DRIVE-007-1054555724",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1012376245",
@@ -4369,7 +5581,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1012376245_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1012376245_v01.docx",
+      "drive_id": "DRIVE-007-1012376245",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1128625906",
@@ -4379,7 +5593,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1128625906_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1128625906_v01.docx",
+      "drive_id": "DRIVE-007-1128625906",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1128625749",
@@ -4389,7 +5605,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1128625749_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1128625749_v01.docx",
+      "drive_id": "DRIVE-007-1128625749",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1128626485",
@@ -4399,7 +5617,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1128626485_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1128626485_v01.docx",
+      "drive_id": "DRIVE-007-1128626485",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1028887846",
@@ -4409,7 +5629,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1028887846_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1028887846_v01.docx",
+      "drive_id": "DRIVE-007-1028887846",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054554897",
@@ -4419,7 +5641,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1054554897_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1054554897_v01.docx",
+      "drive_id": "DRIVE-007-1054554897",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1128625806",
@@ -4429,7 +5653,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1128625806_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1128625806_v01.docx",
+      "drive_id": "DRIVE-007-1128625806",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1128628149",
@@ -4439,7 +5665,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1128628149_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1128628149_v01.docx",
+      "drive_id": "DRIVE-007-1128628149",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1128625920",
@@ -4449,7 +5677,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1128625920_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1128625920_v01.docx",
+      "drive_id": "DRIVE-007-1128625920",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1023386761",
@@ -4459,7 +5689,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1023386761_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1023386761_v01.docx",
+      "drive_id": "DRIVE-007-1023386761",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054556667",
@@ -4469,7 +5701,9 @@
       "radicado": "21879",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117495005407_1054556667_v01.docx"
+      "nombre_archivo": "LOG-007-F_117495005407_1054556667_v01.docx",
+      "drive_id": "DRIVE-007-1054556667",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1150435210",
@@ -4479,7 +5713,9 @@
       "radicado": "33116",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117513000558_1150435210_v01.docx"
+      "nombre_archivo": "LOG-007-F_117513000558_1150435210_v01.docx",
+      "drive_id": "DRIVE-007-1150435210",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054870602",
@@ -4489,7 +5725,9 @@
       "radicado": "84717",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541001360_1054870602_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541001360_1054870602_v01.docx",
+      "drive_id": "DRIVE-007-1054870602",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054870861",
@@ -4499,7 +5737,9 @@
       "radicado": "84717",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541001360_1054870861_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541001360_1054870861_v01.docx",
+      "drive_id": "DRIVE-007-1054870861",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1161213361",
@@ -4509,7 +5749,9 @@
       "radicado": "84717",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541001360_1161213361_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541001360_1161213361_v01.docx",
+      "drive_id": "DRIVE-007-1161213361",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059119432",
@@ -4519,7 +5761,9 @@
       "radicado": "84717",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541001360_1059119432_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541001360_1059119432_v01.docx",
+      "drive_id": "DRIVE-007-1059119432",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1055552513",
@@ -4529,7 +5773,9 @@
       "radicado": "84717",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541001360_1055552513_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541001360_1055552513_v01.docx",
+      "drive_id": "DRIVE-007-1055552513",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1055552178",
@@ -4539,7 +5785,9 @@
       "radicado": "84717",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541001360_1055552178_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541001360_1055552178_v01.docx",
+      "drive_id": "DRIVE-007-1055552178",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054556004",
@@ -4549,7 +5797,9 @@
       "radicado": "83042",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541000673_1054556004_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541000673_1054556004_v01.docx",
+      "drive_id": "DRIVE-007-1054556004",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1057785114",
@@ -4559,7 +5809,9 @@
       "radicado": "83042",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541000673_1057785114_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541000673_1057785114_v01.docx",
+      "drive_id": "DRIVE-007-1057785114",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054873667",
@@ -4569,7 +5821,9 @@
       "radicado": "83042",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541000673_1054873667_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541000673_1054873667_v01.docx",
+      "drive_id": "DRIVE-007-1054873667",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1055047329",
@@ -4579,7 +5833,9 @@
       "radicado": "83042",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217541000673_1055047329_v01.docx"
+      "nombre_archivo": "LOG-007-F_217541000673_1055047329_v01.docx",
+      "drive_id": "DRIVE-007-1055047329",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059703125",
@@ -4589,7 +5845,9 @@
       "radicado": "86476",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217614000928_1059703125_v01.docx"
+      "nombre_archivo": "LOG-007-F_217614000928_1059703125_v01.docx",
+      "drive_id": "DRIVE-007-1059703125",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059703010",
@@ -4599,7 +5857,9 @@
       "radicado": "86476",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217614000928_1059703010_v01.docx"
+      "nombre_archivo": "LOG-007-F_217614000928_1059703010_v01.docx",
+      "drive_id": "DRIVE-007-1059703010",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059703091",
@@ -4609,7 +5869,9 @@
       "radicado": "84728",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000711_1059703091_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000711_1059703091_v01.docx",
+      "drive_id": "DRIVE-007-1059703091",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054399697",
@@ -4619,7 +5881,9 @@
       "radicado": "16909",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117616000696_1054399697_v01.docx"
+      "nombre_archivo": "LOG-007-F_117616000696_1054399697_v01.docx",
+      "drive_id": "DRIVE-007-1054399697",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1058079025",
@@ -4629,7 +5893,9 @@
       "radicado": "16909",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117616000696_1058079025_v01.docx"
+      "nombre_archivo": "LOG-007-F_117616000696_1058079025_v01.docx",
+      "drive_id": "DRIVE-007-1058079025",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061279101",
@@ -4639,7 +5905,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1061279101_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1061279101_v01.docx",
+      "drive_id": "DRIVE-007-1061279101",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1085719307",
@@ -4649,7 +5917,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1085719307_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1085719307_v01.docx",
+      "drive_id": "DRIVE-007-1085719307",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059812733",
@@ -4659,7 +5929,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1059812733_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1059812733_v01.docx",
+      "drive_id": "DRIVE-007-1059812733",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061279489",
@@ -4669,7 +5941,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1061279489_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1061279489_v01.docx",
+      "drive_id": "DRIVE-007-1061279489",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061279193",
@@ -4679,7 +5953,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1061279193_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1061279193_v01.docx",
+      "drive_id": "DRIVE-007-1061279193",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061279173",
@@ -4689,7 +5965,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1061279173_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1061279173_v01.docx",
+      "drive_id": "DRIVE-007-1061279173",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1013131528",
@@ -4699,7 +5977,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1013131528_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1013131528_v01.docx",
+      "drive_id": "DRIVE-007-1013131528",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061279443",
@@ -4709,7 +5989,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1061279443_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1061279443_v01.docx",
+      "drive_id": "DRIVE-007-1061279443",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061279413",
@@ -4719,7 +6001,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1061279413_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1061279413_v01.docx",
+      "drive_id": "DRIVE-007-1061279413",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059812743",
@@ -4729,7 +6013,9 @@
       "radicado": "10229",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117653000647_1059812743_v01.docx"
+      "nombre_archivo": "LOG-007-F_117653000647_1059812743_v01.docx",
+      "drive_id": "DRIVE-007-1059812743",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1024521745",
@@ -4739,7 +6025,9 @@
       "radicado": "33369",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217662000085_1024521745_v01.docx"
+      "nombre_archivo": "LOG-007-F_217662000085_1024521745_v01.docx",
+      "drive_id": "DRIVE-007-1024521745",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1060040537",
@@ -4749,7 +6037,9 @@
       "radicado": "19768",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217662000093_1060040537_v01.docx"
+      "nombre_archivo": "LOG-007-F_217662000093_1060040537_v01.docx",
+      "drive_id": "DRIVE-007-1060040537",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1014874156",
@@ -4759,7 +6049,9 @@
       "radicado": "33370",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217662000964_1014874156_v01.docx"
+      "nombre_archivo": "LOG-007-F_217662000964_1014874156_v01.docx",
+      "drive_id": "DRIVE-007-1014874156",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1058526609",
@@ -4769,7 +6061,9 @@
       "radicado": "33370",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_217662000964_1058526609_v01.docx"
+      "nombre_archivo": "LOG-007-F_217662000964_1058526609_v01.docx",
+      "drive_id": "DRIVE-007-1058526609",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1111678405",
@@ -4779,7 +6073,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1111678405_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1111678405_v01.docx",
+      "drive_id": "DRIVE-007-1111678405",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1028800327",
@@ -4789,7 +6085,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1028800327_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1028800327_v01.docx",
+      "drive_id": "DRIVE-007-1028800327",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054555584",
@@ -4799,7 +6097,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1054555584_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1054555584_v01.docx",
+      "drive_id": "DRIVE-007-1054555584",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1109548629",
@@ -4809,7 +6109,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1109548629_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1109548629_v01.docx",
+      "drive_id": "DRIVE-007-1109548629",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1061656152",
@@ -4819,7 +6121,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1061656152_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1061656152_v01.docx",
+      "drive_id": "DRIVE-007-1061656152",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1013270124",
@@ -4829,7 +6133,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1013270124_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1013270124_v01.docx",
+      "drive_id": "DRIVE-007-1013270124",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1058199839",
@@ -4839,7 +6145,9 @@
       "radicado": "94788",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117662002792_1058199839_v01.docx"
+      "nombre_archivo": "LOG-007-F_117662002792_1058199839_v01.docx",
+      "drive_id": "DRIVE-007-1058199839",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1089937240",
@@ -4849,7 +6157,9 @@
       "radicado": "21883",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117877000103_1089937240_v01.docx"
+      "nombre_archivo": "LOG-007-F_117877000103_1089937240_v01.docx",
+      "drive_id": "DRIVE-007-1089937240",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054873244",
@@ -4859,7 +6169,9 @@
       "radicado": "21883",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117877000103_1054873244_v01.docx"
+      "nombre_archivo": "LOG-007-F_117877000103_1054873244_v01.docx",
+      "drive_id": "DRIVE-007-1054873244",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1087553870",
@@ -4869,7 +6181,9 @@
       "radicado": "21883",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117877000103_1087553870_v01.docx"
+      "nombre_archivo": "LOG-007-F_117877000103_1087553870_v01.docx",
+      "drive_id": "DRIVE-007-1087553870",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054874880",
@@ -4879,7 +6193,9 @@
       "radicado": "21878",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117042000650_1054874880_v01.docx"
+      "nombre_archivo": "LOG-007-F_117042000650_1054874880_v01.docx",
+      "drive_id": "DRIVE-007-1054874880",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054872128",
@@ -4889,7 +6205,9 @@
       "radicado": "1181",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117050000316_1054872128_v01.docx"
+      "nombre_archivo": "LOG-007-F_117050000316_1054872128_v01.docx",
+      "drive_id": "DRIVE-007-1054872128",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1013130550",
@@ -4899,7 +6217,9 @@
       "radicado": "2994",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117380000185_1013130550_v01.docx"
+      "nombre_archivo": "LOG-007-F_117380000185_1013130550_v01.docx",
+      "drive_id": "DRIVE-007-1013130550",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1054556895",
@@ -4909,7 +6229,9 @@
       "radicado": "2994",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117380000185_1054556895_v01.docx"
+      "nombre_archivo": "LOG-007-F_117380000185_1054556895_v01.docx",
+      "drive_id": "DRIVE-007-1054556895",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1058199953",
@@ -4919,7 +6241,9 @@
       "radicado": "2994",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117380000185_1058199953_v01.docx"
+      "nombre_archivo": "LOG-007-F_117380000185_1058199953_v01.docx",
+      "drive_id": "DRIVE-007-1058199953",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1055756947",
@@ -4929,7 +6253,9 @@
       "radicado": "84723",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117541000652_1055756947_v01.docx"
+      "nombre_archivo": "LOG-007-F_117541000652_1055756947_v01.docx",
+      "drive_id": "DRIVE-007-1055756947",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1018245651",
@@ -4939,7 +6265,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1018245651_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1018245651_v01.docx",
+      "drive_id": "DRIVE-007-1018245651",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059702870",
@@ -4949,7 +6277,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1059702870_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1059702870_v01.docx",
+      "drive_id": "DRIVE-007-1059702870",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059703500",
@@ -4959,7 +6289,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1059703500_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1059703500_v01.docx",
+      "drive_id": "DRIVE-007-1059703500",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059703575",
@@ -4969,7 +6301,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1059703575_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1059703575_v01.docx",
+      "drive_id": "DRIVE-007-1059703575",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059704036",
@@ -4979,7 +6313,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1059704036_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1059704036_v01.docx",
+      "drive_id": "DRIVE-007-1059704036",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1059704234",
@@ -4989,7 +6325,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1059704234_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1059704234_v01.docx",
+      "drive_id": "DRIVE-007-1059704234",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1060536474",
@@ -4999,7 +6337,9 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1060536474_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1060536474_v01.docx",
+      "drive_id": "DRIVE-007-1060536474",
+      "updated_at": "2026-10-22T08:00:00Z"
     },
     {
       "id": "DOC-007-1079097240",
@@ -5009,7 +6349,10 @@
       "radicado": "23072",
       "version_actual": 1,
       "estado": "Generado",
-      "nombre_archivo": "LOG-007-F_117614000753_1079097240_v01.docx"
+      "nombre_archivo": "LOG-007-F_117614000753_1079097240_v01.docx",
+      "drive_id": "DRIVE-007-1079097240",
+      "updated_at": "2026-10-22T08:00:00Z"
     }
-  ]
+  ],
+  "data_version": 6
 }

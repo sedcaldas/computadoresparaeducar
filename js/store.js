@@ -158,8 +158,8 @@ class AppStore {
             try {
                 const parsed = JSON.parse(saved);
                 this.state = Object.assign(this.state, parsed);
-                // Si faltaban los documentos pregenerados o los datos no tienen la versión v5, recargar semilla oficial y purgar blobs
-                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 5) {
+                // Si faltaban los documentos pregenerados o los datos no tienen la versión v6, recargar semilla oficial y purgar blobs
+                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 6) {
                     await this.clearBlobs();
                     await this.loadSeedData();
                 }
@@ -177,7 +177,7 @@ class AppStore {
             const res = await fetch('./data/seed_data.json');
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const seed = await res.json();
-            this.state.data_version = 5; // Versión 5: LOG-026/029 solo para sedes con bolsa, LOG-007 rector en blanco, Yuby Bohorquez y acta consolidada
+            this.state.data_version = 6; // Versión 6: Base de seriales actualizada (38 sedes bolsa, 177 elementos, plantilla exacta Acta Consolidada)
             this.state.municipios = seed.municipios || [];
             this.state.instituciones = seed.instituciones || [];
             this.state.sedes = seed.sedes || [];
