@@ -156,6 +156,46 @@ body {
     50% { opacity: 0.5; transform: scale(0.9); }
 }
 
+/* Header Role Navigation: Únicamente Coordinador y Administrador */
+.header-roles-nav {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 0.2rem;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    gap: 0.25rem;
+}
+
+.header-role-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    outline: none;
+}
+
+.header-role-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.header-role-btn.active {
+    background: white;
+    color: var(--navy);
+    font-weight: 700;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+
 /* User & Session Bar */
 .user-menu {
     display: flex;
