@@ -94,16 +94,16 @@ class ApplicationController {
         const rolesNav = document.getElementById('header-roles-nav');
         const sessionArea = document.getElementById('header-session-area');
 
-        // Determinar rol activo (si está logueado toma user.role; si está en login toma el rol seleccionado)
-        const currentRole = user ? user.role : (document.getElementById('login-selected-role')?.value || 'coordinador');
+        // Determinar rol activo únicamente cuando hay sesión autenticada
+        const currentRole = user ? user.role : null;
 
-        // Mostrar ÚNICAMENTE las opciones de rol de Coordinador y Administrador en el encabezado
+        // Mostrar ÚNICAMENTE las opciones de rol de CPE y Administrador en el encabezado
         if (rolesNav) {
             rolesNav.innerHTML = `
-                <button type="button" class="header-role-btn ${currentRole === 'coordinador' ? 'active' : ''}" onclick="appController.handleHeaderRoleSelect('coordinador')">
-                    🏛️ Coordinador
+                <button type="button" id="header-btn-cpe" class="header-role-btn ${currentRole === 'coordinador' ? 'active' : ''}" onclick="appController.handleHeaderRoleSelect('coordinador')">
+                    🏛️ CPE
                 </button>
-                <button type="button" class="header-role-btn ${currentRole === 'administrador' ? 'active' : ''}" onclick="appController.handleHeaderRoleSelect('administrador')">
+                <button type="button" id="header-btn-admin" class="header-role-btn ${currentRole === 'administrador' ? 'active' : ''}" onclick="appController.handleHeaderRoleSelect('administrador')">
                     ⚙️ Administrador
                 </button>
             `;
@@ -112,10 +112,12 @@ class ApplicationController {
         if (!sessionArea) return;
 
         if (user) {
+            const roleDisplay = user.role === 'coordinador' ? 'CPE' : (user.role.charAt(0).toUpperCase() + user.role.slice(1));
+            const pillClass = user.role === 'coordinador' ? 'cpe' : user.role;
             sessionArea.innerHTML = `
                 <div class="user-badge">
                     <span>${user.name}</span>
-                    <span class="role-pill ${user.role}">${user.role}</span>
+                    <span class="role-pill ${pillClass}">${roleDisplay}</span>
                 </div>
                 <button class="btn btn-outline btn-sm" style="color:white; border-color:rgba(255,255,255,0.4);" onclick="window.authService.logout()">Salir</button>
             `;
@@ -127,130 +129,141 @@ class ApplicationController {
     handleHeaderRoleSelect(role) {
         if (role !== 'coordinador' && role !== 'administrador') return;
         const user = window.authService.getCurrentUser();
-        if (user) {
+        // Si el usuario ya está autenticado con permisos de staff (coordinador o administrador), puede alternar directamente
+        if (user && (user.role === 'coordinador' || user.role === 'administrador')) {
             window.authService.switchRole(role);
-            this.showToast(`Perfil activo: ${role.charAt(0).toUpperCase() + role.slice(1)}`);
-        } else {
-            const cardEl = document.querySelector(`.role-card-option[data-role="${role}"]`);
-            this.selectLoginRole(role, cardEl);
+            const roleName = role === 'coordinador' ? 'CPE' : 'Administrador';
+            this.showToast(`Perfil activo: ${roleName}`);
+            this.updateHeaderSession(window.authService.getCurrentUser());
+            return;
         }
-        this.updateHeaderSession(user);
+
+        // Si no está autenticado o está como rector/otro, abrir modal de autenticación institucional de staff
+        this.openStaffLoginModal(role);
+    }
+
+    openStaffLoginModal(role) {
+        const modal = document.getElementById('modal-staff-login');
+        const titleEl = document.getElementById('staff-modal-title');
+        const descEl = document.getElementById('staff-modal-desc');
+        const roleInput = document.getElementById('staff-login-role');
+        const passInput = document.getElementById('staff-login-password');
+        const btnEl = document.getElementById('staff-login-btn');
+
+        if (!modal) return;
+
+        if (role === 'coordinador') {
+            if (titleEl) titleEl.textContent = '🏛️ Acceso Oficial CPE';
+            if (descEl) descEl.textContent = 'Ingrese la contraseña institucional autorizada para el equipo departamental de Computadores para Educar.';
+            if (roleInput) roleInput.value = 'coordinador';
+            if (btnEl) btnEl.textContent = 'Ingresar como CPE';
+        } else {
+            if (titleEl) titleEl.textContent = '⚙️ Acceso Oficial Administrador';
+            if (descEl) descEl.textContent = 'Ingrese la contraseña maestra autorizada para el Administrador del Sistema SED Caldas.';
+            if (roleInput) roleInput.value = 'administrador';
+            if (btnEl) btnEl.textContent = 'Ingresar como Administrador';
+        }
+
+        if (passInput) passInput.value = '';
+        modal.style.display = 'flex';
+        setTimeout(() => passInput?.focus(), 100);
+    }
+
+    async confirmStaffLogin() {
+        const roleInput = document.getElementById('staff-login-role');
+        const passInput = document.getElementById('staff-login-password');
+        const role = roleInput ? roleInput.value : 'coordinador';
+        const password = passInput ? passInput.value : '';
+
+        if (!password) {
+            alert('Por favor ingrese la contraseña institucional.');
+            return;
+        }
+
+        try {
+            await window.authService.loginWithAuxiliaryCredentials({
+                role: role,
+                credential: password
+            });
+            this.closeAllModals();
+            const roleName = role === 'coordinador' ? 'CPE' : 'Administrador';
+            this.showToast(`Bienvenido al panel institucional de ${roleName}`);
+        } catch (err) {
+            alert(err.message || 'Contraseña institucional incorrecta.');
+        }
     }
 
     // =========================================================================
-    // VISTA DE INICIO DE SESIÓN Y SELECCIÓN DE PERFIL
+    // VISTA DE INICIO DE SESIÓN EXCLUSIVA DE RECTORÍA
     // =========================================================================
     renderLoginView() {
+        const store = window.appStore;
+        const mpios = store.getMunicipios();
+        const mpioOptions = `<option value="">-- Todos los Municipios de Caldas --</option>` + 
+            mpios.map(m => `<option value="${m.codigo}" ${this.loginMpioFilter === m.codigo ? 'selected' : ''}>${m.nombre}</option>`).join('');
+
+        const ies = store.getInstituciones(this.loginMpioFilter); // Orden ascendente A-Z
+        const ieOptions = ies.map(i => `<option value="${i.codigo_dane}">${i.nombre} (${i.codigo_dane})</option>`).join('');
+
         return `
-            <div class="login-hero">
-                <div class="login-header">
-                    <h2>Acceso al Sistema Documental</h2>
-                    <p>Secretaría de Educación de Caldas & Computadores para Educar</p>
+            <div class="login-hero" style="max-width: 540px; margin: 2rem auto;">
+                <div class="login-header" style="background: linear-gradient(135deg, var(--navy) 0%, var(--primary) 100%);">
+                    <span style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;">🏫</span>
+                    <h2 style="color: white; font-size: 1.4rem; margin-bottom: 0.25rem;">Portal Institucional de Rectoría</h2>
+                    <p style="color: rgba(255,255,255,0.85); font-size: 0.85rem; margin: 0;">Secretaría de Educación de Caldas &middot; Computadores para Educar</p>
                 </div>
                 <div class="login-body">
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; text-align: center;">
-                        Seleccione su perfil de acceso para ingresar al sistema de gestión documental.
-                    </p>
-
-                    <div class="role-selector-grid">
-                        <div class="role-card-option active" data-role="coordinador" onclick="appController.selectLoginRole('coordinador', this)">
-                            <span class="icon">🏛️</span>
-                            <div>Coordinador</div>
-                            <small style="color: var(--text-muted);">Revisión & Aprobación</small>
-                        </div>
-                        <div class="role-card-option" data-role="rector" onclick="appController.selectLoginRole('rector', this)">
-                            <span class="icon">🏫</span>
-                            <div>Rector</div>
-                            <small style="color: var(--text-muted);">Formatos IE & Sede</small>
-                        </div>
-                        <div class="role-card-option" data-role="acudiente" onclick="appController.selectLoginRole('acudiente', this)">
-                            <span class="icon">👨‍👩‍👧</span>
-                            <div>Acudiente</div>
-                            <small style="color: var(--text-muted);">Firma LOG-007-F</small>
-                        </div>
-                        <div class="role-card-option" data-role="administrador" onclick="appController.selectLoginRole('administrador', this)">
-                            <span class="icon">⚙️</span>
-                            <div>Administrador</div>
-                            <small style="color: var(--text-muted);">CRUD & Carga Excel</small>
+                    <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-size: 1.3rem;">ℹ️</span>
+                        <div style="font-size: 0.85rem; color: #1E40AF; line-height: 1.4;">
+                            <strong>Autenticación de Establecimientos Educativos:</strong><br>
+                            Seleccione su municipio e institución educativa para formalizar y consultar dotaciones.
                         </div>
                     </div>
 
                     <form id="login-form" onsubmit="event.preventDefault(); appController.handleAuxLogin();">
-                        <input type="hidden" id="login-selected-role" value="coordinador">
+                        <input type="hidden" id="login-selected-role" value="rector">
 
-                        <div id="login-dynamic-fields">
-                            <div class="form-group">
-                                <label class="form-label">Contraseña Institucional</label>
-                                <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" value="" required autocomplete="current-password">
-                            </div>
+                        <div class="form-group">
+                            <label class="form-label" for="login-filter-mpio">1. Municipio</label>
+                            <select id="login-filter-mpio" class="form-select" onchange="appController.handleLoginMpioFilter(this.value)">
+                                ${mpioOptions}
+                            </select>
+                            <span class="form-hint">Filtre para ubicar rápidamente su institución educativa.</span>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-bottom: 0.5rem;">
-                            Ingresar al Sistema
+                        <div class="form-group">
+                            <label class="form-label" for="login-entity-id">2. Institución Educativa (Orden Ascendente A-Z)</label>
+                            <select id="login-entity-id" class="form-select" required>
+                                ${ieOptions}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="login-password">3. Contraseña Institucional</label>
+                            <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" required autocomplete="current-password">
+                            <span class="form-hint">Ingrese la clave de acceso institucional o código DANE asignado a su institución.</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.25rem; font-weight: 700;">
+                            Ingresar al Portal de Rectoría
                         </button>
                     </form>
+
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+                        <span>🏛️ Funcionarios autorizados de <strong>CPE</strong> y <strong>Administración</strong> acceden desde el encabezado superior.</span>
+                    </div>
                 </div>
             </div>
         `;
     }
 
-    selectLoginRole(role, cardEl) {
-        document.querySelectorAll('.role-card-option').forEach(el => el.classList.remove('active'));
-        if (cardEl) cardEl.classList.add('active');
-        const roleInput = document.getElementById('login-selected-role');
-        if (roleInput) roleInput.value = role;
-
-        const dynArea = document.getElementById('login-dynamic-fields');
-        if (!dynArea) return;
-
-        const store = window.appStore;
-
-        if (role === 'acudiente') {
-            dynArea.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label">Documento de Identidad del Acudiente</label>
-                    <input type="text" id="login-password" class="form-control" placeholder="Ingrese número de documento del acudiente..." value="" required>
-                    <span class="form-hint">Ingrese el documento de identidad del acudiente registrado.</span>
-                </div>
-            `;
-        } else if (role === 'rector') {
-            const mpios = store.getMunicipios();
-            const mpioOpts = `<option value="">-- Todos los Municipios --</option>` + mpios.map(m => `<option value="${m.codigo}">${m.nombre}</option>`).join('');
-            const ies = store.getInstituciones(); // Ya ordenadas ascendentemente
-            const ieOpts = ies.map(i => `<option value="${i.codigo_dane}">${i.nombre} (${i.codigo_dane})</option>`).join('');
-
-            dynArea.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label">Filtrar Institución por Municipio</label>
-                    <select id="login-filter-mpio" class="form-select" onchange="appController.handleLoginMpioFilter(this.value)">
-                        ${mpioOpts}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Institución Educativa (Orden Ascendente)</label>
-                    <select id="login-entity-id" class="form-select">
-                        ${ieOpts}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Contraseña de Acceso Institucional</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" value="" required autocomplete="current-password">
-                </div>
-            `;
-        } else {
-            dynArea.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label">Contraseña Institucional</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="••••••••••••" value="" required autocomplete="current-password">
-                </div>
-            `;
-        }
-
-        // Sincronizar resaltado en el encabezado
-        this.updateHeaderSession(null);
+    selectLoginRole(role) {
+        this.handleHeaderRoleSelect(role);
     }
 
     handleLoginMpioFilter(codigoMunicipio) {
+        this.loginMpioFilter = codigoMunicipio;
         const ieSelect = document.getElementById('login-entity-id');
         if (!ieSelect) return;
         const ies = window.appStore.getInstituciones(codigoMunicipio); // Ordenadas ascendente
@@ -258,8 +271,8 @@ class ApplicationController {
     }
 
     async handleAuxLogin() {
-        const role = document.getElementById('login-selected-role').value;
-        const pass = document.getElementById('login-password').value;
+        const role = document.getElementById('login-selected-role')?.value || 'rector';
+        const pass = document.getElementById('login-password')?.value || '';
         const entityId = document.getElementById('login-entity-id')?.value || null;
 
         try {
@@ -607,10 +620,10 @@ class ApplicationController {
 
             <div class="nav-tabs">
                 <button class="nav-tab-btn ${this.currentTab === 'principal' ? 'active' : ''}" onclick="appController.switchTab('principal')">
-                    📥 Bandeja de Revisión y Aprobación
+                    📥 Bandeja de Revisión y Aprobación CPE
                 </button>
                 <button class="nav-tab-btn ${this.currentTab === 'descargas' ? 'active' : ''}" onclick="appController.switchTab('descargas')">
-                    📦 Descargas Masivas ZIP con Manifiesto
+                    📦 Descargas Masivas ZIP CPE con Manifiesto
                 </button>
             </div>
 
@@ -766,7 +779,7 @@ class ApplicationController {
                                 <th>Beneficiario</th>
                                 <th>Estado</th>
                                 <th>Versión</th>
-                                <th>Acciones de Coordinación</th>
+                                <th>Acciones de Gestión CPE</th>
                             </tr>
                         </thead>
                         <tbody>${rows || '<tr><td colspan="6" style="text-align:center; padding: 2rem;">No hay documentos que coincidan con los filtros seleccionados.</td></tr>'}</tbody>
@@ -788,7 +801,7 @@ class ApplicationController {
                 </div>
                 <div class="card-body">
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-                        Permite consolidar y descargar al computador del Coordinador los archivos pregenerados y legalizados, generando automáticamente el archivo <code>MANIFIESTO_DOCUMENTAL.csv</code> con metadatos oficiales.
+                        Permite consolidar y descargar al equipo de CPE los archivos pregenerados y legalizados, generando automáticamente el archivo <code>MANIFIESTO_DOCUMENTAL.csv</code> con metadatos oficiales.
                     </p>
 
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
@@ -1153,10 +1166,10 @@ class ApplicationController {
     }
 
     async handleApproveLog007Rector(docId) {
-        if (!confirm('¿Confirma que el formato LOG-007-F está correctamente firmado y legalizado para remitir a Coordinación?')) return;
+        if (!confirm('¿Confirma que el formato LOG-007-F está correctamente firmado y legalizado para remitir a CPE?')) return;
         try {
             await window.approvalWorkflow.approveLog007ByRector(docId);
-            this.showToast('Documento aprobado por rectoría y enviado al coordinador.');
+            this.showToast('Documento aprobado por rectoría y enviado a CPE.');
             this.renderDashboard();
         } catch (e) {
             alert(e.message);
@@ -1167,7 +1180,7 @@ class ApplicationController {
         if (!confirm('¿Confirma la aprobación formal definitiva de este expediente?')) return;
         try {
             await window.approvalWorkflow.approveDocumentByCoordinador(docId);
-            this.showToast('Expediente aprobado formalmente por la Coordinación.');
+            this.showToast('Expediente aprobado formalmente por CPE.');
             this.renderDashboard();
         } catch (e) {
             alert(e.message);
@@ -1276,7 +1289,7 @@ class ApplicationController {
         try {
             await window.approvalWorkflow.submitBolsaDocumentByRector(this.selectedDocForAction, file, file?.name, comments);
             this.closeAllModals();
-            this.showToast('Formato remitido al Coordinador (documento original actualizado).');
+            this.showToast('Formato remitido a CPE (documento original actualizado).');
             this.renderDashboard();
         } catch (e) {
             alert(e.message);

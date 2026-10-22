@@ -57,8 +57,8 @@
 
             <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
                 <nav id="header-roles-nav" class="header-roles-nav">
-                    <button type="button" class="header-role-btn active" onclick="appController.handleHeaderRoleSelect('coordinador')">
-                        🏛️ Coordinador
+                    <button type="button" class="header-role-btn" onclick="appController.handleHeaderRoleSelect('coordinador')">
+                        🏛️ CPE
                     </button>
                     <button type="button" class="header-role-btn" onclick="appController.handleHeaderRoleSelect('administrador')">
                         ⚙️ Administrador
@@ -234,14 +234,40 @@
         </div>
     </div>
 
+    <!-- Modal 6: Acceso Autorizado CPE y Administrador -->
+    <div id="modal-staff-login" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3 id="staff-modal-title">Acceso Oficial CPE</h3>
+                <button class="modal-close" onclick="appController.closeAllModals()">&times;</button>
+            </div>
+            <form onsubmit="event.preventDefault(); appController.confirmStaffLogin();">
+                <div class="modal-body">
+                    <p id="staff-modal-desc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                        Ingrese la contraseña de seguridad para acceder al panel oficial.
+                    </p>
+                    <input type="hidden" id="staff-login-role" value="coordinador">
+                    <div class="form-group">
+                        <label class="form-label">Contraseña Institucional</label>
+                        <input type="password" id="staff-login-password" class="form-control" placeholder="••••••••••••" required autocomplete="current-password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="appController.closeAllModals()">Cancelar</button>
+                    <button type="submit" id="staff-login-btn" class="btn btn-primary">Ingresar al Sistema</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Módulos de la Aplicación -->
-    <script src="./js/store.js?v=20261022v5"></script>
-    <script src="./js/drive.js?v=20261022v5"></script>
-    <script src="./js/auth.js?v=20261022v5"></script>
-    <script src="./js/generator.js?v=20261022v5"></script>
-    <script src="./js/workflow.js?v=20261022v5"></script>
-    <script src="./js/importer.js?v=20261022v5"></script>
-    <script src="./js/app.js?v=20261022v5"></script>
+    <script src="./js/store.js?v=20261022v6"></script>
+    <script src="./js/drive.js?v=20261022v6"></script>
+    <script src="./js/auth.js?v=20261022v6"></script>
+    <script src="./js/generator.js?v=20261022v6"></script>
+    <script src="./js/workflow.js?v=20261022v6"></script>
+    <script src="./js/importer.js?v=20261022v6"></script>
+    <script src="./js/app.js?v=20261022v6"></script>
 
 </body>
 </html>

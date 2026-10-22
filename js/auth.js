@@ -180,7 +180,7 @@ class AuthService {
         } else if (role === 'coordinador') {
             if (this._AUTH_HASHES.has(credHash)) {
                 isValid = true;
-                userName = 'Coordinador Departamental Caldas';
+                userName = 'Coordinador CPE - Caldas';
                 userEmail = 'coordinador@sedcaldas.gov.co';
             }
         } else if (role === 'rector') {
@@ -246,7 +246,15 @@ class AuthService {
     switchRole(newRole, entityId = null) {
         if (!this.currentUser) return;
         this.currentUser.role = newRole;
-        if (newRole === 'rector' && entityId) {
+        if (newRole === 'coordinador') {
+            this.currentUser.name = 'Coordinador CPE - Caldas';
+            this.currentUser.email = 'coordinador@sedcaldas.gov.co';
+            this.currentUser.metadata = {};
+        } else if (newRole === 'administrador') {
+            this.currentUser.name = 'Administrador General SED Caldas';
+            this.currentUser.email = 'admin@sedcaldas.gov.co';
+            this.currentUser.metadata = {};
+        } else if (newRole === 'rector' && entityId) {
             const ie = window.appStore ? window.appStore.getInstitucionByDane(entityId) : null;
             this.currentUser.metadata = { dane_ie: entityId, nombre_ie: ie ? ie.nombre : '' };
             this.currentUser.name = ie ? `Rector(a) - ${ie.nombre}` : this.currentUser.name;

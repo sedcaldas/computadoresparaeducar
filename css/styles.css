@@ -223,7 +223,7 @@ body {
 }
 
 .role-pill.admin { background: #DC2626; color: white; }
-.role-pill.coordinador { background: var(--accent); color: var(--navy); }
+.role-pill.cpe, .role-pill.coordinador { background: var(--accent); color: var(--navy); }
 .role-pill.rector { background: #2563EB; color: white; }
 .role-pill.acudiente { background: #059669; color: white; }
 
