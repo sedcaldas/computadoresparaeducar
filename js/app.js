@@ -432,7 +432,7 @@ class ApplicationController {
                 </button>
             </div>
 
-            ${this.currentTab === 'principal' ? this._renderRectorBolsaTab(sedes) : this._renderRectorEstudiantesTab(sedes)}
+            ${this.currentTab === 'principal' ? this._renderRectorBolsaTab(sedes, currentIE) : this._renderRectorEstudiantesTab(sedes, currentIE)}
         `;
     }
 
@@ -446,9 +446,25 @@ class ApplicationController {
         }
     }
 
-    _renderRectorBolsaTab(sedes) {
+    _renderRectorBolsaTab(sedes, currentIE) {
         const store = window.appStore;
-        const rows = sedes.map(sede => {
+        // Solo sedes con elementos asignados (LOG-026 y LOG-029 solo aplican si la sede tiene elementos)
+        const sedesConElementos = sedes.filter(s => store.getElementosBolsa(s.codigo_dane_sede).length > 0);
+
+        if (sedesConElementos.length === 0) {
+            return `
+                <div class="card" style="padding: 2.5rem; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📦</div>
+                    <h3 style="color: var(--navy); margin-bottom: 0.5rem;">Sin Asignación de Bolsa Tecnológica</h3>
+                    <p style="color: var(--text-muted); max-width: 650px; margin: 0 auto; font-size: 0.95rem; line-height: 1.5;">
+                        La institución <strong>${currentIE?.nombre || 'seleccionada'}</strong> no tiene elementos tecnológicos asignados en este despacho departamental. 
+                        Los formatos oficiales <strong>LOG-026-F</strong> (Acta de Verificación y Legalización) y <strong>LOG-029-F</strong> (Informe de Validación) únicamente se generan para instituciones y sedes con dotación física asignada.
+                    </p>
+                </div>
+            `;
+        }
+
+        const rows = sedesConElementos.map(sede => {
             const doc26 = store.findDocumento('LOG-026-F', sede.codigo_dane_sede);
             const doc29 = store.findDocumento('LOG-029-F', sede.codigo_dane_sede);
             const elementos = store.getElementosBolsa(sede.codigo_dane_sede);
@@ -502,14 +518,14 @@ class ApplicationController {
                                 <th>Total Elementos</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="4">No hay sedes para esta institución.</td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="4">No hay sedes con elementos asignados para esta institución.</td></tr>'}</tbody>
                     </table>
                 </div>
             </div>
         `;
     }
 
-    _renderRectorEstudiantesTab(sedes) {
+    _renderRectorEstudiantesTab(sedes, currentIE) {
         const store = window.appStore;
         let allStudents = [];
         sedes.forEach(s => {
@@ -517,7 +533,13 @@ class ApplicationController {
             allStudents = allStudents.concat(sts);
         });
 
-        const rows = allStudents.map(est => {
+        // Solo estudiantes con terminal y serial oficial
+        const estConLog007 = allStudents.filter(est => {
+            const asig = store.getAsignacionByDoc(est.documento_identidad);
+            return (asig && asig.serial_asignado) || (est.serial_terminal && est.serial_terminal.length > 0);
+        });
+
+        const rows = estConLog007.map(est => {
             const asig = store.getAsignacionByDoc(est.documento_identidad);
             const doc = store.findDocumento('LOG-007-F', est.codigo_dane_sede, est.documento_identidad);
             const estado = doc ? doc.estado : 'Generado';
@@ -554,10 +576,20 @@ class ApplicationController {
             `;
         }).join('');
 
+        const ieDane = currentIE?.codigo_dane || '';
+
         return `
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Estudiantes Beneficiarios (LOG-007-F Pregenerados)</h4>
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                    <div>
+                        <h4 class="card-title">Estudiantes Beneficiarios (LOG-007-F Pregenerados)</h4>
+                        <small style="color: var(--text-muted);">Entrega y legalización directa a acudientes de estudiantes beneficiarios</small>
+                    </div>
+                    ${estConLog007.length > 0 ? `
+                        <button class="btn btn-success" style="font-weight: 600;" onclick="appController.handleDownloadConsolidatedLog007('${ieDane}')">
+                            📊 Descargar Acta Consolidada LOG-007 (Excel)
+                        </button>
+                    ` : ''}
                 </div>
                 <div class="table-responsive">
                     <table class="table-custom">
@@ -569,7 +601,7 @@ class ApplicationController {
                                 <th>Acciones de Rectoría</th>
                             </tr>
                         </thead>
-                        <tbody>${rows || '<tr><td colspan="4">No hay estudiantes en estas sedes.</td></tr>'}</tbody>
+                        <tbody>${rows || '<tr><td colspan="4" style="text-align:center; padding: 2rem;">No hay estudiantes con equipos asignados para esta institución.</td></tr>'}</tbody>
                     </table>
                 </div>
             </div>
@@ -729,9 +761,14 @@ class ApplicationController {
                         <h4 class="card-title">Expedientes Documentales Pregenerados y en Trámite</h4>
                         <small style="color: var(--text-muted);">Mostrando ${filteredDocs.length} de ${docs.length} formatos</small>
                     </div>
-                    <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">
-                        🚀 Pregenerar y Sincronizar Formatos en Google Drive
-                    </button>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-success btn-sm" onclick="appController.handleDownloadConsolidatedLog007()">
+                            📊 Descargar Acta Consolidada LOG-007 (Excel)
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">
+                            🚀 Pregenerar y Sincronizar Formatos en Google Drive
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Barra de Filtros: Municipio, Institución A-Z, Formato y Estado -->
@@ -832,9 +869,14 @@ class ApplicationController {
                         </div>
                     </div>
 
-                    <button class="btn btn-primary btn-lg" onclick="appController.handleDownloadCoordinatorZip()">
-                        📦 Descargar Paquete ZIP Consolidado
-                    </button>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary btn-lg" onclick="appController.handleDownloadCoordinatorZip()">
+                            📦 Descargar Paquete ZIP Consolidado
+                        </button>
+                        <button class="btn btn-success btn-lg" onclick="appController.handleDownloadConsolidatedLog007()">
+                            📊 Descargar Acta Consolidada LOG-007 (Excel)
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -910,6 +952,7 @@ class ApplicationController {
                 <div class="card-header">
                     <h4 class="card-title">Mantenimiento de Expedientes y Google Drive</h4>
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-success btn-sm" onclick="appController.handleDownloadConsolidatedLog007()">📊 Descargar Acta Consolidada LOG-007 (Excel)</button>
                         <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">🚀 Pregenerar Formatos en Drive</button>
                         <button class="btn btn-outline btn-sm" onclick="window.appStore.exportBackup()">💾 Descargar Respaldo JSON</button>
                         <button class="btn btn-danger btn-sm" onclick="appController.handleResetSeed()">♻️ Restaurar Datos Iniciales</button>
@@ -1090,10 +1133,18 @@ class ApplicationController {
         try {
             let blob = null;
 
-            // Para LOG-029-F en estado generado/borrador, generar siempre en tiempo real para asegurar archivo 100% fresco, libre de errores y con seriales vigentes
-            if (doc.tipo_documento === 'LOG-029-F' && (doc.estado === 'Generado' || doc.estado === 'Borrador')) {
-                const gen = await window.documentGenerator.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
-                blob = gen.blob;
+            // Para documentos en estado generado/borrador, generar siempre en tiempo real para asegurar archivo 100% fresco, libre de errores y con reglas oficiales vigentes
+            if ((doc.tipo_documento === 'LOG-029-F' || doc.tipo_documento === 'LOG-007-F' || doc.tipo_documento === 'LOG-026-F') && (doc.estado === 'Generado' || doc.estado === 'Borrador')) {
+                if (doc.tipo_documento === 'LOG-026-F') {
+                    const gen = await window.documentGenerator.generateLog026(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                    blob = gen.blob;
+                } else if (doc.tipo_documento === 'LOG-029-F') {
+                    const gen = await window.documentGenerator.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                    blob = gen.blob;
+                } else if (doc.tipo_documento === 'LOG-007-F') {
+                    const gen = await window.documentGenerator.generateLog007(doc.estudiante_documento, doc.version_actual, doc.estado);
+                    blob = gen.blob;
+                }
             } else {
                 // Regla: Los documentos cargados por usuario actualizan los originales -> Buscar primero el blob activo
                 const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
@@ -1202,6 +1253,20 @@ class ApplicationController {
             this.showToast('Paquete ZIP descargado exitosamente');
         } catch (e) {
             alert(e.message);
+        }
+    }
+
+    async handleDownloadConsolidatedLog007(codigoDaneIe = null) {
+        try {
+            this.showToast('Generando Acta Formal de Entrega y Legalización en Excel...', 'warning');
+            const res = await window.documentGenerator.generateConsolidatedLog007Excel({
+                codigoDaneIe: codigoDaneIe || null,
+                triggerDownload: true
+            });
+            this.showToast(`Acta consolidada descargada con éxito (${res.totalRecords} beneficiarios)`, 'success');
+        } catch (err) {
+            console.error('Error generando acta consolidada:', err);
+            alert(err.message || 'Error al generar acta consolidada.');
         }
     }
 

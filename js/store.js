@@ -158,10 +158,9 @@ class AppStore {
             try {
                 const parsed = JSON.parse(saved);
                 this.state = Object.assign(this.state, parsed);
-                // Si faltaban los documentos pregenerados o los datos no tienen la versión v4 (con saneamiento total de LOG-029-F), recargar y purgar blobs viejos
-                const hasOfficialSerials = this.state.bolsa_elementos?.some(e => e.serial && e.serial.length > 5);
-                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 4 || !hasOfficialSerials) {
-                    await this.clearBlobs('DOC-029');
+                // Si faltaban los documentos pregenerados o los datos no tienen la versión v5, recargar semilla oficial y purgar blobs
+                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 5) {
+                    await this.clearBlobs();
                     await this.loadSeedData();
                 }
                 return;
@@ -178,7 +177,7 @@ class AppStore {
             const res = await fetch('./data/seed_data.json');
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const seed = await res.json();
-            this.state.data_version = 4; // Versión con seriales oficiales y saneamiento total de LOG-029-F
+            this.state.data_version = 5; // Versión 5: LOG-026/029 solo para sedes con bolsa, LOG-007 rector en blanco, Yuby Bohorquez y acta consolidada
             this.state.municipios = seed.municipios || [];
             this.state.instituciones = seed.instituciones || [];
             this.state.sedes = seed.sedes || [];
@@ -188,7 +187,7 @@ class AppStore {
             if (seed.config) {
                 this.state.config = Object.assign(this.state.config, seed.config);
             }
-            // Cargar los 208 formatos pregenerados
+            // Cargar los formatos pregenerados oficiales
             this.state.documentos = seed.documentos_pregenerados || [];
             this.state.versiones = [];
             this.state.historial_auditoria = [];

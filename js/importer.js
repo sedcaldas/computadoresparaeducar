@@ -276,7 +276,7 @@ class DataImporter {
 
             const isPortatil = colIdx.compPortatil !== -1 && row[colIdx.compPortatil] && String(row[colIdx.compPortatil]).trim() !== '-';
             const tipoTerm = isPortatil ? 'Portátil' : 'Tableta';
-            const serial = colIdx.serial !== -1 && row[colIdx.serial] ? String(row[colIdx.serial]).trim() : `SN-CALDAS-${docEst.slice(-4)}`;
+            const serial = colIdx.serial !== -1 && row[colIdx.serial] ? String(row[colIdx.serial]).trim() : '';
             const estadoDesp = colIdx.estadoDesp !== -1 && row[colIdx.estadoDesp] ? String(row[colIdx.estadoDesp]).trim() : 'Despacho Programado';
 
             if (!acNom || !acDoc) {
@@ -359,7 +359,7 @@ class DataImporter {
                 });
             } else {
                 asig.tipo_terminal = st.tipo_terminal;
-                if (st.serial_asignado && !st.serial_asignado.startsWith('SN-CALDAS-')) {
+                if (st.serial_asignado) {
                     asig.serial_asignado = st.serial_asignado;
                 }
                 asig.estado_despacho = st.estado_despacho;

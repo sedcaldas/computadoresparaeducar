@@ -109,13 +109,27 @@ class DocumentGenerator {
         const sede = store.getSedeByDane(daneSede);
         if (!sede) throw new Error(`Sede con DANE ${daneSede} no encontrada.`);
 
+        // LOG-026-F solo se genera si la institución/sede tiene elementos asignados
+        const elementos = store.getElementosBolsa(daneSede);
+        if (!elementos || elementos.length === 0) {
+            throw new Error(`La sede ${daneSede} no tiene elementos asignados de Bolsa Tecnológica (no aplica LOG-026-F).`);
+        }
+
         const ie = store.getInstitucionByDane(sede.codigo_dane_ie);
         const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
-        const elementos = store.getElementosBolsa(daneSede);
 
         const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-026-F.docx');
         const zip = await JSZip.loadAsync(templateBuf);
-        const docXmlStr = await zip.file('word/document.xml').async('text');
+        let docXmlStr = await zip.file('word/document.xml').async('text');
+
+        // Diligenciar señor(a) con "YUBY CATERINE BOHÓRQUEZ ROJAS" y en su calidad de con "PROFESIONAL LOGÍSTICA "
+        docXmlStr = docXmlStr.replace(
+            /__________________________________________en su calidad de _______________________________/g,
+            'YUBY CATERINE BOHÓRQUEZ ROJAS en su calidad de PROFESIONAL LOGÍSTICA '
+        );
+
+        const now = new Date();
+        const dateStr = `${now.getDate()} de ${this.MONTHS_ES[now.getMonth()]} de ${now.getFullYear()}`;
 
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(docXmlStr, 'application/xml');
@@ -125,7 +139,7 @@ class DocumentGenerator {
         }
 
         const table0 = tables[0];
-        const rows = table0.getElementsByTagName('w:tr');
+        let rows = table0.getElementsByTagName('w:tr');
         const getCells = (rowIdx) => rows[rowIdx] ? rows[rowIdx].getElementsByTagName('w:tc') : [];
 
         // R1: Nombre de IE & Radicado Sede
@@ -143,16 +157,31 @@ class DocumentGenerator {
         if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? mpio.departamento : 'Caldas');
         if (r3Cells.length > 4) this._setCellText(r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
 
-        // Llenar elementos de bolsa en filas 7 a 11 con su serial oficial
+        // Llenar elementos de bolsa con nombre y número(s) de serial en paréntesis
+        // Si hay más de 10 elementos (5 filas x 2), clonar fila 11 antes de fila 12
+        const neededRows = Math.max(5, Math.ceil(elementos.length / 2));
+        if (neededRows > 5) {
+            const row11 = rows[11];
+            const row12 = rows[12];
+            for (let i = 0; i < neededRows - 5; i++) {
+                const newRow = row11.cloneNode(true);
+                table0.insertBefore(newRow, row12);
+            }
+            rows = table0.getElementsByTagName('w:tr');
+        }
+
         let elemIdx = 0;
-        for (let rIdx = 7; rIdx <= 11; rIdx++) {
+        const lastItemRowIdx = 6 + neededRows;
+        for (let rIdx = 7; rIdx <= lastItemRowIdx; rIdx++) {
             const rowCells = getCells(rIdx);
             if (!rowCells || rowCells.length < 4) continue;
 
             if (elemIdx < elementos.length) {
                 const e1 = elementos[elemIdx++];
-                const desc1 = e1.serial && e1.serial !== 'NO APLICA' ? `${e1.elemento_nombre} (Serial: ${e1.serial})` : e1.elemento_nombre;
-                this._setCellText(rowCells[0], desc1.substring(0, 85));
+                const desc1 = (e1.serial && e1.serial !== 'NO APLICA' && e1.serial !== 'N/A')
+                    ? `${e1.elemento_nombre} (Serial: ${e1.serial})`
+                    : e1.elemento_nombre;
+                this._setCellText(rowCells[0], desc1);
                 this._setCellText(rowCells[1], String(e1.cantidad));
             } else {
                 this._setCellText(rowCells[0], 'N/A');
@@ -164,8 +193,10 @@ class DocumentGenerator {
             if (colElem2 && colCant2) {
                 if (elemIdx < elementos.length) {
                     const e2 = elementos[elemIdx++];
-                    const desc2 = e2.serial && e2.serial !== 'NO APLICA' ? `${e2.elemento_nombre} (Serial: ${e2.serial})` : e2.elemento_nombre;
-                    this._setCellText(colElem2, desc2.substring(0, 85));
+                    const desc2 = (e2.serial && e2.serial !== 'NO APLICA' && e2.serial !== 'N/A')
+                        ? `${e2.elemento_nombre} (Serial: ${e2.serial})`
+                        : e2.elemento_nombre;
+                    this._setCellText(colElem2, desc2);
                     this._setCellText(colCant2, String(e2.cantidad));
                 } else {
                     this._setCellText(colElem2, 'N/A');
@@ -174,17 +205,37 @@ class DocumentGenerator {
             }
         }
 
-        // Relación de seriales oficiales en fila de Observaciones (Fila 19)
-        const obsCells = getCells(19);
-        if (obsCells.length > 0) {
-            const serialList = elementos
-                .filter(e => e.serial && e.serial !== 'NO APLICA')
-                .map((e, idx) => `${idx + 1}. ${e.elemento_nombre}: [Serial: ${e.serial}] (Cant: ${e.cantidad})`)
-                .join('; ');
-            const obsText = serialList
-                ? `Relación oficial de seriales verificados a satisfacción según archivo de despacho CPE: ${serialList}. Elementos instalados y validados.`
-                : 'Elementos y equipos recibidos e instalados a entera satisfacción.';
-            this._setCellText(obsCells[0], obsText);
+        // Relación de seriales oficiales en fila de Observaciones
+        for (let r = 0; r < rows.length; r++) {
+            const textContent = rows[r].textContent || '';
+            if (textContent.includes('OBSERVACIONES') && rows[r + 1]) {
+                const obsRowCells = rows[r + 1].getElementsByTagName('w:tc');
+                if (obsRowCells.length > 0) {
+                    const serialList = elementos
+                        .filter(e => e.serial && e.serial !== 'NO APLICA' && e.serial !== 'N/A')
+                        .map((e, idx) => `${idx + 1}. ${e.elemento_nombre}: [Serial: ${e.serial}] (Cant: ${e.cantidad})`)
+                        .join('; ');
+                    const obsText = serialList
+                        ? `Relación oficial de seriales verificados a satisfacción según archivo de despacho CPE: ${serialList}. Elementos instalados y validados.`
+                        : 'Elementos y equipos recibidos e instalados a entera satisfacción.';
+                    this._setCellText(obsRowCells[0], obsText);
+                }
+                break;
+            }
+        }
+
+        // Firmas en tabla 0: Asegurar datos oficiales del contratista CPE
+        for (let r = 0; r < rows.length; r++) {
+            const tcList = rows[r].getElementsByTagName('w:tc');
+            for (let c = 0; c < tcList.length; c++) {
+                const txt = tcList[c].textContent || '';
+                if (txt.includes('profesional logístico') || txt.includes('profesional logistico')) {
+                    this._setCellText(tcList[c], 'Cargo: PROFESIONAL LOGÍSTICA ');
+                }
+                if (txt.includes('Bohórquez') || txt.includes('Bohorquez')) {
+                    this._setCellText(tcList[c], 'YUBY CATERINE BOHÓRQUEZ ROJAS');
+                }
+            }
         }
 
         const serializer = new XMLSerializer();
@@ -255,9 +306,14 @@ class DocumentGenerator {
         const sede = store.getSedeByDane(daneSede);
         if (!sede) throw new Error(`Sede con DANE ${daneSede} no encontrada.`);
 
+        // LOG-029-F solo se genera si la institución/sede tiene elementos asignados
+        const elementos = store.getElementosBolsa(daneSede);
+        if (!elementos || elementos.length === 0) {
+            throw new Error(`La sede ${daneSede} no tiene elementos asignados de Bolsa Tecnológica (no aplica LOG-029-F).`);
+        }
+
         const ie = store.getInstitucionByDane(sede.codigo_dane_ie);
         const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
-        const elementos = store.getElementosBolsa(daneSede);
 
         const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-029-F.xlsx');
 
@@ -282,14 +338,13 @@ class DocumentGenerator {
         ws.getCell('I11').value = String(sede.codigo_dane_sede);
         ws.getCell('E12').value = 'N/A';
 
-        // 2. Tabla de elementos verificados (Filas 18 a 27)
+        // 2. Tabla de elementos verificados (Filas 18 a 27) - SIN INVENTAR SERIALES
         let rowCurr = 18;
-        let elemSeq = 1;
         for (const elem of elementos) {
             if (rowCurr > 27) break; // Máximo de filas del formato oficial
 
             const officialName = this._mapItemToCatalogueName(elem.elemento_nombre);
-            const serialVal = (elem.serial && elem.serial !== 'NO APLICA') ? elem.serial : `SN-BT-${String(sede.codigo_dane_sede).slice(-4)}-00${elemSeq++}`;
+            const serialVal = (elem.serial && elem.serial !== 'NO APLICA' && elem.serial !== 'N/A') ? elem.serial : '';
 
             ws.getCell(`D${rowCurr}`).value = officialName;
             ws.getCell(`E${rowCurr}`).value = elem.cantidad;
@@ -303,7 +358,7 @@ class DocumentGenerator {
         }
 
         // 3. Observaciones Generales
-        const serialSummary = elementos.filter(e => e.serial && e.serial !== 'NO APLICA').map(e => `${e.elemento_nombre}: ${e.serial}`).slice(0, 5).join(' | ');
+        const serialSummary = elementos.filter(e => e.serial && e.serial !== 'NO APLICA' && e.serial !== 'N/A').map(e => `${e.elemento_nombre}: ${e.serial}`).slice(0, 5).join(' | ');
         ws.getCell('C35').value = serialSummary
             ? `Elementos recibidos y verificados con seriales oficiales CPE: ${serialSummary}. Validación a entera satisfacción.`
             : 'Elementos recibidos, verificados y validados a entera satisfacción en la sede educativa.';
@@ -432,9 +487,9 @@ class DocumentGenerator {
         if (r2Cells.length > 1) this._setCellText(r2Cells[1], `${ie ? ie.nombre : ''} - ${sede ? sede.nombre : ''}`);
         if (r2Cells.length > 3) this._setCellText(r2Cells[r2Cells.length - 1], sede ? sede.codigo_dane_sede : '');
 
-        // R3: Nombre del rector
+        // R3: Nombre del rector de la institución educativa: No debe aparecer diligenciado
         const r3Cells = getT0Cells(3);
-        if (r3Cells.length > 1) this._setCellText(r3Cells[1], ie ? `Rector(a) ${ie.nombre}` : 'Rector Institucional');
+        if (r3Cells.length > 1) this._setCellText(r3Cells[1], '');
 
         // R4: Folios
         const r4Cells = getT0Cells(4);
@@ -449,15 +504,16 @@ class DocumentGenerator {
         if (r6Cells.length > 1) this._setCellText(r6Cells[1], mpio ? mpio.departamento : 'Caldas');
         if (r6Cells.length > 3) this._setCellText(r6Cells[r6Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
 
-        // R7: Tipo de terminal y serial
+        // R7: Tipo de terminal y serial (sin inventar seriales)
         const r7Cells = getT0Cells(7);
         const tipoTerm = asignacion ? asignacion.tipo_terminal : (est.tipo_terminal || 'Tableta');
-        const serialAsignado = (asignacion && asignacion.serial_asignado) ? asignacion.serial_asignado : (est.serial_terminal || 'S/N');
+        const serialAsignado = (asignacion && asignacion.serial_asignado) ? asignacion.serial_asignado : (est.serial_terminal || '');
         if (r7Cells.length > 1) {
+            const serialSuffix = serialAsignado ? ` (Serial: ${serialAsignado})` : '';
             if (String(tipoTerm).toLowerCase().includes('portátil') || String(tipoTerm).toLowerCase().includes('portatil')) {
-                this._setCellText(r7Cells[1], `○ Tabletas       ● Portátiles (Serial: ${serialAsignado})    ○ Otro`);
+                this._setCellText(r7Cells[1], `○ Tabletas       ● Portátiles${serialSuffix}    ○ Otro`);
             } else {
-                this._setCellText(r7Cells[1], `● Tabletas (Serial: ${serialAsignado})       ○ Portátiles    ○ Otro`);
+                this._setCellText(r7Cells[1], `● Tabletas${serialSuffix}       ○ Portátiles    ○ Otro`);
             }
         }
 
@@ -465,11 +521,47 @@ class DocumentGenerator {
         const r8Cells = getT0Cells(8);
         if (r8Cells.length > 1) this._setCellText(r8Cells[1], '1 (Uno)');
 
+        // R10: Representante de CPE en la diligencia de entrega
+        const r10Cells = getT0Cells(10);
+        if (r10Cells.length > 1) this._setCellText(r10Cells[1], 'YUBY CATERINE BOHÓRQUEZ ROJAS');
+        if (r10Cells.length > 3) this._setCellText(r10Cells[3], '52.497.293');
+
         // Observaciones en R14
         const r14Cells = getT0Cells(14);
         if (r14Cells.length > 0) {
-            this._setCellText(r14Cells[0], `Equipo de cómputo entregado con serial oficial asignado: ${serialAsignado}. Terminal verificado en óptimo funcionamiento.`);
+            const obsSerial = serialAsignado ? `con serial oficial asignado: ${serialAsignado}` : 'verificado';
+            this._setCellText(r14Cells[0], `Equipo de cómputo entregado ${obsSerial}. Terminal verificado en óptimo funcionamiento.`);
         }
+
+        // Tabla 1: Bloque de Firmas (CPE con YUBY CATERINE BOHÓRQUEZ ROJAS / 52.497.293; Rector en blanco)
+        const table1 = tables[1];
+        const t1Rows = table1.getElementsByTagName('w:tr');
+        const getT1Cells = (idx) => t1Rows[idx] ? t1Rows[idx].getElementsByTagName('w:tc') : [];
+
+        // R3: Nombres
+        const r3T1Cells = getT1Cells(3);
+        if (r3T1Cells.length > 1) this._setCellText(r3T1Cells[1], 'Nombre: YUBY CATERINE BOHÓRQUEZ ROJAS');
+        if (r3T1Cells.length > 3) this._setCellText(r3T1Cells[3], 'Nombre: '); // No diligenciar nombre de rector
+
+        // R4: No. identificación
+        const r4T1Cells = getT1Cells(4);
+        if (r4T1Cells.length > 1) this._setCellText(r4T1Cells[1], 'No. identificación: 52.497.293');
+        if (r4T1Cells.length > 3) this._setCellText(r4T1Cells[3], 'No. identificación: ');
+
+        // R5: Celular
+        const r5T1Cells = getT1Cells(5);
+        if (r5T1Cells.length > 1) this._setCellText(r5T1Cells[1], 'Celular: 3100000000');
+        if (r5T1Cells.length > 3) this._setCellText(r5T1Cells[3], 'Celular: ');
+
+        // R6: Correo
+        const r6T1Cells = getT1Cells(6);
+        if (r6T1Cells.length > 1) this._setCellText(r6T1Cells[1], 'Correo: ybohorquez@cpe.gov.co');
+        if (r6T1Cells.length > 3) this._setCellText(r6T1Cells[3], 'Correo: ');
+
+        // R7: Cargo CPE / Nombre de la sede Rector
+        const r7T1Cells = getT1Cells(7);
+        if (r7T1Cells.length > 1) this._setCellText(r7T1Cells[1], 'Cargo: PROFESIONAL LOGÍSTICA');
+        if (r7T1Cells.length > 3) this._setCellText(r7T1Cells[3], `Nombre de la sede: ${sede ? sede.nombre : ''}`);
 
         // Tabla 2: Lista de estudiantes / acudientes beneficiarios
         const table2 = tables[2];
@@ -477,8 +569,11 @@ class DocumentGenerator {
         if (t2Rows.length > 1) {
             const t2Cells = t2Rows[1].getElementsByTagName('w:tc');
             if (t2Cells.length >= 6) {
+                const nombreEstConSerial = (serialAsignado && serialAsignado !== 'NO APLICA')
+                    ? `${est.nombre_completo} (Serial: ${serialAsignado})`
+                    : est.nombre_completo;
                 this._setCellText(t2Cells[0], est.documento_identidad);
-                this._setCellText(t2Cells[1], `${est.nombre_completo} (Serial: ${serialAsignado})`);
+                this._setCellText(t2Cells[1], nombreEstConSerial);
                 this._setCellText(t2Cells[2], est.acudiente_nombres || '');
                 this._setCellText(t2Cells[3], est.acudiente_documento || '');
                 this._setCellText(t2Cells[4], est.acudiente_telefono || '3100000000');
@@ -548,19 +643,242 @@ class DocumentGenerator {
     }
 
     // =========================================================================
-    // 4. PREGENERACIÓN MASIVA DE TODOS LOS FORMATOS EN GOOGLE DRIVE
+    // 4. GENERACIÓN DE ACTA CONSOLIDADA LOG-007 (EXCEL)
+    // =========================================================================
+    async generateConsolidatedLog007Excel(options = {}) {
+        const { codigoDaneIe = null, codigoMunicipio = null, triggerDownload = true } = options;
+        const store = window.appStore;
+
+        // Obtener estudiantes con LOG-007
+        let docs007 = store.getDocumentos({ tipo_documento: 'LOG-007-F' });
+
+        // Filtrar por IE o Municipio si aplica
+        if (codigoDaneIe) {
+            const sedesIe = store.getSedes(codigoDaneIe).map(s => s.codigo_dane_sede);
+            docs007 = docs007.filter(d => sedesIe.includes(d.codigo_dane_sede));
+        } else if (codigoMunicipio) {
+            const sedesMpio = store.getSedes().filter(s => {
+                const ie = store.getInstitucionByDane(s.codigo_dane_ie);
+                return ie && String(ie.codigo_municipio) === String(codigoMunicipio);
+            }).map(s => s.codigo_dane_sede);
+            docs007 = docs007.filter(d => sedesMpio.includes(d.codigo_dane_sede));
+        }
+
+        if (!docs007 || docs007.length === 0) {
+            throw new Error('No se encontraron formatos LOG-007 para consolidar en el acta.');
+        }
+
+        const workbook = new ExcelJS.Workbook();
+        workbook.creator = 'Computadores para Educar & SED Caldas';
+        workbook.lastModifiedBy = 'Sistema de Gestión Documental';
+        workbook.created = new Date();
+        workbook.modified = new Date();
+
+        const ws = workbook.addWorksheet('ACTA FORMAL DE ENTREGA', {
+            views: [{ showGridLines: true }]
+        });
+
+        // Columnas principales requeridas:
+        // No. Documento Estudiante, Nombres y Apellidos Estudiante, Nombres y Apellidos Acudiente, No. Documento Acudiente, No. Celular Acudiente
+        ws.columns = [
+            { header: '', width: 6 },   // Col A: No.
+            { header: '', width: 24 },  // Col B: No. Documento Estudiante
+            { header: '', width: 36 },  // Col C: Nombres y Apellidos Estudiante
+            { header: '', width: 36 },  // Col D: Nombres y Apellidos Acudiente
+            { header: '', width: 24 },  // Col E: No. Documento Acudiente
+            { header: '', width: 24 },  // Col F: No. Celular Acudiente
+            { header: '', width: 22 },  // Col G: Serial Asignado
+            { header: '', width: 36 },  // Col H: Institución Educativa
+            { header: '', width: 32 },  // Col I: Sede Educativa
+            { header: '', width: 22 }   // Col J: Municipio
+        ];
+
+        // Título de la tabla oficial: "ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN"
+        ws.mergeCells('B2:J2');
+        const titleCell = ws.getCell('B2');
+        titleCell.value = 'ACTA FORMAL DE ENTREGA Y LEGALIZACIÓN';
+        titleCell.font = { name: 'Calibri', size: 16, bold: true, color: { argb: 'FFFFFFFF' } };
+        titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
+        titleCell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FF1E3A8A' }
+        };
+        ws.getRow(2).height = 36;
+
+        // Subtítulo
+        ws.mergeCells('B3:J3');
+        const subCell = ws.getCell('B3');
+        subCell.value = 'Consolidado Oficial de Formatos LOG-007-F | Secretaría de Educación de Caldas & Computadores para Educar';
+        subCell.font = { name: 'Calibri', size: 10, italic: true, color: { argb: 'FF475569' } };
+        subCell.alignment = { horizontal: 'center', vertical: 'middle' };
+        ws.getRow(3).height = 20;
+
+        // Fila de metadatos
+        const now = new Date();
+        const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+        ws.getCell('B4').value = `Fecha de emisión: ${dateStr}`;
+        ws.getCell('B4').font = { name: 'Calibri', size: 9, bold: true, color: { argb: 'FF64748B' } };
+
+        let ieNombre = 'TODAS LAS INSTITUCIONES EDUCATIVAS';
+        if (codigoDaneIe) {
+            const ie = store.getInstitucionByDane(codigoDaneIe);
+            if (ie) ieNombre = `${ie.nombre} (DANE: ${ie.codigo_dane})`;
+        }
+        ws.getCell('D4').value = `Ámbito: ${ieNombre}`;
+        ws.getCell('D4').font = { name: 'Calibri', size: 9, bold: true, color: { argb: 'FF64748B' } };
+        ws.getCell('G4').value = `Total Beneficiarios LOG-007: ${docs007.length}`;
+        ws.getCell('G4').font = { name: 'Calibri', size: 9, bold: true, color: { argb: 'FF16A34A' } };
+        ws.getRow(4).height = 22;
+
+        // Encabezados de tabla en fila 6
+        const headerRow = ws.getRow(6);
+        const headers = [
+            'No.',
+            'No. Documento Estudiante',
+            'Nombres y Apellidos Estudiante',
+            'Nombres y Apellidos Acudiente',
+            'No. Documento Acudiente',
+            'No. Celular Acudiente',
+            'Serial Asignado',
+            'Institución Educativa',
+            'Sede Educativa',
+            'Municipio'
+        ];
+
+        headers.forEach((h, idx) => {
+            const cell = headerRow.getCell(idx + 1);
+            cell.value = h;
+            cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+            cell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FF2563EB' }
+            };
+            cell.border = {
+                top: { style: 'thin', color: { argb: 'FFCBD5E1' } },
+                bottom: { style: 'medium', color: { argb: 'FF1E3A8A' } },
+                left: { style: 'thin', color: { argb: 'FFCBD5E1' } },
+                right: { style: 'thin', color: { argb: 'FFCBD5E1' } }
+            };
+        });
+        headerRow.height = 28;
+
+        // Llenar registros
+        let rowIdx = 7;
+        let counter = 1;
+        for (const doc of docs007) {
+            const est = store.getEstudianteByDoc(doc.estudiante_documento);
+            if (!est) continue;
+
+            const sede = store.getSedeByDane(est.codigo_dane_sede);
+            const ie = sede ? store.getInstitucionByDane(sede.codigo_dane_ie) : null;
+            const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
+            const asig = store.getAsignacionByDoc(est.documento_identidad);
+            const serialVal = (asig && asig.serial_asignado) ? asig.serial_asignado : (est.serial_terminal || '');
+
+            const r = ws.getRow(rowIdx);
+            r.getCell(1).value = counter++;
+            r.getCell(2).value = String(est.documento_identidad);
+            r.getCell(3).value = est.nombre_completo;
+            r.getCell(4).value = est.acudiente_nombres || '';
+            r.getCell(5).value = String(est.acudiente_documento || '');
+            r.getCell(6).value = String(est.acudiente_telefono || '3100000000');
+            r.getCell(7).value = serialVal;
+            r.getCell(8).value = ie ? ie.nombre : '';
+            r.getCell(9).value = sede ? sede.nombre : '';
+            r.getCell(10).value = mpio ? mpio.nombre : '';
+
+            // Formato de texto para documentos y teléfono para evitar pérdida de ceros
+            r.getCell(1).alignment = { horizontal: 'center', vertical: 'middle' };
+            r.getCell(2).numFmt = '@';
+            r.getCell(2).alignment = { horizontal: 'center', vertical: 'middle' };
+            r.getCell(3).alignment = { horizontal: 'left', vertical: 'middle' };
+            r.getCell(4).alignment = { horizontal: 'left', vertical: 'middle' };
+            r.getCell(5).numFmt = '@';
+            r.getCell(5).alignment = { horizontal: 'center', vertical: 'middle' };
+            r.getCell(6).numFmt = '@';
+            r.getCell(6).alignment = { horizontal: 'center', vertical: 'middle' };
+            r.getCell(7).alignment = { horizontal: 'center', vertical: 'middle' };
+            r.getCell(8).alignment = { horizontal: 'left', vertical: 'middle' };
+            r.getCell(9).alignment = { horizontal: 'left', vertical: 'middle' };
+            r.getCell(10).alignment = { horizontal: 'left', vertical: 'middle' };
+
+            const isEven = (rowIdx % 2 === 0);
+            for (let c = 1; c <= 10; c++) {
+                const cell = r.getCell(c);
+                cell.font = { name: 'Calibri', size: 9 };
+                cell.border = {
+                    top: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+                    bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+                    left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+                    right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+                };
+                if (isEven) {
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFF8FAFC' }
+                    };
+                }
+            }
+            r.height = 20;
+            rowIdx++;
+        }
+
+        // Exportar a blob
+        const rawBuffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([rawBuffer], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+
+        const filename = codigoDaneIe
+            ? `ACTA_FORMAL_DE_ENTREGA_Y_LEGALIZACION_IE_${codigoDaneIe}.xlsx`
+            : `ACTA_FORMAL_DE_ENTREGA_Y_LEGALIZACION_CONSOLIDADA_${now.toISOString().slice(0, 10)}.xlsx`;
+
+        if (triggerDownload && typeof window !== 'undefined' && window.document) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        store.logAudit({
+            actor: window.authService?.getCurrentUser()?.name || 'Usuario',
+            rol: window.authService?.getCurrentUser()?.role || 'Rector',
+            accion: 'DESCARGA_ACTA_CONSOLIDADA_LOG007',
+            entidad: 'ReporteExcel',
+            entidad_id: filename,
+            detalles: `Descarga de acta consolidada LOG-007 con ${counter - 1} beneficiarios.`
+        });
+
+        return { blob, filename, totalRecords: counter - 1 };
+    }
+
+    // =========================================================================
+    // 5. PREGENERACIÓN MASIVA DE TODOS LOS FORMATOS EN GOOGLE DRIVE
     // =========================================================================
     async pregenerateAllFormats({ onProgress = null, uploadToDrive = true } = {}) {
         const store = window.appStore;
         const sedes = store.getSedes();
         const estudiantes = store.getEstudiantes();
-        const total = (sedes.length * 2) + estudiantes.length;
+        
+        // Solo sedes con bolsa y estudiantes con serial
+        const sedesConBolsa = sedes.filter(s => store.getElementosBolsa(s.codigo_dane_sede).length > 0);
+        const estConSerial = estudiantes.filter(e => e.serial_terminal && e.serial_terminal.length > 0);
+
+        const total = (sedesConBolsa.length * 2) + estConSerial.length;
         let current = 0;
 
         const results = [];
 
-        // 1. Sedes: LOG-026-F y LOG-029-F
-        for (const sede of sedes) {
+        // 1. Sedes con elementos asignados: LOG-026-F y LOG-029-F
+        for (const sede of sedesConBolsa) {
             current++;
             if (onProgress) onProgress(current, total, `LOG-026-F para ${sede.nombre}`);
             try {
@@ -580,8 +898,8 @@ class DocumentGenerator {
             }
         }
 
-        // 2. Estudiantes: LOG-007-F
-        for (const est of estudiantes) {
+        // 2. Estudiantes con serial oficial asignado: LOG-007-F
+        for (const est of estConSerial) {
             current++;
             if (onProgress) onProgress(current, total, `LOG-007-F para ${est.nombre_completo}`);
             try {
@@ -591,6 +909,7 @@ class DocumentGenerator {
                 console.error(`Error pregenerando LOG-007 para ${est.nombre_completo}:`, e07);
             }
         }
+
 
         store.logAudit({
             actor: window.authService?.getCurrentUser()?.name || 'Administrador',
