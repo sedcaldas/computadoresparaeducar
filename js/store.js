@@ -111,6 +111,46 @@ class AppStore {
         });
     }
 
+    async clearBlobs(prefix = null) {
+        if (!this.db) {
+            if (!prefix) {
+                this._memBlobs = {};
+            } else if (this._memBlobs) {
+                for (const k of Object.keys(this._memBlobs)) {
+                    if (k.includes(prefix)) delete this._memBlobs[k];
+                }
+            }
+            return;
+        }
+        return new Promise((resolve) => {
+            try {
+                const tx = this.db.transaction(['files'], 'readwrite');
+                const store = tx.objectStore('files');
+                if (!prefix) {
+                    store.clear();
+                    tx.oncomplete = () => resolve();
+                } else {
+                    const req = store.openCursor();
+                    req.onsuccess = (e) => {
+                        const cursor = e.target.result;
+                        if (cursor) {
+                            if (String(cursor.key).includes(prefix)) {
+                                cursor.delete();
+                            }
+                            cursor.continue();
+                        } else {
+                            resolve();
+                        }
+                    };
+                    req.onerror = () => resolve();
+                }
+            } catch (err) {
+                console.warn('Error purgando blobs:', err);
+                resolve();
+            }
+        });
+    }
+
     // --- Carga y persistencia del estado en LocalStorage ---
     async _loadState() {
         const saved = localStorage.getItem(this.STORAGE_PREFIX + 'state');
@@ -118,9 +158,10 @@ class AppStore {
             try {
                 const parsed = JSON.parse(saved);
                 this.state = Object.assign(this.state, parsed);
-                // Si faltaban los documentos pregenerados o los datos no tienen la versión con seriales reales (v3), recargar
+                // Si faltaban los documentos pregenerados o los datos no tienen la versión v4 (con saneamiento total de LOG-029-F), recargar y purgar blobs viejos
                 const hasOfficialSerials = this.state.bolsa_elementos?.some(e => e.serial && e.serial.length > 5);
-                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 3 || !hasOfficialSerials) {
+                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 4 || !hasOfficialSerials) {
+                    await this.clearBlobs('DOC-029');
                     await this.loadSeedData();
                 }
                 return;
@@ -137,7 +178,7 @@ class AppStore {
             const res = await fetch('./data/seed_data.json');
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const seed = await res.json();
-            this.state.data_version = 3; // Versión con seriales oficiales integrados
+            this.state.data_version = 4; // Versión con seriales oficiales y saneamiento total de LOG-029-F
             this.state.municipios = seed.municipios || [];
             this.state.instituciones = seed.instituciones || [];
             this.state.sedes = seed.sedes || [];

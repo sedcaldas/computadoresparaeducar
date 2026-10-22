@@ -315,16 +315,10 @@ class DocumentGenerator {
         ws.getCell('D42').value = 'Rector(a)';
         ws.getCell('D43').value = ie ? `rector.${ie.codigo_dane}@sedcaldas.gov.co` : 'rector@sedcaldas.gov.co';
 
-        // 1. Filtrar reglas de formato condicional no serializables por ExcelJS
-        // (tipo 'duplicateValues' produce elementos vacíos <conditionalFormatting sqref="..."/> que corrompen el XML en Excel)
+        // 1. Eliminar cualquier definición de formato condicional en todas las hojas
+        // (ExcelJS no serializa adecuadamente las reglas y genera tags vacíos que provocan HRESULT 0x8000ffff en Excel)
         workbook.worksheets.forEach(w => {
-            if (w.conditionalFormattings) {
-                w.conditionalFormattings = w.conditionalFormattings.filter(cf => {
-                    if (!cf.rules) return false;
-                    cf.rules = cf.rules.filter(r => r.type !== 'duplicateValues');
-                    return cf.rules.length > 0;
-                });
-            }
+            w.conditionalFormattings = [];
         });
 
         const rawBuffer = await workbook.xlsx.writeBuffer();
@@ -334,8 +328,8 @@ class DocumentGenerator {
         for (const [name, fileObj] of Object.entries(zip.files)) {
             if (name.startsWith('xl/worksheets/sheet') && name.endsWith('.xml')) {
                 let xml = await fileObj.async('text');
+                xml = xml.replace(/<conditionalFormatting[\s\S]*?<\/conditionalFormatting>/g, '');
                 xml = xml.replace(/<conditionalFormatting[^>]*\/>/g, '');
-                xml = xml.replace(/<conditionalFormatting[^>]*>\s*<\/conditionalFormatting>/g, '');
                 zip.file(name, xml);
             }
         }

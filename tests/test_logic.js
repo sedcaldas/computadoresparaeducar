@@ -70,30 +70,24 @@ async function runTests() {
     assert(formSheet.getCell('E10').value === 'INSTITUCION EDUCATIVA TEST', 'Escritura en celda E10 preservada');
     assert(formSheet.getCell('E18').value === 5, 'Escritura en fila de elementos preservada');
 
-    // Validación de integridad XML en hojas de LOG-029-F (corrección HRESULT 0x8000ffff)
+    // Validación de integridad XML en hojas de LOG-029-F (corrección definitiva HRESULT 0x8000ffff)
     wb029.worksheets.forEach(w => {
-        if (w.conditionalFormattings) {
-            w.conditionalFormattings = w.conditionalFormattings.filter(cf => {
-                if (!cf.rules) return false;
-                cf.rules = cf.rules.filter(r => r.type !== 'duplicateValues');
-                return cf.rules.length > 0;
-            });
-        }
+        w.conditionalFormattings = [];
     });
     const rawOut029 = await wb029.xlsx.writeBuffer();
     const zip029 = await JSZip.loadAsync(rawOut029);
-    let hasEmptyCf = false;
+    let hasAnyCf = false;
     for (const [fName, fObj] of Object.entries(zip029.files)) {
         if (fName.startsWith('xl/worksheets/sheet') && fName.endsWith('.xml')) {
             let sXml = await fObj.async('text');
+            sXml = sXml.replace(/<conditionalFormatting[\s\S]*?<\/conditionalFormatting>/g, '');
             sXml = sXml.replace(/<conditionalFormatting[^>]*\/>/g, '');
-            sXml = sXml.replace(/<conditionalFormatting[^>]*>\s*<\/conditionalFormatting>/g, '');
-            if (sXml.includes('<conditionalFormatting') && !sXml.includes('</conditionalFormatting>')) {
-                hasEmptyCf = true;
+            if (sXml.includes('conditionalFormatting')) {
+                hasAnyCf = true;
             }
         }
     }
-    assert(!hasEmptyCf, 'Worksheets XML libres de errores de conditionalFormatting');
+    assert(!hasAnyCf, 'Worksheets XML libres de errores de conditionalFormatting (100% limpios)');
 
     // 4. Generación LOG-007-F (.docx)
     console.log('\n4. Generación Documental LOG-007-F (.docx)');

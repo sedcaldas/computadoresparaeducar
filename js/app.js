@@ -1065,25 +1065,33 @@ class ApplicationController {
         if (!doc) return;
 
         try {
-            // Regla: Los documentos cargados actualizan los originales -> Buscar primero el blob activo
-            const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
-            let blob = blobItem?.blob;
+            let blob = null;
 
-            if (!blob && window.googleDriveClient && doc.drive_id && !doc.drive_id.startsWith('DRIVE-')) {
-                blob = await window.googleDriveClient.downloadFile(doc.drive_id);
-            }
+            // Para LOG-029-F en estado generado/borrador, generar siempre en tiempo real para asegurar archivo 100% fresco, libre de errores y con seriales vigentes
+            if (doc.tipo_documento === 'LOG-029-F' && (doc.estado === 'Generado' || doc.estado === 'Borrador')) {
+                const gen = await window.documentGenerator.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                blob = gen.blob;
+            } else {
+                // Regla: Los documentos cargados por usuario actualizan los originales -> Buscar primero el blob activo
+                const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
+                blob = blobItem?.blob;
 
-            if (!blob) {
-                // Generar en tiempo real si aún no tenía blob en caché
-                if (doc.tipo_documento === 'LOG-026-F') {
-                    const gen = await window.documentGenerator.generateLog026(doc.codigo_dane_sede, doc.version_actual, doc.estado);
-                    blob = gen.blob;
-                } else if (doc.tipo_documento === 'LOG-029-F') {
-                    const gen = await window.documentGenerator.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
-                    blob = gen.blob;
-                } else if (doc.tipo_documento === 'LOG-007-F') {
-                    const gen = await window.documentGenerator.generateLog007(doc.estudiante_documento, doc.version_actual, doc.estado);
-                    blob = gen.blob;
+                if (!blob && window.googleDriveClient && doc.drive_id && !doc.drive_id.startsWith('DRIVE-')) {
+                    blob = await window.googleDriveClient.downloadFile(doc.drive_id);
+                }
+
+                if (!blob) {
+                    // Generar en tiempo real si aún no tenía blob en caché
+                    if (doc.tipo_documento === 'LOG-026-F') {
+                        const gen = await window.documentGenerator.generateLog026(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                        blob = gen.blob;
+                    } else if (doc.tipo_documento === 'LOG-029-F') {
+                        const gen = await window.documentGenerator.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                        blob = gen.blob;
+                    } else if (doc.tipo_documento === 'LOG-007-F') {
+                        const gen = await window.documentGenerator.generateLog007(doc.estudiante_documento, doc.version_actual, doc.estado);
+                        blob = gen.blob;
+                    }
                 }
             }
 
