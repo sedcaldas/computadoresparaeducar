@@ -132,14 +132,17 @@ class DocumentGenerator {
         const zip = await JSZip.loadAsync(templateBuf);
         let docXmlStr = await zip.file('word/document.xml').async('text');
 
+        const now = new Date();
+        const dateStr = `${now.getDate()} de ${this.MONTHS_ES[now.getMonth()]} de ${now.getFullYear()}`;
+
+        // Diligenciar fecha en introducción si aplica
+        docXmlStr = docXmlStr.replace(/Siendo el d[íi]a[\s\S]*?_{5,}[\s\S]*?,/g, `Siendo el día ${dateStr},`);
+
         // Diligenciar señor(a) con "YUBY CATERINE BOHÓRQUEZ ROJAS" y en su calidad de con "PROFESIONAL LOGÍSTICA "
         docXmlStr = docXmlStr.replace(
             /__________________________________________en su calidad de _______________________________/g,
             'YUBY CATERINE BOHÓRQUEZ ROJAS en su calidad de PROFESIONAL LOGÍSTICA '
         );
-
-        const now = new Date();
-        const dateStr = `${now.getDate()} de ${this.MONTHS_ES[now.getMonth()]} de ${now.getFullYear()}`;
 
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(docXmlStr, 'application/xml');
@@ -155,17 +158,17 @@ class DocumentGenerator {
         // R1: Nombre de IE & Radicado Sede
         const r1Cells = getCells(1);
         if (r1Cells.length > 1) this._setCellText(r1Cells[1], ie ? ie.nombre : 'INSTITUCIÓN EDUCATIVA');
-        if (r1Cells.length > 4) this._setCellText(r1Cells[r1Cells.length - 1], sede.radicado || 'S/N');
+        if (r1Cells.length >= 4) this._setCellText(r1Cells[3] || r1Cells[r1Cells.length - 1], sede.radicado || 'S/N');
 
         // R2: Nombre Sede & Código DANE Sede
         const r2Cells = getCells(2);
         if (r2Cells.length > 1) this._setCellText(r2Cells[1], sede.nombre);
-        if (r2Cells.length > 4) this._setCellText(r2Cells[r2Cells.length - 1], sede.codigo_dane_sede);
+        if (r2Cells.length >= 4) this._setCellText(r2Cells[3] || r2Cells[r2Cells.length - 1], sede.codigo_dane_sede);
 
         // R3: Departamento & Municipio
         const r3Cells = getCells(3);
-        if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? mpio.departamento : 'Caldas');
-        if (r3Cells.length > 4) this._setCellText(r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
+        if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? (mpio.departamento || 'Caldas') : 'Caldas');
+        if (r3Cells.length >= 4) this._setCellText(r3Cells[3] || r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
 
         // Llenar elementos de bolsa con nombre y número(s) de serial en paréntesis
         // Si hay más de 10 elementos (5 filas x 2), clonar fila 11 antes de fila 12

@@ -51,6 +51,11 @@ async function runTests() {
     assert(docXml026.includes('Nombre de la Institución Educativa') || docXml026.includes('Nombre de la Instituci'), 'XML contiene encabezado de institución');
     assert(docXml026.includes('DETALLE DE ELEMENTOS'), 'XML contiene tabla de detalle de elementos');
     
+    assert(docXml026.includes('DATOS BÁSICOS'), 'LOG-026 contiene sección DATOS BÁSICOS');
+    assert(docXml026.includes('Radicado Sede:'), 'LOG-026 contiene campo Radicado Sede');
+    assert(docXml026.includes('Código DANE Sede:') || docXml026.includes('C\u00f3digo DANE Sede:'), 'LOG-026 contiene campo Código DANE Sede');
+    assert(docXml026.includes('Municipio'), 'LOG-026 contiene campo Municipio');
+
     // Validar reemplazo de señor(a) y en su calidad de
     docXml026 = docXml026.replace(
         /__________________________________________en su calidad de _______________________________/g,
