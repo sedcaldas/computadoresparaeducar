@@ -19,8 +19,8 @@ class DocumentGenerator {
         ];
     }
 
-    async getTemplateArrayBuffer(path) {
-        if (this.templateCache.has(path)) {
+    async getTemplateArrayBuffer(path, forceRefresh = false) {
+        if (!forceRefresh && this.templateCache.has(path)) {
             return this.templateCache.get(path).slice(0);
         }
         if (typeof window === 'undefined' || !window.fetch) {
@@ -33,7 +33,9 @@ class DocumentGenerator {
             this.templateCache.set(path, ab);
             return ab.slice(0);
         }
-        const resp = await fetch(path);
+        // Cache-busting para garantizar que siempre descargue la versión más reciente subida a GitHub
+        const cacheBustUrl = `${path}?_v=${Date.now()}`;
+        const resp = await fetch(cacheBustUrl, { cache: 'no-cache' });
         if (!resp.ok) {
             throw new Error(`No se pudo cargar la plantilla ${path} (HTTP ${resp.status})`);
         }
@@ -151,7 +153,7 @@ class DocumentGenerator {
         const ie = store.getInstitucionByDane(sede.codigo_dane_ie);
         const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
 
-        const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-026-F.docx');
+        const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-026-F.docx', true);
         const zip = await JSZip.loadAsync(templateBuf);
         let docXmlStr = await zip.file('word/document.xml').async('text');
 
@@ -190,7 +192,7 @@ class DocumentGenerator {
         const table0 = tables[0];
         const wNS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
 
-        // 1. Forzar diseño de tabla fijo y ancho exacto a márgenes imprimibles (8838 dxa)
+        // Asegurar diseño fijo para que Word respete las dimensiones de la plantilla del usuario
         let tblPr0 = table0.getElementsByTagName('w:tblPr')[0];
         if (tblPr0) {
             let tblLayout = tblPr0.getElementsByTagName('w:tblLayout')[0];
@@ -199,26 +201,6 @@ class DocumentGenerator {
                 tblPr0.appendChild(tblLayout);
             }
             tblLayout.setAttribute('w:type', 'fixed');
-
-            let tblW = tblPr0.getElementsByTagName('w:tblW')[0];
-            if (!tblW) {
-                tblW = xmlDoc.createElementNS(wNS, 'w:tblW');
-                tblPr0.appendChild(tblW);
-            }
-            tblW.setAttribute('w:w', '8838');
-            tblW.setAttribute('w:type', 'dxa');
-        }
-
-        // 2. Bloquear cuadrícula con anchos proporcionales exactos a márgenes (2387 + 1544 + 989 + 866 + 969 + 2083 = 8838 dxa)
-        const targetGridCols = [2387, 1544, 989, 866, 969, 2083];
-        let tblGrid0 = table0.getElementsByTagName('w:tblGrid')[0];
-        if (tblGrid0) {
-            const existingCols = tblGrid0.getElementsByTagName('w:gridCol');
-            for (let i = 0; i < targetGridCols.length; i++) {
-                if (existingCols[i]) {
-                    existingCols[i].setAttribute('w:w', String(targetGridCols[i]));
-                }
-            }
         }
 
         let rows = table0.getElementsByTagName('w:tr');
@@ -240,50 +222,19 @@ class DocumentGenerator {
         if (r3Cells.length >= 4) this._setCellText(r3Cells[3] || r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas', 18);
 
         // Llenar elementos de bolsa con nombre y número(s) de serial en paréntesis
-        // Si hay más de 10 elementos (5 filas x 2), clonar fila 11 antes de fila 12
+        // Si hay más de 10 elementos (5 filas x 2), clonar fila 11 antes de fila 12 (hereda anchos y formato de la plantilla)
         const neededRows = Math.max(5, Math.ceil(elementos.length / 2));
         if (neededRows > 5) {
             const row11 = rows[11];
             const row12 = rows[12];
             for (let i = 0; i < neededRows - 5; i++) {
                 const newRow = row11.cloneNode(true);
-                const newCells = newRow.getElementsByTagName('w:tc');
-                const rowWidths = [2387, 2533, 1835, 2083];
-                for (let c = 0; c < newCells.length && c < rowWidths.length; c++) {
-                    let tcPr = newCells[c].getElementsByTagName('w:tcPr')[0];
-                    if (tcPr) {
-                        let tcW = tcPr.getElementsByTagName('w:tcW')[0];
-                        if (tcW) {
-                            tcW.setAttribute('w:w', String(rowWidths[c]));
-                            tcW.setAttribute('w:type', 'dxa');
-                        }
-                    }
-                }
                 table0.insertBefore(newRow, row12);
             }
             rows = table0.getElementsByTagName('w:tr');
         }
 
-        // Asegurar anchos de celda consistentes (2387, 2533, 1835, 2083) para todas las filas de datos
-        const standardCellWidths = [2387, 2533, 1835, 2083];
         const lastItemRowIdx = 6 + neededRows;
-        for (let rIdx = 1; rIdx <= lastItemRowIdx; rIdx++) {
-            const rCells = getCells(rIdx);
-            if (rCells.length === 4) {
-                for (let c = 0; c < 4; c++) {
-                    const tcPr = rCells[c].getElementsByTagName('w:tcPr')[0];
-                    if (tcPr) {
-                        let tcW = tcPr.getElementsByTagName('w:tcW')[0];
-                        if (!tcW) {
-                            tcW = xmlDoc.createElementNS(wNS, 'w:tcW');
-                            tcPr.appendChild(tcW);
-                        }
-                        tcW.setAttribute('w:w', String(standardCellWidths[c]));
-                        tcW.setAttribute('w:type', 'dxa');
-                    }
-                }
-            }
-        }
 
         let elemIdx = 0;
         for (let rIdx = 7; rIdx <= lastItemRowIdx; rIdx++) {
@@ -431,7 +382,7 @@ class DocumentGenerator {
         const ie = store.getInstitucionByDane(sede.codigo_dane_ie);
         const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
 
-        const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-029-F.xlsx');
+        const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-029-F.xlsx', true);
 
         // Cargar libro en ExcelJS preservando hojas auxiliares y fórmulas
         const workbook = new ExcelJS.Workbook();
@@ -575,7 +526,7 @@ class DocumentGenerator {
         const mpio = ie ? store.getMunicipios().find(m => String(m.codigo) === String(ie.codigo_municipio)) : null;
         const asignacion = store.getAsignacionByDoc(documentoEstudiante);
 
-        const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-007-F.docx');
+        const templateBuf = await this.getTemplateArrayBuffer('./templates/LOG-007-F.docx', true);
         const zip = await JSZip.loadAsync(templateBuf);
         const docXmlStr = await zip.file('word/document.xml').async('text');
 
