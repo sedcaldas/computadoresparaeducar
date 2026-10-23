@@ -74,7 +74,7 @@ async function runTests() {
     if (tbl0Match) {
         const colMatches = [...tbl0Match[0].matchAll(/<w:gridCol\s+w:w="(\d+)"/g)];
         const totalGridW = colMatches.reduce((acc, m) => acc + parseInt(m[1], 10), 0);
-        assert(totalGridW > 0 && colMatches.length === 6, `Cuadrícula de 6 columnas definida en la plantilla (${totalGridW} dxa)`);
+        assert(totalGridW === 10772 && colMatches.length === 6, `Cuadrícula de 6 columnas ajustada exactamente a 19 cm (${totalGridW} dxa == 19 cm)`);
     }
 
     // Simulación de inyección de Radicado Sede en encabezado
