@@ -996,17 +996,6 @@ class ApplicationController {
                                 Cargar Archivo Estudiantes (.xlsx)
                             </button>
                         </div>
-
-                        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem;">
-                            <h4 style="margin-bottom: 0.5rem;">3. Plantilla Oficial LOG-026-F (.docx)</h4>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                                Recargar o actualizar la plantilla oficial del formato LOG-026-F (Acta de Verificación y Legalización de Bolsa Tecnológica).
-                            </p>
-                            <input type="file" id="template-log026-input" accept=".docx" style="display: none;" onchange="appController.handleLog026TemplateSelect(this.files[0])">
-                            <button class="btn btn-primary" onclick="document.getElementById('template-log026-input').click()">
-                                Cargar Plantilla LOG-026 (.docx)
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1469,28 +1458,6 @@ class ApplicationController {
             }
         } catch (e) {
             alert('Error en importación: ' + e.message);
-        }
-    }
-
-    async handleLog026TemplateSelect(file) {
-        if (!file) return;
-        try {
-            this.showToast('Cargando y validando plantilla LOG-026-F...', 'warning');
-            const ab = await file.arrayBuffer();
-            const zip = await JSZip.loadAsync(ab);
-            const docXml = await zip.file('word/document.xml')?.async('text');
-            if (!docXml || (!docXml.includes('DETALLE DE ELEMENTOS') && !docXml.includes('DATOS BÁSICOS'))) {
-                throw new Error('El archivo seleccionado no es una plantilla válida de LOG-026-F.');
-            }
-            await window.appStore.saveBlob('CUSTOM_TEMPLATE_LOG-026-F', file, file.name, file.type || 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-            if (window.documentGenerator?.templateCache) {
-                window.documentGenerator.templateCache.delete('./templates/LOG-026-F.docx');
-            }
-            this.showToast('Plantilla LOG-026-F recargada exitosamente.', 'success');
-            this.renderDashboard();
-        } catch (e) {
-            console.error('Error cargando plantilla LOG-026-F:', e);
-            alert(e.message || 'Error al cargar la plantilla LOG-026-F.');
         }
     }
 

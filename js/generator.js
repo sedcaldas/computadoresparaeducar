@@ -23,21 +23,6 @@ class DocumentGenerator {
         if (this.templateCache.has(path)) {
             return this.templateCache.get(path).slice(0);
         }
-        if (typeof window !== 'undefined' && window.appStore) {
-            const customKey = path.includes('LOG-026') ? 'CUSTOM_TEMPLATE_LOG-026-F' : null;
-            if (customKey) {
-                try {
-                    const customBlob = await window.appStore.getBlob(customKey);
-                    if (customBlob && customBlob.blob) {
-                        const ab = await customBlob.blob.arrayBuffer();
-                        this.templateCache.set(path, ab);
-                        return ab.slice(0);
-                    }
-                } catch (e) {
-                    console.warn('Error cargando plantilla personalizada:', e);
-                }
-            }
-        }
         if (typeof window === 'undefined' || !window.fetch) {
             const fs = require('fs');
             const p = require('path');
