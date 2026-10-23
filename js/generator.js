@@ -167,19 +167,17 @@ class DocumentGenerator {
             'YUBY CATERINE BOHÓRQUEZ ROJAS en su calidad de PROFESIONAL LOGÍSTICA '
         );
 
-        // Actualizar Radicado Sede en encabezado(s) oficial(es)
+        // Actualizar Radicado Sede en encabezado(s) oficial(es) sin afectar paginación ni dibujos
         const radVal = sede.radicado || 'S/N';
         const headerFiles = Object.keys(zip.files).filter(k => k.startsWith('word/header') && k.endsWith('.xml'));
+        const radTcRegex = /<w:tc\b[^>]*>(?:(?!<\/w:tc>)[\s\S])*?(?:MERGEFIELD\s+Radicado|«Radicado»)(?:(?!<\/w:tc>)[\s\S])*?<\/w:tc>/;
+        const radTcReplacement = `<w:tc><w:tcPr><w:tcW w:w="2736" w:type="pct"/><w:vAlign w:val="center"/></w:tcPr><w:p><w:pPr><w:contextualSpacing/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${radVal}</w:t></w:r></w:p></w:tc>`;
         for (const hFile of headerFiles) {
             let hXml = await zip.file(hFile).async('text');
-            // Reemplazar campo Word MERGEFIELD Radicado o «Radicado»
-            hXml = hXml.replace(
-                /<w:r\b[\s\S]*?<w:fldChar\s+w:fldCharType="begin"[\s\S]*?<w:fldChar\s+w:fldCharType="end"\s*\/>\s*<\/w:r>/g,
-                `<w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${radVal}</w:t></w:r>`
-            );
-            hXml = hXml.replace(/«Radicado»/g, radVal);
-            hXml = hXml.replace(/MERGEFIELD\s+Radicado/g, radVal);
-            zip.file(hFile, hXml);
+            if (radTcRegex.test(hXml)) {
+                hXml = hXml.replace(radTcRegex, radTcReplacement);
+                zip.file(hFile, hXml);
+            }
         }
 
         const parser = new DOMParser();

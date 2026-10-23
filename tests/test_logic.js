@@ -80,14 +80,13 @@ async function runTests() {
     // Simulación de inyección de Radicado Sede en encabezado
     let simHeaderXml = headerXml;
     const testRadicado = '84716';
-    simHeaderXml = simHeaderXml.replace(
-        /<w:r\b[\s\S]*?<w:fldChar\s+w:fldCharType="begin"[\s\S]*?<w:fldChar\s+w:fldCharType="end"\s*\/>\s*<\/w:r>/g,
-        `<w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${testRadicado}</w:t></w:r>`
-    );
-    simHeaderXml = simHeaderXml.replace(/«Radicado»/g, testRadicado);
-    simHeaderXml = simHeaderXml.replace(/MERGEFIELD\s+Radicado/g, testRadicado);
+    const radTcRegex = /<w:tc\b[^>]*>(?:(?!<\/w:tc>)[\s\S])*?(?:MERGEFIELD\s+Radicado|«Radicado»)(?:(?!<\/w:tc>)[\s\S])*?<\/w:tc>/;
+    const radTcReplacement = `<w:tc><w:tcPr><w:tcW w:w="2736" w:type="pct"/><w:vAlign w:val="center"/></w:tcPr><w:p><w:pPr><w:contextualSpacing/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${testRadicado}</w:t></w:r></w:p></w:tc>`;
+    assert(radTcRegex.test(simHeaderXml), 'Celda de Radicado identificada con precisión en header1.xml');
+    simHeaderXml = simHeaderXml.replace(radTcRegex, radTcReplacement);
     assert(simHeaderXml.includes(testRadicado), 'Radicado sede inyectado correctamente en el encabezado');
     assert(!simHeaderXml.includes('«Radicado»'), 'Marcador «Radicado» eliminado del encabezado tras inyección');
+    assert(simHeaderXml.includes('NUMPAGES'), 'Paginación NUMPAGES preservada intacta en encabezado');
 
     // 3. Diligenciamiento LOG-029-F (.xlsx)
     console.log('\n3. Diligenciamiento LOG-029-F (.xlsx)');
