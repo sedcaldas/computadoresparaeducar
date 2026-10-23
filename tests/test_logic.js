@@ -56,12 +56,10 @@ async function runTests() {
     assert(docXml026.includes('Código DANE Sede:') || docXml026.includes('C\u00f3digo DANE Sede:'), 'LOG-026 contiene campo Código DANE Sede');
     assert(docXml026.includes('Municipio'), 'LOG-026 contiene campo Municipio');
 
-    // Validar reemplazo de señor(a) y en su calidad de
-    docXml026 = docXml026.replace(
-        /__________________________________________en su calidad de _______________________________/g,
-        'YUBY CATERINE BOHÓRQUEZ ROJAS en su calidad de PROFESIONAL LOGÍSTICA '
-    );
-    assert(docXml026.includes('YUBY CATERINE BOHÓRQUEZ ROJAS en su calidad de PROFESIONAL LOGÍSTICA '), 'LOG-026 incluye señor(a) YUBY CATERINE BOHÓRQUEZ ROJAS y calidad PROFESIONAL LOGÍSTICA');
+    // Validar que señor(a) contenga YUBY CATERINE BOHÓRQUEZ ROJAS y calidad PROFESIONAL LOGÍSTICA
+    const text026 = docXml026.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const hasContratista = text026.includes('YUBY CATERINE BOHÓRQUEZ ROJAS') && text026.includes('PROFESIONAL LOGÍSTICA');
+    assert(hasContratista, 'LOG-026 incluye señor(a) YUBY CATERINE BOHÓRQUEZ ROJAS y calidad PROFESIONAL LOGÍSTICA');
 
     // 3. Diligenciamiento LOG-029-F (.xlsx)
     console.log('\n3. Diligenciamiento LOG-029-F (.xlsx)');
