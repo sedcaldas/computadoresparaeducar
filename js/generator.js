@@ -77,7 +77,7 @@ class DocumentGenerator {
         return rawName.substring(0, 50);
     }
 
-    _setCellText(tcNode, text) {
+    _setCellText(tcNode, text, maxSz = null) {
         if (!tcNode) return;
         let pNode = tcNode.getElementsByTagName('w:p')[0];
         if (!pNode) {
@@ -102,9 +102,32 @@ class DocumentGenerator {
         const doc = tcNode.ownerDocument;
         const wNS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
         const rNode = doc.createElementNS(wNS, 'w:r');
-        if (rPrClone) {
-            rNode.appendChild(rPrClone);
+
+        if (!rPrClone) {
+            rPrClone = doc.createElementNS(wNS, 'w:rPr');
+            const rFonts = doc.createElementNS(wNS, 'w:rFonts');
+            rFonts.setAttribute('w:ascii', 'Arial Narrow');
+            rFonts.setAttribute('w:hAnsi', 'Arial Narrow');
+            rFonts.setAttribute('w:cs', 'Arial');
+            rPrClone.appendChild(rFonts);
         }
+
+        if (maxSz) {
+            let sz = rPrClone.getElementsByTagName('w:sz')[0];
+            let szCs = rPrClone.getElementsByTagName('w:szCs')[0];
+            if (!sz) {
+                sz = doc.createElementNS(wNS, 'w:sz');
+                rPrClone.appendChild(sz);
+            }
+            if (!szCs) {
+                szCs = doc.createElementNS(wNS, 'w:szCs');
+                rPrClone.appendChild(szCs);
+            }
+            sz.setAttribute('w:val', String(maxSz));
+            szCs.setAttribute('w:val', String(maxSz));
+        }
+
+        rNode.appendChild(rPrClone);
         const tNode = doc.createElementNS(wNS, 'w:t');
         tNode.textContent = String(text ?? '');
         rNode.appendChild(tNode);
@@ -144,6 +167,21 @@ class DocumentGenerator {
             'YUBY CATERINE BOHÓRQUEZ ROJAS en su calidad de PROFESIONAL LOGÍSTICA '
         );
 
+        // Actualizar Radicado Sede en encabezado(s) oficial(es)
+        const radVal = sede.radicado || 'S/N';
+        const headerFiles = Object.keys(zip.files).filter(k => k.startsWith('word/header') && k.endsWith('.xml'));
+        for (const hFile of headerFiles) {
+            let hXml = await zip.file(hFile).async('text');
+            // Reemplazar campo Word MERGEFIELD Radicado o «Radicado»
+            hXml = hXml.replace(
+                /<w:r\b[\s\S]*?<w:fldChar\s+w:fldCharType="begin"[\s\S]*?<w:fldChar\s+w:fldCharType="end"\s*\/>\s*<\/w:r>/g,
+                `<w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${radVal}</w:t></w:r>`
+            );
+            hXml = hXml.replace(/«Radicado»/g, radVal);
+            hXml = hXml.replace(/MERGEFIELD\s+Radicado/g, radVal);
+            zip.file(hFile, hXml);
+        }
+
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(docXmlStr, 'application/xml');
         const tables = xmlDoc.getElementsByTagName('w:tbl');
@@ -152,23 +190,56 @@ class DocumentGenerator {
         }
 
         const table0 = tables[0];
+        const wNS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+
+        // 1. Forzar diseño de tabla fijo y ancho exacto a márgenes imprimibles (8838 dxa)
+        let tblPr0 = table0.getElementsByTagName('w:tblPr')[0];
+        if (tblPr0) {
+            let tblLayout = tblPr0.getElementsByTagName('w:tblLayout')[0];
+            if (!tblLayout) {
+                tblLayout = xmlDoc.createElementNS(wNS, 'w:tblLayout');
+                tblPr0.appendChild(tblLayout);
+            }
+            tblLayout.setAttribute('w:type', 'fixed');
+
+            let tblW = tblPr0.getElementsByTagName('w:tblW')[0];
+            if (!tblW) {
+                tblW = xmlDoc.createElementNS(wNS, 'w:tblW');
+                tblPr0.appendChild(tblW);
+            }
+            tblW.setAttribute('w:w', '8838');
+            tblW.setAttribute('w:type', 'dxa');
+        }
+
+        // 2. Bloquear cuadrícula con anchos proporcionales exactos a márgenes (2387 + 1544 + 989 + 866 + 969 + 2083 = 8838 dxa)
+        const targetGridCols = [2387, 1544, 989, 866, 969, 2083];
+        let tblGrid0 = table0.getElementsByTagName('w:tblGrid')[0];
+        if (tblGrid0) {
+            const existingCols = tblGrid0.getElementsByTagName('w:gridCol');
+            for (let i = 0; i < targetGridCols.length; i++) {
+                if (existingCols[i]) {
+                    existingCols[i].setAttribute('w:w', String(targetGridCols[i]));
+                }
+            }
+        }
+
         let rows = table0.getElementsByTagName('w:tr');
         const getCells = (rowIdx) => rows[rowIdx] ? rows[rowIdx].getElementsByTagName('w:tc') : [];
 
         // R1: Nombre de IE & Radicado Sede
         const r1Cells = getCells(1);
-        if (r1Cells.length > 1) this._setCellText(r1Cells[1], ie ? ie.nombre : 'INSTITUCIÓN EDUCATIVA');
-        if (r1Cells.length >= 4) this._setCellText(r1Cells[3] || r1Cells[r1Cells.length - 1], sede.radicado || 'S/N');
+        if (r1Cells.length > 1) this._setCellText(r1Cells[1], ie ? ie.nombre : 'INSTITUCIÓN EDUCATIVA', 18);
+        if (r1Cells.length >= 4) this._setCellText(r1Cells[3] || r1Cells[r1Cells.length - 1], sede.radicado || 'S/N', 18);
 
         // R2: Nombre Sede & Código DANE Sede
         const r2Cells = getCells(2);
-        if (r2Cells.length > 1) this._setCellText(r2Cells[1], sede.nombre);
-        if (r2Cells.length >= 4) this._setCellText(r2Cells[3] || r2Cells[r2Cells.length - 1], sede.codigo_dane_sede);
+        if (r2Cells.length > 1) this._setCellText(r2Cells[1], sede.nombre, 18);
+        if (r2Cells.length >= 4) this._setCellText(r2Cells[3] || r2Cells[r2Cells.length - 1], sede.codigo_dane_sede, 18);
 
         // R3: Departamento & Municipio
         const r3Cells = getCells(3);
-        if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? (mpio.departamento || 'Caldas') : 'Caldas');
-        if (r3Cells.length >= 4) this._setCellText(r3Cells[3] || r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas');
+        if (r3Cells.length > 1) this._setCellText(r3Cells[1], mpio ? (mpio.departamento || 'Caldas') : 'Caldas', 18);
+        if (r3Cells.length >= 4) this._setCellText(r3Cells[3] || r3Cells[r3Cells.length - 1], mpio ? mpio.nombre : 'Caldas', 18);
 
         // Llenar elementos de bolsa con nombre y número(s) de serial en paréntesis
         // Si hay más de 10 elementos (5 filas x 2), clonar fila 11 antes de fila 12
@@ -178,13 +249,45 @@ class DocumentGenerator {
             const row12 = rows[12];
             for (let i = 0; i < neededRows - 5; i++) {
                 const newRow = row11.cloneNode(true);
+                const newCells = newRow.getElementsByTagName('w:tc');
+                const rowWidths = [2387, 2533, 1835, 2083];
+                for (let c = 0; c < newCells.length && c < rowWidths.length; c++) {
+                    let tcPr = newCells[c].getElementsByTagName('w:tcPr')[0];
+                    if (tcPr) {
+                        let tcW = tcPr.getElementsByTagName('w:tcW')[0];
+                        if (tcW) {
+                            tcW.setAttribute('w:w', String(rowWidths[c]));
+                            tcW.setAttribute('w:type', 'dxa');
+                        }
+                    }
+                }
                 table0.insertBefore(newRow, row12);
             }
             rows = table0.getElementsByTagName('w:tr');
         }
 
-        let elemIdx = 0;
+        // Asegurar anchos de celda consistentes (2387, 2533, 1835, 2083) para todas las filas de datos
+        const standardCellWidths = [2387, 2533, 1835, 2083];
         const lastItemRowIdx = 6 + neededRows;
+        for (let rIdx = 1; rIdx <= lastItemRowIdx; rIdx++) {
+            const rCells = getCells(rIdx);
+            if (rCells.length === 4) {
+                for (let c = 0; c < 4; c++) {
+                    const tcPr = rCells[c].getElementsByTagName('w:tcPr')[0];
+                    if (tcPr) {
+                        let tcW = tcPr.getElementsByTagName('w:tcW')[0];
+                        if (!tcW) {
+                            tcW = xmlDoc.createElementNS(wNS, 'w:tcW');
+                            tcPr.appendChild(tcW);
+                        }
+                        tcW.setAttribute('w:w', String(standardCellWidths[c]));
+                        tcW.setAttribute('w:type', 'dxa');
+                    }
+                }
+            }
+        }
+
+        let elemIdx = 0;
         for (let rIdx = 7; rIdx <= lastItemRowIdx; rIdx++) {
             const rowCells = getCells(rIdx);
             if (!rowCells || rowCells.length < 4) continue;
@@ -194,11 +297,11 @@ class DocumentGenerator {
                 const desc1 = (e1.serial && e1.serial !== 'NO APLICA' && e1.serial !== 'N/A')
                     ? `${e1.elemento_nombre} (Serial: ${e1.serial})`
                     : e1.elemento_nombre;
-                this._setCellText(rowCells[0], desc1);
-                this._setCellText(rowCells[1], String(e1.cantidad));
+                this._setCellText(rowCells[0], desc1, 17);
+                this._setCellText(rowCells[1], String(e1.cantidad), 18);
             } else {
-                this._setCellText(rowCells[0], 'N/A');
-                this._setCellText(rowCells[1], '0');
+                this._setCellText(rowCells[0], 'N/A', 18);
+                this._setCellText(rowCells[1], '0', 18);
             }
 
             const colElem2 = rowCells.length > 3 ? rowCells[rowCells.length - 2] : null;
@@ -209,11 +312,11 @@ class DocumentGenerator {
                     const desc2 = (e2.serial && e2.serial !== 'NO APLICA' && e2.serial !== 'N/A')
                         ? `${e2.elemento_nombre} (Serial: ${e2.serial})`
                         : e2.elemento_nombre;
-                    this._setCellText(colElem2, desc2);
-                    this._setCellText(colCant2, String(e2.cantidad));
+                    this._setCellText(colElem2, desc2, 17);
+                    this._setCellText(colCant2, String(e2.cantidad), 18);
                 } else {
-                    this._setCellText(colElem2, 'N/A');
-                    this._setCellText(colCant2, '0');
+                    this._setCellText(colElem2, 'N/A', 18);
+                    this._setCellText(colCant2, '0', 18);
                 }
             }
         }
@@ -231,7 +334,7 @@ class DocumentGenerator {
                     const obsText = serialList
                         ? `Relación oficial de seriales verificados a satisfacción según archivo de despacho CPE: ${serialList}. Elementos instalados y validados.`
                         : 'Elementos y equipos recibidos e instalados a entera satisfacción.';
-                    this._setCellText(obsRowCells[0], obsText);
+                    this._setCellText(obsRowCells[0], obsText, 16);
                 }
                 break;
             }
@@ -259,6 +362,8 @@ class DocumentGenerator {
         const filename = `LOG-026-F_${sede.codigo_dane_sede}_v${versionPad}.docx`;
         const blob = await zip.generateAsync({
             type: 'blob',
+            compression: 'DEFLATE',
+            compressionOptions: { level: 9 },
             mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         });
 

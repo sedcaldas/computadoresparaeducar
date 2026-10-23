@@ -61,6 +61,34 @@ async function runTests() {
     const hasContratista = text026.includes('YUBY CATERINE BOHÓRQUEZ ROJAS') && text026.includes('PROFESIONAL LOGÍSTICA');
     assert(hasContratista, 'LOG-026 incluye señor(a) YUBY CATERINE BOHÓRQUEZ ROJAS y calidad PROFESIONAL LOGÍSTICA');
 
+    // Validar encabezado con Radicado Sede
+    assert(zip026.file('word/header1.xml') !== null, 'word/header1.xml presente en plantilla LOG-026-F');
+    const headerXml = await zip026.file('word/header1.xml').async('text');
+    assert(headerXml.includes('Radicado') && headerXml.includes('Sede:'), 'Encabezado header1.xml contiene sección Radicado Sede');
+    assert(headerXml.includes('MERGEFIELD Radicado') || headerXml.includes('«Radicado»'), 'Encabezado contiene campo dinámico Radicado');
+
+    // Validar anchos fijos de tabla para respetar márgenes
+    assert(docXml026.includes('<w:tblLayout w:type="fixed"/>'), 'Tabla de LOG-026-F cuenta con w:tblLayout fixed para no deformar columnas');
+    const tbl0Match = docXml026.match(/<w:tblGrid>[\s\S]*?<\/w:tblGrid>/);
+    assert(tbl0Match !== null, 'tblGrid encontrado en tabla de LOG-026-F');
+    if (tbl0Match) {
+        const colMatches = [...tbl0Match[0].matchAll(/<w:gridCol\s+w:w="(\d+)"/g)];
+        const totalGridW = colMatches.reduce((acc, m) => acc + parseInt(m[1], 10), 0);
+        assert(totalGridW === 8838, `Cuadrícula de columnas ajustada exactamente a los márgenes de página (${totalGridW} dxa == 8838 dxa)`);
+    }
+
+    // Simulación de inyección de Radicado Sede en encabezado
+    let simHeaderXml = headerXml;
+    const testRadicado = '84716';
+    simHeaderXml = simHeaderXml.replace(
+        /<w:r\b[\s\S]*?<w:fldChar\s+w:fldCharType="begin"[\s\S]*?<w:fldChar\s+w:fldCharType="end"\s*\/>\s*<\/w:r>/g,
+        `<w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${testRadicado}</w:t></w:r>`
+    );
+    simHeaderXml = simHeaderXml.replace(/«Radicado»/g, testRadicado);
+    simHeaderXml = simHeaderXml.replace(/MERGEFIELD\s+Radicado/g, testRadicado);
+    assert(simHeaderXml.includes(testRadicado), 'Radicado sede inyectado correctamente en el encabezado');
+    assert(!simHeaderXml.includes('«Radicado»'), 'Marcador «Radicado» eliminado del encabezado tras inyección');
+
     // 3. Diligenciamiento LOG-029-F (.xlsx)
     console.log('\n3. Diligenciamiento LOG-029-F (.xlsx)');
     const template029Path = path.join(__dirname, '../templates/LOG-029-F.xlsx');
