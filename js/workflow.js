@@ -190,7 +190,30 @@ class ApprovalWorkflowEngine {
         const detalle = comentarios || 'Documento validado y aprobado formalmente por la Coordinación Departamental.';
         store.saveDocumento(doc, user.name, user.role, detalle);
 
-        const blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
+        let blobItem = await store.getBlob(`DOC-${doc.id}-active`) || await store.getBlob(`DOC-${doc.id}-v${doc.version_actual}`);
+        if (!blobItem || !blobItem.blob) {
+            try {
+                let genBlob = null;
+                if (doc.tipo_documento === 'LOG-026-F' && doc.codigo_dane_sede) {
+                    const gen = await window.documentGenerator.generateLog026(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                    genBlob = gen.blob;
+                } else if (doc.tipo_documento === 'LOG-029-F' && doc.codigo_dane_sede) {
+                    const gen = await window.documentGenerator.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                    genBlob = gen.blob;
+                } else if (doc.tipo_documento === 'LOG-007-F' && doc.estudiante_documento) {
+                    const gen = await window.documentGenerator.generateLog007(doc.estudiante_documento, doc.version_actual, doc.estado);
+                    genBlob = gen.blob;
+                }
+                if (genBlob) {
+                    await store.saveBlob(`DOC-${doc.id}-v${doc.version_actual}`, genBlob, doc.nombre_archivo, genBlob.type);
+                    await store.saveBlob(`DOC-${doc.id}-active`, genBlob, doc.nombre_archivo, genBlob.type);
+                    blobItem = { blob: genBlob };
+                }
+            } catch (errGen) {
+                console.warn('Aviso generando blob para documento aprobado:', errGen);
+            }
+        }
+
         if (blobItem && blobItem.blob) {
             await this._syncWithDrive(doc, blobItem.blob, 'Aprobación formal');
         }

@@ -25,7 +25,7 @@ class AppStore {
             historial_auditoria: [],
             config: {
                 google_client_id: '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com',
-                drive_root_folder_id: '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51',
+                drive_root_folder_id: '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW',
                 root_folder_name: 'Bolsa_Tecnologica_Caldas',
                 scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive',
                 drive_sync: true
@@ -158,8 +158,8 @@ class AppStore {
             try {
                 const parsed = JSON.parse(saved);
                 this.state = Object.assign(this.state, parsed);
-                // Si faltaban los documentos pregenerados o los datos no tienen la versión v6, recargar semilla oficial y purgar blobs
-                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 6) {
+                // Si faltaban los documentos pregenerados o los datos no tienen la versión v7, recargar semilla oficial y purgar blobs
+                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 7) {
                     await this.clearBlobs();
                     await this.loadSeedData();
                 }
@@ -177,7 +177,7 @@ class AppStore {
             const res = await fetch('./data/seed_data.json');
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const seed = await res.json();
-            this.state.data_version = 6; // Versión 6: Base de seriales actualizada (38 sedes bolsa, 177 elementos, plantilla exacta Acta Consolidada)
+            this.state.data_version = 7; // Versión 7: Carpeta oficial de Drive actualizada y formatos aprobados para CPE
             this.state.municipios = seed.municipios || [];
             this.state.instituciones = seed.instituciones || [];
             this.state.sedes = seed.sedes || [];

@@ -430,12 +430,12 @@ class DocumentGenerator {
             ? `Elementos recibidos y verificados con seriales oficiales CPE: ${serialSummary}. Validación a entera satisfacción.`
             : 'Elementos recibidos, verificados y validados a entera satisfacción en la sede educativa.';
 
-        // 4. Bloque de Firma del Beneficiario (Rectoría)
-        ws.getCell('D39').value = ie ? `Rector(a) ${ie.nombre}` : 'Rector Institucional';
-        ws.getCell('D40').value = String(ie ? ie.codigo_dane : 'S/N');
-        ws.getCell('D41').value = '3100000000';
-        ws.getCell('D42').value = 'Rector(a)';
-        ws.getCell('D43').value = ie ? `rector.${ie.codigo_dane}@sedcaldas.gov.co` : 'rector@sedcaldas.gov.co';
+        // 4. Bloque de Firma del Beneficiario: D39 a D43 quedan en blanco según requerimiento oficial
+        ws.getCell('D39').value = '';
+        ws.getCell('D40').value = '';
+        ws.getCell('D41').value = '';
+        ws.getCell('D42').value = '';
+        ws.getCell('D43').value = '';
 
         // 1. Eliminar cualquier definición de formato condicional en todas las hojas
         // (ExcelJS no serializa adecuadamente las reglas y genera tags vacíos que provocan HRESULT 0x8000ffff en Excel)
@@ -1001,6 +1001,24 @@ class DocumentGenerator {
                 }
             }
 
+            // Si el blob no existe en caché ni en Drive, generarlo en tiempo real según reglas oficiales
+            if (!blob) {
+                try {
+                    if (doc.tipo_documento === 'LOG-026-F' && doc.codigo_dane_sede) {
+                        const gen = await this.generateLog026(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                        blob = gen.blob;
+                    } else if (doc.tipo_documento === 'LOG-029-F' && doc.codigo_dane_sede) {
+                        const gen = await this.generateLog029(doc.codigo_dane_sede, doc.version_actual, doc.estado);
+                        blob = gen.blob;
+                    } else if (doc.tipo_documento === 'LOG-007-F' && doc.estudiante_documento) {
+                        const gen = await this.generateLog007(doc.estudiante_documento, doc.version_actual, doc.estado);
+                        blob = gen.blob;
+                    }
+                } catch (errGen) {
+                    console.warn(`No se pudo generar ${doc.nombre_archivo}:`, errGen);
+                }
+            }
+
             if (blob) {
                 const folderName = `${doc.tipo_documento}/${doc.estado}`;
                 zip.folder(folderName).file(doc.nombre_archivo, blob);
@@ -1014,7 +1032,9 @@ class DocumentGenerator {
 
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         const nowStr = new Date().toISOString().slice(0, 10);
-        const zipFilename = `EXPEDIENTES_CALDAS_${nowStr}.zip`;
+        const zipFilename = filters.estado === 'Aprobado' 
+            ? `FORMATOS_APROBADOS_CPE_${nowStr}.zip` 
+            : `EXPEDIENTES_CALDAS_${nowStr}.zip`;
 
         const downloadUrl = URL.createObjectURL(zipBlob);
         const a = document.createElement('a');

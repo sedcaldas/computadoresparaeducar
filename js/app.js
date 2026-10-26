@@ -741,7 +741,9 @@ class ApplicationController {
                     <td>v0${doc.version_actual}</td>
                     <td>
                         <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-                            <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc.id}')">Descargar</button>
+                            ${doc.estado === 'Aprobado' 
+                                ? `<button class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc.id}')">📥 Descargar Aprobado</button>` 
+                                : `<button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleDownloadDoc('${doc.id}')">Descargar</button>`}
                             <button class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.openDocHistoryModal('${doc.id}')">Historial</button>
                             ${doc.estado !== 'Aprobado' ? `
                                 <button class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="appController.handleApproveCoordinador('${doc.id}')">Aprobar</button>
@@ -765,8 +767,8 @@ class ApplicationController {
                         <button class="btn btn-success btn-sm" onclick="appController.handleDownloadConsolidatedLog007()">
                             📊 Descargar Acta Consolidada LOG-007 (Excel)
                         </button>
-                        <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">
-                            🚀 Pregenerar y Sincronizar Formatos en Google Drive
+                        <button class="btn btn-primary btn-sm" onclick="appController.handleDownloadApprovedZip()">
+                            📦 Descargar Formatos Aprobados (ZIP)
                         </button>
                     </div>
                 </div>
@@ -1238,6 +1240,25 @@ class ApplicationController {
         }
     }
 
+    async handleDownloadApprovedZip() {
+        const store = window.appStore;
+        const approvedDocs = store.getDocumentos({ estado: 'Aprobado' });
+        if (approvedDocs.length === 0) {
+            alert('Aún no hay formatos en estado "Aprobado" para descargar.');
+            return;
+        }
+
+        try {
+            this.showToast(`Preparando paquete ZIP con ${approvedDocs.length} formato(s) aprobado(s)...`);
+            await window.documentGenerator.generateCoordinatorZip({
+                estado: 'Aprobado'
+            });
+            this.showToast('Paquete de formatos aprobados descargado exitosamente');
+        } catch (e) {
+            alert('Error descargando formatos aprobados: ' + e.message);
+        }
+    }
+
     async handleDownloadCoordinatorZip() {
         const mpio = document.getElementById('zip-filter-mpio')?.value || '';
         const tipo = document.getElementById('zip-filter-tipo')?.value || '';
@@ -1366,7 +1387,7 @@ class ApplicationController {
         if (!modal) return;
         const config = window.appStore.state.config;
         document.getElementById('config-client-id').value = config.google_client_id || '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com';
-        document.getElementById('config-folder-id').value = config.drive_root_folder_id || '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51';
+        document.getElementById('config-folder-id').value = config.drive_root_folder_id || '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
         modal.style.display = 'flex';
     }
 

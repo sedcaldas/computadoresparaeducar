@@ -32,7 +32,7 @@ async function runTests() {
     assert(seedData.municipios.length === 22, `Municipios cargados correctamente (${seedData.municipios.length} == 22)`);
     assert(seedData.sedes.length >= 42, `Sedes de Bolsa cargadas (${seedData.sedes.length} >= 42)`);
     assert(seedData.estudiantes.length === 90, `Estudiantes beneficiarios cargados (${seedData.estudiantes.length} == 90)`);
-    assert(seedData.config.drive_root_folder_id === '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51', 'Carpeta raíz oficial de Drive configurada');
+    assert(seedData.config.drive_root_folder_id === '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW', 'Carpeta raíz oficial de Drive configurada');
     const elemsWithSerial = seedData.bolsa_elementos.filter(e => e.serial && e.serial.length > 0);
     assert(elemsWithSerial.length === seedData.bolsa_elementos.length, `Todos los elementos de bolsa tienen serial oficial (${elemsWithSerial.length}/${seedData.bolsa_elementos.length})`);
     const estWithSerial = seedData.estudiantes.filter(e => e.serial_terminal && e.serial_terminal.length > 0);
@@ -107,6 +107,7 @@ async function runTests() {
     formSheet.getCell('E18').value = 5;
     assert(formSheet.getCell('E10').value === 'INSTITUCION EDUCATIVA TEST', 'Escritura en celda E10 preservada');
     assert(formSheet.getCell('E18').value === 5, 'Escritura en fila de elementos preservada');
+    assert(!formSheet.getCell('D39').value && !formSheet.getCell('D40').value && !formSheet.getCell('D41').value && !formSheet.getCell('D42').value && !formSheet.getCell('D43').value, 'Celdas D39 a D43 libres de firma de beneficiario');
 
     // Validación de integridad XML en hojas de LOG-029-F (corrección definitiva HRESULT 0x8000ffff)
     wb029.worksheets.forEach(w => {
