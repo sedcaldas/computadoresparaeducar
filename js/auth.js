@@ -83,8 +83,8 @@ class AuthService {
     }
 
     // --- Google OAuth 2.0 (Google Identity Services) ---
-    async loginWithGoogle(clientId) {
-        const targetClientId = clientId || window.appStore?.state?.config?.google_client_id;
+    async loginWithGoogle(clientId, preferredRole = null) {
+        const targetClientId = clientId || window.appStore?.state?.config?.google_client_id || '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com';
         if (!targetClientId) {
             throw new Error('Debe configurar un Client ID de Google Cloud OAuth.');
         }
@@ -100,7 +100,7 @@ class AuthService {
                     scope: this.DEFAULT_SCOPES,
                     callback: async (tokenResponse) => {
                         if (tokenResponse.error) {
-                            reject(new Error(`Error de Google OAuth: ${tokenResponse.error}`));
+                            reject(new Error(`Error de Google OAuth: ${tokenResponse.error_description || tokenResponse.error}`));
                             return;
                         }
 
@@ -112,14 +112,14 @@ class AuthService {
                             const profile = userinfoResp.ok ? await userinfoResp.json() : {};
 
                             const email = profile.email || 'usuario@sedcaldas.gov.co';
-                            let role = 'coordinador';
-                            if (email.toLowerCase().includes('admin')) {
+                            let role = preferredRole || 'coordinador';
+                            if (!preferredRole && (email.toLowerCase().includes('admin') || (profile.name && profile.name.toLowerCase().includes('admin')))) {
                                 role = 'administrador';
                             }
 
                             const userSession = {
                                 id: profile.sub || 'usr_' + Date.now(),
-                                name: profile.name || 'Funcionario Caldas',
+                                name: profile.name || (role === 'coordinador' ? 'Coordinador CPE' : 'Administrador General'),
                                 email: email,
                                 picture: profile.picture || '',
                                 role: role,
@@ -142,7 +142,7 @@ class AuthService {
                                     accion: 'LOGIN_GOOGLE_OAUTH',
                                     entidad: 'Usuario',
                                     entidad_id: userSession.email,
-                                    detalles: `Inicio de sesión exitoso con Google OAuth.`
+                                    detalles: `Inicio de sesión exitoso con Google OAuth en carpeta institucional ${window.appStore?.state?.config?.drive_root_folder_id || '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51'}.`
                                 });
                             }
 

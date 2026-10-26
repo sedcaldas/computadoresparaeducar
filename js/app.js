@@ -114,10 +114,14 @@ class ApplicationController {
         if (user) {
             const roleDisplay = user.role === 'coordinador' ? 'CPE' : (user.role.charAt(0).toUpperCase() + user.role.slice(1));
             const pillClass = user.role === 'coordinador' ? 'cpe' : user.role;
+            const isGoogle = user.authenticated_with === 'google_oauth';
+            const driveConnected = window.googleDriveClient && window.googleDriveClient.hasActiveToken();
             sessionArea.innerHTML = `
-                <div class="user-badge">
-                    <span>${user.name}</span>
+                <div class="user-badge" style="display:inline-flex; align-items:center; gap:0.5rem;">
+                    ${user.picture ? `<img src="${user.picture}" alt="" style="width:24px; height:24px; border-radius:50%; border:1px solid rgba(255,255,255,0.4);">` : ''}
+                    <span style="font-weight:600;">${user.name}</span>
                     <span class="role-pill ${pillClass}">${roleDisplay}</span>
+                    ${driveConnected ? `<span title="Conectado a Google Drive (1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51)" style="font-size:0.75rem; background:rgba(52, 168, 83, 0.25); border:1px solid #34a853; color:#a7f3d0; padding:2px 7px; border-radius:12px; font-weight:600;">🟢 Drive</span>` : ''}
                 </div>
                 <button class="btn btn-outline btn-sm" style="color:white; border-color:rgba(255,255,255,0.4);" onclick="window.authService.logout()">Salir</button>
             `;
@@ -149,19 +153,22 @@ class ApplicationController {
         const roleInput = document.getElementById('staff-login-role');
         const passInput = document.getElementById('staff-login-password');
         const btnEl = document.getElementById('staff-login-btn');
+        const googleBtnText = document.getElementById('staff-google-btn-text');
 
         if (!modal) return;
 
         if (role === 'coordinador') {
             if (titleEl) titleEl.textContent = '🏛️ Acceso Oficial CPE';
-            if (descEl) descEl.textContent = 'Ingrese la contraseña institucional autorizada para el equipo departamental de Computadores para Educar.';
+            if (descEl) descEl.textContent = 'Inicie sesión con su cuenta de Google Workspace para sincronización directa con la carpeta oficial de Drive, o use la clave institucional.';
             if (roleInput) roleInput.value = 'coordinador';
-            if (btnEl) btnEl.textContent = 'Ingresar como CPE';
+            if (btnEl) btnEl.textContent = 'Ingresar con Clave (CPE)';
+            if (googleBtnText) googleBtnText.textContent = 'Continuar como CPE con Google';
         } else {
             if (titleEl) titleEl.textContent = '⚙️ Acceso Oficial Administrador';
-            if (descEl) descEl.textContent = 'Ingrese la contraseña maestra autorizada para el Administrador del Sistema SED Caldas.';
+            if (descEl) descEl.textContent = 'Inicie sesión con su cuenta de Google Workspace o mediante la contraseña maestra del Administrador del Sistema SED Caldas.';
             if (roleInput) roleInput.value = 'administrador';
-            if (btnEl) btnEl.textContent = 'Ingresar como Administrador';
+            if (btnEl) btnEl.textContent = 'Ingresar con Clave (Admin)';
+            if (googleBtnText) googleBtnText.textContent = 'Continuar como Administrador con Google';
         }
 
         if (passInput) passInput.value = '';
@@ -250,8 +257,22 @@ class ApplicationController {
                         </button>
                     </form>
 
-                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-muted);">
-                        <span>🏛️ Funcionarios autorizados de <strong>CPE</strong> y <strong>Administración</strong> acceden desde el encabezado superior.</span>
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+                        <span>🏛️ Funcionarios autorizados de <strong>CPE</strong> y <strong>Administración</strong> pueden acceder directamente:</span>
+                        <div style="margin-top: 0.75rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; border-color: var(--border); background: white;" onclick="appController.handleGoogleOAuthLogin('coordinador')">
+                                <svg width="16" height="16" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                                </svg>
+                                Iniciar Sesión CPE con Google
+                            </button>
+                            <button type="button" class="btn btn-outline btn-sm" onclick="appController.openStaffLoginModal('administrador')">
+                                ⚙️ Acceso Admin
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -287,13 +308,17 @@ class ApplicationController {
         }
     }
 
-    async handleGoogleOAuthLogin() {
-        const config = window.appStore.state.config;
+    async handleGoogleOAuthLogin(preferredRole = null) {
+        const config = window.appStore?.state?.config || {};
+        const clientId = config.google_client_id || '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com';
+        const role = preferredRole || document.getElementById('staff-login-role')?.value || 'coordinador';
         try {
-            await window.authService.loginWithGoogle(config.google_client_id);
-            this.showToast('Autenticado exitosamente con Google Drive');
+            await window.authService.loginWithGoogle(clientId, role);
+            this.closeAllModals();
+            this.showToast('Autenticado exitosamente con Google Workspace / Drive');
+            this.render();
         } catch (e) {
-            alert(e.message);
+            alert(e.message || 'Error al iniciar sesión con Google.');
         }
     }
 
@@ -956,6 +981,7 @@ class ApplicationController {
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                         <button class="btn btn-success btn-sm" onclick="appController.handleDownloadConsolidatedLog007()">📊 Descargar Acta Consolidada LOG-007 (Excel)</button>
                         <button class="btn btn-primary btn-sm" onclick="appController.handlePregenerateAllDrive()">🚀 Pregenerar Formatos en Drive</button>
+                        <button class="btn btn-outline btn-sm" onclick="appController.openDriveConfigModal()">⚙️ Configurar Drive & OAuth</button>
                         <button class="btn btn-outline btn-sm" onclick="window.appStore.exportBackup()">💾 Descargar Respaldo JSON</button>
                         <button class="btn btn-danger btn-sm" onclick="appController.handleResetSeed()">♻️ Restaurar Datos Iniciales</button>
                     </div>
@@ -1385,9 +1411,9 @@ class ApplicationController {
     openDriveConfigModal() {
         const modal = document.getElementById('modal-drive-config');
         if (!modal) return;
-        const config = window.appStore.state.config;
+        const config = window.appStore?.state?.config || {};
         document.getElementById('config-client-id').value = config.google_client_id || '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com';
-        document.getElementById('config-folder-id').value = config.drive_root_folder_id || '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
+        document.getElementById('config-folder-id').value = config.drive_root_folder_id || '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51';
         modal.style.display = 'flex';
     }
 

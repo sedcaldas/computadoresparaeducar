@@ -13,7 +13,7 @@
 class GoogleDriveClient {
     constructor() {
         this.accessToken = null;
-        this.rootFolderId = '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
+        this.rootFolderId = '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51';
         this.rootFolderName = 'Bolsa_Tecnologica_Caldas';
         this.folderCache = new Map();
         this.isOnline = false;
