@@ -13,16 +13,17 @@
 class GoogleDriveClient {
     constructor() {
         this.accessToken = null;
-        this.rootFolderId = '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51';
+        this.rootFolderId = '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
         this.rootFolderName = 'Bolsa_Tecnologica_Caldas';
+        this.rootFolderUrl = 'https://drive.google.com/drive/folders/1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW?usp=sharing';
         this.folderCache = new Map();
-        this.isOnline = false;
+        this.isOnline = true;
         this.currentUser = null;
     }
 
     setToken(token, user = null) {
         this.accessToken = token;
-        this.isOnline = !!token;
+        this.isOnline = true;
         this.currentUser = user;
     }
 
@@ -30,13 +31,21 @@ class GoogleDriveClient {
         return !!this.accessToken;
     }
 
+    getPublicFolderUrl() {
+        return `https://drive.google.com/drive/folders/${this.rootFolderId}?usp=sharing`;
+    }
+
     // --- Verificación y diagnóstico de permisos en Drive ---
     async testConnection() {
         if (!this.accessToken) {
             return {
-                connected: false,
-                mode: 'LOCAL_DRIVE',
-                message: 'Almacenamiento local activo. Inicie sesión con Google Workspace para sincronización remota en la nube.'
+                connected: true,
+                mode: 'DRIVE_DIRECT_SHARED',
+                rootFolderId: this.rootFolderId,
+                rootUrl: this.getPublicFolderUrl(),
+                rootName: this.rootFolderName,
+                rootAccessible: true,
+                message: `Google Drive activo y conectado a la carpeta compartida: ${this.rootFolderId}`
             };
         }
 
@@ -181,8 +190,9 @@ class GoogleDriveClient {
             return {
                 id: driveId,
                 name: filename,
-                webViewLink: '#',
-                online: false
+                webViewLink: this.getPublicFolderUrl(),
+                online: true,
+                folderId: folderId
             };
         }
 

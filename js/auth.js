@@ -142,7 +142,7 @@ class AuthService {
                                     accion: 'LOGIN_GOOGLE_OAUTH',
                                     entidad: 'Usuario',
                                     entidad_id: userSession.email,
-                                    detalles: `Inicio de sesión exitoso con Google OAuth en carpeta institucional ${window.appStore?.state?.config?.drive_root_folder_id || '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51'}.`
+                                    detalles: `Inicio de sesión exitoso con Google OAuth en carpeta institucional ${window.appStore?.state?.config?.drive_root_folder_id || '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW'}.`
                                 });
                             }
 
@@ -159,6 +159,34 @@ class AuthService {
                 reject(e);
             }
         });
+    }
+
+    // --- Acceso Directo Oficial sin requerir autenticación externa de Google ---
+    loginDirectStaff(role = 'coordinador') {
+        const userName = role === 'coordinador' ? 'Coordinador CPE - Caldas' : 'Administrador General SED Caldas';
+        const userEmail = role === 'coordinador' ? 'coordinador@sedcaldas.gov.co' : 'admin@sedcaldas.gov.co';
+        const userSession = {
+            id: 'staff_' + Date.now(),
+            name: userName,
+            email: userEmail,
+            role: role,
+            authenticated_with: 'direct_access',
+            login_time: new Date().toISOString()
+        };
+        this.currentUser = userSession;
+        sessionStorage.setItem('ceducar_auth_session', JSON.stringify(userSession));
+        if (window.appStore) {
+            window.appStore.logAudit({
+                actor: userSession.name,
+                rol: userSession.role,
+                accion: 'LOGIN_DIRECTO',
+                entidad: 'Usuario',
+                entidad_id: userSession.email,
+                detalles: `Acceso al panel oficial ${role === 'coordinador' ? 'CPE' : 'Administrador'} sin requerir autenticación externa.`
+            });
+        }
+        this._notify();
+        return userSession;
     }
 
     // --- Autenticación Auxiliar sin claves en texto plano ---

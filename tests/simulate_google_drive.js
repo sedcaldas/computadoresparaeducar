@@ -158,10 +158,10 @@ class VirtualGoogleDriveServer {
 async function runSimulation() {
     console.log('========================================================================');
     console.log('SIMULACIÓN DE REGISTRO Y SINCRONIZACIÓN EN GOOGLE DRIVE API v3');
-    console.log('Carpeta Raíz Configurada: 1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51');
+    console.log('Carpeta Raíz Configurada: 1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW');
     console.log('========================================================================\n');
 
-    const ROOT_FOLDER_ID = '1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51';
+    const ROOT_FOLDER_ID = '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
     const driveServer = new VirtualGoogleDriveServer(ROOT_FOLDER_ID);
 
     // Mock global de fetch para interceptar las llamadas del cliente GoogleDriveClient
@@ -326,7 +326,7 @@ async function runSimulation() {
     console.log('  -> Usuario autenticado:', connTest.user?.displayName, `(${connTest.user?.emailAddress})`);
     console.log('  -> Carpeta raíz accesible:', connTest.rootAccessible, `[ID: ${driveClient.rootFolderId}]`);
     assert(connTest.connected === true, 'Conexión a Drive debe ser exitosa');
-    assert(driveClient.rootFolderId === ROOT_FOLDER_ID, 'ID raíz debe ser 1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51');
+    assert(driveClient.rootFolderId === ROOT_FOLDER_ID, 'ID raíz debe ser 1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW');
 
     // PASO 2: Simulación de pregeneración de carpeta jerárquica para una sede de Caldas
     console.log('\nPASO 2: Simulación de creación de jerarquía de carpetas en Google Drive');

@@ -4468,7 +4468,7 @@
   ],
   "config": {
     "google_client_id": "145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com",
-    "drive_root_folder_id": "1-LaWgOThiWFEXlxiI6gZq_sYwgvXs_51",
+    "drive_root_folder_id": "1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW",
     "root_folder_name": "Bolsa_Tecnologica_Caldas",
     "scope": "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive"
   },
@@ -6354,5 +6354,5 @@
       "updated_at": "2026-10-22T08:00:00Z"
     }
   ],
-  "data_version": 8
+  "data_version": 9
 }
