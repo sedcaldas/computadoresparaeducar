@@ -142,7 +142,7 @@ class AuthService {
                                     accion: 'LOGIN_GOOGLE_OAUTH',
                                     entidad: 'Usuario',
                                     entidad_id: userSession.email,
-                                    detalles: `Inicio de sesión exitoso con Google OAuth en carpeta institucional ${window.appStore?.state?.config?.drive_root_folder_id || '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW'}.`
+                                    detalles: `Inicio de sesión exitoso con Google OAuth.`
                                 });
                             }
 

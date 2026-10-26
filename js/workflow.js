@@ -302,6 +302,8 @@ class ApprovalWorkflowEngine {
 
             const uploadRes = await window.googleDriveClient.uploadFile({
                 folderId: target.folderId,
+                folderPath: target.pathSegments,
+                docId: doc.id,
                 filename: doc.nombre_archivo,
                 mimeType: blob.type || 'application/octet-stream',
                 blob: blob,

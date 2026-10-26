@@ -27,14 +27,18 @@ class ApplicationController {
         await window.appStore.init();
 
         window.authService.subscribe((user) => this.render());
-        window.appStore.subscribe(() => this.renderDashboard());
+        window.appStore.subscribe(() => {
+            this.renderDashboard();
+            this.updateHeaderSession(window.authService.getCurrentUser());
+        });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.closeAllModals();
         });
 
-        if (window.googleDriveClient && window.googleDriveClient.hasActiveToken()) {
-            await window.googleDriveClient.testConnection();
+        if (window.googleDriveClient) {
+            // Reenviar acciones pendientes y refrescar el indicador de estado
+            window.googleDriveClient.flushQueue().finally(() => this.updateHeaderSession(window.authService.getCurrentUser()));
         }
 
         this.render();
@@ -114,21 +118,46 @@ class ApplicationController {
         if (user) {
             const roleDisplay = user.role === 'coordinador' ? 'CPE' : (user.role.charAt(0).toUpperCase() + user.role.slice(1));
             const pillClass = user.role === 'coordinador' ? 'cpe' : user.role;
-            const driveFolderUrl = window.googleDriveClient?.getPublicFolderUrl() || 'https://drive.google.com/drive/folders/1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW?usp=sharing';
+            const driveBadge = this.getDriveStatusBadge(user);
             sessionArea.innerHTML = `
                 <div class="user-badge" style="display:inline-flex; align-items:center; gap:0.5rem;">
                     ${user.picture ? `<img src="${user.picture}" alt="" style="width:24px; height:24px; border-radius:50%; border:1px solid rgba(255,255,255,0.4);">` : ''}
                     <span style="font-weight:600;">${user.name}</span>
                     <span class="role-pill ${pillClass}">${roleDisplay}</span>
-                    <a href="${driveFolderUrl}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" title="Ver carpeta compartida en Google Drive">
-                        <span style="font-size:0.75rem; background:rgba(52, 168, 83, 0.25); border:1px solid #34a853; color:#a7f3d0; padding:2px 7px; border-radius:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px; cursor:pointer;">🟢 Drive Conectado</span>
-                    </a>
+                    ${driveBadge}
                 </div>
                 <button class="btn btn-outline btn-sm" style="color:white; border-color:rgba(255,255,255,0.4);" onclick="window.authService.logout()">Salir</button>
             `;
         } else {
             sessionArea.innerHTML = '';
         }
+    }
+
+    getDriveStatusBadge(user) {
+        const drive = window.googleDriveClient;
+        if (!drive) return '';
+        const pending = drive.getPendingCount();
+        const mode = drive.getMode();
+        const isStaff = user && (user.role === 'coordinador' || user.role === 'administrador');
+        let label, color, bg;
+        if (mode === 'local') {
+            label = pending ? `⏳ ${pending} pendientes de envío` : '⏳ Almacenamiento sin configurar';
+            color = '#FDE68A'; bg = 'rgba(245, 158, 11, 0.25)';
+        } else if (pending) {
+            label = `🔄 Sincronizando (${pending})`;
+            color = '#FDE68A'; bg = 'rgba(245, 158, 11, 0.25)';
+        } else {
+            label = '🟢 Guardado en Drive';
+            color = '#a7f3d0'; bg = 'rgba(52, 168, 83, 0.25)';
+        }
+        const clickable = isStaff && pending && mode !== 'local';
+        return `<span ${clickable ? 'onclick="appController.handleFlushDriveQueue()" title="Reintentar envío ahora"' : ''} style="font-size:0.75rem; background:${bg}; border:1px solid ${color}; color:${color}; padding:2px 7px; border-radius:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px; ${clickable ? 'cursor:pointer;' : ''}">${label}</span>`;
+    }
+
+    async handleFlushDriveQueue() {
+        const res = await window.googleDriveClient.flushQueue();
+        this.showToast(res.pending ? `Enviados ${res.sent}. Quedan ${res.pending} pendientes.` : `Sincronización completa (${res.sent} enviados).`, res.pending ? 'warning' : 'success');
+        this.updateHeaderSession(window.authService.getCurrentUser());
     }
 
     handleHeaderRoleSelect(role) {
@@ -265,13 +294,10 @@ class ApplicationController {
                     </form>
 
                     <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-top: 1.5rem; text-align: center;">
-                        <div style="font-size: 0.85rem; color: #065F46; line-height: 1.4; margin-bottom: 0.75rem;">
-                            <strong>📁 Google Drive Oficial Configurado:</strong><br>
-                            Carpeta compartida activa sin requerir autenticación externa.
+                        <div style="font-size: 0.85rem; color: #065F46; line-height: 1.4;">
+                            <strong>🔒 Almacenamiento institucional:</strong><br>
+                            Los documentos y acciones se guardan automáticamente en el repositorio oficial de la Secretaría.
                         </div>
-                        <a href="https://drive.google.com/drive/folders/1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="background: white; border-color: #059669; color: #065F46; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                            🔗 Consultar Carpeta en Google Drive
-                        </a>
                     </div>
 
                     <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
@@ -1424,24 +1450,33 @@ class ApplicationController {
         if (!modal) return;
         const config = window.appStore?.state?.config || {};
         document.getElementById('config-client-id').value = config.google_client_id || '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com';
-        document.getElementById('config-folder-id').value = config.drive_root_folder_id || '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
+        document.getElementById('config-relay-url').value = config.drive_relay_url || window.googleDriveClient?.getRelayUrl() || '';
+        document.getElementById('config-relay-key').value = config.drive_relay_key || '';
+        const statusEl = document.getElementById('config-drive-status');
+        if (statusEl && window.googleDriveClient) {
+            statusEl.textContent = 'Verificando conexión...';
+            window.googleDriveClient.testConnection().then(r => {
+                statusEl.textContent = `${r.connected ? '✅' : '⚠️'} ${r.message} Pendientes: ${window.googleDriveClient.getPendingCount()}.`;
+            });
+        }
         modal.style.display = 'flex';
     }
 
     async saveDriveConfig() {
-        const clientId = document.getElementById('config-client-id').value.trim();
-        const folderId = document.getElementById('config-folder-id').value.trim();
-
-        window.appStore.state.config.google_client_id = clientId;
-        window.appStore.state.config.drive_root_folder_id = folderId;
+        const config = window.appStore.state.config;
+        config.google_client_id = document.getElementById('config-client-id').value.trim();
+        config.drive_relay_url = document.getElementById('config-relay-url').value.trim();
+        config.drive_relay_key = document.getElementById('config-relay-key').value.trim();
         window.appStore.persist();
 
-        if (window.googleDriveClient) {
-            window.googleDriveClient.rootFolderId = folderId;
-        }
-
         this.closeAllModals();
-        this.showToast('Configuración de Google Drive guardada.');
+        const test = await window.googleDriveClient.testConnection();
+        if (test.connected) {
+            const res = await window.googleDriveClient.flushQueue();
+            this.showToast(`Configuración guardada. ${test.message}${res.sent ? ` Se enviaron ${res.sent} acciones pendientes.` : ''}`);
+        } else {
+            this.showToast(`Configuración guardada. ${test.message}`, 'warning');
+        }
         this.updateHeaderSession(window.authService.getCurrentUser());
     }
 

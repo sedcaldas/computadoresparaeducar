@@ -352,6 +352,8 @@ class DocumentGenerator {
 
                 driveUpload = await window.googleDriveClient.uploadFile({
                     folderId: targetFolder.folderId,
+                    folderPath: targetFolder.pathSegments,
+                    docId: docRecord.id,
                     filename: filename,
                     mimeType: blob.type,
                     blob: blob,
@@ -500,6 +502,8 @@ class DocumentGenerator {
 
                 driveUpload = await window.googleDriveClient.uploadFile({
                     folderId: targetFolder.folderId,
+                    folderPath: targetFolder.pathSegments,
+                    docId: docRecord.id,
                     filename: filename,
                     mimeType: blob.type,
                     blob: blob,
@@ -696,6 +700,8 @@ class DocumentGenerator {
 
                 driveUpload = await window.googleDriveClient.uploadFile({
                     folderId: targetFolder.folderId,
+                    folderPath: targetFolder.pathSegments,
+                    docId: docRecord.id,
                     filename: filename,
                     mimeType: blob.type,
                     blob: blob,

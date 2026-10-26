@@ -26,6 +26,8 @@ class AppStore {
             config: {
                 google_client_id: '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com',
                 drive_root_folder_id: '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW',
+                drive_relay_url: '',
+                drive_relay_key: '',
                 root_folder_name: 'Bolsa_Tecnologica_Caldas',
                 scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive',
                 drive_sync: true
@@ -225,6 +227,10 @@ class AppStore {
                 config: this.state.config
             }));
             this._notify();
+            // Toda modificación del estado se refleja en /Indices/indice_general.json de la carpeta compartida
+            if (typeof window !== 'undefined' && window.googleDriveClient) {
+                window.googleDriveClient.scheduleIndexSync(() => this.getIndexSnapshot());
+            }
         } catch (e) {
             console.error('Error persistiendo estado en LocalStorage:', e);
         }
@@ -248,7 +254,22 @@ class AppStore {
             this.state.historial_auditoria.pop();
         }
         this.persist();
+        // Cada acción queda registrada en la bitácora de /Historial/ en la carpeta compartida
+        if (typeof window !== 'undefined' && window.googleDriveClient) {
+            window.googleDriveClient.appendAuditLog(entry);
+        }
         return entry;
+    }
+
+    getIndexSnapshot() {
+        return {
+            sedes: this.state.sedes,
+            estudiantes: this.state.estudiantes,
+            asignaciones: this.state.asignaciones,
+            bolsa_elementos: this.state.bolsa_elementos,
+            documentos: this.state.documentos,
+            versiones: this.state.versiones
+        };
     }
 
     getAuditoria(limit = 100) {

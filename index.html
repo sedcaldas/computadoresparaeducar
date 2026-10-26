@@ -63,9 +63,6 @@
                     <button type="button" id="header-btn-admin" class="header-role-btn" onclick="appController.handleHeaderRoleSelect('administrador')">
                         ⚙️ Administrador
                     </button>
-                    <a href="https://drive.google.com/drive/folders/1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW?usp=sharing" target="_blank" rel="noopener noreferrer" class="header-role-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px;" title="Consultar carpeta compartida en Google Drive">
-                        📁 Google Drive
-                    </a>
                 </nav>
                 <div id="header-session-area" class="user-menu"></div>
             </div>
@@ -196,15 +193,16 @@
                     <span class="form-hint">Creado en Google Cloud Console para la URL de GitHub Pages.</span>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">ID de Carpeta Raíz Compartida en Drive</label>
-                    <input type="text" id="config-folder-id" class="form-control" value="1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW" required>
-                    <span class="form-hint">ID de la carpeta oficial compartida de Computadores para Educar.</span>
+                    <label class="form-label">URL del puente de almacenamiento (Apps Script)</label>
+                    <input type="url" id="config-relay-url" class="form-control" placeholder="https://script.google.com/macros/s/.../exec">
+                    <span class="form-hint">Permite guardar todos los archivos y acciones en la carpeta institucional sin que los usuarios inicien sesión con Google. Ver apps-script/README.md.</span>
                 </div>
-                <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-body); border-radius: var(--radius-sm); border: 1px solid var(--border);">
-                    <a href="https://drive.google.com/drive/folders/1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW?usp=sharing" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; color:var(--primary); font-weight:600; text-decoration:none; font-size:0.85rem;">
-                        🔗 Abrir Carpeta Oficial en Google Drive
-                    </a>
+                <div class="form-group">
+                    <label class="form-label">Clave del puente (opcional)</label>
+                    <input type="password" id="config-relay-key" class="form-control" autocomplete="off">
+                    <span class="form-hint">Debe coincidir con RELAY_KEY del script, si se definió.</span>
                 </div>
+                <div id="config-drive-status" class="form-hint" style="margin-top: 0.5rem;"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="appController.closeAllModals()">Cancelar</button>
@@ -281,13 +279,13 @@
     </div>
 
     <!-- Módulos de la Aplicación -->
-    <script src="./js/store.js?v=20261026v9"></script>
-    <script src="./js/drive.js?v=20261026v9"></script>
-    <script src="./js/auth.js?v=20261026v9"></script>
-    <script src="./js/generator.js?v=20261026v9"></script>
-    <script src="./js/workflow.js?v=20261026v9"></script>
-    <script src="./js/importer.js?v=20261026v9"></script>
-    <script src="./js/app.js?v=20261026v9"></script>
+    <script src="./js/store.js?v=20261026v10"></script>
+    <script src="./js/drive.js?v=20261026v10"></script>
+    <script src="./js/auth.js?v=20261026v10"></script>
+    <script src="./js/generator.js?v=20261026v10"></script>
+    <script src="./js/workflow.js?v=20261026v10"></script>
+    <script src="./js/importer.js?v=20261026v10"></script>
+    <script src="./js/app.js?v=20261026v10"></script>
 
 </body>
 </html>

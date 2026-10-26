@@ -165,7 +165,45 @@ async function runSimulation() {
     const driveServer = new VirtualGoogleDriveServer(ROOT_FOLDER_ID);
 
     // Mock global de fetch para interceptar las llamadas del cliente GoogleDriveClient
+    const RELAY_URL = 'https://script.google.com/macros/s/TEST_RELAY/exec';
+    const relayState = { down: false, auditRows: [] };
+    const relayFolderForPath = (segments) => {
+        let id = ROOT_FOLDER_ID;
+        for (const seg of segments) id = driveServer.createFolder(id, seg).id;
+        return id;
+    };
+
     global.fetch = async (url, options = {}) => {
+        // Puente de Apps Script (usuarios sin sesión de Google)
+        if (url === RELAY_URL) {
+            if (relayState.down) throw new TypeError('Failed to fetch');
+            const req = JSON.parse(options.body);
+            const reply = (obj) => ({ ok: true, status: 200, json: async () => Object.assign({ ok: true }, obj) });
+            if (req.action === 'ping') return reply({ rootAccessible: true });
+            if (req.action === 'upload') {
+                const folderId = relayFolderForPath(req.path);
+                const file = driveServer.uploadMultipart(folderId, { name: req.filename, description: req.description }, Buffer.from(req.base64, 'base64'), req.mimeType);
+                if (req.existingFileId && driveServer.files.get(req.existingFileId)) driveServer.files.get(req.existingFileId).trashed = true;
+                return reply({ id: file.id, name: file.name, folderId });
+            }
+            if (req.action === 'upsertJson') {
+                const folderId = relayFolderForPath(req.path);
+                const existing = [...driveServer.files.values()].find(f => f.parents.includes(folderId) && f.name === req.filename && !f.trashed);
+                const file = existing ? driveServer.patchMedia(existing.id, Buffer.from(req.content), 'application/json')
+                    : driveServer.uploadMultipart(folderId, { name: req.filename }, Buffer.from(req.content), 'application/json');
+                return reply({ id: file.id, name: file.name });
+            }
+            if (req.action === 'appendAudit') {
+                relayState.auditRows.push(...req.entries);
+                return reply({ appended: req.entries.length });
+            }
+            if (req.action === 'download') {
+                const file = driveServer.files.get(req.fileId);
+                return reply({ name: file.name, mimeType: file.mimeType, base64: Buffer.from(file.content).toString('base64') });
+            }
+            return { ok: true, status: 200, json: async () => ({ ok: false, error: 'acción desconocida' }) };
+        }
+
         const u = new URL(url);
         const headers = options.headers || {};
         const method = options.method || 'GET';
@@ -308,6 +346,9 @@ async function runSimulation() {
     store._memStore = new MemoryStore();
     store.saveBlob = async (k, b, f, m) => store._memStore.saveBlob(k, b, f, m);
     store.getBlob = async (k) => store._memStore.getBlob(k);
+    store.clearBlobs = async (prefix) => {
+        for (const k of [...store._memStore.blobs.keys()]) if (!prefix || k.includes(prefix)) store._memStore.blobs.delete(k);
+    };
 
     const driveClient = new GoogleDriveClient();
     window.googleDriveClient = driveClient;
@@ -419,7 +460,7 @@ async function runSimulation() {
     });
     console.log(`  ✓ /Indices/indice_general.json registrado con ID: ${syncIndex.id}`);
 
-    const syncAudit = await driveClient.appendAuditLog({
+    driveClient.appendAuditLog({
         id: 'EVT-' + Date.now(),
         fecha: new Date().toISOString(),
         actor: 'Coordinador CPE - Caldas',
@@ -427,7 +468,8 @@ async function runSimulation() {
         documento_id: doc026.id,
         resultado: 'Aprobado satisfactoriamente'
     });
-    console.log(`  ✓ /Historial/${syncAudit.name} registrado con ID: ${syncAudit.id}`);
+    await driveClient._flushAuditBuffer();
+    console.log('  ✓ Evento de auditoría enviado a /Historial/');
 
     // PASO 6: Inspección del Árbol Completo Registrado en Google Drive
     console.log('\n========================================================================');
@@ -459,6 +501,57 @@ async function runSimulation() {
 
     assert(doc026.estado === 'Aprobado', 'Documento debe terminar en estado Aprobado');
     console.log('  ✓ PASS: Estado documental actualizado a "Aprobado"');
+
+    // PASO 7: Usuarios sin sesión de Google -> puente Apps Script + cola de reintentos
+    console.log('\nPASO 7: Guardado sin sesión de Google (puente Apps Script y cola)');
+    driveClient.setToken(null, null);
+    store.state.config = Object.assign({}, store.state.config, { drive_relay_url: RELAY_URL });
+    assert(driveClient.getMode() === 'relay', 'Sin token y con puente configurado, el modo debe ser relay');
+
+    const conn = await driveClient.testConnection();
+    assert(conn.connected && !JSON.stringify(conn).includes(ROOT_FOLDER_ID), 'El diagnóstico no debe exponer el ID de la carpeta');
+    console.log('  ✓ PASS: Conexión vía puente sin exponer la carpeta');
+
+    // 7a. Puente caído: la acción queda en cola
+    relayState.down = true;
+    const target = await driveClient.getTargetFolderForDocument({
+        codigo_mpio: '17614', nombre_mpio: 'Riosucio', dane_ie: '217614000723', nombre_ie: 'IE Prueba',
+        dane_sede: '217614000723', nombre_sede: 'Sede Prueba', tipo_documento: 'LOG-007-F',
+        estado: 'En revisión del rector', documento_estudiante: '1000000001'
+    });
+    assert(target.folderId === null && target.pathSegments.length === 6, 'En modo puente la ruta se envía como segmentos');
+    const testDoc = store.state.documentos[0];
+    const queuedRes = await driveClient.uploadFile({
+        folderId: target.folderId, folderPath: target.pathSegments, filename: 'firmado_prueba.pdf',
+        mimeType: 'application/pdf', blob: new global.Blob(['%PDF-prueba']), docId: testDoc.id
+    });
+    testDoc.drive_id = queuedRes.id;
+    driveClient.appendAuditLog({ id: 'AUD-RELAY-1', timestamp: new Date().toISOString(), actor: 'Acudiente', rol: 'acudiente', accion: 'CARGA_FIRMADO' });
+    await driveClient._flushAuditBuffer();
+    assert(queuedRes.queued === true, 'Con el puente caído la subida debe quedar en cola');
+    assert(driveClient.getPendingCount() === 2, 'Debe haber 2 acciones pendientes (archivo + bitácora)');
+    console.log('  ✓ PASS: Sin conexión, archivo y bitácora quedan en cola (2 pendientes)');
+
+    // 7b. Puente disponible: la cola se envía y el documento recibe su ID real
+    relayState.down = false;
+    const flush = await driveClient.flushQueue();
+    assert(flush.sent === 2 && flush.pending === 0, 'La cola debe vaciarse al recuperar la conexión');
+    assert(!testDoc.drive_id.startsWith('DRIVE-'), 'El documento debe quedar con el ID real de Drive');
+    assert(driveServer.getTree().some(t => t.path.endsWith('1000000001/En_revision/firmado_prueba.pdf')), 'El archivo debe quedar en su carpeta jerárquica');
+    assert(relayState.auditRows.some(r => r.id === 'AUD-RELAY-1'), 'La bitácora debe llegar al puente');
+    console.log('  ✓ PASS: Cola reenviada; archivo en su carpeta y bitácora registrada');
+
+    // 7c. Índice general vía puente (crear y luego actualizar el mismo archivo)
+    await driveClient.syncGeneralIndex({ prueba: 1 });
+    await driveClient.syncGeneralIndex({ prueba: 2 });
+    const indices = driveServer.getTree().filter(t => t.path.endsWith('Indices/indice_general.json'));
+    assert(indices.length === 1, 'Debe existir un único indice_general.json');
+    console.log('  ✓ PASS: Índice general actualizado en un único archivo');
+
+    // 7d. Descarga vía puente
+    const dl = await driveClient.downloadFile(testDoc.drive_id);
+    assert((await dl.text()) === '%PDF-prueba', 'La descarga vía puente debe devolver el contenido');
+    console.log('  ✓ PASS: Descarga de archivo vía puente');
 
     console.log('\n>>> SIMULACIÓN Y VERIFICACIÓN EN GOOGLE DRIVE COMPLETADA CON ÉXITO (100% OK) <<<\n');
 }
