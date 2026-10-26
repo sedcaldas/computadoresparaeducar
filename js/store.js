@@ -174,7 +174,9 @@ class AppStore {
 
     async loadSeedData() {
         try {
-            const res = await fetch('./data/seed_data.json');
+            const isTest = typeof window !== 'undefined' && window.location && window.location.pathname.includes('/tests/');
+            const seedUrl = isTest ? '../data/seed_data.json' : './data/seed_data.json';
+            const res = await fetch(seedUrl);
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const seed = await res.json();
             this.state.data_version = 7; // Versión 7: Carpeta oficial de Drive actualizada y formatos aprobados para CPE
@@ -396,9 +398,11 @@ class AppStore {
             drive_id: docRecord.drive_id || null,
             filename: docRecord.nombre_archivo || `${docRecord.tipo_documento}_v${docRecord.version_actual}`
         };
+        this.state.versiones = this.state.versiones || [];
         this.state.versiones.push(versionEntry);
 
         // Registrar auditoría
+        this.state.historial_auditoria = this.state.historial_auditoria || [];
         this.logAudit({
             actor,
             rol,

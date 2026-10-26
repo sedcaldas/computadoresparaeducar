@@ -33,8 +33,14 @@ class DocumentGenerator {
             this.templateCache.set(path, ab);
             return ab.slice(0);
         }
+        let resolvedPath = path;
+        if (typeof window !== 'undefined' && window.location && window.location.pathname.includes('/tests/')) {
+            if (resolvedPath.startsWith('./templates/')) {
+                resolvedPath = '../templates/' + resolvedPath.substring(12);
+            }
+        }
         // Cache-busting para garantizar que siempre descargue la versión más reciente subida a GitHub
-        const cacheBustUrl = `${path}?_v=${Date.now()}`;
+        const cacheBustUrl = `${resolvedPath}?_v=${Date.now()}`;
         const resp = await fetch(cacheBustUrl, { cache: 'no-cache' });
         if (!resp.ok) {
             throw new Error(`No se pudo cargar la plantilla ${path} (HTTP ${resp.status})`);
