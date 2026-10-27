@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Visual Ejecutiva | Sistema de Gestión Documental Caldas & CPE</title>
+    <meta name="description" content="Presentación visual, técnica y ejecutiva del Sistema de Gestión Documental de Dotación Tecnológica para la Secretaría de Educación de Caldas y Computadores para Educar.">
+
+    <!-- Tipografía Institucional Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #006B3F;
+            --primary-dark: #004D2C;
+            --primary-light: #E8F5E9;
+            --accent: #F5B700;
+            --accent-dark: #D49B00;
+            --accent-light: #FFF8E1;
+            --navy: #0A2540;
+            --navy-dark: #06182B;
+            --navy-light: #1E3A5F;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --bg-page: #0B1320;
+            --bg-card: rgba(255, 255, 255, 0.96);
+            --bg-glass: rgba(255, 255, 255, 0.08);
+            --border-glass: rgba(255, 255, 255, 0.15);
+            --border: #E2E8F0;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --font-sans: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at 10% 20%, #06182B 0%, #0A2540 45%, #02111F 100%);
+            color: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- BARRA DE CONTROL SUPERIOR --- */
+        .top-navbar {
+            background: rgba(10, 37, 64, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .caldas-badge {
+            background: white;
+            color: var(--primary);
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .flag-strip {
+            width: 5px;
+            height: 20px;
+            background: linear-gradient(to bottom, var(--primary) 50%, var(--accent) 50%);
+            border-radius: 2px;
+        }
+
+        .brand-text h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: -0.2px;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: #94A3B8;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 107, 63, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 107, 63, 0.6);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #EAB308 100%);
+            color: #78350F;
+            font-weight: 700;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.08);
+            color: #E2E8F0;
+            border: 1px solid var(--border-glass);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.16);
+            color: white;
+        }
+
+        /* --- CONTENEDOR DE PRESENTACIÓN --- */
+        .presentation-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 3rem 2rem;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN DE DIAPOSITIVAS --- */
+        .slide-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 0.75rem 1.25rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .slide-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .slide-counter {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .slide-select-dropdown {
+            background: #0F172A;
+            color: white;
+            border: 1px solid var(--border-glass);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* --- LIENZO DE LA DIAPOSITIVA (SLIDE CARD) --- */
+        .slide-canvas {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            padding: 2.5rem;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(16px);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .slide-category {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+
+        .slide-title {
+            font-family: var(--font-heading);
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .slide-subtitle {
+            font-size: 1rem;
+            color: #94A3B8;
+            margin-top: 0.25rem;
+        }
+
+        .slide-body {
+            flex: 1;
+        }
+
+        /* --- COMPONENTES VISUALES Y RECURSOS --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-box:hover {
+            border-color: rgba(245, 183, 0, 0.4);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #CBD5E1;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- MOCKUP INTERACTIVO DE LA APLICACIÓN --- */
+        .app-window-mockup {
+            background: #FFFFFF;
+            color: var(--text-main);
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #CBD5E1;
+        }
+
+        .mockup-header-bar {
+            background: #0A2540;
+            color: white;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #EF4444; }
+        .dot-yellow { background: #F59E0B; }
+        .dot-green { background: #10B981; }
+
+        .mockup-body {
+            padding: 1.25rem;
+            background: #F8FAFC;
+        }
+
+        /* --- BOTONES DE PESTAÑAS INTERACTIVAS DE ROL --- */
+        .role-switcher-tab {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.75rem;
+        }
+
+        .role-tab-btn {
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .role-tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 107, 63, 0.4);
+        }
+
+        /* --- FOOTER DE PRESENTACIÓN --- */
+        .presentation-footer {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748B;
+            font-size: 0.8rem;
+        }
+
+        .tag-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .tag-green { background: #064E3B; color: #6EE7B7; border: 1px solid #059669; }
+        .tag-gold { background: #78350F; color: #FDE68A; border: 1px solid #D97706; }
+        .tag-blue { background: #1E3A8A; color: #93C5FD; border: 1px solid #2563EB; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .slide-canvas { padding: 1.5rem; }
+            .slide-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE CONTROL SUPERIOR -->
+    <header class="top-navbar">
+        <div class="brand-container">
+            <div class="caldas-badge">
+                <div class="flag-strip"></div>
+                <span>CALDAS</span>
+            </div>
+            <div class="brand-text">
+                <h1>Secretaría de Educación de Caldas &middot; Computadores para Educar</h1>
+                <p>Presentación Ejecutiva y Visual del Sistema de Gestión Documental</p>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <a href="./index.html" target="_blank" class="btn btn-accent" title="Abrir la aplicación funcional en otra pestaña">
+                🚀 Abrir Aplicación Web
+            </a>
+            <a href="./MANUAL_USUARIO.md" target="_blank" class="btn btn-outline" title="Ver el Manual de Usuario">
+                📖 Manual de Usuario
+            </a>
+            <a href="./DOCUMENTACION_TECNICA.md" target="_blank" class="btn btn-outline" title="Ver la Documentación Técnica">
+                🛠️ Doc Técnica
+            </a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="presentation-wrapper">
+
+        <!-- BARRA DE NAVEGACIÓN DE DIAPOSITIVAS -->
+        <div class="slide-toolbar">
+            <div class="slide-selector">
+                <span class="slide-counter" id="slide-indicator">Diapositiva 1 de 8</span>
+                <select id="slide-select" class="slide-select-dropdown" onchange="goToSlide(parseInt(this.value))">
+                    <option value="1">1. Portada Institucional y Propósito</option>
+                    <option value="2">2. El Desafío y la Solución Tecnológica</option>
+                    <option value="3">3. Arquitectura 100% Client-Side Serverless</option>
+                    <option value="4">4. Los Tres Formatos Oficiales (LOG-026, LOG-029, LOG-007)</option>
+                    <option value="5">5. Tour Visual Interactivo por Roles</option>
+                    <option value="6">6. Máquina de Estados y Regla de No Duplicidad</option>
+                    <option value="7">7. Cobertura Departamental y Cifras Clave</option>
+                    <option value="8">8. Seguridad, Auditoría y Google Drive</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-outline" onclick="prevSlide()" id="btn-prev" title="Diapositiva anterior (Flecha Izquierda)">
+                    ◀ Anterior
+                </button>
+                <button class="btn btn-primary" onclick="nextSlide()" id="btn-next" title="Siguiente diapositiva (Flecha Derecha o Espacio)">
+                    Siguiente ▶
+                </button>
+            </div>
+        </div>
+
+        <!-- LIENZO DINÁMICO DE LA DIAPOSITIVA -->
+        <section class="slide-canvas" id="slide-container">
+            <!-- El contenido se inyecta dinámicamente con JavaScript -->
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="presentation-footer">
+            <span>Gobernación de Caldas &middot; Secretaría de Educación Departamental &middot; Programa Computadores para Educar</span>
+            <span>Usa las teclas <strong>←</strong> y <strong>→</strong> o los botones para navegar</span>
+        </footer>
+
+    </main>
+
+    <!-- SCRIPT DE CONTROL DE LA PRESENTACIÓN -->
+    <script>
+        const slidesData = [
+            // =====================================================================
+            // SLIDE 1: PORTADA INSTITUCIONAL
+            // =====================================================================
+            {
+                category: "Presentación Ejecutiva &middot; Octubre 2026",
+                title: "Sistema de Gestión Documental de Dotación Tecnológica",
+                subtitle: "Gobernación de Caldas &middot; Secretaría de Educación Departamental &middot; Computadores para Educar",
+                render: () => `
+                    <div class="grid-2" style="height: 100%; align-items: stretch;">
+                        <div style="display: flex; flex-direction: column; justify-content: center;">
+                            <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+                                <span class="tag-badge tag-green">22 Municipios</span>
+                                <span class="tag-badge tag-gold">Bolsa Tecnológica</span>
+                                <span class="tag-badge tag-blue">Entrega a Estudiantes</span>
+                            </div>
+                            <h2 style="font-family: var(--font-heading); font-size: 2.4rem; font-weight: 800; line-height: 1.15; color: white; margin-bottom: 1rem;">
+                                Digitalización, Custodia y Legalización Transparente de Equipamiento
+                            </h2>
+                            <p style="color: #94A3B8; font-size: 1.05rem; margin-bottom: 1.5rem;">
+                                Solución web de alta disponibilidad para la pregeneración, firma, revisión multinivel y archivo institucional de los expedientes oficiales <strong>LOG-026-F</strong>, <strong>LOG-029-F</strong> y <strong>LOG-007-F</strong>.
+                            </p>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-lg" onclick="goToSlide(5)">
+                                    🎮 Explorar Simulador de Roles
+                                </button>
+                                <a href="./index.html" target="_blank" class="btn btn-accent btn-lg">
+                                    🚀 Entrar al Sistema Real
+                                </a>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem;">
+                            <div class="glass-box" style="border-left: 4px solid var(--primary);">
+                                <h4 style="color: white; font-size: 1.1rem; margin-bottom: 0.35rem;">⚡ 100% Client-Side Serverless</h4>
+                                <p style="color: #94A3B8; font-size: 0.85rem;">Opera en cualquier navegador sin necesidad de servidores backend o bases de datos costosas. Publicable en GitHub Pages.</p>
+                            </div>
+                            <div class="glass-box" style="border-left: 4px solid var(--accent);">
+                                <h4 style="color: white; font-size: 1.1rem; margin-bottom: 0.35rem;">🛡️ Regla de Oro: Sin Documentos Duplicados</h4>
+                                <p style="color: #94A3B8; font-size: 0.85rem;">Los archivos cargados por acudientes y rectores actualizan el documento original incrementando la versión y conservando el historial.</p>
+                            </div>
+                            <div class="glass-box" style="border-left: 4px solid #3B82F6;">
+                                <h4 style="color: white; font-size: 1.1rem; margin-bottom: 0.35rem;">☁️ Puente Automático a Google Drive</h4>
+                                <p style="color: #94A3B8; font-size: 0.85rem;">Sincronización en la carpeta compartida institucional sin exponer enlaces públicos y con cola de almacenamiento offline.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // =====================================================================
+            // SLIDE 2: EL DESAFÍO Y LA SOLUCIÓN
+            // =====================================================================
+            {
+                category: "Diagnóstico & Transformación Digital",
+                title: "Del Trámite Físico a la Gestión Digital Certificada",
+                subtitle: "Superando los obstáculos de distancia geográfica, conectividad y dispersión de seriales",
+                render: () => `
+                    <div class="grid-2" style="height: 100%;">
+                        <div class="glass-box" style="background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.25);">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                                <span style="font-size: 1.5rem;">⚠️</span>
+                                <h3 style="color: #FCA5A5; font-size: 1.3rem;">Antes: Retos del Proceso Manual</h3>
+                            </div>
+                            <ul style="color: #CBD5E1; font-size: 0.95rem; list-style: none; display: flex; flex-direction: column; gap: 0.9rem;">
+                                <li>❌ <strong>Dispersión de formatos:</strong> Archivos Word y Excel diligenciados a mano con errores tipográficos en seriales y radicados.</li>
+                                <li>❌ <strong>Distancia y conectividad:</strong> Dificultad para que acudientes de zonas rurales legalicen la recepción de tabletas.</li>
+                                <li>❌ <strong>Expedientes huérfanos:</strong> Múltiples versiones no controladas de actas sin trazabilidad de quién aprobó o devolvió.</li>
+                                <li>❌ <strong>Riesgo en auditorías:</strong> Consolidación manual dispendiosa al momento de rendir cuentas a MinTIC y Contraloría.</li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-box" style="background: rgba(16, 185, 129, 0.06); border-color: rgba(16, 185, 129, 0.25);">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                                <span style="font-size: 1.5rem;">✅</span>
+                                <h3 style="color: #6EE7B7; font-size: 1.3rem;">Ahora: Con el Sistema Institucional</h3>
+                            </div>
+                            <ul style="color: #CBD5E1; font-size: 0.95rem; list-style: none; display: flex; flex-direction: column; gap: 0.9rem;">
+                                <li>✔️ <strong>Pregeneración exacta:</strong> Todos los formatos se producen listos para firmar con los datos y seriales verificados.</li>
+                                <li>✔️ <strong>Actuación en representación:</strong> El rector puede cargar en nombre de acudientes sin internet con motivo legal registrado.</li>
+                                <li>✔️ <strong>Versión única por expediente:</strong> Las correcciones actualizan el mismo documento (v01, v02, v03) con bitácora inmutable.</li>
+                                <li>✔️ <strong>Descarga masiva con un clic:</strong> Paquetes ZIP estructurados con su <code>MANIFIESTO_DOCUMENTAL.csv</code> oficial.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+
+            // =====================================================================
+            // SLIDE 3: ARQUITECTURA TÉCNICA
+            // =====================================================================
+            {
+                category: "Arquitectura de Software",
+                title: "Arquitectura Serverless 100% Client-Side",
+                subtitle: "Alta resiliencia, cero costo de servidores y máxima seguridad de datos",
+                render: () => `
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="grid-3">
+                            <div class="glass-box" style="border-top: 4px solid var(--primary);">
+                                <h4 style="color: white; margin-bottom: 0.5rem;">1. Capa de Presentación (SPA)</h4>
+                                <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.75rem;">HTML5 semántico, CSS institucional modular y JavaScript ES2022 desacoplado.</p>
+                                <span class="tag-badge tag-green">index.html &middot; app.js</span>
+                            </div>
+
+                            <div class="glass-box" style="border-top: 4px solid var(--accent);">
+                                <h4 style="color: white; margin-bottom: 0.5rem;">2. Motores en Navegador</h4>
+                                <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.75rem;">Manipulación binaria OpenXML (JSZip, ExcelJS, SheetJS) sin librerías de servidor.</p>
+                                <span class="tag-badge tag-gold">generator.js &middot; workflow.js</span>
+                            </div>
+
+                            <div class="glass-box" style="border-top: 4px solid #3B82F6;">
+                                <h4 style="color: white; margin-bottom: 0.5rem;">3. Persistencia Dual</h4>
+                                <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.75rem;">IndexedDB local para binarios y puente seguro en Google Apps Script para Drive.</p>
+                                <span class="tag-badge tag-blue">store.js &middot; drive.js &middot; Code.gs</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-box" style="background: rgba(10, 37, 64, 0.7);">
+                            <h4 style="color: var(--accent); margin-bottom: 0.75rem; font-family: var(--font-heading);">Flujo de Datos y Resiliencia Offline:</h4>
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: #E2E8F0;">
+                                <div style="background: rgba(255,255,255,0.06); padding: 0.75rem 1rem; border-radius: 8px;">
+                                    <strong>1. Acción del Usuario</strong><br><small style="color: #94A3B8;">Firma, subida o aprobación</small>
+                                </div>
+                                <span style="color: var(--accent); font-weight: bold;">➔</span>
+                                <div style="background: rgba(255,255,255,0.06); padding: 0.75rem 1rem; border-radius: 8px;">
+                                    <strong>2. IndexedDB & Estado</strong><br><small style="color: #94A3B8;">Guarda blob binario y versión</small>
+                                </div>
+                                <span style="color: var(--accent); font-weight: bold;">➔</span>
+                                <div style="background: rgba(255,255,255,0.06); padding: 0.75rem 1rem; border-radius: 8px;">
+                                    <strong>3. Puente Apps Script</strong><br><small style="color: #94A3B8;">POST JSON Base64 cifrado</small>
+                                </div>
+                                <span style="color: var(--accent); font-weight: bold;">➔</span>
+                                <div style="background: rgba(255,255,255,0.06); padding: 0.75rem 1rem; border-radius: 8px;">
+                                    <strong>4. Google Drive Oficial</strong><br><small style="color: #94A3B8;">Carpeta {Mpio}/{IE}/{Sede}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // =====================================================================
+            // SLIDE 4: LOS 3 FORMATOS OFICIALES
+            // =====================================================================
+            {
+                category: "Estandarización Documental",
+                title: "Los Tres Formatos Oficiales Institucionales",
+                subtitle: "Generación binaria automatizada cumpliendo especificaciones de calidad y catálogos de CPE",
+                render: () => `
+                    <div class="grid-3" style="height: 100%;">
+                        <div class="glass-box" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="tag-badge tag-green" style="margin-bottom: 0.75rem;">Word (.docx)</span>
+                                <h3 style="color: white; font-size: 1.25rem; margin-bottom: 0.5rem;">LOG-026-F</h3>
+                                <p style="color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">Acta de Verificación y Legalización de Bolsa</p>
+                                <ul style="color: #94A3B8; font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <li>• Inyección en encabezado del <strong>Radicado Sede</strong> con preservación de <code>NUMPAGES</code>.</li>
+                                    <li>• Cuadrícula de tabla de 6 columnas ajustada exactamente a <strong>19 cm (10.772 dxa)</strong>.</li>
+                                    <li>• Tipografía oficial Arial Narrow y señor(a) Profesional de Logística de CPE.</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">
+                                <small style="color: #64748B;">Aplica a Sedes con Bolsa</small>
+                            </div>
+                        </div>
+
+                        <div class="glass-box" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="tag-badge tag-gold" style="margin-bottom: 0.75rem;">Excel (.xlsx)</span>
+                                <h3 style="color: white; font-size: 1.25rem; margin-bottom: 0.5rem;">LOG-029-F</h3>
+                                <p style="color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">Informe Validación Técnica de Bolsa</p>
+                                <ul style="color: #94A3B8; font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <li>• Conservación estricta de hojas protegidas: <code>Catalogo de Elementos</code> y <code>Lista Elementos</code>.</li>
+                                    <li>• Mapeo estricto al catálogo oficial de CPE (portátiles, 3D, kits STEM, Micro:bit, Arduino, Jetson).</li>
+                                    <li>• Llenado automatizado de la hoja <code>Formulario</code> sin romper validaciones.</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">
+                                <small style="color: #64748B;">Aplica a Sedes con Bolsa</small>
+                            </div>
+                        </div>
+
+                        <div class="glass-box" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="tag-badge tag-blue" style="margin-bottom: 0.75rem;">Word (.docx)</span>
+                                <h3 style="color: white; font-size: 1.25rem; margin-bottom: 0.5rem;">LOG-007-F</h3>
+                                <p style="color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">Legalización y Entrega a Estudiantes</p>
+                                <ul style="color: #94A3B8; font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <li>• Prellenado con matrícula SIMAT: estudiante, documento, grado y acudiente.</li>
+                                    <li>• Inyección del <strong>Serial Oficial de la Terminal</strong> asignada.</li>
+                                    <li>• Descarga directa en Word y carga de comprobante firmado.</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">
+                                <small style="color: #64748B;">Aplica a Estudiantes Focalizados</small>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // =====================================================================
+            // SLIDE 5: TOUR INTERACTIVO POR ROLES
+            // =====================================================================
+            {
+                category: "Simulador de Experiencia de Usuario",
+                title: "Experiencia Adaptativa según el Rol Institucional",
+                subtitle: "Haga clic en las pestañas para simular cómo visualiza e interactúa cada usuario con el sistema",
+                render: () => `
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="role-switcher-tab">
+                            <button class="role-tab-btn active" onclick="switchRoleDemo('rector', this)">🏫 1. Rector(a)</button>
+                            <button class="role-tab-btn" onclick="switchRoleDemo('acudiente', this)">👨‍👩‍👦 2. Acudiente</button>
+                            <button class="role-tab-btn" onclick="switchRoleDemo('coordinador', this)">🏛️ 3. Coordinador CPE</button>
+                            <button class="role-tab-btn" onclick="switchRoleDemo('administrador', this)">⚙️ 4. Administrador</button>
+                        </div>
+
+                        <div id="role-demo-container">
+                            <!-- Se renderiza por switchRoleDemo() -->
+                        </div>
+                    </div>
+                `,
+                onMount: () => switchRoleDemo('rector')
+            },
+
+            // =====================================================================
+            // SLIDE 6: MÁQUINA DE ESTADOS Y NO DUPLICIDAD
+            // =====================================================================
+            {
+                category: "Flujo Documental y Auditoría",
+                title: "Ciclo de Vida Documental y Regla de No Duplicidad",
+                subtitle: "Garantía de integridad: los documentos cargados actualizan el expediente original",
+                render: () => `
+                    <div class="grid-2" style="height: 100%;">
+                        <div class="glass-box" style="display: flex; flex-direction: column; justify-content: space-around;">
+                            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: var(--font-heading);">Fases del Ciclo de Vida:</h4>
+                            
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="background: var(--navy-light); border: 1px solid var(--accent); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent);">1</div>
+                                <div><strong style="color: white;">Generado (v01):</strong><br><small style="color: #94A3B8;">Pregeneración automática con datos institucionales.</small></div>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="background: var(--navy-light); border: 1px solid #3B82F6; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #60A5FA;">2</div>
+                                <div><strong style="color: white;">En revisión del rector:</strong><br><small style="color: #94A3B8;">El acudiente carga el formato firmado en papel o digital.</small></div>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="background: var(--navy-light); border: 1px solid var(--warning); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--warning);">3</div>
+                                <div><strong style="color: white;">En revisión del coordinador CPE:</strong><br><small style="color: #94A3B8;">El rector aprueba o carga en representación del acudiente.</small></div>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="background: var(--navy-light); border: 1px solid var(--success); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--success);">4</div>
+                                <div><strong style="color: white;">Aprobado formalmente:</strong><br><small style="color: #94A3B8;">Validación definitiva de CPE y sincronización oficial en Drive.</small></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-box" style="border-left: 4px solid var(--primary); display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color: white; font-size: 1.2rem; margin-bottom: 0.75rem;">🛡️ Principio de Conservación de Identificador</h4>
+                            <p style="color: #CBD5E1; font-size: 0.9rem; margin-bottom: 1rem;">
+                                En los sistemas tradicionales, cada vez que un usuario sube un archivo corregido se genera un nuevo registro duplicado.
+                            </p>
+                            <p style="color: #CBD5E1; font-size: 0.9rem; margin-bottom: 1rem;">
+                                En nuestra solución, el documento mantiene de forma permanente su identificador único (ej: <code>DOC-007-1059812839</code>). Cada subida:
+                            </p>
+                            <ul style="color: #94A3B8; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <li>✔️ Incrementa automáticamente la versión (<code>v01 ➔ v02 ➔ v03</code>).</li>
+                                <li>✔️ Almacena el nuevo archivo como la versión activa.</li>
+                                <li>✔️ Mantiene el histórico inmutable con actor, fecha y observaciones.</li>
+                                <li>✔️ Permite consultar el historial completo en cualquier momento.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+
+            // =====================================================================
+            // SLIDE 7: COBERTURA Y CIFRAS CLAVE
+            // =====================================================================
+            {
+                category: "Impacto Territorial en Caldas",
+                title: "Cobertura Departamental y Cifras Clave",
+                subtitle: "Control preciso de cada terminal y elemento entregado en las subregiones de Caldas",
+                render: () => `
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="grid-4">
+                            <div class="stat-card">
+                                <div class="stat-number">22</div>
+                                <div class="stat-label">Municipios Atendidos</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">38</div>
+                                <div class="stat-label">Sedes con Bolsa Tecnológica</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">90</div>
+                                <div class="stat-label">Estudiantes Beneficiarios</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Trazabilidad de Seriales</div>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="glass-box">
+                                <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: var(--font-heading);">Equipamiento de Bolsa Tecnológica:</h4>
+                                <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.75rem;">
+                                    Laboratorios de innovación educativa entregados en las sedes:
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.75rem;">
+                                    <span class="tag-badge tag-green">Portátiles de Diseño</span>
+                                    <span class="tag-badge tag-green">Torres Desktop</span>
+                                    <span class="tag-badge tag-green">Impresoras 3D</span>
+                                    <span class="tag-badge tag-green">Pantallas Interactivas</span>
+                                    <span class="tag-badge tag-green">Kits Micro:bit</span>
+                                    <span class="tag-badge tag-green">Kits Arduino y Raspberry</span>
+                                    <span class="tag-badge tag-green">Jetson Nano IA</span>
+                                    <span class="tag-badge tag-green">Sensores Agrointeligentes</span>
+                                </div>
+                            </div>
+
+                            <div class="glass-box">
+                                <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: var(--font-heading);">Salidas y Reportes Automatizados:</h4>
+                                <ul style="color: #CBD5E1; font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <li>📊 <strong>Acta Consolidada LOG-007 en Excel:</strong> Generación instantánea por institución o para todo el departamento.</li>
+                                    <li>📦 <strong>Paquetes Masivos ZIP:</strong> Descarga con manifiesto CSV para archivo de gestión y auditoría.</li>
+                                    <li>💾 <strong>Respaldo JSON Completo:</strong> Copia de seguridad exportable con un solo clic.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // =====================================================================
+            // SLIDE 8: SEGURIDAD Y GOOGLE DRIVE
+            // =====================================================================
+            {
+                category: "Seguridad y Custodia Institucional",
+                title: "Seguridad Zero-Trust y Almacenamiento en Google Drive",
+                subtitle: "Privacidad garantizada sin exponer enlaces sensibles ni credenciales en código",
+                render: () => `
+                    <div class="grid-2" style="height: 100%;">
+                        <div class="glass-box" style="display: flex; flex-direction: column; justify-content: space-around;">
+                            <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                                <span style="font-size: 1.5rem;">🔒</span>
+                                <div>
+                                    <h4 style="color: white; font-size: 1.05rem;">Seguridad Criptográfica SHA-256</h4>
+                                    <p style="color: #94A3B8; font-size: 0.85rem;">Las credenciales institucionales de CPE y Administrador se validan mediante la API nativa <code>SubtleCrypto</code>. No existen claves en texto plano en el repositorio.</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                                <span style="font-size: 1.5rem;">📁</span>
+                                <div>
+                                    <h4 style="color: white; font-size: 1.05rem;">Puente Seguro Apps Script (Relay)</h4>
+                                    <p style="color: #94A3B8; font-size: 0.85rem;">Los rectores y acudientes guardan archivos directamente en la carpeta compartida oficial sin necesidad de tener cuenta Google institucional y sin ver el enlace del Drive.</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                                <span style="font-size: 1.5rem;">📶</span>
+                                <div>
+                                    <h4 style="color: white; font-size: 1.05rem;">Cola Offline Resiliente</h4>
+                                    <p style="color: #94A3B8; font-size: 0.85rem;">Si la conexión se interrumpe, las acciones quedan en cola local segura y se envían de forma desatendida al restablecerse la red.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-box" style="background: rgba(10, 37, 64, 0.9); font-family: var(--font-mono); font-size: 0.8rem; color: #93C5FD; display: flex; flex-direction: column; justify-content: center;">
+                            <span style="color: var(--accent); margin-bottom: 0.5rem;"># Estructura Normalizada en Google Drive:</span>
+                            <pre style="line-height: 1.4; white-space: pre-wrap;">
+📁 Bolsa_Tecnologica_Caldas/
+   ├── 📁 {Municipio}/
+   │   └── 📁 {Institucion_Educativa}/
+   │       └── 📁 {Nombre_Sede}/
+   │           ├── 📁 LOG-026-F/
+   │           ├── 📁 LOG-029-F/
+   │           └── 📁 LOG-007-F/
+   │               └── 📁 {Doc_Estudiante}/
+   ├── 📁 Historial/
+   │   └── 📊 Bitacora_Auditoria (Sheets)
+   └── 📁 Indices/
+       └── 📄 indice_general.json
+                            </pre>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        let currentSlideIndex = 0;
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slidesData.length) return;
+            currentSlideIndex = index;
+
+            const slide = slidesData[index];
+            const container = document.getElementById('slide-container');
+            const indicator = document.getElementById('slide-indicator');
+            const selectDropdown = document.getElementById('slide-select');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            indicator.textContent = `Diapositiva ${index + 1} de ${slidesData.length}`;
+            selectDropdown.value = (index + 1).toString();
+
+            btnPrev.disabled = (index === 0);
+            btnNext.disabled = (index === slidesData.length - 1);
+
+            container.innerHTML = `
+                <div class="slide-header">
+                    <div>
+                        <div class="slide-category">${slide.category}</div>
+                        <h2 class="slide-title">${slide.title}</h2>
+                        <div class="slide-subtitle">${slide.subtitle}</div>
+                    </div>
+                </div>
+                <div class="slide-body">
+                    ${slide.render()}
+                </div>
+            `;
+
+            if (slide.onMount) {
+                slide.onMount();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slidesData.length - 1) {
+                renderSlide(currentSlideIndex + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                renderSlide(currentSlideIndex - 1);
+            }
+        }
+
+        function goToSlide(slideNum) {
+            renderSlide(slideNum - 1);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && e.target === document.body)) {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // SIMULADOR DE ROLES
+        function switchRoleDemo(role, clickedBtn) {
+            if (clickedBtn) {
+                document.querySelectorAll('.role-tab-btn').forEach(b => b.classList.remove('active'));
+                clickedBtn.classList.add('active');
+            }
+
+            const target = document.getElementById('role-demo-container');
+            if (!target) return;
+
+            if (role === 'rector') {
+                target.innerHTML = `
+                    <div class="app-window-mockup">
+                        <div class="mockup-header-bar">
+                            <div class="mockup-dots"><span class="mockup-dot dot-red"></span><span class="mockup-dot dot-yellow"></span><span class="mockup-dot dot-green"></span></div>
+                            <span>Portal Institucional de Rectoría &middot; Caldas</span>
+                            <span class="tag-badge tag-gold">Rol: Rector(a)</span>
+                        </div>
+                        <div class="mockup-body">
+                            <div style="background: white; border-radius: 8px; padding: 1rem; border: 1px solid var(--border); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Institución Educativa:</span>
+                                    <h4 style="color: var(--navy); margin: 0;">I.E. ESCUELA NORMAL SUPERIOR CLAUDINA MUNERA</h4>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <span style="background: #EFF6FF; color: #1E40AF; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Municipio: AGUADAS</span>
+                                    <button class="btn btn-primary" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">📊 Descargar Acta Consolidada LOG-007</button>
+                                </div>
+                            </div>
+
+                            <div style="background: white; border-radius: 8px; border: 1px solid var(--border); overflow: hidden;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left;">
+                                    <thead style="background: #F1F5F9; border-bottom: 1px solid var(--border);">
+                                        <tr>
+                                            <th style="padding: 0.6rem;">Estudiante Beneficiario</th>
+                                            <th style="padding: 0.6rem;">Acudiente</th>
+                                            <th style="padding: 0.6rem;">Estado</th>
+                                            <th style="padding: 0.6rem;">Acciones de Rectoría</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid #F1F5F9;">
+                                            <td style="padding: 0.6rem;"><strong>CARLOS MARIO PÉREZ</strong><br><small style="color: var(--text-muted);">🔑 Serial: CPETAB-849102</small></td>
+                                            <td style="padding: 0.6rem;">María Elena Pérez<br><small style="color: var(--text-muted);">Doc: 30.294.102</small></td>
+                                            <td style="padding: 0.6rem;"><span style="background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 10px; font-weight: 600; font-size: 0.75rem;">En revisión del rector</span></td>
+                                            <td style="padding: 0.6rem;">
+                                                <button class="btn btn-primary" style="padding: 2px 6px; font-size: 0.7rem;">Aprobar</button>
+                                                <button class="btn btn-outline" style="padding: 2px 6px; font-size: 0.7rem; color: #DC2626; border-color: #FCA5A5;">Devolver</button>
+                                                <button class="btn btn-accent" style="padding: 2px 6px; font-size: 0.7rem;">Cargar por Acudiente</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (role === 'acudiente') {
+                target.innerHTML = `
+                    <div class="app-window-mockup">
+                        <div class="mockup-header-bar">
+                            <div class="mockup-dots"><span class="mockup-dot dot-red"></span><span class="mockup-dot dot-yellow"></span><span class="mockup-dot dot-green"></span></div>
+                            <span>Portal Familiar de Acudientes &middot; Simplicidad Extrema</span>
+                            <span class="tag-badge tag-green">Rol: Acudiente</span>
+                        </div>
+                        <div class="mockup-body" style="max-width: 600px; margin: 0 auto;">
+                            <div style="text-align: center; margin-bottom: 1.25rem;">
+                                <h3 style="color: var(--navy); font-size: 1.2rem;">Legalización de Equipo para Estudiante</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Estudiante: <strong>CARLOS MARIO PÉREZ</strong> | Serial Oficial: <strong style="color: var(--primary);">CPETAB-849102</strong></p>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                    <div><strong>Paso 1: Descargar Formato Prellenado</strong><br><small style="color: var(--text-muted);">Archivo Word con todos los datos listos</small></div>
+                                    <button class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">📥 Descargar (.docx)</button>
+                                </div>
+                                <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem;">
+                                    <strong>Paso 2: Firmar el Documento</strong><br><small style="color: var(--text-muted);">Firme a mano en la hoja física o digitalmente en el computador</small>
+                                </div>
+                                <div style="background: #EFF6FF; border: 2px dashed #3B82F6; border-radius: 8px; padding: 1.25rem; text-align: center; cursor: pointer;">
+                                    <span style="font-size: 1.5rem;">📄</span><br>
+                                    <strong style="color: #1E40AF; font-size: 0.9rem;">Paso 3: Haga clic aquí para subir la foto o PDF firmado</strong><br>
+                                    <small style="color: #64748B;">Acepta PDF, Word o fotografías nítidas tomadas con el celular</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (role === 'coordinador') {
+                target.innerHTML = `
+                    <div class="app-window-mockup">
+                        <div class="mockup-header-bar">
+                            <div class="mockup-dots"><span class="mockup-dot dot-red"></span><span class="mockup-dot dot-yellow"></span><span class="mockup-dot dot-green"></span></div>
+                            <span>Bandeja de Entrada y Aprobación Departamental CPE</span>
+                            <span class="tag-badge tag-green">Rol: Coordinador CPE</span>
+                        </div>
+                        <div class="mockup-body">
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1rem;">
+                                <div style="background: white; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
+                                    <h4 style="color: var(--navy); font-size: 1.3rem;">128</h4>
+                                    <small style="color: var(--text-muted);">Formatos Totales</small>
+                                </div>
+                                <div style="background: #FEF3C7; padding: 0.75rem; border-radius: 8px; border: 1px solid #FCD34D; text-align: center;">
+                                    <h4 style="color: #B45309; font-size: 1.3rem;">14</h4>
+                                    <small style="color: #92400E;">En Revisión</small>
+                                </div>
+                                <div style="background: #ECFDF5; padding: 0.75rem; border-radius: 8px; border: 1px solid #A7F3D0; text-align: center;">
+                                    <h4 style="color: #047857; font-size: 1.3rem;">112</h4>
+                                    <small style="color: #065F46;">Aprobados</small>
+                                </div>
+                                <div style="background: #FEF2F2; padding: 0.75rem; border-radius: 8px; border: 1px solid #FECACA; text-align: center;">
+                                    <h4 style="color: #B91C1C; font-size: 1.3rem;">2</h4>
+                                    <small style="color: #991B1B;">Con Novedades</small>
+                                </div>
+                            </div>
+
+                            <div style="background: white; padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Filtros activos: Todos los municipios &middot; Orden A-Z</span>
+                                <button class="btn btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;">📦 Descargar Paquete ZIP con Manifiesto CSV</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (role === 'administrador') {
+                target.innerHTML = `
+                    <div class="app-window-mockup">
+                        <div class="mockup-header-bar">
+                            <div class="mockup-dots"><span class="mockup-dot dot-red"></span><span class="mockup-dot dot-yellow"></span><span class="mockup-dot dot-green"></span></div>
+                            <span>Panel de Control & Parametrización del Administrador</span>
+                            <span class="tag-badge tag-blue">Rol: Administrador</span>
+                        </div>
+                        <div class="mockup-body">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                                    <h5 style="color: var(--navy); margin-bottom: 0.35rem;">📁 Importación Excel Versionada</h5>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">Actualización de matrices maestras de Bolsa Tecnológica y Estudiantes focalizados con validación de duplicados.</p>
+                                    <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--navy); border-color: var(--border);">Cargar Archivo Excel (.xlsx)</button>
+                                </div>
+
+                                <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                                    <h5 style="color: var(--navy); margin-bottom: 0.35rem;">🔢 Gestión de Seriales Oficiales</h5>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">Edición en línea o por lotes con detección automática de seriales duplicados o en conflicto.</p>
+                                    <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--navy); border-color: var(--border);">Importar Lote de Seriales</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Iniciar en la diapositiva 1
+        renderSlide(0);
+    </script>
+</body>
+</html>
