@@ -25,8 +25,11 @@ cuando vuelve la conexión (o al hacer clic en el indicador "Sincronizando" como
    - *Quién tiene acceso:* **Cualquier persona**
 5. Autorice los permisos de Drive y Hojas de cálculo y copie la URL que termina en `/exec`.
 6. Pegue la URL en `js/drive.js`, constante `DRIVE_RELAY_URL` (y la clave en `DRIVE_RELAY_KEY` si la definió),
-   haga commit y publique. Así todos los navegadores la usan sin configurar nada.
-   - Para probar antes de publicar: *Administrador → ⚙️ Configurar Drive & OAuth*, campo "URL del puente".
+   haga commit y publique. Así todos los navegadores la usan sin configurar nada y sin pedir datos de conexión.
+   - URL actual: `https://script.google.com/macros/s/AKfycbx0o8a5yAw0frndKgzXMXXPGRsEbK7RVC3TTGpZN2RL2IQSI__PoV2lUtMM5U-NYeqF7A/exec`
+   - La URL de `js/drive.js` tiene prioridad sobre la que se guarde en *Administrador → ⚙️ Configurar Drive & OAuth*.
+   - Mientras el puente esté configurado, la app siempre lo usa (aunque alguien inicie sesión con Google),
+     porque el token de Google caduca en ~1 hora y el puente no.
 
 Al cambiar `Code.gs`, use **Implementar → Administrar implementaciones → Editar → Nueva versión**
 para conservar la misma URL.

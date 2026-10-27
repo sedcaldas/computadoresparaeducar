@@ -328,7 +328,9 @@ async function runSimulation() {
 
     // Cargar clases reales del proyecto
     const storeCode = fs.readFileSync(path.join(__dirname, '../js/store.js'), 'utf8');
-    const driveCode = fs.readFileSync(path.join(__dirname, '../js/drive.js'), 'utf8');
+    // Se quita la URL real del puente para que la simulación use solo el servidor virtual.
+    const driveCode = fs.readFileSync(path.join(__dirname, '../js/drive.js'), 'utf8')
+        .replace(/const DRIVE_RELAY_URL = '[^']*';/, "const DRIVE_RELAY_URL = '';");
     const workflowCode = fs.readFileSync(path.join(__dirname, '../js/workflow.js'), 'utf8');
     
     const vm = require('vm');

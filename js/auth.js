@@ -15,7 +15,12 @@ class AuthService {
         this.gisLoaded = false;
         this.authListeners = [];
 
-        // Hashes SHA-256 autorizados para acceso institucional administrativo
+        // Hash SHA-256 de la contraseña de los perfiles CPE y Administrador
+        this._STAFF_HASHES = new Set([
+            'cb0e89331dad75b7c0d24a00972de385f510bcaaaefe58d899e841afcd427ccf'
+        ]);
+
+        // Hashes SHA-256 de claves maestras aceptadas también en el portal de rectoría
         this._AUTH_HASHES = new Set([
             'e8f0ace3445861db728a3fd04c1c4d15ea246c666add45a3be7a139beef14e4b',
             'd14ba8d691d69021547940c77e8c0e4f6b0905101c28fd12a1a34fec21573c07'
@@ -161,34 +166,6 @@ class AuthService {
         });
     }
 
-    // --- Acceso Directo Oficial sin requerir autenticación externa de Google ---
-    loginDirectStaff(role = 'coordinador') {
-        const userName = role === 'coordinador' ? 'Coordinador CPE - Caldas' : 'Administrador General SED Caldas';
-        const userEmail = role === 'coordinador' ? 'coordinador@sedcaldas.gov.co' : 'admin@sedcaldas.gov.co';
-        const userSession = {
-            id: 'staff_' + Date.now(),
-            name: userName,
-            email: userEmail,
-            role: role,
-            authenticated_with: 'direct_access',
-            login_time: new Date().toISOString()
-        };
-        this.currentUser = userSession;
-        sessionStorage.setItem('ceducar_auth_session', JSON.stringify(userSession));
-        if (window.appStore) {
-            window.appStore.logAudit({
-                actor: userSession.name,
-                rol: userSession.role,
-                accion: 'LOGIN_DIRECTO',
-                entidad: 'Usuario',
-                entidad_id: userSession.email,
-                detalles: `Acceso al panel oficial ${role === 'coordinador' ? 'CPE' : 'Administrador'} sin requerir autenticación externa.`
-            });
-        }
-        this._notify();
-        return userSession;
-    }
-
     // --- Autenticación Auxiliar sin claves en texto plano ---
     async loginWithAuxiliaryCredentials({ role, credential, entityId = null }) {
         const cleanCred = String(credential || '').trim();
@@ -200,13 +177,13 @@ class AuthService {
         let metadata = {};
 
         if (role === 'administrador') {
-            if (this._AUTH_HASHES.has(credHash)) {
+            if (this._STAFF_HASHES.has(credHash)) {
                 isValid = true;
                 userName = 'Administrador General SED Caldas';
                 userEmail = 'admin@sedcaldas.gov.co';
             }
         } else if (role === 'coordinador') {
-            if (this._AUTH_HASHES.has(credHash)) {
+            if (this._STAFF_HASHES.has(credHash)) {
                 isValid = true;
                 userName = 'Coordinador CPE - Caldas';
                 userEmail = 'coordinador@sedcaldas.gov.co';
@@ -214,7 +191,7 @@ class AuthService {
         } else if (role === 'rector') {
             const dane = String(entityId || cleanCred).trim();
             const ie = window.appStore ? window.appStore.getInstitucionByDane(dane) : null;
-            if (ie && (cleanCred === dane || this._AUTH_HASHES.has(credHash))) {
+            if (ie && (cleanCred === dane || this._AUTH_HASHES.has(credHash) || this._STAFF_HASHES.has(credHash))) {
                 isValid = true;
                 userName = `Rector(a) - ${ie.nombre}`;
                 userEmail = `rector.${dane}@sedcaldas.gov.co`;

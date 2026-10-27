@@ -173,16 +173,8 @@ class ApplicationController {
             return;
         }
 
-        // Ingreso directo sin barreras de autenticación externa
-        this.handleDirectStaffLogin(role);
-    }
-
-    handleDirectStaffLogin(role = 'coordinador') {
-        window.authService.loginDirectStaff(role);
-        this.closeAllModals();
-        const roleName = role === 'coordinador' ? 'CPE' : 'Administrador';
-        this.showToast(`Bienvenido al panel institucional de ${roleName}`);
-        this.render();
+        // CPE y Administrador requieren la contraseña institucional
+        this.openStaffLoginModal(role);
     }
 
     openStaffLoginModal(role) {
@@ -191,20 +183,17 @@ class ApplicationController {
         const descEl = document.getElementById('staff-modal-desc');
         const roleInput = document.getElementById('staff-login-role');
         const passInput = document.getElementById('staff-login-password');
-        const directBtnText = document.getElementById('staff-direct-btn-text');
 
         if (!modal) return;
 
         if (role === 'coordinador') {
             if (titleEl) titleEl.textContent = '🏛️ Acceso Oficial CPE';
-            if (descEl) descEl.textContent = 'Acceda directamente a la gestión documental oficial de Computadores para Educar.';
+            if (descEl) descEl.textContent = 'Ingrese la contraseña institucional para acceder a la gestión documental de Computadores para Educar.';
             if (roleInput) roleInput.value = 'coordinador';
-            if (directBtnText) directBtnText.textContent = 'Ingresar Directamente como CPE';
         } else {
             if (titleEl) titleEl.textContent = '⚙️ Acceso Oficial Administrador';
-            if (descEl) descEl.textContent = 'Acceda directamente al panel de administración del Sistema SED Caldas.';
+            if (descEl) descEl.textContent = 'Ingrese la contraseña institucional para acceder al panel de administración del Sistema SED Caldas.';
             if (roleInput) roleInput.value = 'administrador';
-            if (directBtnText) directBtnText.textContent = 'Ingresar Directamente como Administrador';
         }
 
         if (passInput) passInput.value = '';
@@ -231,8 +220,10 @@ class ApplicationController {
             this.closeAllModals();
             const roleName = role === 'coordinador' ? 'CPE' : 'Administrador';
             this.showToast(`Bienvenido al panel institucional de ${roleName}`);
+            this.render();
         } catch (err) {
-            alert(err.message || 'Contraseña institucional incorrecta.');
+            alert('Contraseña institucional incorrecta.');
+            if (passInput) { passInput.value = ''; passInput.focus(); }
         }
     }
 
@@ -301,12 +292,12 @@ class ApplicationController {
                     </div>
 
                     <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
-                        <span>🏛️ Funcionarios de <strong>CPE</strong> y <strong>Administración</strong> (Acceso Directo):</span>
+                        <span>🏛️ Funcionarios de <strong>CPE</strong> y <strong>Administración</strong>:</span>
                         <div style="margin-top: 0.75rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-primary btn-sm" style="font-weight: 600;" onclick="appController.handleDirectStaffLogin('coordinador')">
+                            <button type="button" class="btn btn-primary btn-sm" style="font-weight: 600;" onclick="appController.openStaffLoginModal('coordinador')">
                                 🏛️ Entrar como CPE
                             </button>
-                            <button type="button" class="btn btn-outline btn-sm" onclick="appController.handleDirectStaffLogin('administrador')">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="appController.openStaffLoginModal('administrador')">
                                 ⚙️ Entrar como Admin
                             </button>
                         </div>

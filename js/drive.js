@@ -5,9 +5,11 @@
  * Todas las acciones (archivos generados/cargados, bitácora de auditoría e índice general)
  * se guardan en la carpeta compartida oficial. Hay tres formas de escribir en ella:
  *
- *  1. OAuth: el usuario inició sesión con Google -> llamadas directas a Drive API v3.
- *  2. Puente (Apps Script): sin sesión de Google -> se envía al Web App desplegado por la
- *     cuenta dueña de la carpeta (ver apps-script/README.md). Los usuarios nunca ven la carpeta.
+ *  1. Puente (Apps Script, modo principal): se envía al Web App desplegado por la cuenta dueña
+ *     de la carpeta (ver apps-script/README.md). No requiere iniciar sesión con Google, no
+ *     caduca y los usuarios nunca ven la carpeta.
+ *  2. OAuth: solo si no hay puente configurado y el usuario inició sesión con Google
+ *     (el token de Google dura ~1 hora).
  *  3. Cola local: si no hay conexión o el puente no está configurado, las acciones quedan en
  *     cola en el navegador y se reenvían automáticamente en cuanto sea posible.
  *
@@ -16,7 +18,7 @@
 
 // URL del Web App de Apps Script (termina en /exec). Se define aquí para que TODOS los
 // navegadores (acudientes, rectores, CPE) la usen sin configuración adicional.
-const DRIVE_RELAY_URL = '';
+const DRIVE_RELAY_URL = 'https://script.google.com/macros/s/AKfycbx0o8a5yAw0frndKgzXMXXPGRsEbK7RVC3TTGpZN2RL2IQSI__PoV2lUtMM5U-NYeqF7A/exec';
 const DRIVE_RELAY_KEY = '';
 
 const DRIVE_QUEUE_KEY = 'ceducar_drive_queue';
@@ -61,7 +63,8 @@ class GoogleDriveClient {
     }
 
     getRelayUrl() {
-        return String(this._config().drive_relay_url || DRIVE_RELAY_URL || '').trim();
+        // La URL fija del código tiene prioridad: así ningún navegador queda con una URL vieja guardada.
+        return String(DRIVE_RELAY_URL || this._config().drive_relay_url || '').trim();
     }
 
     _getRelayKey() {
@@ -70,8 +73,9 @@ class GoogleDriveClient {
 
     /** 'oauth' | 'relay' | 'local' */
     getMode() {
-        if (this.accessToken) return 'oauth';
+        // El puente va primero: el token de Google caduca y haría fallar las subidas.
         if (this.getRelayUrl()) return 'relay';
+        if (this.accessToken) return 'oauth';
         return 'local';
     }
 
