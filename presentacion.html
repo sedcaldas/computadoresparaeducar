@@ -530,7 +530,7 @@
                             </div>
                             <div class="glass-box" style="border-left: 4px solid var(--accent);">
                                 <h4 style="color: white; font-size: 1.1rem; margin-bottom: 0.35rem;">🛡️ Regla de Oro: Sin Documentos Duplicados</h4>
-                                <p style="color: #94A3B8; font-size: 0.85rem;">Los archivos cargados por acudientes y rectores actualizan el documento original incrementando la versión y conservando el historial.</p>
+                                <p style="color: #94A3B8; font-size: 0.85rem;">Los archivos cargados y legalizados por los rectores actualizan el documento original incrementando la versión y conservando el historial.</p>
                             </div>
                             <div class="glass-box" style="border-left: 4px solid #3B82F6;">
                                 <h4 style="color: white; font-size: 1.1rem; margin-bottom: 0.35rem;">☁️ Puente Automático a Google Drive</h4>
@@ -570,7 +570,7 @@
                             </div>
                             <ul style="color: #CBD5E1; font-size: 0.95rem; list-style: none; display: flex; flex-direction: column; gap: 0.9rem;">
                                 <li>✔️ <strong>Pregeneración exacta:</strong> Todos los formatos se producen listos para firmar con los datos y seriales verificados.</li>
-                                <li>✔️ <strong>Actuación en representación:</strong> El rector puede cargar en nombre de acudientes sin internet con motivo legal registrado.</li>
+                                <li>✔️ <strong>Carga centralizada en Rectoría:</strong> El rector formaliza la entrega física en la sede y digitaliza las actas firmadas en la plataforma.</li>
                                 <li>✔️ <strong>Versión única por expediente:</strong> Las correcciones actualizan el mismo documento (v01, v02, v03) con bitácora inmutable.</li>
                                 <li>✔️ <strong>Descarga masiva con un clic:</strong> Paquetes ZIP estructurados con su <code>MANIFIESTO_DOCUMENTAL.csv</code> oficial.</li>
                             </ul>
@@ -702,8 +702,8 @@
                 render: () => `
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         <div class="role-switcher-tab">
-                            <button class="role-tab-btn active" onclick="switchRoleDemo('rector', this)">🏫 1. Rector(a)</button>
-                            <button class="role-tab-btn" onclick="switchRoleDemo('acudiente', this)">👨‍👩‍👦 2. Acudiente</button>
+                            <button class="role-tab-btn active" onclick="switchRoleDemo('rector', this)">🏫 1. Rector(a): Bolsa Tecnológica</button>
+                            <button class="role-tab-btn" onclick="switchRoleDemo('rector-estudiantes', this)">🎓 2. Rector(a): Carga Estudiantes (LOG-007)</button>
                             <button class="role-tab-btn" onclick="switchRoleDemo('coordinador', this)">🏛️ 3. Coordinador CPE</button>
                             <button class="role-tab-btn" onclick="switchRoleDemo('administrador', this)">⚙️ 4. Administrador</button>
                         </div>
@@ -735,12 +735,12 @@
 
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
                                 <div style="background: var(--navy-light); border: 1px solid #3B82F6; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #60A5FA;">2</div>
-                                <div><strong style="color: white;">En revisión del rector:</strong><br><small style="color: #94A3B8;">El acudiente carga el formato firmado en papel o digital.</small></div>
+                                <div><strong style="color: white;">Firma Física y Carga por Rectoría:</strong><br><small style="color: #94A3B8;">El rector formaliza la entrega, recaba la firma física y digitaliza el acta en la plataforma.</small></div>
                             </div>
 
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
                                 <div style="background: var(--navy-light); border: 1px solid var(--warning); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--warning);">3</div>
-                                <div><strong style="color: white;">En revisión del coordinador CPE:</strong><br><small style="color: #94A3B8;">El rector aprueba o carga en representación del acudiente.</small></div>
+                                <div><strong style="color: white;">En revisión del coordinador CPE:</strong><br><small style="color: #94A3B8;">El equipo de CPE valida la legibilidad de la firma y datos del serial asignado.</small></div>
                             </div>
 
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -849,7 +849,7 @@
                                 <span style="font-size: 1.5rem;">📁</span>
                                 <div>
                                     <h4 style="color: white; font-size: 1.05rem;">Puente Seguro Apps Script (Relay)</h4>
-                                    <p style="color: #94A3B8; font-size: 0.85rem;">Los rectores y acudientes guardan archivos directamente en la carpeta compartida oficial sin necesidad de tener cuenta Google institucional y sin ver el enlace del Drive.</p>
+                                    <p style="color: #94A3B8; font-size: 0.85rem;">Los rectores y directivos docentes guardan archivos directamente en la carpeta compartida oficial sin necesidad de tener cuenta Google institucional y sin ver el enlace del Drive.</p>
                                 </div>
                             </div>
 
@@ -1005,33 +1005,44 @@
                         </div>
                     </div>
                 `;
-            } else if (role === 'acudiente') {
+            } else if (role === 'rector-estudiantes') {
                 target.innerHTML = `
                     <div class="app-window-mockup">
                         <div class="mockup-header-bar">
                             <div class="mockup-dots"><span class="mockup-dot dot-red"></span><span class="mockup-dot dot-yellow"></span><span class="mockup-dot dot-green"></span></div>
-                            <span>Portal Familiar de Acudientes &middot; Simplicidad Extrema</span>
-                            <span class="tag-badge tag-green">Rol: Acudiente</span>
+                            <span>Portal de Rectoría &middot; Pestaña Legalización Estudiantes (LOG-007)</span>
+                            <span class="tag-badge tag-gold">Rol: Rector(a)</span>
                         </div>
-                        <div class="mockup-body" style="max-width: 600px; margin: 0 auto;">
-                            <div style="text-align: center; margin-bottom: 1.25rem;">
-                                <h3 style="color: var(--navy); font-size: 1.2rem;">Legalización de Equipo para Estudiante</h3>
-                                <p style="font-size: 0.85rem; color: var(--text-muted);">Estudiante: <strong>CARLOS MARIO PÉREZ</strong> | Serial Oficial: <strong style="color: var(--primary);">CPETAB-849102</strong></p>
+                        <div class="mockup-body">
+                            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="font-size: 1.3rem;">ℹ️</span>
+                                <div style="font-size: 0.85rem; color: #1E40AF;">
+                                    <strong>Gestión Centralizada en Sede:</strong> Descargue el formato prellenado, formalice la entrega física al acudiente y suba el acta firmada directamente a la plataforma.
+                                </div>
                             </div>
 
-                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                                <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between;">
-                                    <div><strong>Paso 1: Descargar Formato Prellenado</strong><br><small style="color: var(--text-muted);">Archivo Word con todos los datos listos</small></div>
-                                    <button class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">📥 Descargar (.docx)</button>
-                                </div>
-                                <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem;">
-                                    <strong>Paso 2: Firmar el Documento</strong><br><small style="color: var(--text-muted);">Firme a mano en la hoja física o digitalmente en el computador</small>
-                                </div>
-                                <div style="background: #EFF6FF; border: 2px dashed #3B82F6; border-radius: 8px; padding: 1.25rem; text-align: center; cursor: pointer;">
-                                    <span style="font-size: 1.5rem;">📄</span><br>
-                                    <strong style="color: #1E40AF; font-size: 0.9rem;">Paso 3: Haga clic aquí para subir la foto o PDF firmado</strong><br>
-                                    <small style="color: #64748B;">Acepta PDF, Word o fotografías nítidas tomadas con el celular</small>
-                                </div>
+                            <div style="background: white; border-radius: 8px; border: 1px solid var(--border); overflow: hidden;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left;">
+                                    <thead style="background: #F1F5F9; border-bottom: 1px solid var(--border);">
+                                        <tr>
+                                            <th style="padding: 0.6rem;">Estudiante Beneficiario</th>
+                                            <th style="padding: 0.6rem;">Acudiente Registrado</th>
+                                            <th style="padding: 0.6rem;">Estado</th>
+                                            <th style="padding: 0.6rem;">Acciones de Carga de Rectoría</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid #F1F5F9;">
+                                            <td style="padding: 0.6rem;"><strong>CARLOS MARIO PÉREZ</strong><br><small style="color: var(--text-muted);">🔑 Serial Oficial: CPETAB-849102</small></td>
+                                            <td style="padding: 0.6rem;">María Elena Pérez<br><small style="color: var(--text-muted);">Doc: 30.294.102</small></td>
+                                            <td style="padding: 0.6rem;"><span style="background: #E0E7FF; color: #3730A3; padding: 2px 8px; border-radius: 10px; font-weight: 600; font-size: 0.75rem;">Generado</span></td>
+                                            <td style="padding: 0.6rem;">
+                                                <button class="btn btn-primary" style="padding: 3px 8px; font-size: 0.75rem;">📥 Descargar Word</button>
+                                                <button class="btn btn-accent" style="padding: 3px 8px; font-size: 0.75rem;">📤 Cargar Acta Firmada</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
