@@ -177,24 +177,48 @@ class DocumentGenerator {
     }
 
     // Marca con "X" el tipo de terminal en la fila "Tipo de terminal" conservando el formato de la plantilla.
-    // Los marcadores de la plantilla (○) quedan como "( X )" para la opción elegida y "(   )" para las demás.
+    // Acepta marcadores "( )" (pueden venir partidos en varios fragmentos de texto) o "○" de versiones anteriores.
+    // La opción elegida queda "( X )" y las demás "(   )".
     _markTerminalType(tcNode, tipoTerminal, serial) {
         if (!tcNode) return;
         const tipo = String(tipoTerminal || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
         const elegido = tipo.includes('portatil') ? 1 : (tipo.includes('tableta') || tipo.includes('tablet')) ? 0 : 2;
         const tNodes = Array.from(tcNode.getElementsByTagName('w:t'));
-        const markers = tNodes.filter(t => t.textContent.trim() === '○' || t.textContent.trim() === '●');
         const serialTxt = serial && serial !== 'NO APLICA' ? ` (Serial: ${serial})` : '';
 
-        if (markers.length < 3) {
+        // Agrupar los fragmentos de cada marcador
+        const groups = [];
+        let cur = null;
+        for (const t of tNodes) {
+            const s = t.textContent;
+            if (!cur) {
+                if (/^\s*[○●]\s*$/.test(s)) {
+                    groups.push([t]);
+                } else if (/^\s*\(\s*\)?\s*$/.test(s)) {
+                    cur = [t];
+                    if (s.includes(')')) { groups.push(cur); cur = null; }
+                }
+            } else if (/^\s*\)?\s*$/.test(s)) {
+                cur.push(t);
+                if (s.includes(')')) { groups.push(cur); cur = null; }
+            } else {
+                cur = null;
+            }
+        }
+
+        if (groups.length < 3) {
             const opc = ['Tabletas', 'Portátiles', 'Otro'];
             const txt = opc.map((o, i) => `(${i === elegido ? ' X ' : '   '}) ${o}${i === elegido ? serialTxt : ''}`).join('      ');
             this._setCellText(tcNode, txt);
             return;
         }
-        markers.slice(0, 3).forEach((t, i) => {
-            t.textContent = i === elegido ? '( X ) ' : '(   ) ';
-            t.setAttribute('xml:space', 'preserve');
+        groups.slice(0, 3).forEach((group, i) => {
+            const last = group[group.length - 1].textContent;
+            const trailing = /[○●]/.test(last) ? ' ' : (last.split(')').pop() || '');
+            group.forEach((t, j) => {
+                t.textContent = j === 0 ? (i === elegido ? '( X )' : '(   )') + trailing : '';
+                t.setAttribute('xml:space', 'preserve');
+            });
         });
         // El serial va junto a la opción marcada
         const labels = [/^Tabletas/, /^Portátiles/, /^Otro/];
@@ -686,29 +710,23 @@ class DocumentGenerator {
         const t1Rows = table1.getElementsByTagName('w:tr');
         const getT1Cells = (idx) => t1Rows[idx] ? t1Rows[idx].getElementsByTagName('w:tc') : [];
 
-        // R3: Nombres
-        const r3T1Cells = getT1Cells(3);
-        if (r3T1Cells.length > 1) this._setCellText(r3T1Cells[1], 'Nombre: YUBY CATERINE BOHÓRQUEZ ROJAS');
-        if (r3T1Cells.length > 3) this._setCellText(r3T1Cells[3], 'Nombre: '); // No diligenciar nombre de rector
+        // Datos del representante de CPE: se respetan los que ya trae la plantilla;
+        // solo se llenan los campos que estén vacíos. Los datos del rector no se diligencian.
+        const cellHasValue = (tc) => String(tc.textContent || '').replace(/^[^:]*:/, '').trim().length > 0;
+        const cpeDefaults = [
+            [3, 'Nombre: YUBY CATERINE BOHÓRQUEZ ROJAS'],
+            [4, 'No. identificación: 52.497.293'],
+            [5, 'Celular: '],
+            [6, 'Correo: ybohorquez@cpe.gov.co'],
+            [7, 'Cargo: PROFESIONAL LOGÍSTICA']
+        ];
+        for (const [rowIdx, texto] of cpeDefaults) {
+            const cells = getT1Cells(rowIdx);
+            if (cells.length > 1 && !cellHasValue(cells[1])) this._setCellText(cells[1], texto);
+        }
 
-        // R4: No. identificación
-        const r4T1Cells = getT1Cells(4);
-        if (r4T1Cells.length > 1) this._setCellText(r4T1Cells[1], 'No. identificación: 52.497.293');
-        if (r4T1Cells.length > 3) this._setCellText(r4T1Cells[3], 'No. identificación: ');
-
-        // R5: Celular
-        const r5T1Cells = getT1Cells(5);
-        if (r5T1Cells.length > 1) this._setCellText(r5T1Cells[1], 'Celular: 3100000000');
-        if (r5T1Cells.length > 3) this._setCellText(r5T1Cells[3], 'Celular: ');
-
-        // R6: Correo
-        const r6T1Cells = getT1Cells(6);
-        if (r6T1Cells.length > 1) this._setCellText(r6T1Cells[1], 'Correo: ybohorquez@cpe.gov.co');
-        if (r6T1Cells.length > 3) this._setCellText(r6T1Cells[3], 'Correo: ');
-
-        // R7: Cargo CPE / Nombre de la sede Rector
+        // Columna del rector: en blanco, salvo el nombre de la sede
         const r7T1Cells = getT1Cells(7);
-        if (r7T1Cells.length > 1) this._setCellText(r7T1Cells[1], 'Cargo: PROFESIONAL LOGÍSTICA');
         if (r7T1Cells.length > 3) this._setCellText(r7T1Cells[3], `Nombre de la sede: ${sede ? sede.nombre : ''}`);
 
         // Tabla 2: Lista de estudiantes / acudientes beneficiarios
