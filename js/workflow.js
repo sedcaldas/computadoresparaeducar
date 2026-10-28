@@ -35,6 +35,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Acudiente', role: 'acudiente' };
         const newVersion = (doc.version_actual || 1) + 1;
@@ -70,6 +71,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
         if (doc.tipo_documento !== 'LOG-007-F') throw new Error('Esta acción solo aplica a LOG-007-F.');
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
@@ -93,6 +95,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
 
@@ -117,6 +120,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
         const newVersion = (doc.version_actual || 1) + 1;
@@ -145,6 +149,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Rector', role: 'rector' };
 
@@ -180,6 +185,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Coordinador', role: 'coordinador' };
 
@@ -232,6 +238,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Coordinador', role: 'coordinador' };
 
@@ -256,6 +263,7 @@ class ApprovalWorkflowEngine {
         const store = window.appStore;
         const doc = store.getDocumentoById(documentoId);
         if (!doc) throw new Error('Documento original no encontrado.');
+        this._assertAccess(doc);
 
         const user = window.authService?.getCurrentUser() || { name: 'Coordinador', role: 'coordinador' };
         const newVersion = (doc.version_actual || 1) + 1;
@@ -279,6 +287,14 @@ class ApprovalWorkflowEngine {
     // =========================================================================
     // HELPER DE SINCRONIZACIÓN CON GOOGLE DRIVE
     // =========================================================================
+    /** Impide que un rector (o acudiente) actúe sobre documentos de otra institución. */
+    _assertAccess(doc) {
+        const auth = window.authService;
+        if (auth && auth.getCurrentUser() && !auth.canAccessSede(doc.codigo_dane_sede)) {
+            throw new Error('No tiene permisos sobre documentos de otra institución educativa.');
+        }
+    }
+
     async _syncWithDrive(doc, blob, description) {
         if (!window.googleDriveClient) return;
 

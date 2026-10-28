@@ -15,8 +15,7 @@ class ApplicationController {
         this.currentTab = 'principal';
         this.selectedDocForAction = null;
         this.selectedEntityForUpload = null;
-        this.rectorMpioFilter = '';
-        this.loginMpioFilter = '';
+                this.loginMpioFilter = '';
         this.coordFilterMpio = '';
         this.coordFilterIE = '';
         this.coordFilterTipo = '';
@@ -441,40 +440,31 @@ class ApplicationController {
         `;
     }
 
-    // --- 2. VISTA RECTOR (CON FILTRO DE MUNICIPIO Y ORDEN ASCENDENTE) ---
+    // --- 2. VISTA RECTOR (RESTRINGIDA A LA INSTITUCIÓN DE LA SESIÓN) ---
     renderRectorView() {
         const user = window.authService.getCurrentUser();
         const store = window.appStore;
-        const mpios = store.getMunicipios();
-        const mpioOptions = `<option value="">-- Todos los Municipios --</option>` + mpios.map(m => `<option value="${m.codigo}" ${this.rectorMpioFilter === m.codigo ? 'selected' : ''}>${m.nombre}</option>`).join('');
-
-        const ies = store.getInstituciones(this.rectorMpioFilter); // Ordenadas ascendente
-        const daneIE = user.metadata?.dane_ie || ies[0]?.codigo_dane;
-        const currentIE = store.getInstitucionByDane(daneIE) || ies[0];
-        const sedes = store.getSedes(currentIE?.codigo_dane);
-
-        const ieOptions = ies.map(i => `<option value="${i.codigo_dane}" ${i.codigo_dane === currentIE?.codigo_dane ? 'selected' : ''}>${i.nombre} (${i.codigo_dane})</option>`).join('');
+        // El rector solo ve la institución con la que inició sesión (código DANE).
+        const daneIE = user?.metadata?.dane_ie;
+        const currentIE = daneIE ? store.getInstitucionByDane(daneIE) : null;
+        if (!currentIE) {
+            return `
+                <div class="card" style="padding: 2rem; text-align: center;">
+                    <h3 class="card-title">Sesión sin institución asociada</h3>
+                    <p style="color: var(--text-muted);">No fue posible identificar la institución educativa de esta sesión. Cierre sesión e ingrese nuevamente con el código DANE de su institución.</p>
+                    <button class="btn btn-primary" onclick="window.authService.logout()">Cerrar sesión</button>
+                </div>`;
+        }
+        const sedes = store.getSedes(currentIE.codigo_dane);
+        const mpio = store.getMunicipios().find(m => String(m.codigo) === String(currentIE.codigo_municipio));
 
         return `
             <div class="card">
                 <div class="card-header">
                     <div>
-                        <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Institución Seleccionada:</span>
-                        <h3 class="card-title">${currentIE?.nombre || 'Institución Educativa'}</h3>
-                    </div>
-                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                        <div style="min-width: 200px;">
-                            <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Filtrar por Municipio:</label>
-                            <select class="form-select" onchange="appController.handleRectorMpioFilter(this.value)">
-                                ${mpioOptions}
-                            </select>
-                        </div>
-                        <div style="min-width: 320px;">
-                            <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Institución Educativa (A-Z):</label>
-                            <select class="form-select" onchange="window.authService.switchRole('rector', this.value)">
-                                ${ieOptions}
-                            </select>
-                        </div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Institución Educativa:</span>
+                        <h3 class="card-title">${currentIE.nombre}</h3>
+                        <small style="color: var(--text-muted);">DANE: ${currentIE.codigo_dane}${mpio ? ' | Municipio: ' + mpio.nombre : ''} | Sedes: ${sedes.length}</small>
                     </div>
                 </div>
             </div>
@@ -492,14 +482,9 @@ class ApplicationController {
         `;
     }
 
-    handleRectorMpioFilter(codigoMpio) {
-        this.rectorMpioFilter = codigoMpio;
-        const ies = window.appStore.getInstituciones(codigoMpio);
-        if (ies.length > 0) {
-            window.authService.switchRole('rector', ies[0].codigo_dane);
-        } else {
-            this.renderDashboard();
-        }
+    /** true si el usuario actual puede ver/actuar sobre el documento (rector: solo su institución). */
+    _canAccessDoc(doc) {
+        return window.authService.canAccessSede(doc?.codigo_dane_sede);
     }
 
     _renderRectorBolsaTab(sedes, currentIE) {
@@ -1186,6 +1171,10 @@ class ApplicationController {
         }
 
         if (!doc) return;
+        if (!this._canAccessDoc(doc)) {
+            alert('No tiene permisos para acceder a documentos de otra institución educativa.');
+            return;
+        }
 
         try {
             let blob = null;
@@ -1333,6 +1322,12 @@ class ApplicationController {
     }
 
     async handleDownloadConsolidatedLog007(codigoDaneIe = null) {
+        const user = window.authService.getCurrentUser();
+        if (user?.role === 'rector') {
+            // El rector solo puede descargar el acta de su propia institución
+            codigoDaneIe = user.metadata?.dane_ie;
+            if (!codigoDaneIe) return;
+        }
         try {
             this.showToast('Generando Acta Formal de Entrega y Legalización en Excel...', 'warning');
             const res = await window.documentGenerator.generateConsolidatedLog007Excel({

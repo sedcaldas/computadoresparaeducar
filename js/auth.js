@@ -248,8 +248,30 @@ class AuthService {
         return userSession;
     }
 
+    /**
+     * Indica si el usuario actual puede ver/actuar sobre una sede.
+     * El rector solo accede a las sedes de la institución con la que inició sesión.
+     */
+    canAccessSede(codigoDaneSede) {
+        const user = this.currentUser;
+        if (!user) return false;
+        if (user.role === 'coordinador' || user.role === 'administrador') return true;
+        const sede = window.appStore ? window.appStore.getSedeByDane(codigoDaneSede) : null;
+        if (!sede) return false;
+        if (user.role === 'rector') {
+            return !!user.metadata?.dane_ie && String(sede.codigo_dane_ie) === String(user.metadata.dane_ie);
+        }
+        if (user.role === 'acudiente') {
+            return String(sede.codigo_dane_sede) === String(user.metadata?.codigo_dane_sede);
+        }
+        return false;
+    }
+
     switchRole(newRole, entityId = null) {
         if (!this.currentUser) return;
+        // Solo los perfiles de CPE / Administrador pueden cambiar de perfil o de institución.
+        const isStaff = this.currentUser.role === 'coordinador' || this.currentUser.role === 'administrador';
+        if (!isStaff) return;
         this.currentUser.role = newRole;
         if (newRole === 'coordinador') {
             this.currentUser.name = 'Coordinador CPE - Caldas';
