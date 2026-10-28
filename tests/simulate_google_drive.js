@@ -324,7 +324,7 @@ async function runSimulation() {
     };
 
     // 4. Instanciar clases del sistema
-    const seedData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/seed_data.json'), 'utf8'));
+    const seedData = require('./load_source.js').loadSourceData();
 
     // Cargar clases reales del proyecto
     const storeCode = fs.readFileSync(path.join(__dirname, '../js/store.js'), 'utf8');

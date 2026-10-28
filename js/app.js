@@ -42,6 +42,9 @@ class ApplicationController {
         }
 
         this.render();
+        if (window.appStore.sourceError) {
+            this.showToast('No se pudo leer SERIALES BOLSA TECNOLOGICA CALDAS.xlsx: ' + window.appStore.sourceError, 'error');
+        }
     }
 
     showToast(message, type = 'success') {
@@ -945,7 +948,7 @@ class ApplicationController {
                     📊 Panel General & CRUD
                 </button>
                 <button class="nav-tab-btn ${this.currentTab === 'excel' ? 'active' : ''}" onclick="appController.switchTab('excel')">
-                    📁 Importación Excel Versionada
+                    📁 Fuente de Datos (SERIALES)
                 </button>
                 <button class="nav-tab-btn ${this.currentTab === 'seriales' ? 'active' : ''}" onclick="appController.switchTab('seriales')">
                     🔢 Actualización de Seriales
@@ -1024,35 +1027,37 @@ class ApplicationController {
     }
 
     _renderAdminExcelTab() {
+        const store = window.appStore;
+        const fuente = store.state.fuente || {};
+        const hojas = fuente.hojas || {};
+        const avisos = (fuente.advertencias || []).map(a => `<li>${a}</li>`).join('');
         return `
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Importar Nuevas Versiones de Archivos Fuente Excel</h4>
+                    <h4 class="card-title">Fuente Única de Datos</h4>
+                    <button class="btn btn-primary btn-sm" onclick="appController.handleReloadSource()">🔄 Releer archivo Excel</button>
                 </div>
                 <div class="card-body">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-                        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem;">
-                            <h4 style="margin-bottom: 0.5rem;">1. BOLSA TECNOLOGICA CALDAS.xlsx</h4>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                                Actualiza la distribución de elementos, cantidades, radicados y sedes para LOG-026-F y LOG-029-F.
-                            </p>
-                            <input type="file" id="excel-bolsa-input" accept=".xlsx" style="display: none;" onchange="appController.handleBolsaFileSelect(this.files[0])">
-                            <button class="btn btn-primary" onclick="document.getElementById('excel-bolsa-input').click()">
-                                Cargar Archivo Bolsa (.xlsx)
-                            </button>
-                        </div>
-
-                        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem;">
-                            <h4 style="margin-bottom: 0.5rem;">2. BASE ESTUDIANTES CALDAS.xlsx</h4>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                                Actualiza los estudiantes beneficiarios, acudientes y asignaciones para LOG-007-F.
-                            </p>
-                            <input type="file" id="excel-est-input" accept=".xlsx" style="display: none;" onchange="appController.handleEstudiantesFileSelect(this.files[0])">
-                            <button class="btn btn-primary" onclick="document.getElementById('excel-est-input').click()">
-                                Cargar Archivo Estudiantes (.xlsx)
-                            </button>
-                        </div>
-                    </div>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+                        Toda la información de la aplicación se toma únicamente del archivo
+                        <strong>SERIALES BOLSA TECNOLOGICA CALDAS.xlsx</strong>, publicado junto a la aplicación.
+                        La columna <strong>Radicado</strong> es la llave que une las hojas. Para actualizar los datos,
+                        reemplace ese archivo y pulse "Releer archivo Excel" (o recargue la página).
+                    </p>
+                    ${store.sourceError ? `<p style="color: var(--danger); font-weight: 600;">Error leyendo el archivo: ${store.sourceError}</p>` : ''}
+                    <table class="table-custom">
+                        <tbody>
+                            <tr><td>Hoja de estudiantes</td><td>${hojas.estudiantes || '-'}</td></tr>
+                            <tr><td>Hoja de portátiles</td><td>${hojas.portatiles || '-'}</td></tr>
+                            <tr><td>Hoja de tabletas</td><td>${hojas.tabletas || '-'}</td></tr>
+                            <tr><td>Hoja de bolsa tecnológica</td><td>${hojas.bolsa || '-'}</td></tr>
+                            <tr><td>Sedes (radicados)</td><td>${store.state.sedes.length}</td></tr>
+                            <tr><td>Estudiantes beneficiarios</td><td>${store.state.estudiantes.length}</td></tr>
+                            <tr><td>Elementos de bolsa</td><td>${store.state.bolsa_elementos.length}</td></tr>
+                            <tr><td>Última lectura</td><td>${fuente.leido ? new Date(fuente.leido).toLocaleString() : '-'}</td></tr>
+                        </tbody>
+                    </table>
+                    ${avisos ? `<h5 style="margin-top: 1rem;">Advertencias del archivo (${fuente.advertencias.length})</h5><ul style="font-size: 0.85rem;">${avisos}</ul>` : '<p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem;">El archivo no presenta advertencias.</p>'}
                 </div>
             </div>
         `;
@@ -1082,11 +1087,7 @@ class ApplicationController {
         return `
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Gestión y Actualización Masiva de Seriales</h4>
-                    <div>
-                        <input type="file" id="serial-batch-input" accept=".xlsx,.csv" style="display: none;" onchange="appController.handleSerialBatchFile(this.files[0])">
-                        <button class="btn btn-outline btn-sm" onclick="document.getElementById('serial-batch-input').click()">📥 Importar Lote de Seriales</button>
-                    </div>
+                    <h4 class="card-title">Seriales Asignados (desde SERIALES BOLSA TECNOLOGICA CALDAS.xlsx)</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="table-custom">
@@ -1499,50 +1500,15 @@ class ApplicationController {
     }
 
     // --- IMPORTACIONES Y SERIALES ---
-    async handleBolsaFileSelect(file) {
-        if (!file) return;
-        try {
-            this.showToast('Analizando archivo Excel...');
-            const preview = await window.dataImporter.parseBolsaExcel(file);
-            const confirmed = confirm(
-                `Vista previa de importación:\n` +
-                `- Total de sedes encontradas: ${preview.totalRows}\n` +
-                `- Sedes nuevas: ${preview.newCount}\n` +
-                `- Sedes actualizadas: ${preview.modifiedCount}\n` +
-                `- Duplicados detectados: ${preview.duplicates.length}\n\n` +
-                `¿Desea aplicar estos cambios a la base local y sincronizar con Drive?`
-            );
-            if (confirmed) {
-                await window.dataImporter.applyBolsaImport(preview);
-                this.showToast('Base de Bolsa Tecnológica actualizada exitosamente.');
-                this.renderDashboard();
-            }
-        } catch (e) {
-            alert('Error en importación: ' + e.message);
+    async handleReloadSource() {
+        this.showToast('Leyendo SERIALES BOLSA TECNOLOGICA CALDAS.xlsx...');
+        const changed = await window.appStore.syncFromSource();
+        if (window.appStore.sourceError) {
+            alert('No se pudo leer el archivo: ' + window.appStore.sourceError);
+        } else {
+            this.showToast(changed ? 'Datos actualizados desde el archivo Excel.' : 'El archivo no tiene cambios.');
         }
-    }
-
-    async handleEstudiantesFileSelect(file) {
-        if (!file) return;
-        try {
-            this.showToast('Analizando archivo de estudiantes...');
-            const preview = await window.dataImporter.parseEstudiantesExcel(file);
-            const confirmed = confirm(
-                `Vista previa de estudiantes:\n` +
-                `- Total de estudiantes beneficiarios: ${preview.totalRows}\n` +
-                `- Estudiantes nuevos: ${preview.newCount}\n` +
-                `- Estudiantes actualizados: ${preview.modifiedCount}\n` +
-                `- Advertencias / incompletos: ${preview.warnings.length}\n\n` +
-                `¿Desea aplicar estos cambios a la base local?`
-            );
-            if (confirmed) {
-                await window.dataImporter.applyEstudiantesImport(preview);
-                this.showToast('Base de estudiantes actualizada exitosamente.');
-                this.renderDashboard();
-            }
-        } catch (e) {
-            alert('Error en importación: ' + e.message);
-        }
+        this.renderDashboard();
     }
 
     async handleInlineSerialUpdate(docEst, newSerial) {
@@ -1554,32 +1520,12 @@ class ApplicationController {
         }
     }
 
-    async handleSerialBatchFile(file) {
-        if (!file) return;
-        try {
-            this.showToast('Analizando lote de seriales...');
-            const preview = await window.dataImporter.parseSerialesExcel(file);
-            const confirmed = confirm(
-                `Lote de seriales detectado:\n` +
-                `- Total seriales listados: ${preview.totalRows}\n` +
-                `- Conflictos / vacíos: ${preview.conflicts.length}\n` +
-                `- Estudiantes no encontrados: ${preview.notFound.length}\n\n` +
-                `¿Desea aplicar la actualización masiva?`
-            );
-            if (confirmed) {
-                await window.dataImporter.applySerialUpdates(preview.updates);
-                this.showToast(`${preview.updates.length} seriales actualizados.`);
-                this.renderDashboard();
-            }
-        } catch (e) {
-            alert('Error importando seriales: ' + e.message);
-        }
-    }
-
     async handleResetSeed() {
-        if (!confirm('¿Está seguro de restaurar los datos semilla oficiales? Esto reiniciará cambios locales.')) return;
+        if (!confirm('¿Está seguro de recargar todo desde SERIALES BOLSA TECNOLOGICA CALDAS.xlsx? Esto reiniciará los cambios locales.')) return;
+        await window.appStore.clearBlobs();
         await window.appStore.loadSeedData();
-        this.showToast('Datos semilla restaurados.');
+        if (window.appStore.sourceError) alert('No se pudo leer el archivo: ' + window.appStore.sourceError);
+        else this.showToast('Datos recargados desde el archivo Excel.');
         this.render();
     }
 

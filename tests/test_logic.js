@@ -24,22 +24,28 @@ function assert(condition, testName) {
 async function runTests() {
     console.log('=== INICIANDO PRUEBAS DE ACEPTACIÓN CLIENT-SIDE ===\n');
 
-    // 1. Validar Seed Data
-    console.log('1. Verificación de Datos Semilla Oficiales');
-    const seedPath = path.join(__dirname, '../data/seed_data.json');
-    assert(fs.existsSync(seedPath), 'seed_data.json existe');
-    const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+    // 1. Validar la fuente única de datos (SERIALES BOLSA TECNOLOGICA CALDAS.xlsx)
+    console.log('1. Verificación de la Fuente Única de Datos (SERIALES BOLSA TECNOLOGICA CALDAS.xlsx)');
+    const { loadSourceData, SOURCE_FILE } = require('./load_source.js');
+    assert(fs.existsSync(path.join(__dirname, '..', SOURCE_FILE)), `${SOURCE_FILE} existe`);
+    assert(!fs.existsSync(path.join(__dirname, '../data/seed_data.json')), 'No se usa seed_data.json como fuente');
+    const seedData = loadSourceData();
+    assert(seedData.fuente.advertencias.length === 0, `El archivo no tiene advertencias (${seedData.fuente.advertencias.length})`);
     assert(seedData.municipios.length === 22, `Municipios cargados correctamente (${seedData.municipios.length} == 22)`);
-    assert(seedData.sedes.length >= 42, `Sedes de Bolsa cargadas (${seedData.sedes.length} >= 42)`);
-    assert(seedData.estudiantes.length === 90, `Estudiantes beneficiarios cargados (${seedData.estudiantes.length} == 90)`);
-    assert(seedData.config.drive_root_folder_id === '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW', 'Carpeta raíz oficial de Drive configurada');
+    assert(seedData.sedes.length === 59, `Sedes (radicados) cargadas (${seedData.sedes.length} == 59)`);
+    assert(new Set(seedData.sedes.map(s => s.radicado)).size === seedData.sedes.length, 'Cada radicado corresponde a una sola sede');
+    assert(seedData.estudiantes.length === 87, `Estudiantes beneficiarios cargados (${seedData.estudiantes.length} == 87)`);
+    const storeSrc = fs.readFileSync(path.join(__dirname, '../js/store.js'), 'utf8');
+    assert(storeSrc.includes('1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW'), 'Carpeta raíz oficial de Drive configurada');
     const elemsWithSerial = seedData.bolsa_elementos.filter(e => e.serial && e.serial.length > 0);
-    assert(elemsWithSerial.length === seedData.bolsa_elementos.length, `Todos los elementos de bolsa tienen serial oficial (${elemsWithSerial.length}/${seedData.bolsa_elementos.length})`);
+    assert(elemsWithSerial.length === seedData.bolsa_elementos.length, `Todos los elementos de bolsa tienen serial o NO APLICA (${elemsWithSerial.length}/${seedData.bolsa_elementos.length})`);
     const estWithSerial = seedData.estudiantes.filter(e => e.serial_terminal && e.serial_terminal.length > 0);
-    assert(estWithSerial.length === 87, `87 estudiantes focalizados con serial oficial verificado (${estWithSerial.length}/87)`);
-    assert(seedData.estudiantes.filter(e => !e.serial_terminal).length === 3, 'Exactamente 3 estudiantes sin terminal asignada (no se inventan seriales)');
+    assert(estWithSerial.length === 87, `87 estudiantes con serial oficial (${estWithSerial.length}/87)`);
+    assert(seedData.estudiantes.filter(e => e.tipo_terminal === 'Portátil').length === 30, '30 portátiles asignados');
+    assert(seedData.estudiantes.filter(e => e.tipo_terminal === 'Tableta').length === 57, '57 tabletas asignadas');
     const sedesConBolsa = seedData.sedes.filter(s => seedData.bolsa_elementos.some(e => e.codigo_dane_sede === s.codigo_dane_sede));
-    assert(sedesConBolsa.length === 38, `Exactamente 38 sedes tienen elementos de bolsa asignados (${sedesConBolsa.length} == 38)`);
+    assert(sedesConBolsa.length === 42, `Exactamente 42 sedes tienen elementos de bolsa asignados (${sedesConBolsa.length} == 42)`);
+    assert(seedData.documentos_pregenerados.length === 42 * 2 + 87, `Formatos pregenerados (${seedData.documentos_pregenerados.length} == 171)`);
 
     // 2. Generación LOG-026-F (.docx)
     console.log('\n2. Generación Documental LOG-026-F (.docx)');

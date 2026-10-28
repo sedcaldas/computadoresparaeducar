@@ -154,67 +154,119 @@ class AppStore {
     }
 
     // --- Carga y persistencia del estado en LocalStorage ---
+    // Versión 10: la única fuente de datos es "SERIALES BOLSA TECNOLOGICA CALDAS.xlsx"
+    static get DATA_VERSION() { return 10; }
+
     async _loadState() {
-        const saved = localStorage.getItem(this.STORAGE_PREFIX + 'state');
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                this.state = Object.assign(this.state, parsed);
-                // Si faltaban los documentos pregenerados o los datos no tienen la versión v9, recargar semilla oficial y purgar blobs
-                if (!this.state.documentos || this.state.documentos.length === 0 || !this.state.data_version || this.state.data_version < 9) {
-                    await this.clearBlobs();
-                    await this.loadSeedData();
-                }
-                return;
-            } catch (e) {
-                console.error('Error parseando datos guardados en LocalStorage:', e);
-            }
+        let saved = null;
+        try {
+            saved = JSON.parse(localStorage.getItem(this.STORAGE_PREFIX + 'state') || 'null');
+        } catch (e) {
+            console.error('Error parseando datos guardados en LocalStorage:', e);
         }
-        // Si no hay datos guardados, cargar semilla inicial
+        if (saved && saved.data_version === AppStore.DATA_VERSION && saved.documentos && saved.documentos.length) {
+            this.state = Object.assign(this.state, saved);
+            // Si el archivo Excel cambió, actualizar la base conservando el trabajo hecho en los formatos
+            await this.syncFromSource();
+            return;
+        }
+        if (saved) await this.clearBlobs();
         await this.loadSeedData();
     }
 
+    async _readSource() {
+        const src = window.serialesSource;
+        const isTest = window.location && window.location.pathname.includes('/tests/');
+        const buffer = await src.fetchBuffer(isTest ? '../' : './');
+        return src.parseWorkbook(XLSX, buffer);
+    }
+
+    _applyCatalog(data) {
+        this.state.municipios = data.municipios;
+        this.state.instituciones = data.instituciones;
+        this.state.sedes = data.sedes;
+        this.state.bolsa_elementos = data.bolsa_elementos;
+        this.state.estudiantes = data.estudiantes;
+        this.state.asignaciones = data.asignaciones;
+        this.state.fuente = data.fuente;
+        this.state.data_version = AppStore.DATA_VERSION;
+        this.sourceError = null;
+    }
+
+    // Carga completa desde el Excel (reinicia formatos, versiones y bitácora)
     async loadSeedData() {
         try {
-            const isTest = typeof window !== 'undefined' && window.location && window.location.pathname.includes('/tests/');
-            const seedUrl = isTest ? '../data/seed_data.json' : './data/seed_data.json';
-            const res = await fetch(seedUrl);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const seed = await res.json();
-            this.state.data_version = 9; // Versión 9: Carpeta compartida 1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW sin requerir autenticación
-            this.state.municipios = seed.municipios || [];
-            this.state.instituciones = seed.instituciones || [];
-            this.state.sedes = seed.sedes || [];
-            this.state.bolsa_elementos = seed.bolsa_elementos || [];
-            this.state.estudiantes = seed.estudiantes || [];
-            this.state.asignaciones = seed.asignaciones || [];
-            if (seed.config) {
-                this.state.config = Object.assign(this.state.config, seed.config);
-            }
-            // Cargar los formatos pregenerados oficiales
-            this.state.documentos = seed.documentos_pregenerados || [];
+            const data = await this._readSource();
+            this._applyCatalog(data);
+            this.state.documentos = data.documentos_pregenerados;
             this.state.versiones = [];
             this.state.historial_auditoria = [];
-
-            // Registrar primer evento de auditoría
             this.logAudit({
                 actor: 'Sistema',
                 rol: 'Sistema',
                 accion: 'INICIALIZACION_DATOS',
                 entidad: 'Sistema',
-                entidad_id: 'SEED',
-                detalles: `Base cargada: ${this.state.sedes.length} sedes, ${this.state.estudiantes.length} estudiantes, ${this.state.documentos.length} formatos pregenerados.`
+                entidad_id: data.fuente.archivo,
+                detalles: `Base cargada desde ${data.fuente.archivo}: ${data.sedes.length} sedes, ${data.estudiantes.length} estudiantes, ${data.bolsa_elementos.length} elementos de bolsa, ${data.documentos_pregenerados.length} formatos pregenerados.` +
+                    (data.fuente.advertencias.length ? ` Advertencias: ${data.fuente.advertencias.length}.` : '')
             });
-
             this.persist();
         } catch (e) {
-            console.error('No se pudo cargar seed_data.json:', e);
+            this.sourceError = e.message;
+            console.error('No se pudo cargar el archivo fuente de seriales:', e);
         }
+    }
+
+    // Relee el Excel; si cambió, actualiza la base y agrega formatos nuevos sin perder los ya trabajados.
+    // Devuelve true si hubo cambios.
+    async syncFromSource(force = false) {
+        let data;
+        try {
+            data = await this._readSource();
+        } catch (e) {
+            this.sourceError = e.message;
+            console.error('No se pudo leer el archivo fuente de seriales:', e);
+            return false;
+        }
+        if (!force && this.state.fuente && this.state.fuente.firma === data.fuente.firma) {
+            this.sourceError = null;
+            return false;
+        }
+        this._applyCatalog(data);
+        const existing = new Map(this.state.documentos.map(d => [d.id, d]));
+        const merged = [];
+        let nuevos = 0;
+        for (const doc of data.documentos_pregenerados) {
+            if (existing.has(doc.id)) {
+                merged.push(Object.assign(existing.get(doc.id), { radicado: doc.radicado, codigo_dane_sede: doc.codigo_dane_sede }));
+                existing.delete(doc.id);
+            } else {
+                merged.push(doc);
+                nuevos++;
+            }
+        }
+        // Formatos que ya no están en el Excel: se conservan solo si tienen trabajo (versiones o cambio de estado)
+        for (const doc of existing.values()) {
+            if (doc.version_actual > 1 || doc.estado !== 'Generado') merged.push(doc);
+        }
+        this.state.documentos = merged;
+        this.logAudit({
+            actor: 'Sistema',
+            rol: 'Sistema',
+            accion: 'ACTUALIZACION_FUENTE_EXCEL',
+            entidad: 'Sistema',
+            entidad_id: data.fuente.archivo,
+            detalles: `Se detectó una nueva versión de ${data.fuente.archivo}: ${data.sedes.length} sedes, ${data.estudiantes.length} estudiantes, ${data.bolsa_elementos.length} elementos de bolsa. Formatos nuevos: ${nuevos}.`
+        });
+        this.persist();
+        return true;
     }
 
     persist() {
         try {
             localStorage.setItem(this.STORAGE_PREFIX + 'state', JSON.stringify({
+                data_version: this.state.data_version,
+                fuente: this.state.fuente,
                 municipios: this.state.municipios,
                 instituciones: this.state.instituciones,
                 sedes: this.state.sedes,
