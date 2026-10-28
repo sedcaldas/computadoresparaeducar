@@ -25,7 +25,7 @@ class AppStore {
             historial_auditoria: [],
             config: {
                 google_client_id: '145744770636-qt8k12nfam0fmjfkpi66ct0fkq9b9n9j.apps.googleusercontent.com',
-                drive_root_folder_id: '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW',
+                drive_root_folder_id: '1ml8ZDOQOKVJJI6y7EtZiqUaUw-AqAa4l',
                 drive_relay_url: '',
                 drive_relay_key: '',
                 root_folder_name: 'Bolsa_Tecnologica_Caldas',
@@ -165,7 +165,10 @@ class AppStore {
             console.error('Error parseando datos guardados en LocalStorage:', e);
         }
         if (saved && saved.data_version === AppStore.DATA_VERSION && saved.documentos && saved.documentos.length) {
+            const defaultFolder = this.state.config.drive_root_folder_id;
             this.state = Object.assign(this.state, saved);
+            // La carpeta raíz de Drive la define el código (no la copia guardada en el navegador)
+            if (this.state.config) this.state.config.drive_root_folder_id = defaultFolder;
             // Si el archivo Excel cambió, actualizar la base conservando el trabajo hecho en los formatos
             await this.syncFromSource();
             return;

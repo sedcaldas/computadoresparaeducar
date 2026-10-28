@@ -36,7 +36,7 @@ async function runTests() {
     assert(new Set(seedData.sedes.map(s => s.radicado)).size === seedData.sedes.length, 'Cada radicado corresponde a una sola sede');
     assert(seedData.estudiantes.length === 87, `Estudiantes beneficiarios cargados (${seedData.estudiantes.length} == 87)`);
     const storeSrc = fs.readFileSync(path.join(__dirname, '../js/store.js'), 'utf8');
-    assert(storeSrc.includes('1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW'), 'Carpeta raíz oficial de Drive configurada');
+    assert(storeSrc.includes('1ml8ZDOQOKVJJI6y7EtZiqUaUw-AqAa4l'), 'Carpeta raíz oficial de Drive configurada');
     const elemsWithSerial = seedData.bolsa_elementos.filter(e => e.serial && e.serial.length > 0);
     assert(elemsWithSerial.length === seedData.bolsa_elementos.length, `Todos los elementos de bolsa tienen serial o NO APLICA (${elemsWithSerial.length}/${seedData.bolsa_elementos.length})`);
     const estWithSerial = seedData.estudiantes.filter(e => e.serial_terminal && e.serial_terminal.length > 0);

@@ -44,7 +44,7 @@
     <script>
         const tests = [
             { id: 1, name: "Publicación en GitHub Pages (SPA 100% estática)", run: async () => window.location.protocol.startsWith('http') || window.location.protocol.startsWith('file') },
-            { id: 2, name: "Google Drive como único almacenamiento remoto configurado", run: async () => window.appStore.state.config.drive_root_folder_id === '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW' },
+            { id: 2, name: "Google Drive como único almacenamiento remoto configurado", run: async () => window.appStore.state.config.drive_root_folder_id === '1ml8ZDOQOKVJJI6y7EtZiqUaUw-AqAa4l' },
             { id: 3, name: "Carga de 22 municipios de Caldas y sedes oficiales", run: async () => window.appStore.getMunicipios().length === 22 && window.appStore.getSedes().length >= 42 },
             { id: 4, name: "Generación en navegador de LOG-026-F (.docx)", run: async () => {
                 const sampleSede = window.appStore.getSedes()[0];

@@ -8,7 +8,7 @@
  * Despliegue: ver apps-script/README.md
  */
 
-var ROOT_FOLDER_ID = '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
+var ROOT_FOLDER_ID = '1ml8ZDOQOKVJJI6y7EtZiqUaUw-AqAa4l';
 
 // Clave compartida opcional. Si se define aquí, debe configurarse la misma en la app.
 var RELAY_KEY = '';

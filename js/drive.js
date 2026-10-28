@@ -27,7 +27,7 @@ const QUEUED_ID_PREFIX = 'DRIVE-QUEUED-';
 class GoogleDriveClient {
     constructor() {
         this.accessToken = null;
-        this.rootFolderId = '1sCwul3GdqXtAwTsMP1EZHaeD3Zx190RW';
+        this.rootFolderId = '1ml8ZDOQOKVJJI6y7EtZiqUaUw-AqAa4l';
         this.rootFolderName = 'Bolsa_Tecnologica_Caldas';
         this.folderCache = new Map();
         this.isOnline = true;
