@@ -18,7 +18,7 @@
 
 // URL del Web App de Apps Script (termina en /exec). Se define aquí para que TODOS los
 // navegadores (acudientes, rectores, CPE) la usen sin configuración adicional.
-const DRIVE_RELAY_URL = 'https://script.google.com/macros/s/AKfycbx0o8a5yAw0frndKgzXMXXPGRsEbK7RVC3TTGpZN2RL2IQSI__PoV2lUtMM5U-NYeqF7A/exec';
+const DRIVE_RELAY_URL = 'https://script.google.com/macros/s/AKfycbzBUqW45Fc36cxzOSySvRnUY8Eh0ELbrOe18G1QvbxHbdbyA-UH26J8InM5dxXZLDZZ/exec';
 const DRIVE_RELAY_KEY = '';
 
 const DRIVE_QUEUE_KEY = 'ceducar_drive_queue';
