@@ -142,6 +142,79 @@ class DocumentGenerator {
         pNode.appendChild(rNode);
     }
 
+    _escapeXml(value) {
+        return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Reemplaza la celda del campo combinado «Radicado» de un encabezado por el valor real.
+    _fillRadicadoField(hXml, radVal) {
+        const radTcRegex = /<w:tc\b[^>]*>(?:(?!<\/w:tc>)[\s\S])*?(?:MERGEFIELD\s+Radicado|«Radicado»)(?:(?!<\/w:tc>)[\s\S])*?<\/w:tc>/;
+        if (!radTcRegex.test(hXml)) return hXml;
+        const radTcReplacement = `<w:tc><w:tcPr><w:tcW w:w="2736" w:type="pct"/><w:vAlign w:val="center"/></w:tcPr><w:p><w:pPr><w:contextualSpacing/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${this._escapeXml(radVal)}</w:t></w:r></w:p></w:tc>`;
+        return hXml.replace(radTcRegex, radTcReplacement);
+    }
+
+    // Encabezado sin campo «Radicado» (hoja horizontal del LOG-007-F): agrega una fila
+    // "Radicado:" encima de "No. Folio:" copiando el formato de esa fila.
+    _addRadicadoRowBeforeFolio(hXml, radVal) {
+        if (/Radicado/.test(hXml)) return hXml;
+        const folioRowRegex = /<w:tr\b[^>]*>(?:(?!<\/w:tr>)[\s\S])*?No\. Folio:(?:(?!<\/w:tr>)[\s\S])*?<\/w:tr>/;
+        const match = hXml.match(folioRowRegex);
+        if (!match) return hXml;
+        let row = match[0]
+            .replace(/\s+w14:(paraId|textId)="[^"]*"/g, '')
+            .replace('No. Folio:', 'Radicado:');
+        // Escribir el valor en el párrafo vacío de la segunda celda
+        const cells = row.match(/<w:tc>[\s\S]*?<\/w:tc>/g);
+        if (cells && cells.length >= 2) {
+            const valueCell = cells[1].replace(
+                /<\/w:pPr><\/w:p>/,
+                `</w:pPr><w:r><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="16"/><w:szCs w:val="16"/></w:rPr><w:t>${this._escapeXml(radVal)}</w:t></w:r></w:p>`
+            );
+            row = row.replace(cells[1], valueCell);
+        }
+        return hXml.replace(match[0], row + match[0]);
+    }
+
+    // Marca con "X" el tipo de terminal en la fila "Tipo de terminal" conservando el formato de la plantilla.
+    // Los marcadores de la plantilla (○) quedan como "( X )" para la opción elegida y "(   )" para las demás.
+    _markTerminalType(tcNode, tipoTerminal, serial) {
+        if (!tcNode) return;
+        const tipo = String(tipoTerminal || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+        const elegido = tipo.includes('portatil') ? 1 : (tipo.includes('tableta') || tipo.includes('tablet')) ? 0 : 2;
+        const tNodes = Array.from(tcNode.getElementsByTagName('w:t'));
+        const markers = tNodes.filter(t => t.textContent.trim() === '○' || t.textContent.trim() === '●');
+        const serialTxt = serial && serial !== 'NO APLICA' ? ` (Serial: ${serial})` : '';
+
+        if (markers.length < 3) {
+            const opc = ['Tabletas', 'Portátiles', 'Otro'];
+            const txt = opc.map((o, i) => `(${i === elegido ? ' X ' : '   '}) ${o}${i === elegido ? serialTxt : ''}`).join('      ');
+            this._setCellText(tcNode, txt);
+            return;
+        }
+        markers.slice(0, 3).forEach((t, i) => {
+            t.textContent = i === elegido ? '( X ) ' : '(   ) ';
+            t.setAttribute('xml:space', 'preserve');
+        });
+        // El serial va junto a la opción marcada
+        const labels = [/^Tabletas/, /^Portátiles/, /^Otro/];
+        const label = tNodes.find(t => labels[elegido].test(t.textContent.trim()));
+        if (label) {
+            if (elegido === 2) {
+                label.textContent = label.textContent.replace(/_{3,}/, String(tipoTerminal || '').trim() || '_________');
+            }
+            if (serialTxt) {
+                label.textContent = label.textContent.replace(/\s*$/, '') + serialTxt + ' ';
+            }
+            label.setAttribute('xml:space', 'preserve');
+        }
+        // Con el serial la fila queda más larga: acortar la línea de "Otro ¿Cuál?" para que quepa en un renglón
+        if (serialTxt && elegido !== 2) {
+            const otro = tNodes.find(t => /^Otro/.test(t.textContent.trim()));
+            if (otro) otro.textContent = otro.textContent.replace(/_{3,}/, '____');
+        }
+    }
+
     // =========================================================================
     // 1. GENERACIÓN LOG-026-F (.docx) - BOLSA TECNOLÓGICA
     // =========================================================================
@@ -178,14 +251,10 @@ class DocumentGenerator {
         // Actualizar Radicado Sede en encabezado(s) oficial(es) sin afectar paginación ni dibujos
         const radVal = sede.radicado || 'S/N';
         const headerFiles = Object.keys(zip.files).filter(k => k.startsWith('word/header') && k.endsWith('.xml'));
-        const radTcRegex = /<w:tc\b[^>]*>(?:(?!<\/w:tc>)[\s\S])*?(?:MERGEFIELD\s+Radicado|«Radicado»)(?:(?!<\/w:tc>)[\s\S])*?<\/w:tc>/;
-        const radTcReplacement = `<w:tc><w:tcPr><w:tcW w:w="2736" w:type="pct"/><w:vAlign w:val="center"/></w:tcPr><w:p><w:pPr><w:contextualSpacing/><w:jc w:val="center"/><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Arial Narrow" w:hAnsi="Arial Narrow" w:cs="Arial"/><w:b/><w:bCs/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>${radVal}</w:t></w:r></w:p></w:tc>`;
         for (const hFile of headerFiles) {
-            let hXml = await zip.file(hFile).async('text');
-            if (radTcRegex.test(hXml)) {
-                hXml = hXml.replace(radTcRegex, radTcReplacement);
-                zip.file(hFile, hXml);
-            }
+            const hXml = await zip.file(hFile).async('text');
+            const filled = this._fillRadicadoField(hXml, radVal);
+            if (filled !== hXml) zip.file(hFile, filled);
         }
 
         const parser = new DOMParser();
@@ -540,6 +609,15 @@ class DocumentGenerator {
         const zip = await JSZip.loadAsync(templateBuf);
         const docXmlStr = await zip.file('word/document.xml').async('text');
 
+        // Radicado de la sede en el encabezado de todas las hojas del formato
+        const radVal = (sede && sede.radicado) || est.radicado || 'S/N';
+        const headerFiles = Object.keys(zip.files).filter(k => /^word\/header\d*\.xml$/.test(k));
+        for (const hFile of headerFiles) {
+            const hXml = await zip.file(hFile).async('text');
+            const filled = this._addRadicadoRowBeforeFolio(this._fillRadicadoField(hXml, radVal), radVal);
+            if (filled !== hXml) zip.file(hFile, filled);
+        }
+
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(docXmlStr, 'application/xml');
         const tables = xmlDoc.getElementsByTagName('w:tbl');
@@ -585,14 +663,7 @@ class DocumentGenerator {
         const r7Cells = getT0Cells(7);
         const tipoTerm = asignacion ? asignacion.tipo_terminal : (est.tipo_terminal || 'Tableta');
         const serialAsignado = (asignacion && asignacion.serial_asignado) ? asignacion.serial_asignado : (est.serial_terminal || '');
-        if (r7Cells.length > 1) {
-            const serialSuffix = serialAsignado ? ` (Serial: ${serialAsignado})` : '';
-            if (String(tipoTerm).toLowerCase().includes('portátil') || String(tipoTerm).toLowerCase().includes('portatil')) {
-                this._setCellText(r7Cells[1], `○ Tabletas       ● Portátiles${serialSuffix}    ○ Otro`);
-            } else {
-                this._setCellText(r7Cells[1], `● Tabletas${serialSuffix}       ○ Portátiles    ○ Otro`);
-            }
-        }
+        if (r7Cells.length > 1) this._markTerminalType(r7Cells[1], tipoTerm, serialAsignado);
 
         // R8: Cantidad de terminales
         const r8Cells = getT0Cells(8);
